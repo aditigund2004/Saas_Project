@@ -32,8 +32,12 @@ import {
   SaaSRefund,
   SaaSExpense,
   ClinicPaymentRecord,
+<<<<<<< HEAD
   ClinicRefundRecord,
   WhatsAppTemplate
+=======
+  ClinicRefundRecord
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -42,9 +46,13 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Starter Clinic',
     tagline: 'Best for solo practitioners & startup dental/specialty clinics',
     monthlyPrice: 2499,
+<<<<<<< HEAD
     originalMonthlyPrice: 2999,
     annualPrice: 24990,
     discountPercent: 15,
+=======
+    annualPrice: 24990,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 2,
     maxBranches: 1,
     maxStaff: 4,
@@ -65,9 +73,13 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Growth Practice',
     tagline: 'Ideal for established clinics expanding doctors and daily footfall',
     monthlyPrice: 4499,
+<<<<<<< HEAD
     originalMonthlyPrice: 5499,
     annualPrice: 44990,
     discountPercent: 20,
+=======
+    annualPrice: 44990,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 5,
     maxBranches: 2,
     maxStaff: 8,
@@ -88,9 +100,13 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Professional Multi-Specialty',
     tagline: 'Ideal for busy multi-doctor practices and multi-branch setups',
     monthlyPrice: 6999,
+<<<<<<< HEAD
     originalMonthlyPrice: 8999,
     annualPrice: 69990,
     discountPercent: 25,
+=======
+    annualPrice: 69990,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 10,
     maxBranches: 3,
     maxStaff: 15,
@@ -113,9 +129,13 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Enterprise / Nursing Home',
     tagline: 'For clinic chains & 10–30 bed local nursing homes',
     monthlyPrice: 14999,
+<<<<<<< HEAD
     originalMonthlyPrice: 20999,
     annualPrice: 149990,
     discountPercent: 30,
+=======
+    annualPrice: 149990,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 30,
     maxBranches: 10,
     maxStaff: 50,
@@ -127,11 +147,17 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
       'Advanced Role-Based Permissions',
       'WhatsApp Business API Dedicated Webhook Adapter',
       'Automated Pharmacy & Consumables Restock',
+<<<<<<< HEAD
       'Custom SLA & 24/7 Priority Emergency Support'
+=======
+      'Priority 24/7 Support & Onboarding Specialist',
+      'Custom Clinical Print Header Layouts'
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     ]
   }
 ];
 
+<<<<<<< HEAD
 export const DEMO_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
   {
     id: 'tpl-booking-conf',
@@ -231,6 +257,8 @@ export const DEMO_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
   }
 ];
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 export const DEMO_CLINICS: Clinic[] = [
   {
     id: 'clinic-citycare',
@@ -2175,7 +2203,11 @@ export const DEMO_ENCOUNTERS: ClinicalEncounter[] = [
   {
     id: 'enc-001',
     appointmentId: 'apt-2601',
+<<<<<<< HEAD
     patientId: 'pt-1042',
+=======
+    patientId: 'pt-1041',
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     patientName: 'Aarav Patel',
     doctorId: 'doc-arvind-rao',
     doctorName: 'Dr. Arvind Rao, MDS',

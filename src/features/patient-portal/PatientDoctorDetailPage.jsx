@@ -24,10 +24,22 @@ export function PatientDoctorDetailPage() {
   const { doctors, clinics } = useApp();
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const doctor = doctors.find((d) => d.id === doctorId) || doctors[0];
   const clinic = clinics.find((c) => c.id === doctor?.clinicId);
 
   if (!doctor) {
+=======
+  const doctor = doctors.find((d) => d.id === doctorId);
+  const clinic = clinics.find((c) => c.id === doctor?.clinicId);
+  const clinicUnavailable =
+    !clinic ||
+    clinic.approvalStatus === 'Pending' ||
+    clinic.approvalStatus === 'Rejected' ||
+    clinic.status === 'Pending';
+
+  if (!doctor || clinicUnavailable) {
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     return (
       <div className="p-8 text-center space-y-4">
         <h2 className="text-xl font-bold text-slate-800">Doctor Profile Not Found</h2>
@@ -221,4 +233,7 @@ export function PatientDoctorDetailPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

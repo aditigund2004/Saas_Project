@@ -17,11 +17,16 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import { belongsToCurrentPatient } from './patientDataAccess';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 export function PatientRecordsPage() {
   const { encounters, appointments, currentUser, activeClinic, showToast } = useApp();
   const [selectedEncounter, setSelectedEncounter] = useState(null);
 
+<<<<<<< HEAD
   // Filter records strictly for current patient
   const patientAppointments = appointments.filter(
     (a) => a.patientName === currentUser?.name || a.patientId === 'pt-1041'
@@ -29,6 +34,13 @@ export function PatientRecordsPage() {
 
   const patientEncounters = encounters.filter(
     (e) => e.patientName === currentUser?.name || e.patientId === 'pt-1041'
+=======
+  const patientAppointments = appointments.filter((appointment) =>
+    belongsToCurrentPatient(appointment, currentUser)
+  );
+  const patientEncounters = encounters.filter((encounter) =>
+    belongsToCurrentPatient(encounter, currentUser)
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   );
 
   return (
@@ -218,4 +230,7 @@ export function PatientRecordsPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

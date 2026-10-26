@@ -71,9 +71,15 @@ export function PlatformMonitoringPage() {
         <Card className="p-4 border-slate-200">
           <div className="flex items-center justify-between text-slate-400 mb-1">
             <span className="text-xs uppercase font-semibold text-slate-500">Prescription Signatures</span>
+<<<<<<< HEAD
             <ShieldCheck className="w-4 h-4 text-blue-600" />
           </div>
           <div className="text-2xl font-black text-blue-900 tabular-nums">100% Valid</div>
+=======
+            <ShieldCheck className="w-4 h-4 text-purple-600" />
+          </div>
+          <div className="text-2xl font-black text-purple-900">100% Valid</div>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <p className="text-[11px] text-slate-500 mt-0.5">Tamper-evident hash verified</p>
         </Card>
       </div>

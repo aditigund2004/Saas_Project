@@ -3,17 +3,29 @@ import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+<<<<<<< HEAD
 import { Receipt, Download, CreditCard, CheckCircle2, QrCode, X } from 'lucide-react';
+=======
+import { Download, CreditCard, X } from 'lucide-react';
+import { belongsToCurrentPatient } from './patientDataAccess';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 export function PatientBillingPage() {
   const { invoices, currentUser, showToast, recordInvoicePayment, formatCurrency } = useApp();
   const [payModalInvoice, setPayModalInvoice] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState('UPI / QR Scan');
 
+<<<<<<< HEAD
   const myInvoices = invoices.filter(
     (i) => i.patientName === currentUser?.name || i.patientId === 'pt-1041' || i.patientId === 'pt-1042'
   );
   const displayInvoices = myInvoices.length > 0 ? myInvoices : invoices.slice(0, 3);
+=======
+  const myInvoices = invoices.filter((invoice) =>
+    belongsToCurrentPatient(invoice, currentUser)
+  );
+  const displayInvoices = myInvoices;
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const handleConfirmPay = (e) => {
     e.preventDefault();
@@ -57,7 +69,17 @@ export function PatientBillingPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
+<<<<<<< HEAD
               {displayInvoices.map((inv) => (
+=======
+              {displayInvoices.length === 0 ? (
+                <tr>
+                  <td className="p-6 text-center text-slate-500" colSpan={8}>
+                    No invoices are linked to this account yet.
+                  </td>
+                </tr>
+              ) : displayInvoices.map((inv) => (
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 <tr key={inv.id} className="hover:bg-slate-50/50">
                   <td className="p-3.5 font-mono font-bold text-slate-900">{inv.invoiceNumber}</td>
                   <td className="p-3.5 text-slate-600 font-mono">{inv.date}</td>

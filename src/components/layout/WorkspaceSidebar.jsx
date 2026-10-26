@@ -21,13 +21,19 @@ import {
   Clock,
   CheckSquare,
   Shield,
+<<<<<<< HEAD
   ShieldCheck,
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   Layers,
   Activity,
   X,
   ExternalLink,
   MessageSquareHeart,
+<<<<<<< HEAD
   MessageSquare,
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   LifeBuoy,
   Bell,
   TrendingUp,
@@ -36,7 +42,18 @@ import {
 } from 'lucide-react';
 
 export function WorkspaceSidebar({ isOpen, onClose }) {
+<<<<<<< HEAD
   const { currentRole, activeClinic, appointments = [], notifications = [], currentUser } = useApp();
+=======
+  const {
+    currentRole,
+    activeClinic,
+    appointments = [],
+    notifications = [],
+    currentUser,
+    isNotificationForCurrentUser
+  } = useApp();
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const location = useLocation();
 
   // Badges calculation
@@ -46,11 +63,23 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
 
   const patientRequestsCount = appointments.filter(
     (a) =>
+<<<<<<< HEAD
       (a.patientName === currentUser?.name || a.patientId === currentUser?.id || !a.patientId) &&
       (a.status === 'Pending Clinic Confirmation' || a.status === 'Alternative Slot Proposed' || a.status === 'Awaiting Patient Response')
   ).length;
 
   const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
+=======
+      (a.patientId === currentUser?.id ||
+        a.patientEmail?.toLowerCase() === currentUser?.email?.toLowerCase() ||
+        (!a.patientId && a.patientName === currentUser?.name)) &&
+      (a.status === 'Pending Clinic Confirmation' || a.status === 'Alternative Slot Proposed' || a.status === 'Awaiting Patient Response')
+  ).length;
+
+  const unreadNotificationsCount = notifications.filter(
+    (notification) => !notification.read && isNotificationForCurrentUser(notification)
+  ).length;
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const navConfigs = {
     // Role 1: SaaS Superadmin
@@ -60,7 +89,10 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
       { label: 'Subscription Plans', path: '/superadmin/plans', icon: Sparkles },
       { label: 'Tenant Subscriptions', path: '/superadmin/subscriptions', icon: Layers },
       { label: 'SaaS Corporate Finance', path: '/superadmin/finance/overview', icon: CreditCard },
+<<<<<<< HEAD
       { label: 'Workforce & Role Matrix', path: '/superadmin/role-matrix', icon: ShieldCheck },
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       { label: 'Support Tickets', path: '/superadmin/support', icon: LifeBuoy },
       { label: 'Platform Health & SLA', path: '/superadmin/platform', icon: Activity },
       { label: 'Administrative Activity', path: '/superadmin/activity', icon: History },
@@ -126,17 +158,26 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
       {/* Mobile Backdrop */}
       {isOpen && (
         <div
+<<<<<<< HEAD
           className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs lg:hidden"
+=======
+          className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-xs lg:hidden"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           onClick={onClose}
         />
       )}
 
       <aside
+<<<<<<< HEAD
         className={`fixed top-0 bottom-0 left-0 z-40 w-64 bg-white text-slate-700 flex flex-col transition-transform duration-200 ease-out border-r border-slate-200/90 shadow-2xs ${
+=======
+        className={`fixed top-9 bottom-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-200 ease-in-out border-r border-slate-800 ${
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Workspace Brand / Header */}
+<<<<<<< HEAD
         <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-lg shadow-xs group-hover:bg-blue-700 transition-colors">
@@ -147,14 +188,30 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
                 Clinic<span className="text-blue-600">OS</span>
               </span>
               <span className="block text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
+=======
+        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-lg shadow-sm">
+              <Activity className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <span className="text-base font-black tracking-tight text-white">
+                Clinic<span className="text-blue-400">OS</span>
+              </span>
+              <span className="block text-[10px] text-blue-400 font-semibold tracking-wider uppercase">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 Healthcare SaaS
               </span>
             </div>
           </Link>
           <button
             onClick={onClose}
+<<<<<<< HEAD
             className="lg:hidden text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"
             aria-label="Close sidebar"
+=======
+            className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           >
             <X className="w-5 h-5" />
           </button>
@@ -177,6 +234,7 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
                   if (window.innerWidth < 1024) onClose();
                 }}
                 className={({ isActive }) =>
+<<<<<<< HEAD
                   `flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 ${
                     isActive || isCustomActive
                       ? 'bg-blue-50 text-blue-700 font-semibold shadow-2xs border-l-2 border-blue-600'
@@ -190,6 +248,21 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
                 </div>
                 {item.badge > 0 && (
                   <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 shrink-0 border border-amber-200">
+=======
+                  `flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
+                    isActive || isCustomActive
+                      ? 'bg-blue-600 text-white font-bold shadow-xs'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  }`
+                }
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span className="truncate">{item.label}</span>
+                </div>
+                {item.badge > 0 && (
+                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950 shrink-0">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                     {item.badge}
                   </span>
                 )}
@@ -199,19 +272,34 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         </nav>
 
         {/* Footer / Tenant Context Info */}
+<<<<<<< HEAD
         <div className="p-3.5 border-t border-slate-100 bg-slate-50/70 text-xs">
           {currentRole !== 'super_admin' && (
             <div className="mb-2 px-1">
               <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tenant Workspace</div>
               <div className="text-xs font-semibold text-slate-800 truncate">{activeClinic?.name}</div>
+=======
+        <div className="p-3 border-t border-slate-800 bg-slate-950/60 text-xs">
+          {currentRole !== 'super_admin' && (
+            <div className="mb-2 px-1">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Tenant Workspace</div>
+              <div className="text-xs font-semibold text-slate-300 truncate">{activeClinic.name}</div>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             </div>
           )}
           <Link
             to="/clinics"
+<<<<<<< HEAD
             className="flex items-center justify-between text-[11px] text-slate-500 hover:text-blue-600 px-1 py-1 rounded-lg transition-colors hover:bg-slate-100/80"
           >
             <span>Public Clinic Directory</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
+=======
+            className="flex items-center justify-between text-[11px] text-slate-400 hover:text-blue-400 px-1 py-1 rounded transition-colors"
+          >
+            <span>Public Clinic Directory</span>
+            <ExternalLink className="w-3 h-3" />
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           </Link>
         </div>
       </aside>

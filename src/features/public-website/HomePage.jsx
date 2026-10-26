@@ -31,6 +31,15 @@ import { useApp } from '../../context/AppContext';
 export function HomePage() {
   const { clinics, openWhatsAppModal } = useApp();
   const [activeTab, setActiveTab] = useState('dental');
+<<<<<<< HEAD
+=======
+  const publicClinics = clinics.filter(
+    (clinic) =>
+      clinic.approvalStatus !== 'Pending' &&
+      clinic.approvalStatus !== 'Rejected' &&
+      clinic.status !== 'Pending'
+  );
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const specialtySolutions = {
     dental: {
@@ -90,7 +99,11 @@ export function HomePage() {
   return (
     <div className="space-y-24 py-8">
       {/* 1. Hero Section */}
+<<<<<<< HEAD
       <section id="hero" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12 scroll-mt-24">
+=======
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold">
@@ -240,7 +253,11 @@ export function HomePage() {
       </section>
 
       {/* 2. Problem & Solution Section */}
+<<<<<<< HEAD
       <section id="transition" className="bg-white py-16 border-y border-slate-200/80 scroll-mt-24">
+=======
+      <section className="bg-white py-16 border-y border-slate-200/80">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">The Digital Transition</span>
@@ -306,7 +323,11 @@ export function HomePage() {
       </section>
 
       {/* 3. Solutions by Clinic Type */}
+<<<<<<< HEAD
       <section id="solutions" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 scroll-mt-24">
+=======
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Configurable Workflows</span>
           <h2 className="text-3xl font-extrabold text-slate-900">Tailored for Your Specialty</h2>
@@ -384,7 +405,11 @@ export function HomePage() {
       </section>
 
       {/* 4. Complete Features Grid (14 Features) */}
+<<<<<<< HEAD
       <section id="features" className="bg-slate-900 text-white py-16 scroll-mt-24">
+=======
+      <section className="bg-slate-900 text-white py-16">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Comprehensive Capability</span>
@@ -423,7 +448,11 @@ export function HomePage() {
       </section>
 
       {/* 5. How It Works: 4 Simple Steps */}
+<<<<<<< HEAD
       <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 scroll-mt-24">
+=======
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Fast Implementation</span>
           <h2 className="text-3xl font-extrabold text-slate-900">How ClinicOS Works in 4 Steps</h2>
@@ -465,7 +494,11 @@ export function HomePage() {
       </section>
 
       {/* 6. Connected Clinics Directory Preview */}
+<<<<<<< HEAD
       <section id="clinics" className="bg-slate-50 py-16 border-y border-slate-200/80 scroll-mt-24">
+=======
+      <section className="bg-slate-50 py-16 border-y border-slate-200/80">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -477,13 +510,21 @@ export function HomePage() {
             </div>
             <Link to="/clinics">
               <Button variant="outline" size="sm">
+<<<<<<< HEAD
                 View All {clinics.length} Clinics <ArrowRight className="w-4 h-4 ml-1" />
+=======
+                View All {publicClinics.length} Clinics <ArrowRight className="w-4 h-4 ml-1" />
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               </Button>
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+<<<<<<< HEAD
             {clinics.slice(0, 3).map((clinic) => (
+=======
+            {publicClinics.slice(0, 3).map((clinic) => (
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               <Card key={clinic.id} className="overflow-hidden border-slate-200 flex flex-col hover:shadow-md transition-shadow">
                 <div className="h-44 w-full relative overflow-hidden bg-slate-100">
                   <img
@@ -534,7 +575,11 @@ export function HomePage() {
       </section>
 
       {/* 7. Call to Action Banner */}
+<<<<<<< HEAD
       <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+=======
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="rounded-3xl bg-gradient-to-r from-blue-700 to-slate-900 text-white p-8 sm:p-12 shadow-xl relative overflow-hidden">
           <div className="relative z-10 max-w-2xl space-y-4">
             <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">
@@ -547,7 +592,11 @@ export function HomePage() {
               Join specialty clinics and local healthcare facilities modernizing appointments, prescriptions, WhatsApp notifications, and billing.
             </p>
             <div className="pt-2 flex flex-wrap items-center gap-4">
+<<<<<<< HEAD
               <Link to="/signup">
+=======
+              <Link to="/register">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 <Button variant="primary" size="lg" className="bg-white text-blue-800 hover:bg-slate-100 font-bold">
                   Start 14-Day Free Trial
                   <ArrowRight className="w-5 h-5 ml-1" />
@@ -565,4 +614,7 @@ export function HomePage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -6,8 +6,17 @@ import {
   Users,
   CreditCard,
   Sparkles,
+<<<<<<< HEAD
   ShieldCheck,
   ArrowRight
+=======
+  TrendingUp,
+  ShieldCheck,
+  ArrowRight,
+  Layers,
+  CheckCircle2,
+  AlertCircle
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 } from 'lucide-react';
 import { StatCard } from '../../components/ui/StatCard';
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
@@ -20,11 +29,21 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+<<<<<<< HEAD
   ResponsiveContainer
 } from 'recharts';
 
 export function PlatformDashboardPage() {
   const { clinics = [] } = useApp();
+=======
+  ResponsiveContainer,
+  BarChart,
+  Bar
+} from 'recharts';
+
+export function PlatformDashboardPage() {
+  const { clinics, plans } = useApp();
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const mrrData = [
     { month: 'May', mrr: 88000, clinics: 16 },
@@ -36,6 +55,7 @@ export function PlatformDashboardPage() {
   ];
 
   return (
+<<<<<<< HEAD
     <div className="space-y-6">
       {/* Page Title & Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -44,6 +64,16 @@ export function PlatformDashboardPage() {
             SaaS Platform Administration
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+=======
+    <div className="space-y-8">
+      {/* Page Title */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">
+            SaaS Platform Administration
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             Platform Master Cockpit
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -52,12 +82,20 @@ export function PlatformDashboardPage() {
         </div>
 
         <div className="flex items-center gap-2">
+<<<<<<< HEAD
           <Link to="/superadmin/clinics">
+=======
+          <Link to="/platform/clinics">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             <Button variant="outline" size="sm">
               Manage Clinics
             </Button>
           </Link>
+<<<<<<< HEAD
           <Link to="/superadmin/plans">
+=======
+          <Link to="/platform/plans">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             <Button variant="primary" size="sm">
               Configure Plans
             </Button>
@@ -73,7 +111,11 @@ export function PlatformDashboardPage() {
           change="3 new this week"
           trend="up"
           icon={Building2}
+<<<<<<< HEAD
           color="blue"
+=======
+          color="indigo"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Multi-tenant specialty clinics"
         />
         <StatCard
@@ -82,7 +124,11 @@ export function PlatformDashboardPage() {
           change="Conversion: 82%"
           trend="up"
           icon={Sparkles}
+<<<<<<< HEAD
           color="amber"
+=======
+          color="teal"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Clinics evaluating platform"
         />
         <StatCard
@@ -100,11 +146,16 @@ export function PlatformDashboardPage() {
           change="Doctors, Staff & Patients"
           trend="up"
           icon={Users}
+<<<<<<< HEAD
           color="indigo"
+=======
+          color="blue"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Across all clinic tenants"
         />
       </div>
 
+<<<<<<< HEAD
       {/* Platform Workforce & RBAC Quick Spotlight */}
       <div className="bg-slate-900 rounded-xl p-5 text-white shadow-2xs border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1.5">
@@ -133,6 +184,8 @@ export function PlatformDashboardPage() {
         </Link>
       </div>
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* MRR & Clinic Growth Area Chart */}
@@ -148,8 +201,13 @@ export function PlatformDashboardPage() {
                   <AreaChart data={mrrData}>
                     <defs>
                       <linearGradient id="mrrGradient" x1="0" y1="0" x2="0" y2="1">
+<<<<<<< HEAD
                         <stop offset="5%" stopColor="#2563EB" stopOpacity={0.25} />
                         <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
+=======
+                        <stop offset="5%" stopColor="#0d9488" stopOpacity={0.25} />
+                        <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -162,12 +220,20 @@ export function PlatformDashboardPage() {
                     />
                     <Tooltip
                       formatter={(v) => [`₹${Number(v).toLocaleString('en-IN')}`, 'MRR']}
+<<<<<<< HEAD
                       contentStyle={{ borderRadius: '12px', fontSize: '12px', borderColor: '#e2e8f0' }}
+=======
+                      contentStyle={{ borderRadius: '12px', fontSize: '12px' }}
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                     />
                     <Area
                       type="monotone"
                       dataKey="mrr"
+<<<<<<< HEAD
                       stroke="#2563EB"
+=======
+                      stroke="#0d9488"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#mrrGradient)"
@@ -188,6 +254,7 @@ export function PlatformDashboardPage() {
             />
             <CardContent className="space-y-4">
               <div className="space-y-3">
+<<<<<<< HEAD
                 <div className="p-3 rounded-xl bg-blue-50/80 border border-blue-100 flex items-center justify-between text-xs">
                   <div>
                     <span className="font-semibold text-blue-900">Professional Plan</span>
@@ -218,6 +285,38 @@ export function PlatformDashboardPage() {
                     <span className="block text-slate-500 text-[10px]">In evaluation period</span>
                   </div>
                   <span className="text-sm font-bold text-amber-800 tabular-nums">4 Trials</span>
+=======
+                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-blue-900">Professional Plan</span>
+                    <span className="block text-slate-500 text-[10px]">₹6,999/mo (Up to 10 Doctors)</span>
+                  </div>
+                  <span className="text-base font-extrabold text-blue-800">14 Clinics</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-blue-900">Starter Plan</span>
+                    <span className="block text-slate-500 text-[10px]">₹2,499/mo (Up to 2 Doctors)</span>
+                  </div>
+                  <span className="text-base font-extrabold text-blue-800">8 Clinics</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-purple-900">Enterprise Plan</span>
+                    <span className="block text-slate-500 text-[10px]">₹14,999/mo (10-30 Bed Nursing Homes)</span>
+                  </div>
+                  <span className="text-base font-extrabold text-purple-800">4 Clinics</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-amber-900">Active 14-Day Free Trials</span>
+                    <span className="block text-slate-500 text-[10px]">In evaluation period</span>
+                  </div>
+                  <span className="text-base font-extrabold text-amber-800">4 Trials</span>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 </div>
               </div>
 
@@ -235,7 +334,11 @@ export function PlatformDashboardPage() {
           title="Registered Clinic Tenants"
           subtitle="Showing active clinics, trial status, and owners"
           action={
+<<<<<<< HEAD
             <Link to="/superadmin/clinics">
+=======
+            <Link to="/platform/clinics">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               <Button variant="outline" size="sm">
                 View All Clinics <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>
@@ -244,7 +347,11 @@ export function PlatformDashboardPage() {
         />
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
+<<<<<<< HEAD
             <thead className="bg-slate-50/80 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
+=======
+            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               <tr>
                 <th className="p-3.5">Clinic Name & Code</th>
                 <th className="p-3.5">Specialty</th>
@@ -256,9 +363,15 @@ export function PlatformDashboardPage() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {clinics.map((c) => (
+<<<<<<< HEAD
                 <tr key={c.id} className="hover:bg-slate-50/60 transition-colors">
                   <td className="p-3.5">
                     <div className="font-semibold text-slate-900">{c.name}</div>
+=======
+                <tr key={c.id} className="hover:bg-slate-50/50">
+                  <td className="p-3.5">
+                    <div className="font-bold text-slate-900">{c.name}</div>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                     <div className="text-[10px] text-slate-400 font-mono">{c.slug}</div>
                   </td>
                   <td className="p-3.5">
@@ -268,11 +381,19 @@ export function PlatformDashboardPage() {
                     <div className="text-slate-800 font-medium">{c.ownerName}</div>
                     <div className="text-[10px] text-slate-400">{c.email}</div>
                   </td>
+<<<<<<< HEAD
                   <td className="p-3.5 font-semibold text-slate-700 tabular-nums">
                     {c.branches?.length || 1} Branch{(c.branches?.length || 1) > 1 ? 'es' : ''}
                   </td>
                   <td className="p-3.5">
                     <span className="uppercase text-[10px] font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+=======
+                  <td className="p-3.5 font-semibold text-slate-700">
+                    {c.branches.length} Branch{c.branches.length > 1 ? 'es' : ''}
+                  </td>
+                  <td className="p-3.5">
+                    <span className="uppercase text-[10px] font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       {c.subscriptionPlanId} {c.isTrial ? '(Trial)' : ''}
                     </span>
                   </td>
@@ -288,3 +409,7 @@ export function PlatformDashboardPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

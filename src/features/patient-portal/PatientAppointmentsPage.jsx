@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+<<<<<<< HEAD
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -26,6 +27,27 @@ export function PatientAppointmentsPage() {
   // Patient appointments
   const myAppointments = appointments.filter(
     (a) => a.patientName === currentUser?.name || a.patientId === 'pt-1041' || !a.patientId
+=======
+import { Card } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
+import { Modal } from '../../components/ui/Modal';
+import { belongsToCurrentPatient } from './patientDataAccess';
+import {
+  PlusCircle,
+  Clock,
+  Eye,
+  FileText,
+} from 'lucide-react';
+
+export function PatientAppointmentsPage() {
+  const { appointments, updateAppointmentStatus, showToast, currentUser } = useApp();
+  const [filter, setFilter] = useState('All');
+  const [cancelModal, setCancelModal] = useState({ isOpen: false, apt: null });
+
+  const myAppointments = appointments.filter((appointment) =>
+    belongsToCurrentPatient(appointment, currentUser)
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   );
 
   // Separate requests from confirmed/historical appointments

@@ -23,9 +23,37 @@ export function ClinicDetailPage() {
   const { clinics, doctors } = useApp();
   const [activeTab, setActiveTab] = useState('services');
 
+<<<<<<< HEAD
   const clinic = clinics.find((c) => c.slug === clinicSlug || c.id === clinicSlug) || clinics[0];
   const clinicDoctors = doctors.filter((d) => d.clinicId === clinic.id);
 
+=======
+  const matchedClinic = clinics.find((c) => c.slug === clinicSlug || c.id === clinicSlug);
+  const isUnavailable = matchedClinic &&
+    (matchedClinic.approvalStatus === 'Pending' ||
+      matchedClinic.approvalStatus === 'Rejected' ||
+      matchedClinic.status === 'Pending');
+  const clinic = matchedClinic || clinics.find(
+    (c) => c.approvalStatus !== 'Pending' && c.approvalStatus !== 'Rejected' && c.status !== 'Pending'
+  ) || clinics[0];
+  const clinicDoctors = doctors.filter((d) => d.clinicId === clinic.id);
+
+  if (isUnavailable) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-4">
+        <Building2 className="w-12 h-12 text-slate-400 mx-auto" />
+        <h1 className="text-2xl font-bold text-slate-900">Clinic profile unavailable</h1>
+        <p className="text-sm text-slate-600">
+          This clinic is not published in the directory.
+        </p>
+        <Link to="/clinics" className="inline-flex text-sm font-semibold text-blue-700 hover:underline">
+          Return to the clinic directory
+        </Link>
+      </div>
+    );
+  }
+
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Clinic Header Banner */}
@@ -255,4 +283,7 @@ export function ClinicDetailPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

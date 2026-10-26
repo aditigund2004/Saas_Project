@@ -3,18 +3,31 @@ import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+<<<<<<< HEAD
 import { FileText, Printer, ShieldCheck, Sparkles, X, CheckCircle2, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+=======
+import { Printer, ShieldCheck, Sparkles, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { belongsToCurrentPatient } from './patientDataAccess';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 export function PatientPrescriptionsPage() {
   const { prescriptions, openPrescriptionModal, currentUser } = useApp();
   const [selectedRxForExplanation, setSelectedRxForExplanation] = useState(null);
 
+<<<<<<< HEAD
   // Show user's prescriptions or fallback to first 3 demo prescriptions
   const myPrescriptions = prescriptions.filter(
     (p) => p.patientName === currentUser?.name || p.patientId === 'pt-1041' || p.patientId === 'pt-1042'
   );
   const displayPrescriptions = myPrescriptions.length > 0 ? myPrescriptions : prescriptions.slice(0, 3);
+=======
+  const myPrescriptions = prescriptions.filter((prescription) =>
+    belongsToCurrentPatient(prescription, currentUser)
+  );
+  const displayPrescriptions = myPrescriptions;
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   return (
     <div className="space-y-6">
@@ -48,7 +61,17 @@ export function PatientPrescriptionsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
+<<<<<<< HEAD
               {displayPrescriptions.map((rx) => (
+=======
+              {displayPrescriptions.length === 0 ? (
+                <tr>
+                  <td className="p-6 text-center text-slate-500" colSpan={6}>
+                    No prescriptions are linked to this account yet.
+                  </td>
+                </tr>
+              ) : displayPrescriptions.map((rx) => (
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 <tr key={rx.id} className="hover:bg-slate-50/50">
                   <td className="p-3.5 font-mono font-bold text-slate-900">{rx.prescriptionNumber}</td>
                   <td className="p-3.5">

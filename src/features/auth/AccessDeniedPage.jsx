@@ -2,6 +2,10 @@ import React from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../../components/ui/Button';
+<<<<<<< HEAD
+=======
+import { ThemeToggle } from '../../components/ui/ThemeToggle';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { ShieldAlert, ArrowLeft, LogOut, ArrowRight, Home, Lock } from 'lucide-react';
 
 export function AccessDeniedPage() {
@@ -36,6 +40,10 @@ export function AccessDeniedPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 sm:p-6 text-[#1E293B]">
+<<<<<<< HEAD
+=======
+      <ThemeToggle className="fixed right-4 top-4 z-[100] bg-white" />
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-slate-200 shadow-xl space-y-6 text-center">
         {/* Warning Icon */}
         <div className="w-16 h-16 rounded-3xl bg-red-50 text-red-600 flex items-center justify-center mx-auto shadow-sm">
@@ -107,4 +115,7 @@ export function AccessDeniedPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

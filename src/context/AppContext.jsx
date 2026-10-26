@@ -31,15 +31,24 @@ import {
   DEMO_SAAS_EXPENSES,
   DEMO_CLINIC_PAYMENTS,
   DEMO_CLINIC_REFUNDS,
+<<<<<<< HEAD
   DEMO_NOTIFICATIONS,
   DEMO_WHATSAPP_TEMPLATES
 } from '../demo-data';
 import { ROLE_PERMISSIONS } from '../types';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
+=======
+  DEMO_NOTIFICATIONS
+} from '../demo-data';
+import { ROLE_PERMISSIONS } from '../types';
+import { useAuth } from '../hooks/useAuth';
+import { toWorkspaceRole } from '../services/roleMapping';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
+<<<<<<< HEAD
   const auth = useAuth();
 
   // Authentication & Role State
@@ -77,6 +86,57 @@ export function AppProvider({ children }) {
   const [activeBranchId, setActiveBranchId] = useState(() => {
     return localStorage.getItem('clinipulse_branch_id') || 'branch-citycare-main';
   });
+=======
+  const { user: authUser, switchClinic: switchAuthClinic } = useAuth();
+
+  // Authentication & Role State
+  const [selectedRole, setSelectedRole] = useState(() => {
+    const savedRole = localStorage.getItem('clinipulse_role');
+    return ['super_admin', 'clinic_admin', 'receptionist', 'patient'].includes(savedRole)
+      ? savedRole
+      : 'clinic_admin';
+  });
+  const currentRole = toWorkspaceRole(authUser?.role) || selectedRole;
+
+  const currentUser = authUser || DEMO_USERS[currentRole] || DEMO_USERS.clinic_admin;
+
+  // Multi-Tenant Clinic & Branch State
+  const [selectedClinicId, setSelectedClinicId] = useState(() => {
+    const saved = localStorage.getItem('clinipulse_clinic_id');
+    return saved && DEMO_CLINICS.some((c) => c.id === saved) ? saved : 'clinic-citycare';
+  });
+  const activeClinicId = authUser?.activeClinicId || selectedClinicId;
+
+  const [branchSelection, setBranchSelection] = useState(() => ({
+    userId: null,
+    clinicId: null,
+    id: localStorage.getItem('clinipulse_branch_id') || 'branch-citycare-main'
+  }));
+  const setActiveBranchId = (branchId) => {
+    setBranchSelection({
+      userId: authUser?.id || null,
+      clinicId: activeClinicId,
+      id: branchId
+    });
+  };
+  const hasAuthenticatedBranchSelection =
+    authUser &&
+    branchSelection.userId === authUser.id &&
+    branchSelection.clinicId === activeClinicId;
+  const activeBranchId = hasAuthenticatedBranchSelection
+    ? branchSelection.id
+    : authUser?.activeBranchId || branchSelection.id;
+
+  const setActiveClinicId = (clinicId) => {
+    setSelectedClinicId(clinicId);
+    setBranchSelection((selection) => ({
+      ...selection,
+      userId: authUser?.id || null,
+      clinicId,
+      id: DEMO_CLINICS.find((clinic) => clinic.id === clinicId)?.branches[0]?.id || selection.id
+    }));
+  };
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   // Domain Entity Collections with LocalStorage hydration for smooth demo edits
   const [clinics, setClinics] = useState(() => {
@@ -226,6 +286,7 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_NOTIFICATIONS;
   });
 
+<<<<<<< HEAD
   // WhatsApp Activity Templates
   const [whatsAppTemplates, setWhatsAppTemplates] = useState(() => {
     const s = localStorage.getItem('clinipulse_wa_templates');
@@ -236,11 +297,14 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_wa_templates', JSON.stringify(whatsAppTemplates));
   }, [whatsAppTemplates]);
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   // UI Modals & Feedback
   const [toast, setToast] = useState(null);
   const [whatsAppModal, setWhatsAppModal] = useState({ isOpen: false, payload: null });
   const [prescriptionModal, setPrescriptionModal] = useState({ isOpen: false, prescription: null });
 
+<<<<<<< HEAD
   // Theme Management (Light / Dark Mode)
   const [theme, setTheme] = useState(() => {
     try {
@@ -313,6 +377,12 @@ export function AppProvider({ children }) {
       setCurrentUser(DEMO_USERS[currentRole] || DEMO_USERS.clinic_admin);
     }
   }, [currentRole, auth?.user]);
+=======
+  // Sync state to local storage
+  useEffect(() => {
+    localStorage.setItem('clinipulse_role', currentRole);
+  }, [currentRole]);
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   useEffect(() => {
     localStorage.setItem('clinipulse_clinic_id', activeClinicId);
@@ -420,6 +490,7 @@ export function AppProvider({ children }) {
 
   // Actions
   const switchRole = (role) => {
+<<<<<<< HEAD
     const appRole = toAppRole(role);
     const authRole = toAuthRole(role);
     setCurrentRole(appRole);
@@ -437,6 +508,18 @@ export function AppProvider({ children }) {
     setActiveClinicId(clinicId);
     if (auth && auth.switchClinic) {
       auth.switchClinic(clinicId);
+=======
+    setSelectedRole(role);
+    localStorage.setItem('clinipulse_role', role);
+    showToast(`Switched active workspace to: ${role.replace('_', ' ').toUpperCase()}`, 'info');
+  };
+
+  const switchClinic = (clinicId) => {
+    if (authUser?.memberships?.some((membership) => membership.clinicId === clinicId)) {
+      switchAuthClinic(clinicId);
+    } else {
+      setActiveClinicId(clinicId);
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     }
     const target = clinics.find((c) => c.id === clinicId);
     if (target && target.branches.length > 0) {
@@ -1741,6 +1824,7 @@ export function AppProvider({ children }) {
     return newNotif;
   };
 
+<<<<<<< HEAD
   const markNotificationAsRead = (notifId) => {
     setNotifications((prev) =>
       prev.map((n) => (n.id === notifId ? { ...n, read: true } : n))
@@ -1750,6 +1834,32 @@ export function AppProvider({ children }) {
   const clearAllNotifications = () => {
     setNotifications([]);
     showToast('All notifications cleared.');
+=======
+  const isNotificationForCurrentUser = (notification) => {
+    if (notification.recipientUserId === currentUser?.id) return true;
+    if (currentRole === 'patient') return false;
+    return (
+      notification.clinicId === activeClinicId &&
+      toWorkspaceRole(notification.recipientRole) === currentRole
+    );
+  };
+
+  const markNotificationAsRead = (notifId) => {
+    setNotifications((prev) =>
+      prev.map((n) =>
+        n.id === notifId && isNotificationForCurrentUser(n) ? { ...n, read: true } : n
+      )
+    );
+  };
+
+  const markAllNotificationsAsRead = () => {
+    setNotifications((prev) =>
+      prev.map((notification) =>
+        isNotificationForCurrentUser(notification) ? { ...notification, read: true } : notification
+      )
+    );
+    showToast('Your notifications have been marked as read.');
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   };
 
   // Staff Management
@@ -1803,8 +1913,32 @@ export function AppProvider({ children }) {
 
   // Demo Onboarding
   const onboardNewClinic = (onboardingData) => {
+<<<<<<< HEAD
     const clinicId = `clinic-${onboardingData.clinicName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${Date.now().toString().slice(-4)}`;
     const branchId = `branch-${clinicId}-main`;
+=======
+    const clinicId = onboardingData.clinicId ||
+      `clinic-${onboardingData.clinicName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${Date.now().toString().slice(-4)}`;
+    const branchCount = Math.max(1, Number(onboardingData.branchCount) || 1);
+    const branches = Array.from({ length: branchCount }, (_, index) => {
+      const branchId = index === 0 ? `branch-${clinicId}-main` : `branch-${clinicId}-${index + 1}`;
+      return {
+        id: branchId,
+        clinicId,
+        name: index === 0
+          ? `${onboardingData.clinicName} (Main Branch)`
+          : `${onboardingData.clinicName} (Branch ${index + 1})`,
+        code: index === 0 ? 'MAIN' : `BR-${index + 1}`,
+        address: onboardingData.address || '101 Healthcare Boulevard',
+        city: onboardingData.city || 'Mumbai',
+        phone: onboardingData.phone || '+91 98000 12345',
+        email: onboardingData.email || 'contact@newclinic.demo',
+        operatingHours: 'Mon - Sat: 09:00 - 20:00',
+        isMain: index === 0,
+        activeDoctorsCount: Math.ceil((Number(onboardingData.doctorCount) || 2) / branchCount)
+      };
+    });
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
     const newClinic = {
       id: clinicId,
@@ -1819,6 +1953,7 @@ export function AppProvider({ children }) {
       city: onboardingData.city || 'Mumbai',
       phone: onboardingData.phone || '+91 98000 12345',
       email: onboardingData.email || 'contact@newclinic.demo',
+<<<<<<< HEAD
       ownerName: onboardingData.ownerName || 'Dr. Administrator',
       status: 'Trial',
       subscriptionPlanId: onboardingData.planId || 'professional',
@@ -1839,6 +1974,16 @@ export function AppProvider({ children }) {
           activeDoctorsCount: Number(onboardingData.doctorCount) || 2
         }
       ],
+=======
+      ownerEmail: onboardingData.ownerEmail,
+      ownerName: onboardingData.ownerName || 'Dr. Administrator',
+      status: 'Pending',
+      approvalStatus: 'Pending',
+      subscriptionPlanId: onboardingData.planId || 'professional',
+      trialEndsAt: new Date(Date.now() + 14 * 86400000).toISOString().slice(0, 10),
+      isTrial: true,
+      branches,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       services: [
         { id: 'srv-gen-1', name: 'Comprehensive Consultation', durationMinutes: 30, fee: 800, category: 'Consultation', description: 'Primary consultation and diagnosis' },
         { id: 'srv-gen-2', name: 'Follow-up Checkup', durationMinutes: 15, fee: 400, category: 'Follow-up', description: 'Review progress and medication adjustment' }
@@ -1850,6 +1995,7 @@ export function AppProvider({ children }) {
     };
 
     setClinics((prev) => [newClinic, ...prev]);
+<<<<<<< HEAD
     setActiveClinicId(clinicId);
     setActiveBranchId(branchId);
     switchRole('clinic_admin');
@@ -2055,6 +2201,28 @@ export function AppProvider({ children }) {
     localStorage.removeItem('clinipulse_wa_templates');
     setWhatsAppTemplates(DEMO_WHATSAPP_TEMPLATES);
     showToast(`WhatsApp templates restored to standard clinical defaults.`);
+=======
+    showToast(`${newClinic.name} registration was submitted for super-admin approval.`);
+    return newClinic;
+  };
+
+  const updatePlan = (planId, updates) => {
+    setPlans((prev) => {
+      const next = prev.map((p) => (p.id === planId ? { ...p, ...updates } : p));
+      localStorage.setItem('clinipulse_plans', JSON.stringify(next));
+      return next;
+    });
+    showToast(`Plan limits & pricing updated successfully.`);
+  };
+
+  const upgradeClinicSubscription = (clinicId, newPlanId) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => (c.id === clinicId ? { ...c, subscriptionPlanId: newPlanId } : c));
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast(`Clinic subscription plan updated to ${newPlanId.toUpperCase()}`);
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   };
 
   // Centralized Permission Checker
@@ -2345,7 +2513,12 @@ export function AppProvider({ children }) {
         notifications,
         addNotification,
         markNotificationAsRead,
+<<<<<<< HEAD
         clearAllNotifications,
+=======
+        isNotificationForCurrentUser,
+        markAllNotificationsAsRead,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         prescriptions,
         createPrescription,
         encounters,
@@ -2384,6 +2557,7 @@ export function AppProvider({ children }) {
         updateFollowUpStatus,
         plans,
         setPlans,
+<<<<<<< HEAD
         createPlan,
         updatePlan,
         deletePlan,
@@ -2393,6 +2567,10 @@ export function AppProvider({ children }) {
         setWhatsAppTemplates,
         updateWhatsAppTemplate,
         resetWhatsAppTemplates,
+=======
+        updatePlan,
+        upgradeClinicSubscription,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         hasPermission,
         saasInvoices,
         saasPayments,
@@ -2407,10 +2585,13 @@ export function AppProvider({ children }) {
         requestClinicRefund,
         approveClinicRefund,
         createClinicExpense,
+<<<<<<< HEAD
         theme,
         setTheme,
         toggleTheme,
         isDark,
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         toast,
         showToast,
         whatsAppModal,
@@ -2434,4 +2615,7 @@ export function useApp() {
   }
   return context;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { MockAuthService, SEEDED_DEMO_USERS } from '../../services/mockAuthService';
+<<<<<<< HEAD
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -18,6 +19,16 @@ import {
   CheckCircle2,
   ExternalLink,
   Layers,
+=======
+import { Card } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
+import { ThemeToggle } from '../../components/ui/ThemeToggle';
+import {
+  Activity,
+  Building2,
+  Sparkles,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   ArrowLeft
 } from 'lucide-react';
 
@@ -26,8 +37,12 @@ export function DemoAccessPage() {
   const { login } = useAuth();
   const [filterRole, setFilterRole] = useState('all');
 
+<<<<<<< HEAD
   const registeredPatients = MockAuthService.getRegisteredPatients();
   const allUsers = [...SEEDED_DEMO_USERS, ...registeredPatients];
+=======
+  const allUsers = MockAuthService.getAllUsers();
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const handleInstantSignIn = async (account) => {
     const res = await login({
@@ -72,6 +87,10 @@ export function DemoAccessPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] py-10 px-4 sm:px-6 lg:px-8 space-y-8">
+<<<<<<< HEAD
+=======
+      <ThemeToggle className="fixed right-4 top-4 z-[100] bg-white" />
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       {/* Top Header */}
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
@@ -147,6 +166,11 @@ export function DemoAccessPage() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((acc) => {
           const isSuperadmin = acc.role === 'superadmin';
+<<<<<<< HEAD
+=======
+          const isTenantUnavailable =
+            acc.tenantApprovalStatus === 'Pending' || acc.tenantApprovalStatus === 'Rejected';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           const primaryClinic = acc.memberships[0]?.clinicName || (acc.activeClinicId ? 'Assigned Practice' : 'Global Platform');
 
           return (
@@ -179,6 +203,14 @@ export function DemoAccessPage() {
 
                 <div className="flex items-center gap-2 pt-1">
                   {getRoleBadge(acc.role)}
+<<<<<<< HEAD
+=======
+                  {acc.tenantApprovalStatus && (
+                    <Badge variant={acc.tenantApprovalStatus}>
+                      {acc.tenantApprovalStatus === 'Pending' ? 'Pending Approval' : acc.tenantApprovalStatus}
+                    </Badge>
+                  )}
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   {acc.memberships.length > 1 && (
                     <span className="text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded-full">
                       {acc.memberships.length} Clinics Assigned
@@ -202,14 +234,31 @@ export function DemoAccessPage() {
 
               {/* 1-Click Sign In Trigger */}
               <div className="pt-4 mt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+<<<<<<< HEAD
                 <span className="text-[11px] text-slate-400">Demo Password: Any 4+ chars</span>
+=======
+                <span className="text-[11px] text-slate-400">
+                  {isTenantUnavailable
+                    ? acc.tenantApprovalStatus === 'Pending'
+                      ? 'Sign-in available after approval'
+                      : 'This application was rejected'
+                    : 'Demo Password: Any 4+ chars'}
+                </span>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 <Button
                   variant="primary"
                   size="sm"
                   onClick={() => handleInstantSignIn(acc)}
+<<<<<<< HEAD
                   className="font-bold text-xs"
                 >
                   1-Click Test Sign In &rarr;
+=======
+                  disabled={isTenantUnavailable}
+                  className="font-bold text-xs"
+                >
+                  {isTenantUnavailable ? 'Sign In Unavailable' : '1-Click Test Sign In →'}
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 </Button>
               </div>
             </Card>
@@ -219,4 +268,7 @@ export function DemoAccessPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

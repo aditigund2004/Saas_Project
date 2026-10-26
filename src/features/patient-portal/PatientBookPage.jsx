@@ -36,13 +36,35 @@ export function PatientBookPage() {
     showToast,
     formatCurrency
   } = useApp();
+<<<<<<< HEAD
+=======
+  const publicClinics = clinics.filter(
+    (clinic) =>
+      clinic.approvalStatus !== 'Pending' &&
+      clinic.approvalStatus !== 'Rejected' &&
+      clinic.status !== 'Pending'
+  );
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   // Wizard Step State (1 to 6)
   const [currentStep, setCurrentStep] = useState(1);
 
   // Form State
+<<<<<<< HEAD
   const initialClinicId = searchParams.get('clinicId') || clinics[0]?.id || '';
   const initialDoctorId = searchParams.get('doctorId') || '';
+=======
+  const requestedClinicId = searchParams.get('clinicId');
+  const initialClinicId = publicClinics.some((clinic) => clinic.id === requestedClinicId)
+    ? requestedClinicId
+    : publicClinics[0]?.id || '';
+  const requestedDoctorId = searchParams.get('doctorId');
+  const initialDoctorId = doctors.some(
+    (doctor) => doctor.id === requestedDoctorId && doctor.clinicId === initialClinicId
+  )
+    ? requestedDoctorId
+    : '';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const initialServiceId = searchParams.get('serviceId') || '';
 
   const [selectedClinicId, setSelectedClinicId] = useState(initialClinicId);
@@ -71,8 +93,13 @@ export function PatientBookPage() {
   const [submittedRequest, setSubmittedRequest] = useState(null);
 
   // Derived Objects
+<<<<<<< HEAD
   const selectedClinic = clinics.find((c) => c.id === selectedClinicId) || clinics[0];
   const clinicDoctors = doctors.filter((d) => d.clinicId === selectedClinicId);
+=======
+  const selectedClinic = publicClinics.find((c) => c.id === selectedClinicId) || publicClinics[0];
+  const clinicDoctors = doctors.filter((d) => d.clinicId === selectedClinic?.id);
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const selectedDoctor = clinicDoctors.find((d) => d.id === selectedDoctorId) || clinicDoctors[0];
   const selectedService = selectedClinic?.services?.find((s) => s.id === selectedServiceId) || selectedClinic?.services?.[0];
 
@@ -93,13 +120,21 @@ export function PatientBookPage() {
     setSelectedClinicId(clinicId);
     const docs = doctors.filter((d) => d.clinicId === clinicId);
     setSelectedDoctorId(docs[0]?.id || '');
+<<<<<<< HEAD
     const cln = clinics.find((c) => c.id === clinicId);
+=======
+    const cln = publicClinics.find((c) => c.id === clinicId);
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     setSelectedServiceId(cln?.services?.[0]?.id || '');
   };
 
   // Available slots for selected doctor & date
   const availableSlots = selectedDoctor
+<<<<<<< HEAD
     ? getAvailableSlotsForDoctor(selectedClinicId, selectedDoctor.id, preferredDate)
+=======
+    ? getAvailableSlotsForDoctor(selectedClinic.id, selectedDoctor.id, preferredDate)
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     : [];
 
   const handleNext = () => {
@@ -152,7 +187,11 @@ export function PatientBookPage() {
       consultationType,
       preferredDate,
       preferredTime,
+<<<<<<< HEAD
       patientId: 'pt-1041',
+=======
+      patientId: currentUser.id,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       patientName,
       patientPhone,
       patientEmail,
@@ -258,7 +297,11 @@ export function PatientBookPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
+<<<<<<< HEAD
               {clinics.map((clinic) => {
+=======
+              {publicClinics.map((clinic) => {
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 const isSelected = selectedClinicId === clinic.id;
 
                 return (

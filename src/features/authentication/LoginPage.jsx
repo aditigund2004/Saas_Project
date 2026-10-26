@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+<<<<<<< HEAD
+=======
+import { useAuth } from '../../hooks/useAuth';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -20,11 +24,20 @@ import {
 } from 'lucide-react';
 
 export function LoginPage() {
+<<<<<<< HEAD
   const { switchRole, showToast } = useApp();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('doctor@apexdentalcare.demo');
   const [password, setPassword] = useState('••••••••••••');
+=======
+  const { showToast } = useApp();
+  const { login, loginAsDemoRole } = useAuth();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('aarav.mehta@citycare.demo');
+  const [password, setPassword] = useState('Demo@1234');
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const [submitting, setSubmitting] = useState(false);
 
   const demoPersonas = [
@@ -62,6 +75,7 @@ export function LoginPage() {
     }
   ];
 
+<<<<<<< HEAD
   const handleQuickLogin = (roleId, path) => {
     switchRole(roleId);
     showToast(`Logged in as demo persona: ${roleId.replace('_', ' ').toUpperCase()}`);
@@ -77,6 +91,36 @@ export function LoginPage() {
       showToast('Logged in as Clinic Administrator. Opening Dashboard...');
       navigate('/clinic/dashboard');
     }, 600);
+=======
+  const handleQuickLogin = async (roleId, path) => {
+    const result = await loginAsDemoRole(roleId);
+    if (result.success) {
+      showToast(`Logged in as demo persona: ${roleId.replace('_', ' ').toUpperCase()}`);
+      navigate(path);
+    } else {
+      showToast(result.error || 'Could not sign in to the demo account.', 'error');
+    }
+  };
+
+  const handleFormLogin = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const result = await login({
+        identifier: email.trim(),
+        password,
+        role: 'doctor_admin'
+      });
+      if (result.success) {
+        showToast('Logged in as Clinic Administrator. Opening Dashboard...');
+        navigate('/clinic/dashboard');
+      } else {
+        showToast(result.error || 'Could not sign in to the clinic account.', 'error');
+      }
+    } finally {
+      setSubmitting(false);
+    }
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   };
 
   return (

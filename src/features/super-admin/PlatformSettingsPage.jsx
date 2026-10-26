@@ -25,8 +25,13 @@ export function PlatformSettingsPage() {
   return (
     <div className="max-w-3xl space-y-6">
       <div>
+<<<<<<< HEAD
         <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">System Configuration</span>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Platform Settings</h1>
+=======
+        <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">System Configuration</span>
+        <h1 className="text-2xl font-extrabold text-slate-900">Platform Settings</h1>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <p className="text-xs text-slate-500 mt-0.5">
           Configure global platform parameters, default 14-day trial duration, and communication gateways.
         </p>

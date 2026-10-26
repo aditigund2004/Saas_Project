@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+<<<<<<< HEAD
+=======
+import { belongsToCurrentPatient } from './patientDataAccess';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { Link } from 'react-router-dom';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -42,10 +46,14 @@ export function PatientRequestsPage() {
   ];
 
   const myRequests = appointments.filter((a) => {
+<<<<<<< HEAD
     const isPatientMatch =
       a.patientName === currentUser?.name ||
       a.patientId === 'pt-1041' ||
       !a.patientId;
+=======
+    const isPatientMatch = belongsToCurrentPatient(a, currentUser);
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
     const isRequestStatus =
       requestStatuses.includes(a.status) ||
@@ -338,4 +346,7 @@ export function PatientRequestsPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

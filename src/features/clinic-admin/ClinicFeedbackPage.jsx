@@ -169,10 +169,17 @@ export function ClinicFeedbackPage() {
           <span className="text-[10px] text-blue-600">Pending initial review</span>
         </Card>
 
+<<<<<<< HEAD
         <Card className="p-4 border-indigo-200 bg-indigo-50/40">
           <span className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wider">In Review</span>
           <p className="text-2xl font-black text-indigo-700 mt-1 tabular-nums">{metrics.reviewedCount}</p>
           <span className="text-[10px] text-indigo-600">Investigating feedback</span>
+=======
+        <Card className="p-4 border-purple-200 bg-purple-50/40">
+          <span className="text-[10px] font-semibold text-purple-600 uppercase tracking-wider">In Review</span>
+          <p className="text-2xl font-black text-purple-700 mt-1">{metrics.reviewedCount}</p>
+          <span className="text-[10px] text-purple-600">Investigating feedback</span>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         </Card>
 
         <Card className="p-4 border-emerald-200 bg-emerald-50/40">

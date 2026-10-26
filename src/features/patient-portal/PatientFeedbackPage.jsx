@@ -1,5 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
+<<<<<<< HEAD
+=======
+import { belongsToCurrentPatient } from './patientDataAccess';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -59,7 +63,11 @@ export function PatientFeedbackPage() {
   const patientAppointments = useMemo(() => {
     return appointments.filter(
       (a) =>
+<<<<<<< HEAD
         (a.patientId === currentUser.id || a.patientName === currentUser.name) &&
+=======
+        belongsToCurrentPatient(a, currentUser) &&
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         a.clinicId === activeClinic.id
     );
   }, [appointments, currentUser, activeClinic.id]);
@@ -68,9 +76,13 @@ export function PatientFeedbackPage() {
   const myFeedbacks = useMemo(() => {
     return feedbacks.filter(
       (f) =>
+<<<<<<< HEAD
         (f.patientId === currentUser.id ||
           f.patientEmail === currentUser.email ||
           f.patientName === currentUser.name) &&
+=======
+        belongsToCurrentPatient(f, currentUser) &&
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         f.clinicId === activeClinic.id
     );
   }, [feedbacks, currentUser, activeClinic.id]);
@@ -405,4 +417,7 @@ export function PatientFeedbackPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

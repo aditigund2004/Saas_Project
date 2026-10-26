@@ -214,6 +214,10 @@ export interface Clinic {
   email: string;
   ownerName: string;
   status: AccountStatus;
+<<<<<<< HEAD
+=======
+  approvalStatus?: 'Pending' | 'Approved' | 'Rejected';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   subscriptionPlanId: SubscriptionTier;
   trialEndsAt: string;
   isTrial: boolean;
@@ -736,13 +740,20 @@ export interface StaffMember {
 }
 
 export interface SubscriptionPlan {
+<<<<<<< HEAD
   id: SubscriptionTier | string;
+=======
+  id: SubscriptionTier;
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   name: string;
   tagline: string;
   monthlyPrice: number;
   annualPrice: number;
+<<<<<<< HEAD
   originalMonthlyPrice?: number;
   discountPercent?: number;
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   maxDoctors: number;
   maxBranches: number;
   maxStaff: number;
@@ -750,6 +761,7 @@ export interface SubscriptionPlan {
   isPopular?: boolean;
 }
 
+<<<<<<< HEAD
 export interface WhatsAppTemplate {
   id: string;
   key: string;
@@ -763,6 +775,8 @@ export interface WhatsAppTemplate {
   lastEdited?: string;
 }
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 export interface ClinicSubscription {
   id: string;
   clinicId: string;
@@ -813,4 +827,7 @@ export interface PlatformMetric {
   totalAppointmentsMonth: number;
   registeredUsers: number;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -26,8 +26,20 @@ export function PatientClinicDetailPage() {
   const { clinics, doctors } = useApp();
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const clinic = clinics.find((c) => c.id === clinicId) || clinics[0];
   const clinicDoctors = doctors.filter((d) => d.clinicId === clinic.id);
+=======
+  const matchedClinic = clinics.find((c) => c.id === clinicId);
+  const isUnavailable = matchedClinic &&
+    (matchedClinic.approvalStatus === 'Pending' ||
+      matchedClinic.approvalStatus === 'Rejected' ||
+      matchedClinic.status === 'Pending');
+  const clinic = isUnavailable ? null : matchedClinic || clinics.find(
+    (c) => c.approvalStatus !== 'Pending' && c.approvalStatus !== 'Rejected' && c.status !== 'Pending'
+  );
+  const clinicDoctors = clinic ? doctors.filter((d) => d.clinicId === clinic.id) : [];
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   if (!clinic) {
     return (
@@ -320,4 +332,7 @@ export function PatientClinicDetailPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

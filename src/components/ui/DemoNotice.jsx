@@ -18,6 +18,7 @@ export function ToastContainer({ toast }) {
   if (!toast) return null;
 
   const typeStyles = {
+<<<<<<< HEAD
     success: 'bg-slate-900/95 text-white border-slate-700/80 shadow-slate-950/20',
     info: 'bg-blue-950/95 text-white border-blue-700/80 shadow-blue-950/20',
     warning: 'bg-amber-950/95 text-amber-100 border-amber-700/80 shadow-amber-950/20',
@@ -28,11 +29,27 @@ export function ToastContainer({ toast }) {
     <div className="fixed top-5 right-5 z-50 animate-fade-in max-w-sm pointer-events-auto">
       <div
         className={`px-4 py-3 rounded-2xl border backdrop-blur-md shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-medium ${
+=======
+    success: 'bg-slate-900 text-white border-slate-700',
+    info: 'bg-blue-900 text-white border-blue-700',
+    warning: 'bg-amber-900 text-white border-amber-700',
+    error: 'bg-rose-900 text-white border-rose-700'
+  };
+
+  return (
+    <div className="fixed bottom-5 right-5 z-50 animate-bounce-in max-w-sm">
+      <div
+        className={`px-4 py-3 rounded-xl border shadow-xl flex items-center gap-3 text-sm font-medium ${
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           typeStyles[toast.type] || typeStyles.success
         }`}
       >
         <Info className="w-4 h-4 shrink-0 text-blue-400" />
+<<<<<<< HEAD
         <span className="leading-snug">{toast.message}</span>
+=======
+        <span>{toast.message}</span>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       </div>
     </div>
   );

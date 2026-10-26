@@ -1,15 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+<<<<<<< HEAD
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+=======
+import { Card, CardHeader, CardContent } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
+import { belongsToCurrentPatient } from './patientDataAccess';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import {
   Calendar,
   FileText,
   Receipt,
   PlusCircle,
   Clock,
+<<<<<<< HEAD
+=======
+  ArrowRight,
+  ShieldCheck,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   Printer
 } from 'lucide-react';
 import { StatCard } from '../../components/ui/StatCard';
@@ -17,6 +29,7 @@ import { StatCard } from '../../components/ui/StatCard';
 export function PatientDashboardPage() {
   const {
     currentUser,
+<<<<<<< HEAD
     appointments = [],
     prescriptions = [],
     invoices = [],
@@ -33,6 +46,18 @@ export function PatientDashboardPage() {
   const myInvoices = invoices.filter(
     (i) => i.patientName === currentUser?.name || i.patientId === 'pt-1041'
   );
+=======
+    appointments,
+    prescriptions,
+    invoices,
+    openPrescriptionModal,
+    activeClinic
+  } = useApp();
+
+  const myAppointments = appointments.filter((appointment) => belongsToCurrentPatient(appointment, currentUser));
+  const myPrescriptions = prescriptions.filter((prescription) => belongsToCurrentPatient(prescription, currentUser));
+  const myInvoices = invoices.filter((invoice) => belongsToCurrentPatient(invoice, currentUser));
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const actionRequiredProposals = myAppointments.filter(
     (a) => a.status === 'Alternative Slot Proposed' || a.status === 'Awaiting Patient Response'
@@ -48,10 +73,17 @@ export function PatientDashboardPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
+<<<<<<< HEAD
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
             Patient Health Dashboard
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-0.5">
+=======
+          <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
+            Patient Health Dashboard
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             Welcome back, {currentUser?.name || 'Aarav'}
           </h1>
           <p className="text-xs text-slate-500">
@@ -61,35 +93,57 @@ export function PatientDashboardPage() {
 
         <div className="flex items-center gap-2">
           <Link to="/patient/clinics">
+<<<<<<< HEAD
             <Button variant="outline" size="sm">
+=======
+            <Button variant="outline" size="md">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               Explore Clinics
             </Button>
           </Link>
           <Link to="/patient/appointments/book">
+<<<<<<< HEAD
             <Button variant="primary" size="sm" icon={PlusCircle}>
+=======
+            <Button variant="primary" size="md" icon={PlusCircle}>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               Book Consultation
             </Button>
           </Link>
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Action Required Banner for Alternative Proposals */}
       {actionRequiredProposals.length > 0 && (
         <div className="p-4 bg-amber-50 border border-amber-300 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
+=======
+      {/* Action Required Banner for Alternative Proposals (Scenario 2, Scenario 4) */}
+      {actionRequiredProposals.length > 0 && (
+        <div className="p-4 bg-amber-50/90 border-2 border-amber-300 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
               <Clock className="w-5 h-5 text-amber-700" />
             </div>
             <div>
               <div className="flex items-center gap-2">
+<<<<<<< HEAD
                 <span className="text-[10px] font-semibold text-amber-900 bg-amber-200 px-2 py-0.5 rounded-full uppercase tracking-wide">
+=======
+                <span className="text-[10px] font-bold text-amber-900 bg-amber-200 px-2 py-0.5 rounded-full uppercase tracking-wide">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   Action Required
                 </span>
                 <span className="text-xs text-slate-500 font-mono">
                   {actionRequiredProposals[0].requestId || actionRequiredProposals[0].referenceNumber}
                 </span>
               </div>
+<<<<<<< HEAD
               <h2 className="text-sm font-bold text-slate-900 mt-0.5">
+=======
+              <h2 className="text-sm font-extrabold text-slate-900 mt-0.5">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 Alternative Appointment Slot Proposed
               </h2>
               <p className="text-xs text-slate-600 mt-0.5">
@@ -98,7 +152,11 @@ export function PatientDashboardPage() {
             </div>
           </div>
           <Link to="/patient/appointments/requests">
+<<<<<<< HEAD
             <Button variant="primary" size="sm" className="bg-amber-700 hover:bg-amber-800 text-white font-semibold whitespace-nowrap">
+=======
+            <Button variant="primary" size="sm" className="bg-amber-600 hover:bg-amber-700 text-white font-bold whitespace-nowrap">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               Review Proposal ({actionRequiredProposals.length}) &rarr;
             </Button>
           </Link>
@@ -107,14 +165,22 @@ export function PatientDashboardPage() {
 
       {/* Pending Review Notice if any pending without proposal */}
       {actionRequiredProposals.length === 0 && pendingRequests.length > 0 && (
+<<<<<<< HEAD
         <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-xl flex items-center justify-between text-xs text-blue-900">
+=======
+        <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-2xl flex items-center justify-between text-xs text-blue-900">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <div className="flex items-center gap-2.5">
             <Clock className="w-4 h-4 text-blue-600 shrink-0" />
             <span>
               You have <strong>{pendingRequests.length} booking request(s)</strong> awaiting clinic receptionist availability verification.
             </span>
           </div>
+<<<<<<< HEAD
           <Link to="/patient/appointments/requests" className="font-semibold underline hover:text-blue-700 shrink-0 ml-3">
+=======
+          <Link to="/patient/appointments/requests" className="font-bold underline hover:text-blue-700 shrink-0 ml-3">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             Track Status &rarr;
           </Link>
         </div>
@@ -128,7 +194,11 @@ export function PatientDashboardPage() {
           change={upcoming.length > 0 ? 'Active consultation' : 'None scheduled'}
           trend="up"
           icon={Calendar}
+<<<<<<< HEAD
           color="blue"
+=======
+          color="teal"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Confirmed bookings"
         />
         <StatCard
@@ -146,7 +216,11 @@ export function PatientDashboardPage() {
           change="Available for download"
           trend="up"
           icon={Receipt}
+<<<<<<< HEAD
           color="indigo"
+=======
+          color="blue"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Procedures & treatments"
         />
       </div>
@@ -165,7 +239,11 @@ export function PatientDashboardPage() {
                 </Link>
               }
             />
+<<<<<<< HEAD
             <div className="p-4 space-y-2.5">
+=======
+            <div className="p-4 space-y-3">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               {upcoming.length === 0 ? (
                 <div className="text-center py-8 text-xs text-slate-400 space-y-2">
                   <p>You have no active appointments scheduled right now.</p>
@@ -179,15 +257,26 @@ export function PatientDashboardPage() {
                 upcoming.map((apt) => (
                   <div
                     key={apt.id}
+<<<<<<< HEAD
                     className="p-4 rounded-xl border border-slate-200/90 bg-white hover:border-slate-300 transition-all space-y-2 text-xs"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-slate-900 text-sm tracking-tight">{apt.serviceName}</span>
+=======
+                    className="p-4 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 transition-all space-y-2 text-xs"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-slate-900 text-sm">{apt.serviceName}</span>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       <Badge variant={apt.status}>{apt.status}</Badge>
                     </div>
                     <div className="text-slate-600 space-y-1">
                       <p>👨‍⚕️ <strong>{apt.doctorName}</strong></p>
+<<<<<<< HEAD
                       <p>🕒 <strong className="tabular-nums font-semibold">{apt.date} at {apt.time}</strong></p>
+=======
+                      <p>🕒 <strong>{apt.date} at {apt.time}</strong></p>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       <p className="text-[11px] text-slate-400 font-mono">Ref: {apt.referenceNumber}</p>
                     </div>
                   </div>
@@ -204,14 +293,22 @@ export function PatientDashboardPage() {
               title="Latest Digital Prescription"
               subtitle="Tamper-evident medical document"
             />
+<<<<<<< HEAD
             <div className="p-4 space-y-2.5">
+=======
+            <div className="p-4 space-y-3">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               {myPrescriptions.length === 0 ? (
                 <p className="text-xs text-slate-400 text-center py-4">No prescriptions on record.</p>
               ) : (
                 myPrescriptions.slice(0, 2).map((rx) => (
                   <div
                     key={rx.id}
+<<<<<<< HEAD
                     className="p-4 rounded-xl border border-blue-200/90 bg-blue-50/30 text-xs space-y-2"
+=======
+                    className="p-4 rounded-xl border border-blue-200 bg-blue-50/40 text-xs space-y-2"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono font-bold text-blue-900">{rx.prescriptionNumber}</span>

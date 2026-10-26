@@ -5,21 +5,43 @@ import {
   Calendar,
   Clock,
   UserCheck,
+<<<<<<< HEAD
   CheckCircle2,
   MessageSquare,
   ClipboardList
 } from 'lucide-react';
 import { StatCard } from '../../components/ui/StatCard';
 import { Card, CardHeader } from '../../components/ui/Card';
+=======
+  UserPlus,
+  AlertCircle,
+  CheckCircle2,
+  Phone,
+  ArrowRight,
+  MessageSquare,
+  Sparkles,
+  ClipboardList
+} from 'lucide-react';
+import { StatCard } from '../../components/ui/StatCard';
+import { Card, CardHeader, CardContent } from '../../components/ui/Card';
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 
 export function ReceptionDashboardPage() {
   const {
+<<<<<<< HEAD
     activeClinic = {},
     appointments = [],
     updateAppointmentStatus,
     followUps = [],
+=======
+    activeClinic,
+    activeBranch,
+    appointments,
+    updateAppointmentStatus,
+    followUps,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     openWhatsAppModal
   } = useApp();
 
@@ -45,6 +67,7 @@ export function ReceptionDashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
+<<<<<<< HEAD
             <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
               Front Desk Station
             </span>
@@ -52,6 +75,15 @@ export function ReceptionDashboardPage() {
             <span className="text-xs font-medium text-slate-700">{activeClinic?.name}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-1">
+=======
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
+              Front Desk Station
+            </span>
+            <span className="text-slate-300">•</span>
+            <span className="text-xs font-semibold text-slate-700">{activeClinic?.name}</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             Reception Control Center
           </h1>
           <p className="text-xs text-slate-500">
@@ -59,19 +91,33 @@ export function ReceptionDashboardPage() {
           </p>
         </div>
 
+<<<<<<< HEAD
         <div className="flex flex-wrap items-center gap-2">
           <Link to="/reception/requests">
             <Button variant="outline" size="sm" icon={ClipboardList} className="font-semibold border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100">
+=======
+        <div className="flex items-center gap-2">
+          <Link to="/reception/requests">
+            <Button variant="outline" size="md" icon={ClipboardList} className="font-bold border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               Review Requests ({pendingRequests.length})
             </Button>
           </Link>
           <Link to="/reception/walk-ins">
+<<<<<<< HEAD
             <Button variant="primary" size="sm" icon={Clock} className="font-semibold">
+=======
+            <Button variant="primary" size="md" icon={Clock} className="bg-blue-700 hover:bg-blue-800 font-bold">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               + Fast Walk-In Token
             </Button>
           </Link>
           <Link to="/reception/appointments/new">
+<<<<<<< HEAD
             <Button variant="outline" size="sm" icon={Calendar}>
+=======
+            <Button variant="outline" size="md" icon={Calendar}>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               Book Slot
             </Button>
           </Link>
@@ -87,7 +133,11 @@ export function ReceptionDashboardPage() {
             change={pendingRequests.length > 0 ? 'Requires slot check' : 'All caught up'}
             trend="up"
             icon={ClipboardList}
+<<<<<<< HEAD
             color={pendingRequests.length > 0 ? 'amber' : 'blue'}
+=======
+            color={pendingRequests.length > 0 ? 'amber' : 'teal'}
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             subtitle="Patient booking requests"
           />
         </Link>
@@ -97,7 +147,11 @@ export function ReceptionDashboardPage() {
           change={waitingPatients.length > 0 ? 'Patients seated' : 'Lounge clear'}
           trend="up"
           icon={UserCheck}
+<<<<<<< HEAD
           color="blue"
+=======
+          color="teal"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Checked in and ready"
         />
         <StatCard
@@ -106,7 +160,11 @@ export function ReceptionDashboardPage() {
           change="In doctor room"
           trend="up"
           icon={Clock}
+<<<<<<< HEAD
           color="indigo"
+=======
+          color="blue"
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           subtitle="Visits actively underway"
         />
         <StatCard
@@ -134,7 +192,11 @@ export function ReceptionDashboardPage() {
                 </Link>
               }
             />
+<<<<<<< HEAD
             <div className="p-4 space-y-2.5">
+=======
+            <div className="p-4 space-y-3">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               {waitingPatients.length === 0 && inProgress.length === 0 ? (
                 <div className="text-center py-8 text-xs text-slate-400">
                   Waiting room is currently clear. No patients awaiting doctors.
@@ -144,12 +206,21 @@ export function ReceptionDashboardPage() {
                   {inProgress.map((apt) => (
                     <div
                       key={apt.id}
+<<<<<<< HEAD
                       className="p-3.5 rounded-xl border border-blue-200/90 bg-blue-50/40 flex items-center justify-between text-xs"
                     >
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-slate-900">{apt.patientName}</span>
                           <span className="font-mono text-slate-400 font-semibold text-[10px] tabular-nums">{apt.queueNumber || '#Q-01'}</span>
+=======
+                      className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/50 flex items-center justify-between text-xs"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900">{apt.patientName}</span>
+                          <span className="font-mono text-slate-400 font-bold text-[10px]">{apt.queueNumber || '#Q-01'}</span>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                           <Badge variant="In Progress">In Doctor Room</Badge>
                         </div>
                         <p className="text-slate-600 mt-0.5">{apt.doctorName} · {apt.serviceName}</p>
@@ -168,17 +239,30 @@ export function ReceptionDashboardPage() {
                   {waitingPatients.map((apt) => (
                     <div
                       key={apt.id}
+<<<<<<< HEAD
                       className="p-3.5 rounded-xl border border-blue-200/80 bg-blue-50/20 flex items-center justify-between text-xs"
                     >
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-slate-900">{apt.patientName}</span>
                           <span className="font-mono text-blue-800 font-semibold text-[11px] bg-blue-100 px-1.5 py-0.5 rounded tabular-nums">
+=======
+                      className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/30 flex items-center justify-between text-xs"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900">{apt.patientName}</span>
+                          <span className="font-mono text-blue-800 font-bold text-[11px] bg-blue-100 px-1.5 py-0.5 rounded">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                             {apt.queueNumber || '#Q-02'}
                           </span>
                           <Badge variant="Checked In">Waiting</Badge>
                         </div>
+<<<<<<< HEAD
                         <p className="text-slate-600 mt-0.5">Assigned: {apt.doctorName} · Time: <span className="tabular-nums">{apt.time}</span></p>
+=======
+                        <p className="text-slate-600 mt-0.5">Assigned: {apt.doctorName} · Time: {apt.time}</p>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       </div>
 
                       <Button
@@ -214,7 +298,11 @@ export function ReceptionDashboardPage() {
                     <span><strong>{proposedAlternatives.length} alternative proposals</strong> currently awaiting patient confirmation.</span>
                   </div>
                   <Link to="/reception/requests">
+<<<<<<< HEAD
                     <Button variant="secondary" size="sm">View</Button>
+=======
+                    <Button variant="secondary" size="xs">View</Button>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   </Link>
                 </div>
               )}
@@ -226,11 +314,19 @@ export function ReceptionDashboardPage() {
                   <div key={req.id} className="p-3 rounded-xl border border-amber-200 bg-amber-50/40 flex items-center justify-between text-xs">
                     <div>
                       <div className="flex items-center gap-2">
+<<<<<<< HEAD
                         <span className="font-semibold text-slate-900">{req.patientName}</span>
                         <span className="text-[10px] text-slate-400 font-mono">{req.requestId || req.referenceNumber}</span>
                         <Badge variant="Requested">Awaiting Review</Badge>
                       </div>
                       <p className="text-slate-600">Requested: <span className="tabular-nums">{req.requestedDate || req.date}</span> at <span className="tabular-nums">{req.requestedTime || req.time}</span> · {req.doctorName}</p>
+=======
+                        <span className="font-bold text-slate-900">{req.patientName}</span>
+                        <span className="text-[10px] text-slate-400 font-mono">{req.requestId || req.referenceNumber}</span>
+                        <Badge variant="warning">Awaiting Review</Badge>
+                      </div>
+                      <p className="text-slate-600">Requested: {req.requestedDate || req.date} at {req.requestedTime || req.time} · {req.doctorName}</p>
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -253,26 +349,46 @@ export function ReceptionDashboardPage() {
         {/* Right Column: Follow-up Reminders & Daily Task Checklist */}
         <div className="lg:col-span-5 space-y-4">
           {/* Quick Actions Bar */}
+<<<<<<< HEAD
           <Card className="p-4 border-slate-200/90 bg-white space-y-3">
             <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Fast Shortcuts</span>
             <div className="grid grid-cols-2 gap-2">
               <Link to="/reception/walk-ins">
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-medium">
+=======
+          <Card className="p-4 border-slate-200 bg-gradient-to-br from-blue-50/50 to-white space-y-3">
+            <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">Fast Shortcuts</span>
+            <div className="grid grid-cols-2 gap-2">
+              <Link to="/reception/walk-ins">
+                <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   ⚡ Walk-In Express
                 </Button>
               </Link>
               <Link to="/reception/patients/new">
+<<<<<<< HEAD
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-medium">
+=======
+                <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   👤 Register Patient
                 </Button>
               </Link>
               <Link to="/reception/follow-ups">
+<<<<<<< HEAD
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-medium">
+=======
+                <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   📞 Follow-Up Queue
                 </Button>
               </Link>
               <Link to="/reception/tasks">
+<<<<<<< HEAD
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-medium">
+=======
+                <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   📋 Daily Tasks
                 </Button>
               </Link>
@@ -290,12 +406,21 @@ export function ReceptionDashboardPage() {
                 </Link>
               }
             />
+<<<<<<< HEAD
             <div className="p-4 space-y-2.5">
               {pendingFollowUps.slice(0, 3).map((f) => (
                 <div key={f.id} className="p-3 rounded-xl border border-slate-200/90 bg-white text-xs space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-slate-900">{f.patientName}</span>
                     <span className="text-[10px] text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded border border-blue-200 tabular-nums">
+=======
+            <div className="p-4 space-y-3">
+              {pendingFollowUps.slice(0, 3).map((f) => (
+                <div key={f.id} className="p-3 rounded-xl border border-slate-200 bg-white text-xs space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-900">{f.patientName}</span>
+                    <span className="text-[10px] text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       Due: {f.dueDate}
                     </span>
                   </div>
@@ -306,17 +431,29 @@ export function ReceptionDashboardPage() {
                       onClick={() =>
                         openWhatsAppModal({
                           patient_name: f.patientName,
+<<<<<<< HEAD
                           clinic_name: activeClinic?.name || 'Clinic',
+=======
+                          clinic_name: activeClinic.name,
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                           appointment_date: f.dueDate,
                           appointment_time: '11:00 AM',
                           doctor_name: f.doctorName,
                           appointment_reference: 'REV-FOLLOWUP',
+<<<<<<< HEAD
                           clinic_phone: activeClinic?.phone || ''
+=======
+                          clinic_phone: activeClinic.phone
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                         })
                       }
                       className="text-emerald-700 hover:text-emerald-800 text-[11px] font-semibold flex items-center gap-1 cursor-pointer"
                     >
+<<<<<<< HEAD
                       <MessageSquare className="w-3 h-3 text-emerald-600" /> Send WhatsApp
+=======
+                      <MessageSquare className="w-3 h-3" /> Send WhatsApp
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                     </button>
                   </div>
                 </div>
@@ -328,3 +465,7 @@ export function ReceptionDashboardPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

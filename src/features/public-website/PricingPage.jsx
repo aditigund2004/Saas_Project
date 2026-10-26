@@ -107,6 +107,7 @@ export function PricingPage() {
                 </div>
 
                 <div className="pt-2 pb-4 border-b border-slate-100">
+<<<<<<< HEAD
                   {plan.discountPercent > 0 && (
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-semibold text-slate-400 line-through font-mono">
@@ -117,6 +118,8 @@ export function PricingPage() {
                       </span>
                     </div>
                   )}
+=======
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   <div className="flex items-baseline gap-1">
                     <span className="text-3xl sm:text-4xl font-extrabold text-slate-900">
                       ₹{price.toLocaleString('en-IN')}
@@ -162,6 +165,7 @@ export function PricingPage() {
               </div>
 
               <div className="pt-8">
+<<<<<<< HEAD
                 <Link to={`/register/clinic?plan=${plan.id}`}>
                   <Button
                     variant={plan.isPopular ? 'primary' : 'outline'}
@@ -170,6 +174,15 @@ export function PricingPage() {
                   >
                     <span>Start 14-Day Free Trial</span>
                     <ArrowRight className="w-4 h-4 ml-1" />
+=======
+                <Link to={`/register?plan=${plan.id}`}>
+                  <Button
+                    variant={plan.isPopular ? 'primary' : 'outline'}
+                    size="md"
+                    className="w-full"
+                  >
+                    Start 14-Day Free Trial
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   </Button>
                 </Link>
               </div>

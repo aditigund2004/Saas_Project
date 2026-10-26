@@ -124,7 +124,11 @@ export function SolutionsPage() {
                         Preview Demo Profile
                       </Button>
                     </Link>
+<<<<<<< HEAD
                     <Link to="/signup">
+=======
+                    <Link to="/register">
+>>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                       <Button variant="outline" size="md">
                         Start 14-Day Free Trial
                       </Button>

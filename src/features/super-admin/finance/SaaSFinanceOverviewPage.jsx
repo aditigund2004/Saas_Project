@@ -1,25 +1,10 @@
 import React from 'react';
 import { useApp } from '../../../context/AppContext';
 import { SaaSFinanceNav } from './SaaSFinanceNav';
-<<<<<<< HEAD
 import { Card } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import {
   TrendingUp,
-=======
-import { Card, CardHeader } from '../../../components/ui/Card';
-import { Badge } from '../../../components/ui/Badge';
-import { Button } from '../../../components/ui/Button';
-import {
-  TrendingUp,
-  DollarSign,
-  AlertTriangle,
-  Receipt,
-  CreditCard,
-  RotateCcw,
-  Users,
-  CheckCircle2,
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   Download,
   Info
 } from 'lucide-react';
@@ -35,21 +20,12 @@ import {
 
 export function SaaSFinanceOverviewPage() {
   const {
-<<<<<<< HEAD
     saasInvoices = [],
     saasPayments = [],
     saasRefunds = [],
     saasExpenses = [],
     clinics = [],
     plans = [],
-=======
-    saasInvoices,
-    saasPayments,
-    saasRefunds,
-    saasExpenses,
-    clinics,
-    plans,
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     showToast,
     formatCurrency
   } = useApp();
@@ -106,13 +82,8 @@ export function SaaSFinanceOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Corporate Treasury</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">SaaS Finance Cockpit</h1>
-=======
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Corporate Treasury</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">SaaS Finance Cockpit</h1>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <p className="text-xs text-slate-500 mt-0.5">
             Normalized recurring revenue (ARR/MRR), cash collected, failed payment recovery, and SaaS operating expenses.
           </p>
@@ -131,7 +102,6 @@ export function SaaSFinanceOverviewPage() {
       <SaaSFinanceNav />
 
       {/* Metric Definitions & GAAP Explanations Accordion Notice */}
-<<<<<<< HEAD
       <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-xs text-slate-700 space-y-2">
         <div className="flex items-center gap-2 font-semibold text-slate-900">
           <Info className="w-4 h-4 text-blue-600 shrink-0" />
@@ -148,24 +118,6 @@ export function SaaSFinanceOverviewPage() {
           </div>
           <div className="p-3 rounded-lg bg-white border border-slate-200/90">
             <strong className="text-slate-900 block font-semibold mb-1">Operating Margin vs Profit:</strong>
-=======
-      <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-2">
-        <div className="flex items-center gap-2 font-bold text-slate-900">
-          <Info className="w-4 h-4 text-blue-600" />
-          <span>Documented Financial Definitions (Do Not Equate Accounting Concepts):</span>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px] text-slate-600">
-          <div className="p-2.5 rounded-lg bg-white border border-slate-200">
-            <strong className="text-slate-900 block">MRR vs Invoiced Amount:</strong>
-            MRR is the normalized recurring run rate of active paid accounts. Invoiced amount reflects billing milestones and may include multi-month or annual advances.
-          </div>
-          <div className="p-2.5 rounded-lg bg-white border border-slate-200">
-            <strong className="text-slate-900 block">ARR vs Cash Collections:</strong>
-            ARR (Annual Run Rate = MRR × 12) projects 12-month forward revenue. Cash collected represents actual bank deposits settled through payment gateways.
-          </div>
-          <div className="p-2.5 rounded-lg bg-white border border-slate-200">
-            <strong className="text-slate-900 block">Operating Margin vs Profit:</strong>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             SaaS margin here subtracts cloud hosting, developer tooling, and API gateway reserves from net collected software subscriptions.
           </div>
         </div>
@@ -173,15 +125,9 @@ export function SaaSFinanceOverviewPage() {
 
       {/* KPI Cards Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-<<<<<<< HEAD
         <Card className="p-4 sm:p-5 border-slate-200/90">
           <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Monthly Run Rate (MRR)</span>
           <div className="text-2xl font-bold text-blue-700 tracking-tight tabular-nums mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Monthly Run Rate (MRR)</span>
-          <div className="text-2xl font-extrabold text-blue-700 font-mono mt-1">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             {formatCurrency(calculatedMRR)}
           </div>
           <span className="text-[10px] text-blue-600 font-semibold mt-1 inline-flex items-center gap-1">
@@ -189,43 +135,25 @@ export function SaaSFinanceOverviewPage() {
           </span>
         </Card>
 
-<<<<<<< HEAD
         <Card className="p-4 sm:p-5 border-slate-200/90">
           <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Annualized Run Rate (ARR)</span>
           <div className="text-2xl font-bold text-slate-900 tracking-tight tabular-nums mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Annualized Run Rate (ARR)</span>
-          <div className="text-2xl font-extrabold text-slate-900 font-mono mt-1">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             {formatCurrency(calculatedARR)}
           </div>
           <span className="text-[10px] text-slate-500 mt-1 block">Projected 12-month baseline</span>
         </Card>
 
-<<<<<<< HEAD
         <Card className="p-4 sm:p-5 border-slate-200/90">
           <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Cash Collected MTD</span>
           <div className="text-2xl font-bold text-emerald-700 tracking-tight tabular-nums mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Cash Collected MTD</span>
-          <div className="text-2xl font-extrabold text-emerald-600 font-mono mt-1">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             {formatCurrency(totalCashCollected)}
           </div>
           <span className="text-[10px] text-emerald-600 font-semibold mt-1 block">Settled bank deposits</span>
         </Card>
 
-<<<<<<< HEAD
         <Card className="p-4 sm:p-5 border-slate-200/90">
           <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Outstanding Dues</span>
           <div className="text-2xl font-bold text-amber-700 tracking-tight tabular-nums mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Outstanding Dues</span>
-          <div className="text-2xl font-extrabold text-amber-600 font-mono mt-1">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             {formatCurrency(totalOutstanding)}
           </div>
           <span className="text-[10px] text-slate-500 mt-1 block">Pending & failed auto-debits</span>
@@ -234,7 +162,6 @@ export function SaaSFinanceOverviewPage() {
 
       {/* Second Row: Unit Economics & Churn */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-<<<<<<< HEAD
         <Card className="p-4 sm:p-5 border-slate-200/90">
           <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Active Paying Clinics</span>
           <div className="text-xl font-bold text-slate-900 tracking-tight tabular-nums mt-1">{activePaidClinics} Tenants</div>
@@ -256,35 +183,11 @@ export function SaaSFinanceOverviewPage() {
         <Card className="p-4 sm:p-5 border-slate-200/90">
           <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Net SaaS Cash Margin</span>
           <div className="text-xl font-bold text-emerald-700 tracking-tight tabular-nums mt-1">{formatCurrency(netSaaSMargin)}</div>
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Active Paying Clinics</span>
-          <div className="text-xl font-bold text-slate-900 mt-1">{activePaidClinics} Tenants</div>
-          <span className="text-[10px] text-slate-500 mt-0.5 block">Excluding {trialClinics} free trial clinics</span>
-        </Card>
-
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Refunds Issued MTD</span>
-          <div className="text-xl font-bold text-rose-600 font-mono mt-1">{formatCurrency(totalRefunds)}</div>
-          <span className="text-[10px] text-slate-500 mt-0.5 block">{saasRefunds.length} total reversals</span>
-        </Card>
-
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Company Operating Costs</span>
-          <div className="text-xl font-bold text-slate-800 font-mono mt-1">{formatCurrency(totalCompanyExpenses)}</div>
-          <span className="text-[10px] text-slate-500 mt-0.5 block">AWS, APM, Twilio, legal retainers</span>
-        </Card>
-
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Net SaaS Cash Margin</span>
-          <div className="text-xl font-bold text-emerald-700 font-mono mt-1">{formatCurrency(netSaaSMargin)}</div>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <span className="text-[10px] text-emerald-600 font-semibold mt-0.5 block">Positive unit margin</span>
         </Card>
       </div>
 
       {/* Chart: MRR Growth Trajectory */}
-<<<<<<< HEAD
       <Card className="p-5 sm:p-6 border-slate-200/90 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
           <div>
@@ -292,15 +195,6 @@ export function SaaSFinanceOverviewPage() {
             <p className="text-xs text-slate-500">Comparing normalized MRR against actual settled cash collections</p>
           </div>
           <span className="text-xs text-blue-700 font-semibold bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 tabular-nums">
-=======
-      <Card className="p-6 border-slate-200 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
-          <div>
-            <h3 className="font-bold text-slate-900 text-sm">Monthly Recurring Revenue Trajectory (May – Oct 2026)</h3>
-            <p className="text-xs text-slate-500">Comparing normalized MRR against actual settled cash collections</p>
-          </div>
-          <span className="text-xs font-mono text-blue-700 font-bold bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             ARR Run Rate: {formatCurrency(calculatedARR)}
           </span>
         </div>
@@ -314,13 +208,8 @@ export function SaaSFinanceOverviewPage() {
                   <stop offset="95%" stopColor="#2563EB" stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="collGrad" x1="0" y1="0" x2="0" y2="1">
-<<<<<<< HEAD
                   <stop offset="5%" stopColor="#15803D" stopOpacity={0.2} />
                   <stop offset="95%" stopColor="#15803D" stopOpacity={0.0} />
-=======
-                  <stop offset="5%" stopColor="#16A34A" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#16A34A" stopOpacity={0.0} />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -331,11 +220,7 @@ export function SaaSFinanceOverviewPage() {
                 contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 12 }}
               />
               <Area type="monotone" dataKey="mrr" stroke="#2563EB" strokeWidth={2.5} fill="url(#mrrGrad)" name="Normalized MRR" />
-<<<<<<< HEAD
               <Area type="monotone" dataKey="collections" stroke="#15803D" strokeWidth={2} fill="url(#collGrad)" name="Settled Collections" />
-=======
-              <Area type="monotone" dataKey="collections" stroke="#16A34A" strokeWidth={2} fill="url(#collGrad)" name="Settled Collections" />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -343,7 +228,3 @@ export function SaaSFinanceOverviewPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -31,15 +31,6 @@ import { useApp } from '../../context/AppContext';
 export function HomePage() {
   const { clinics, openWhatsAppModal } = useApp();
   const [activeTab, setActiveTab] = useState('dental');
-<<<<<<< HEAD
-=======
-  const publicClinics = clinics.filter(
-    (clinic) =>
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected' &&
-      clinic.status !== 'Pending'
-  );
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const specialtySolutions = {
     dental: {
@@ -99,11 +90,7 @@ export function HomePage() {
   return (
     <div className="space-y-24 py-8">
       {/* 1. Hero Section */}
-<<<<<<< HEAD
-      <section id="hero" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12 scroll-mt-24">
-=======
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold">
@@ -122,10 +109,10 @@ export function HomePage() {
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link to="/register">
+              <Link to="/register/clinic">
                 <Button variant="primary" size="lg">
                   Start 14-Day Free Trial
-                  <ArrowRight className="w-5 h-5 ml-1" />
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
               <Link to="/features">
@@ -253,11 +240,7 @@ export function HomePage() {
       </section>
 
       {/* 2. Problem & Solution Section */}
-<<<<<<< HEAD
-      <section id="transition" className="bg-white py-16 border-y border-slate-200/80 scroll-mt-24">
-=======
       <section className="bg-white py-16 border-y border-slate-200/80">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">The Digital Transition</span>
@@ -323,11 +306,7 @@ export function HomePage() {
       </section>
 
       {/* 3. Solutions by Clinic Type */}
-<<<<<<< HEAD
-      <section id="solutions" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 scroll-mt-24">
-=======
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Configurable Workflows</span>
           <h2 className="text-3xl font-extrabold text-slate-900">Tailored for Your Specialty</h2>
@@ -405,11 +384,7 @@ export function HomePage() {
       </section>
 
       {/* 4. Complete Features Grid (14 Features) */}
-<<<<<<< HEAD
-      <section id="features" className="bg-slate-900 text-white py-16 scroll-mt-24">
-=======
       <section className="bg-slate-900 text-white py-16">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Comprehensive Capability</span>
@@ -439,7 +414,7 @@ export function HomePage() {
 
           <div className="text-center pt-4">
             <Link to="/features">
-              <Button variant="outline" size="md" className="bg-transparent text-white border-slate-600 hover:bg-slate-800">
+              <Button variant="outline-white" size="md">
                 Browse Full Features Explorer
               </Button>
             </Link>
@@ -448,11 +423,7 @@ export function HomePage() {
       </section>
 
       {/* 5. How It Works: 4 Simple Steps */}
-<<<<<<< HEAD
-      <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 scroll-mt-24">
-=======
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Fast Implementation</span>
           <h2 className="text-3xl font-extrabold text-slate-900">How ClinicOS Works in 4 Steps</h2>
@@ -494,11 +465,7 @@ export function HomePage() {
       </section>
 
       {/* 6. Connected Clinics Directory Preview */}
-<<<<<<< HEAD
-      <section id="clinics" className="bg-slate-50 py-16 border-y border-slate-200/80 scroll-mt-24">
-=======
       <section className="bg-slate-50 py-16 border-y border-slate-200/80">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -510,21 +477,13 @@ export function HomePage() {
             </div>
             <Link to="/clinics">
               <Button variant="outline" size="sm">
-<<<<<<< HEAD
                 View All {clinics.length} Clinics <ArrowRight className="w-4 h-4 ml-1" />
-=======
-                View All {publicClinics.length} Clinics <ArrowRight className="w-4 h-4 ml-1" />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               </Button>
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-<<<<<<< HEAD
             {clinics.slice(0, 3).map((clinic) => (
-=======
-            {publicClinics.slice(0, 3).map((clinic) => (
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               <Card key={clinic.id} className="overflow-hidden border-slate-200 flex flex-col hover:shadow-md transition-shadow">
                 <div className="h-44 w-full relative overflow-hidden bg-slate-100">
                   <img
@@ -575,38 +534,106 @@ export function HomePage() {
       </section>
 
       {/* 7. Call to Action Banner */}
-<<<<<<< HEAD
-      <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-=======
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
-        <div className="rounded-3xl bg-gradient-to-r from-blue-700 to-slate-900 text-white p-8 sm:p-12 shadow-xl relative overflow-hidden">
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">
-              Instant 14-Day Free Access
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-              Ready to Upgrade Your Clinic Front Desk?
-            </h2>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Join specialty clinics and local healthcare facilities modernizing appointments, prescriptions, WhatsApp notifications, and billing.
-            </p>
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-<<<<<<< HEAD
-              <Link to="/signup">
-=======
-              <Link to="/register">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
-                <Button variant="primary" size="lg" className="bg-white text-blue-800 hover:bg-slate-100 font-bold">
-                  Start 14-Day Free Trial
-                  <ArrowRight className="w-5 h-5 ml-1" />
-                </Button>
-              </Link>
-              <Link to="/pricing">
-                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                  Compare Subscription Plans
-                </Button>
-              </Link>
+        <div className="relative rounded-3xl bg-gradient-to-br from-slate-950 via-[#0B1528] to-blue-950 text-white p-8 sm:p-12 lg:p-14 shadow-2xl border border-slate-800/80 overflow-hidden">
+          {/* Background radial ambient lighting */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Column: Heading, Value proposition, Checkpoints, Buttons */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-semibold">
+                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                <span>Instant 14-Day Free Access · No Credit Card Required</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                Ready to Upgrade Your Clinic Front Desk?
+              </h2>
+
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+                Join specialty clinics and local healthcare facilities modernizing appointments, prescriptions, WhatsApp notifications, and billing.
+              </p>
+
+              {/* Quick Value Checkpoints */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="flex items-center gap-2 text-xs text-slate-200">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Full multi-doctor scheduling</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-200">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Verifiable QR digital prescriptions</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-200">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Automated WhatsApp reminders</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-200">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Itemized invoicing & collections</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 flex flex-wrap items-center gap-3.5">
+                <Link to="/register/clinic">
+                  <Button variant="white" size="lg" className="shadow-lg">
+                    Start 14-Day Free Trial
+                    <ArrowRight className="w-4 h-4 ml-1.5" />
+                  </Button>
+                </Link>
+                <Link to="/pricing">
+                  <Button variant="outline-white" size="lg">
+                    Compare Subscription Plans
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Sleek Simulated Live Clinic Card & Security Badge */}
+            <div className="lg:col-span-5">
+              <div className="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl backdrop-blur-md space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-blue-600/30 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm">
+                      <Activity className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-white">Live Practice Cockpit</h4>
+                      <p className="text-[10px] text-slate-400">Ready in under 2 minutes</p>
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    ● Live Ready
+                  </span>
+                </div>
+
+                {/* Module Indicators */}
+                <div className="space-y-2 text-xs">
+                  <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
+                    <span className="text-slate-300">Front-Desk Walk-In Queue</span>
+                    <span className="text-blue-400 font-semibold text-[11px]">Instant Token #Q-01</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
+                    <span className="text-slate-300">WhatsApp Notification Webhook</span>
+                    <span className="text-emerald-400 font-semibold text-[11px]">Simulated Active</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
+                    <span className="text-slate-300">Digital A4 Prescription Registry</span>
+                    <span className="text-blue-400 font-semibold text-[11px]">QR Security Hash</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                    Multi-Tenant Architecture
+                  </span>
+                  <span className="text-slate-400">5 Demo Clinics Included</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -614,7 +641,4 @@ export function HomePage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -32,12 +32,7 @@ import {
   SaaSRefund,
   SaaSExpense,
   ClinicPaymentRecord,
-<<<<<<< HEAD
-  ClinicRefundRecord,
-  WhatsAppTemplate
-=======
   ClinicRefundRecord
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -46,13 +41,7 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Starter Clinic',
     tagline: 'Best for solo practitioners & startup dental/specialty clinics',
     monthlyPrice: 2499,
-<<<<<<< HEAD
-    originalMonthlyPrice: 2999,
     annualPrice: 24990,
-    discountPercent: 15,
-=======
-    annualPrice: 24990,
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 2,
     maxBranches: 1,
     maxStaff: 4,
@@ -73,13 +62,7 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Growth Practice',
     tagline: 'Ideal for established clinics expanding doctors and daily footfall',
     monthlyPrice: 4499,
-<<<<<<< HEAD
-    originalMonthlyPrice: 5499,
     annualPrice: 44990,
-    discountPercent: 20,
-=======
-    annualPrice: 44990,
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 5,
     maxBranches: 2,
     maxStaff: 8,
@@ -100,13 +83,7 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Professional Multi-Specialty',
     tagline: 'Ideal for busy multi-doctor practices and multi-branch setups',
     monthlyPrice: 6999,
-<<<<<<< HEAD
-    originalMonthlyPrice: 8999,
     annualPrice: 69990,
-    discountPercent: 25,
-=======
-    annualPrice: 69990,
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 10,
     maxBranches: 3,
     maxStaff: 15,
@@ -129,13 +106,7 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
     name: 'Enterprise / Nursing Home',
     tagline: 'For clinic chains & 10–30 bed local nursing homes',
     monthlyPrice: 14999,
-<<<<<<< HEAD
-    originalMonthlyPrice: 20999,
     annualPrice: 149990,
-    discountPercent: 30,
-=======
-    annualPrice: 149990,
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     maxDoctors: 30,
     maxBranches: 10,
     maxStaff: 50,
@@ -147,118 +118,12 @@ export const DEMO_PLANS: SubscriptionPlan[] = [
       'Advanced Role-Based Permissions',
       'WhatsApp Business API Dedicated Webhook Adapter',
       'Automated Pharmacy & Consumables Restock',
-<<<<<<< HEAD
-      'Custom SLA & 24/7 Priority Emergency Support'
-=======
       'Priority 24/7 Support & Onboarding Specialist',
       'Custom Clinical Print Header Layouts'
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     ]
   }
 ];
 
-<<<<<<< HEAD
-export const DEMO_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
-  {
-    id: 'tpl-booking-conf',
-    key: 'booking_confirmation',
-    name: 'Booking Confirmation',
-    category: 'Booking & Queue',
-    activity: 'Dispatched immediately when an appointment is scheduled or confirmed',
-    description: 'Alerts patient with doctor name, scheduled date & time, token reference, and clinic address.',
-    body: 'Hello {{patient_name}}, your appointment at {{clinic_name}} is confirmed for {{appointment_date}} at {{appointment_time}} with {{doctor_name}}. Appointment reference: {{appointment_ref}}. Clinic address: {{clinic_address}}. Please arrive 10 minutes prior.',
-    variables: ['{{patient_name}}', '{{clinic_name}}', '{{appointment_date}}', '{{appointment_time}}', '{{doctor_name}}', '{{appointment_ref}}', '{{clinic_address}}'],
-    status: 'Active',
-    lastEdited: '2026-10-25'
-  },
-  {
-    id: 'tpl-reminder-24h',
-    key: 'reminder',
-    name: '24-Hour Appointment Reminder',
-    category: 'Booking & Queue',
-    activity: 'Dispatched 24 hours and 2 hours prior to consultation slot',
-    description: 'Proactively minimizes clinic no-shows by asking patients to confirm or notify cancellation.',
-    body: 'Gentle Reminder: Hello {{patient_name}}, your consultation with {{doctor_name}} at {{clinic_name}} is scheduled for {{appointment_date}} at {{appointment_time}}. Please carry your previous medical records. Reply CANCEL if unable to attend or call {{clinic_phone}}.',
-    variables: ['{{patient_name}}', '{{doctor_name}}', '{{clinic_name}}', '{{appointment_date}}', '{{appointment_time}}', '{{clinic_phone}}'],
-    status: 'Active',
-    lastEdited: '2026-10-24'
-  },
-  {
-    id: 'tpl-reschedule',
-    key: 'reschedule',
-    name: 'Appointment Rescheduled Notice',
-    category: 'Booking & Queue',
-    activity: 'Dispatched when appointment time or attending clinician is updated',
-    description: 'Informs patient of the revised slot details with updated calendar reference.',
-    body: 'Dear {{patient_name}}, your appointment with {{doctor_name}} at {{clinic_name}} has been rescheduled to {{appointment_date}} at {{appointment_time}}. Reference: {{appointment_ref}}. If this time does not work for you, please contact {{clinic_phone}}.',
-    variables: ['{{patient_name}}', '{{doctor_name}}', '{{clinic_name}}', '{{appointment_date}}', '{{appointment_time}}', '{{appointment_ref}}', '{{clinic_phone}}'],
-    status: 'Active',
-    lastEdited: '2026-10-22'
-  },
-  {
-    id: 'tpl-cancel',
-    key: 'cancellation',
-    name: 'Appointment Cancellation Notice',
-    category: 'Booking & Queue',
-    activity: 'Dispatched when appointment is cancelled by clinic or patient',
-    description: 'Confirms cancellation and provides a self-serve link to re-book.',
-    body: 'Hello {{patient_name}}, your appointment on {{appointment_date}} at {{clinic_name}} has been cancelled. To choose an alternative date or doctor, click here: {{booking_link}} or call our desk at {{clinic_phone}}.',
-    variables: ['{{patient_name}}', '{{appointment_date}}', '{{clinic_name}}', '{{booking_link}}', '{{clinic_phone}}'],
-    status: 'Active',
-    lastEdited: '2026-10-20'
-  },
-  {
-    id: 'tpl-rx-ready',
-    key: 'prescription_ready',
-    name: 'Digital Prescription & QR Verification',
-    category: 'Clinical & Rx',
-    activity: 'Dispatched immediately when doctor finalizes and signs clinical prescription',
-    description: 'Provides verifiable digital Rx PDF link with cryptographic QR scan verification.',
-    body: 'Hello {{patient_name}}, your digital prescription from Dr. {{doctor_name}} at {{clinic_name}} is now ready. View and download your PDF or verify authenticity with your pharmacy using: {{prescription_link}}. Wishing you a speedy recovery!',
-    variables: ['{{patient_name}}', '{{doctor_name}}', '{{clinic_name}}', '{{prescription_link}}'],
-    status: 'Active',
-    lastEdited: '2026-10-26'
-  },
-  {
-    id: 'tpl-postop-followup',
-    key: 'follow_up',
-    name: 'Post-Procedure Medical Follow-Up',
-    category: 'Patient Care',
-    activity: 'Dispatched 48h after surgical procedure or dental treatment',
-    description: 'Assesses patient recovery score, wound healing, and medication tolerance.',
-    body: 'Hello {{patient_name}}, Dr. {{doctor_name}} and {{clinic_name}} hope you are feeling better following your visit on {{appointment_date}}. How is your recovery progress today? If you experience fever, swelling, or unusual discomfort, please reach out directly at {{clinic_phone}}.',
-    variables: ['{{patient_name}}', '{{doctor_name}}', '{{clinic_name}}', '{{appointment_date}}', '{{clinic_phone}}'],
-    status: 'Active',
-    lastEdited: '2026-10-26'
-  },
-  {
-    id: 'tpl-bill-receipt',
-    key: 'invoice_receipt',
-    name: 'Payment Receipt & Tax Invoice',
-    category: 'Financial & Invoices',
-    activity: 'Dispatched when consultation or procedure invoice is paid',
-    description: 'Sends official receipt number, amount settled, and digital tax bill link.',
-    body: 'Thank you {{patient_name}}! Payment of {{amount_paid}} for Invoice {{invoice_number}} has been received at {{clinic_name}}. Download your official clinic tax receipt here: {{receipt_link}}.',
-    variables: ['{{patient_name}}', '{{amount_paid}}', '{{invoice_number}}', '{{clinic_name}}', '{{receipt_link}}'],
-    status: 'Active',
-    lastEdited: '2026-10-25'
-  },
-  {
-    id: 'tpl-queue-token',
-    key: 'queue_token',
-    name: 'Live Queue OPD Token Notice',
-    category: 'Booking & Queue',
-    activity: 'Dispatched when patient is checked in at reception desk',
-    description: 'Provides live queue token number and estimated waiting time.',
-    body: 'Welcome to {{clinic_name}}, {{patient_name}}! Your OPD consultation token is #{{token_number}}. Current estimated wait time is {{estimated_wait_mins}} mins. Track live queue position on your mobile: {{queue_link}}.',
-    variables: ['{{clinic_name}}', '{{patient_name}}', '{{token_number}}', '{{estimated_wait_mins}}', '{{queue_link}}'],
-    status: 'Active',
-    lastEdited: '2026-10-26'
-  }
-];
-
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 export const DEMO_CLINICS: Clinic[] = [
   {
     id: 'clinic-citycare',
@@ -2203,11 +2068,7 @@ export const DEMO_ENCOUNTERS: ClinicalEncounter[] = [
   {
     id: 'enc-001',
     appointmentId: 'apt-2601',
-<<<<<<< HEAD
     patientId: 'pt-1042',
-=======
-    patientId: 'pt-1041',
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     patientName: 'Aarav Patel',
     doctorId: 'doc-arvind-rao',
     doctorName: 'Dr. Arvind Rao, MDS',

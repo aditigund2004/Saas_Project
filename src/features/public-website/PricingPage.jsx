@@ -107,19 +107,6 @@ export function PricingPage() {
                 </div>
 
                 <div className="pt-2 pb-4 border-b border-slate-100">
-<<<<<<< HEAD
-                  {plan.discountPercent > 0 && (
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-semibold text-slate-400 line-through font-mono">
-                        ₹{(plan.originalMonthlyPrice || Math.round(plan.monthlyPrice / (1 - (plan.discountPercent || 20) / 100))).toLocaleString('en-IN')}
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        {plan.discountPercent}% DISCOUNT
-                      </span>
-                    </div>
-                  )}
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   <div className="flex items-baseline gap-1">
                     <span className="text-3xl sm:text-4xl font-extrabold text-slate-900">
                       ₹{price.toLocaleString('en-IN')}
@@ -130,9 +117,23 @@ export function PricingPage() {
                     Includes 14-Day Full Access Free Trial
                   </p>
                   {billingInterval === 'annual' && (
-                    <p className="text-[11px] text-slate-400 mt-0.5">
-                      Billed annually at ₹{plan.annualPrice.toLocaleString('en-IN')}/yr
-                    </p>
+                    <div className="mt-2.5 p-2.5 rounded-lg bg-emerald-50/90 border border-emerald-200/80 text-[11px] text-emerald-900 space-y-1">
+                      <div className="flex items-center justify-between font-semibold">
+                        <span className="text-slate-600">Billed annually:</span>
+                        <span className="font-mono font-bold">₹{plan.annualPrice.toLocaleString('en-IN')}/yr</span>
+                      </div>
+                      {(plan.monthlyPrice * 12) > plan.annualPrice && (
+                        <div className="flex items-center justify-between font-bold text-emerald-800 pt-1 border-t border-emerald-200/60">
+                          <span className="flex items-center gap-1 text-emerald-700">
+                            <Sparkles className="w-3 h-3 text-emerald-600" />
+                            Customer Savings:
+                          </span>
+                          <span className="font-mono text-emerald-950 font-extrabold">
+                            Save ₹{((plan.monthlyPrice * 12) - plan.annualPrice).toLocaleString('en-IN')}/yr ({Math.round((((plan.monthlyPrice * 12) - plan.annualPrice) / (plan.monthlyPrice * 12)) * 100)}% OFF)
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
 
@@ -165,24 +166,13 @@ export function PricingPage() {
               </div>
 
               <div className="pt-8">
-<<<<<<< HEAD
                 <Link to={`/register/clinic?plan=${plan.id}`}>
-                  <Button
-                    variant={plan.isPopular ? 'primary' : 'outline'}
-                    size="md"
-                    className="w-full flex items-center justify-center gap-2"
-                  >
-                    <span>Start 14-Day Free Trial</span>
-                    <ArrowRight className="w-4 h-4 ml-1" />
-=======
-                <Link to={`/register?plan=${plan.id}`}>
                   <Button
                     variant={plan.isPopular ? 'primary' : 'outline'}
                     size="md"
                     className="w-full"
                   >
                     Start 14-Day Free Trial
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   </Button>
                 </Link>
               </div>

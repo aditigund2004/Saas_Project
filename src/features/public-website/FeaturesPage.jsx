@@ -221,11 +221,7 @@ export function FeaturesPage() {
           No credit card required. Explore role dashboards for Clinic Admin, Receptionist, and Patients immediately.
         </p>
         <div className="pt-2">
-<<<<<<< HEAD
-          <Link to="/signup">
-=======
-          <Link to="/register">
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
+          <Link to="/register/clinic">
             <Button variant="primary" size="lg">
               Get Started Now <ArrowRight className="w-4 h-4 ml-1" />
             </Button>

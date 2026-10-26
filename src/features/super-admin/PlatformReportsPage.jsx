@@ -35,13 +35,8 @@ export function PlatformReportsPage() {
   return (
     <div className="space-y-6">
       <div>
-<<<<<<< HEAD
         <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Business Intelligence</span>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Platform Analytics & Growth Reports</h1>
-=======
-        <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">Business Intelligence</span>
-        <h1 className="text-2xl font-extrabold text-slate-900">Platform Analytics & Growth Reports</h1>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <p className="text-xs text-slate-500 mt-0.5">
           Illustrative platform metrics for clinic registrations, 14-day trial-to-paid conversions, and specialty adoption.
         </p>

@@ -4,7 +4,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { AuthLayout } from './AuthLayout';
 import { Button } from '../../components/ui/Button';
 import {
-<<<<<<< HEAD
   UserCheck,
   Lock,
   Mail,
@@ -16,14 +15,6 @@ import {
   Clock,
   Users,
   ShieldCheck
-=======
-  Lock,
-  Mail,
-  AlertCircle,
-  ArrowRight,
-  Eye,
-  EyeOff
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 } from 'lucide-react';
 
 export function ReceptionistLoginPage() {
@@ -220,7 +211,4 @@ export function ReceptionistLoginPage() {
     </AuthLayout>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

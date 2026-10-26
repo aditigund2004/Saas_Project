@@ -4,7 +4,6 @@ import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
-<<<<<<< HEAD
 import {
   Search,
   Building2,
@@ -30,21 +29,11 @@ import { Link } from 'react-router-dom';
 
 export function PlatformClinicsPage() {
   const { clinics, setClinics, setDoctors, showToast } = useApp();
-=======
-import { Search, Building2, ShieldAlert, CheckCircle2, PauseCircle, PlayCircle, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-
-export function PlatformClinicsPage() {
-  const { clinics, setClinics, showToast } = useApp();
-  const { updateTenantApproval } = useAuth();
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [statusModal, setStatusModal] = useState({ isOpen: false, clinic: null, targetStatus: '' });
 
-<<<<<<< HEAD
   // Provision New Clinic Modal State
   const [isProvisionModalOpen, setIsProvisionModalOpen] = useState(false);
 
@@ -249,13 +238,10 @@ export function PlatformClinicsPage() {
     setSearchQuery('');
   };
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const filteredClinics = clinics.filter((c) => {
     const matchesSearch =
       c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       c.ownerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-<<<<<<< HEAD
       c.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
       c.specialty.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === 'All' || c.status === statusFilter;
@@ -272,49 +258,6 @@ export function PlatformClinicsPage() {
     setClinics(updated);
     localStorage.setItem('clinipulse_clinics', JSON.stringify(updated));
 
-=======
-      c.city.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === 'All' ||
-      (statusFilter === 'Rejected'
-        ? c.approvalStatus === 'Rejected'
-        : statusFilter === 'Pending'
-          ? c.approvalStatus === 'Pending' || c.status === 'Pending'
-          : c.status === statusFilter);
-    return matchesSearch && matchesStatus;
-  });
-
-  const handleTenantApproval = (clinic, approvalStatus) => {
-    const updated = updateTenantApproval(clinic.id, approvalStatus);
-    if (!updated) {
-      showToast(`Could not update the administrator account for ${clinic.name}.`, 'error');
-      return;
-    }
-
-    const status = approvalStatus === 'Approved' ? 'Trial' : 'Suspended';
-    setClinics((prev) =>
-      prev.map((currentClinic) =>
-        currentClinic.id === clinic.id
-          ? { ...currentClinic, approvalStatus, status }
-          : currentClinic
-      )
-    );
-    showToast(
-      approvalStatus === 'Approved'
-        ? `${clinic.name} approved. Its administrator can now sign in.`
-        : `${clinic.name} registration rejected.`
-    );
-  };
-
-  const handleStatusChangeConfirm = () => {
-    if (!statusModal.clinic || !statusModal.targetStatus) return;
-
-    setClinics((prev) =>
-      prev.map((c) =>
-        c.id === statusModal.clinic.id ? { ...c, status: statusModal.targetStatus } : c
-      )
-    );
-
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     showToast(`Clinic ${statusModal.clinic.name} updated to ${statusModal.targetStatus}`);
     setStatusModal({ isOpen: false, clinic: null, targetStatus: '' });
   };
@@ -324,19 +267,13 @@ export function PlatformClinicsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Tenant Directory</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Clinic Tenant Management</h1>
-=======
-          <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">Tenant Directory</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">Clinic Tenant Management</h1>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <p className="text-xs text-slate-500 mt-0.5">
             Supervise all multi-tenant healthcare clinics, active trials, branch allocations, and operational statuses.
           </p>
         </div>
 
-<<<<<<< HEAD
         {/* Action Button: Opens In-App Clinic Registration Modal */}
         <div className="flex items-center gap-2">
           <Button
@@ -353,13 +290,6 @@ export function PlatformClinicsPage() {
             <span>+ Provision New Clinic</span>
           </Button>
         </div>
-=======
-        <Link to="/register">
-          <Button variant="primary" size="sm">
-            + Provision New Clinic
-          </Button>
-        </Link>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       </div>
 
       {/* Filters and Search */}
@@ -371,11 +301,7 @@ export function PlatformClinicsPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-<<<<<<< HEAD
               placeholder="Search clinic by name, owner doctor, specialty, or city..."
-=======
-              placeholder="Search clinic by name, owner doctor, or city..."
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
@@ -384,18 +310,10 @@ export function PlatformClinicsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-<<<<<<< HEAD
               aria-label="Filter by clinic account status"
               className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-slate-700 font-medium"
             >
               <option value="All">All Statuses ({clinics.length})</option>
-=======
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-slate-700 font-medium"
-            >
-              <option value="All">All Statuses</option>
-              <option value="Pending">Pending Approval</option>
-              <option value="Rejected">Rejected Applications</option>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               <option value="Active">Active Accounts</option>
               <option value="Trial">14-Day Free Trials</option>
               <option value="Suspended">Suspended</option>
@@ -428,24 +346,16 @@ export function PlatformClinicsPage() {
                     <div className="text-[10px] text-slate-400">{c.city} · {c.address}</div>
                   </td>
                   <td className="p-3.5">
-<<<<<<< HEAD
                     <span className="font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded text-[11px]">
                       {c.specialty}
                     </span>
-=======
-                    <span className="font-medium text-slate-700">{c.specialty}</span>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   </td>
                   <td className="p-3.5">
                     <div className="font-medium text-slate-800">{c.ownerName}</div>
                     <div className="text-[10px] text-slate-400">{c.email}</div>
                   </td>
                   <td className="p-3.5 font-semibold text-slate-700">
-<<<<<<< HEAD
                     {c.branches?.length || 1}
-=======
-                    {c.branches.length}
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   </td>
                   <td className="p-3.5">
                     <span className="uppercase text-[10px] font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
@@ -456,13 +366,7 @@ export function PlatformClinicsPage() {
                     {c.isTrial ? '14 Days Demo' : 'Subscribed'}
                   </td>
                   <td className="p-3.5">
-<<<<<<< HEAD
                     <Badge variant={c.status}>{c.status}</Badge>
-=======
-                    <Badge variant={c.approvalStatus || c.status}>
-                      {c.approvalStatus === 'Pending' ? 'Pending Approval' : c.approvalStatus || c.status}
-                    </Badge>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   </td>
                   <td className="p-3.5 text-right">
                     <div className="flex items-center justify-end gap-1.5">
@@ -474,31 +378,7 @@ export function PlatformClinicsPage() {
                         Details
                       </Button>
 
-<<<<<<< HEAD
                       {c.status === 'Active' ? (
-=======
-                      {c.approvalStatus === 'Pending' || c.status === 'Pending' ? (
-                        <>
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            onClick={() => handleTenantApproval(c, 'Approved')}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-rose-600 hover:bg-rose-50 border-rose-200"
-                            onClick={() => handleTenantApproval(c, 'Rejected')}
-                          >
-                            Reject
-                          </Button>
-                        </>
-                      ) : c.approvalStatus === 'Rejected' ? (
-                        <span className="text-[11px] font-semibold text-rose-700">Rejected</span>
-                      ) : c.status === 'Active' ? (
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                         <Button
                           variant="outline"
                           size="sm"
@@ -525,7 +405,6 @@ export function PlatformClinicsPage() {
                   </td>
                 </tr>
               ))}
-<<<<<<< HEAD
 
               {filteredClinics.length === 0 && (
                 <tr>
@@ -534,14 +413,11 @@ export function PlatformClinicsPage() {
                   </td>
                 </tr>
               )}
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             </tbody>
           </table>
         </div>
       </Card>
 
-<<<<<<< HEAD
       {/* MODAL: PROVISION & REGISTER NEW CLINIC */}
       {isProvisionModalOpen && (
         <Modal
@@ -849,8 +725,6 @@ export function PlatformClinicsPage() {
         </Modal>
       )}
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       {/* Clinic Details Drawer / Modal */}
       {selectedClinic && (
         <Modal
@@ -880,15 +754,9 @@ export function PlatformClinicsPage() {
             </div>
 
             <div>
-<<<<<<< HEAD
               <h4 className="font-bold text-slate-900 mb-2">Configured Branches ({selectedClinic.branches?.length || 1})</h4>
               <div className="space-y-2">
                 {selectedClinic.branches?.map((b) => (
-=======
-              <h4 className="font-bold text-slate-900 mb-2">Configured Branches ({selectedClinic.branches.length})</h4>
-              <div className="space-y-2">
-                {selectedClinic.branches.map((b) => (
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                   <div key={b.id} className="p-3 rounded-lg border border-slate-200 flex items-center justify-between">
                     <div>
                       <p className="font-semibold text-slate-800">{b.name} ({b.code})</p>

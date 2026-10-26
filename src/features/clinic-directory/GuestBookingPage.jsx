@@ -22,19 +22,8 @@ import {
 export function GuestBookingPage() {
   const [searchParams] = useSearchParams();
   const { clinics, doctors, appointments, createAppointment, openWhatsAppModal, showToast } = useApp();
-<<<<<<< HEAD
 
   const initialClinicId = searchParams.get('clinic') || clinics[0].id;
-=======
-  const publicClinics = clinics.filter(
-    (clinic) =>
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected' &&
-      clinic.status !== 'Pending'
-  );
-
-  const initialClinicId = searchParams.get('clinic') || publicClinics[0].id;
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const initialDoctorId = searchParams.get('doctor') || '';
   const initialServiceId = searchParams.get('service') || '';
 
@@ -51,11 +40,7 @@ export function GuestBookingPage() {
   const [notes, setNotes] = useState('');
   const [completedAppointment, setCompletedAppointment] = useState(null);
 
-<<<<<<< HEAD
   const selectedClinic = clinics.find((c) => c.id === selectedClinicId) || clinics[0];
-=======
-  const selectedClinic = publicClinics.find((c) => c.id === selectedClinicId) || publicClinics[0];
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const availableBranches = selectedClinic.branches;
   const currentBranch = availableBranches.find((b) => b.id === selectedBranchId) || availableBranches[0];
 
@@ -161,11 +146,7 @@ export function GuestBookingPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<<<<<<< HEAD
             {clinics.map((c) => (
-=======
-            {publicClinics.map((c) => (
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
               <div
                 key={c.id}
                 onClick={() => {
@@ -540,7 +521,4 @@ export function GuestBookingPage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

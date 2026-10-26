@@ -4,10 +4,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
-<<<<<<< HEAD
-=======
-import { ThemeToggle } from '../../components/ui/ThemeToggle';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import {
   Activity,
   CheckCircle2,
@@ -49,10 +45,6 @@ export function PatientOnboardingPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] py-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between">
-<<<<<<< HEAD
-=======
-      <ThemeToggle className="fixed right-4 top-4 z-[100] bg-white" />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       {/* Top Header */}
       <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200">
         <Link to="/" className="flex items-center gap-2.5">
@@ -337,7 +329,4 @@ export function PatientOnboardingPage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

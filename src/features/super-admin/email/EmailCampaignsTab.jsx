@@ -1,0 +1,237 @@
+import React, { useState } from 'react';
+import { Card } from '../../../components/ui/Card';
+import { Button } from '../../../components/ui/Button';
+import { Badge } from '../../../components/ui/Badge';
+import { Modal } from '../../../components/ui/Modal';
+import {
+  Plus,
+  Send,
+  Eye,
+  Edit2,
+  CheckCircle2,
+  Sparkles
+} from 'lucide-react';
+
+export function EmailCampaignsTab({
+  campaigns,
+  templates,
+  clinics,
+  plans,
+  onOpenCreate,
+  onOpenEdit,
+  onOpenPreview,
+  onExecuteSimulation
+}) {
+  const [confirmingExecution, setConfirmingExecution] = useState(null);
+
+  return (
+    <div className="space-y-5">
+      {/* Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 className="text-sm font-bold text-slate-900">
+            Product Feature Announcement Campaigns
+          </h3>
+          <p className="text-xs text-slate-500">
+            Design targeted feature announcements, preview templates, and simulate broadcast releases across clinics.
+          </p>
+        </div>
+
+        <Button
+          variant="primary"
+          size="sm"
+          icon={Plus}
+          onClick={onOpenCreate}
+          className="shadow-xs font-semibold shrink-0"
+        >
+          + Create Announcement Campaign
+        </Button>
+      </div>
+
+      {/* Campaigns Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {campaigns.map((cmp) => {
+          const tpl = templates.find((t) => t.id === cmp.selectedTemplateId);
+          const isCompleted = cmp.status === 'completed';
+          const isDraft = cmp.status === 'draft';
+
+          return (
+            <Card
+              key={cmp.id}
+              className="p-5 border-slate-200/90 flex flex-col justify-between space-y-4 shadow-2xs hover:border-slate-300 transition-all"
+            >
+              <div className="space-y-3">
+                {/* Header: Title & Status */}
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <h4 className="text-base font-bold text-slate-900 tracking-tight">
+                      {cmp.name}
+                    </h4>
+                    <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 inline-block mt-1">
+                      Announcing: {cmp.featureName}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shrink-0 ${
+                      isCompleted
+                        ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                        : 'bg-amber-50 text-amber-800 border border-amber-200'
+                    }`}
+                  >
+                    {cmp.status}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  {cmp.featureDescription}
+                </p>
+
+                {/* Audience & Target Scope */}
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2 text-xs">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="font-semibold text-slate-500">Audience Targeting:</span>
+                    <span className="font-bold text-slate-800 capitalize">
+                      {cmp.targetAudience.type === 'all'
+                        ? 'All Clinics'
+                        : cmp.targetAudience.type === 'plans'
+                        ? `Plans (${cmp.targetAudience.planIds.join(', ')})`
+                        : `Selected Clinics (${cmp.targetAudience.clinicIds.length})`}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="font-semibold text-slate-500">Target Recipient Count:</span>
+                    <span className="font-mono font-bold text-slate-900">
+                      {cmp.simulatedRecipientCount || clinics.length} Clinic(s)
+                    </span>
+                  </div>
+
+                  {isCompleted && (
+                    <div className="flex items-center justify-between text-[11px] text-emerald-800 font-semibold pt-1 border-t border-slate-200/60">
+                      <span>Simulated Dispatched:</span>
+                      <span className="font-mono font-bold text-emerald-700">
+                        {cmp.totalSimulatedDelivered || cmp.simulatedRecipientCount} Delivered
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Key Benefits */}
+                {cmp.keyBenefits?.length > 0 && (
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      Highlighted Value Points
+                    </span>
+                    <ul className="text-xs text-slate-600 space-y-0.5">
+                      {cmp.keyBenefits.slice(0, 2).map((b, i) => (
+                        <li key={i} className="flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                          <span className="truncate">{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {/* Card Footer: Actions */}
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1">
+                  {tpl && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      icon={Eye}
+                      onClick={() => onOpenPreview(tpl, { feature_name: cmp.featureName, feature_description: cmp.featureDescription })}
+                      className="text-xs"
+                    >
+                      Preview Email
+                    </Button>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    icon={Edit2}
+                    onClick={() => onOpenEdit(cmp)}
+                    className="text-xs"
+                  >
+                    Edit
+                  </Button>
+                </div>
+
+                {!isCompleted ? (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    icon={Send}
+                    onClick={() => setConfirmingExecution(cmp)}
+                    className="font-semibold"
+                  >
+                    Execute Simulation
+                  </Button>
+                ) : (
+                  <span className="text-[11px] font-semibold text-emerald-700 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    Broadcast Simulation Complete
+                  </span>
+                )}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Explicit Confirmation Dialog before Simulated Execution */}
+      {confirmingExecution && (
+        <Modal
+          isOpen={Boolean(confirmingExecution)}
+          onClose={() => setConfirmingExecution(null)}
+          title="Confirm Campaign Simulation"
+          size="md"
+        >
+          <div className="space-y-4 text-xs">
+            <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-950 space-y-2">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-blue-600 shrink-0" />
+                <span className="font-bold text-sm">
+                  Simulate Broadcast: {confirmingExecution.name}
+                </span>
+              </div>
+              <p className="text-slate-700 leading-relaxed">
+                You are about to simulate sending this feature announcement email for{' '}
+                <strong>{confirmingExecution.featureName}</strong> to{' '}
+                <strong>{confirmingExecution.simulatedRecipientCount || clinics.length} eligible clinic recipient(s)</strong>.
+              </p>
+              <p className="text-[11px] text-slate-500">
+                This will generate simulated activity log records, populate dynamic hospital variables, and mark the campaign as completed in the prototype.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setConfirmingExecution(null)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                icon={Send}
+                onClick={() => {
+                  onExecuteSimulation(confirmingExecution.id);
+                  setConfirmingExecution(null);
+                }}
+              >
+                Confirm & Run Simulation
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+    </div>
+  );
+}

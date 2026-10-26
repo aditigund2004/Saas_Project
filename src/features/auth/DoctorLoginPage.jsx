@@ -4,25 +4,18 @@ import { useAuth } from '../../hooks/useAuth';
 import { AuthLayout } from './AuthLayout';
 import { Button } from '../../components/ui/Button';
 import {
-<<<<<<< HEAD
   Stethoscope,
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   Lock,
   Mail,
   Building2,
   AlertCircle,
   ArrowRight,
   Eye,
-<<<<<<< HEAD
   EyeOff,
   CheckCircle2,
   ChevronRight,
   ShieldCheck,
   Sparkles
-=======
-  EyeOff
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 } from 'lucide-react';
 
 export function DoctorLoginPage() {
@@ -286,11 +279,16 @@ export function DoctorLoginPage() {
           </Button>
 
           {/* Public Signup Disclaimer */}
-          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1">
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1.5">
             <span className="font-bold text-slate-800 block">Staff Account Policy:</span>
             <span>
               Doctor and clinician accounts cannot be created via public registration. Privileged credentials are provisioned exclusively through clinic administration.
             </span>
+            <div className="pt-0.5">
+              <Link to="/register/clinic" className="text-blue-700 font-bold hover:underline inline-flex items-center gap-1">
+                Setting up a new clinic? Register Clinic Practice &rarr;
+              </Link>
+            </div>
           </div>
 
           {/* Navigation Links */}
@@ -304,7 +302,4 @@ export function DoctorLoginPage() {
     </AuthLayout>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -119,13 +119,13 @@ export function FAQPage() {
           Start your 14-day fully featured free trial or explore the interactive prototype across 8 roles.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <Link to="/register">
-            <Button variant="primary" size="md" className="bg-blue-500 hover:bg-blue-600 text-white font-bold">
+          <Link to="/register/clinic">
+            <Button variant="primary" size="md">
               Start 14-Day Free Trial <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
           </Link>
           <Link to="/clinic/dashboard">
-            <Button variant="secondary" size="md" className="bg-white/10 hover:bg-white/20 text-white border-white/20">
+            <Button variant="outline-white" size="md">
               Explore Clinic Demo
             </Button>
           </Link>

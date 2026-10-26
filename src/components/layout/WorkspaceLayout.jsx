@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-<<<<<<< HEAD
-import { WorkspaceHeader } from './WorkspaceHeader';
-import { WorkspaceSidebar } from './WorkspaceSidebar';
-import { PrescriptionModal } from './PrescriptionModal';
-=======
-import { DemoRoleBar } from './DemoRoleBar';
 import { WorkspaceHeader } from './WorkspaceHeader';
 import { WorkspaceSidebar } from './WorkspaceSidebar';
 import { WhatsAppModal } from './WhatsAppModal';
 import { PrescriptionModal } from './PrescriptionModal';
 import { AIPreviewAssistant } from '../ui/AIPreviewAssistant';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { ToastContainer } from '../ui/DemoNotice';
 import { useApp } from '../../context/AppContext';
 
@@ -20,12 +13,7 @@ export function WorkspaceLayout() {
   const { toast } = useApp();
 
   return (
-<<<<<<< HEAD
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col">
-=======
-    <div className="workspace-layout min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col">
-      <DemoRoleBar />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       <div className="flex-1 flex">
         <WorkspaceSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="flex-1 lg:pl-64 flex flex-col min-w-0">
@@ -35,13 +23,9 @@ export function WorkspaceLayout() {
           </main>
         </div>
       </div>
-<<<<<<< HEAD
-      <PrescriptionModal />
-=======
       <WhatsAppModal />
       <PrescriptionModal />
       <AIPreviewAssistant />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       <ToastContainer toast={toast} />
     </div>
   );

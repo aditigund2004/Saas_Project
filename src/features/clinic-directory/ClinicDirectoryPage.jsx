@@ -27,15 +27,7 @@ export function ClinicDirectoryPage() {
   ];
   const cities = ['All', 'Mumbai', 'Bengaluru', 'Pune'];
 
-<<<<<<< HEAD
   const filteredClinics = clinics.filter((c) => {
-=======
-  const filteredClinics = clinics.filter((c) =>
-    c.approvalStatus !== 'Pending' &&
-    c.approvalStatus !== 'Rejected' &&
-    c.status !== 'Pending'
-  ).filter((c) => {
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     const q = searchQuery.toLowerCase();
     const matchesSearch =
       c.name.toLowerCase().includes(q) ||
@@ -199,7 +191,4 @@ export function ClinicDirectoryPage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

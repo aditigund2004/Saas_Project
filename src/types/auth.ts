@@ -27,10 +27,6 @@ export interface DemoUser {
   bloodGroup?: string;
   emergencyContact?: string;
   allergies?: string;
-<<<<<<< HEAD
-=======
-  tenantApprovalStatus?: 'Pending' | 'Approved' | 'Rejected';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   createdAt: string;
 }
 
@@ -53,21 +49,6 @@ export interface RegistrationForm {
   preferredCommunication?: 'whatsapp' | 'sms' | 'email';
 }
 
-<<<<<<< HEAD
-=======
-export interface TenantRegistrationForm {
-  clinicName: string;
-  ownerName: string;
-  specialty: string;
-  email: string;
-  phone: string;
-  city: string;
-  doctorCount: number;
-  branchCount: number;
-  planId: string;
-}
-
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 export interface LoginForm {
   identifier: string; // email or phone
   password: string;
@@ -90,7 +71,4 @@ export interface StaffInvitation {
   invitedAt: string;
   status: 'Pending' | 'Accepted' | 'Expired' | 'Cancelled';
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

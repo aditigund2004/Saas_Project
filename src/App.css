@@ -3,10 +3,7 @@ svg {
   height: 18px;
   flex: 0 0 auto;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 h1,
 h2,
 h3,
@@ -3347,11 +3344,7 @@ h3 {
   position: fixed;
   z-index: 2100;
   right: 25px;
-<<<<<<< HEAD
-  top: 25px;
-=======
   bottom: 22px;
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   display: flex;
   align-items: center;
   gap: 10px;
@@ -3370,11 +3363,7 @@ h3 {
 
 @keyframes toast-in {
   from {
-<<<<<<< HEAD
-    transform: translateY(-10px);
-=======
     transform: translateY(10px);
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     opacity: 0;
   }
 

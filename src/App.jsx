@@ -2,20 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
-<<<<<<< HEAD
-=======
-import { ThemeProvider } from './context/ThemeContext';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 // Layouts
 import { PublicLayout } from './components/layout/PublicLayout';
 import { WorkspaceLayout } from './components/layout/WorkspaceLayout';
-<<<<<<< HEAD
-import { DarkModeToggle } from './components/ui/DarkModeToggle';
-import { AIPreviewAssistant } from './components/ui/AIPreviewAssistant';
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 // Public Pages
 import { HomePage } from './features/public-website/HomePage';
@@ -60,10 +51,8 @@ import { PlatformMonitoringPage } from './features/super-admin/PlatformMonitorin
 import { PlatformReportsPage } from './features/super-admin/PlatformReportsPage';
 import { PlatformActivityPage } from './features/super-admin/PlatformActivityPage';
 import { PlatformSettingsPage } from './features/super-admin/PlatformSettingsPage';
-<<<<<<< HEAD
 import { PlatformRoleMatrixPage } from './features/super-admin/PlatformRoleMatrixPage';
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
+import { EmailManagementPage } from './features/super-admin/email/EmailManagementPage';
 
 // SaaS Corporate Finance Suite (Superadmin Only)
 import { SaaSFinanceOverviewPage } from './features/super-admin/finance/SaaSFinanceOverviewPage';
@@ -181,20 +170,10 @@ function NotFoundPage() {
 
 export default function App() {
   return (
-<<<<<<< HEAD
     <AuthProvider>
       <AppProvider>
         <BrowserRouter>
-          <DarkModeToggle />
-          <AIPreviewAssistant />
           <Routes>
-=======
-    <ThemeProvider>
-      <AuthProvider>
-        <AppProvider>
-          <BrowserRouter>
-            <Routes>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             {/* Public Marketing & Guest Routes */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePage />} />
@@ -253,10 +232,9 @@ export default function App() {
               <Route path="finance/expenses" element={<SaaSExpensesPage />} />
               <Route path="finance/reports" element={<SaaSReportsPage />} />
               <Route path="support" element={<PlatformSupportPage />} />
-<<<<<<< HEAD
               <Route path="role-matrix" element={<PlatformRoleMatrixPage />} />
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
+              <Route path="email" element={<EmailManagementPage />} />
+              <Route path="email/:tab" element={<EmailManagementPage />} />
               <Route path="platform" element={<PlatformMonitoringPage />} />
               <Route path="activity" element={<PlatformActivityPage />} />
               <Route path="settings" element={<PlatformSettingsPage />} />
@@ -391,18 +369,10 @@ export default function App() {
             <Route element={<PublicLayout />}>
               <Route path="*" element={<NotFoundPage />} />
             </Route>
-<<<<<<< HEAD
           </Routes>
         </BrowserRouter>
       </AppProvider>
     </AuthProvider>
-=======
-            </Routes>
-          </BrowserRouter>
-        </AppProvider>
-      </AuthProvider>
-    </ThemeProvider>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   );
 }
  

@@ -46,13 +46,8 @@ export function PlatformSubscriptionsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Revenue Operations</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Clinic SaaS Subscriptions</h1>
-=======
-          <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">Revenue Operations</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">Clinic SaaS Subscriptions</h1>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <p className="text-xs text-slate-500 mt-0.5">
             Monitor recurring plan billing cycles, trial conversions, and tier allocation simulations.
           </p>

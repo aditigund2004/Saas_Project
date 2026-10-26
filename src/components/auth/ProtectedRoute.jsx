@@ -1,11 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-<<<<<<< HEAD
-=======
-import { toAuthRole } from '../../services/roleMapping';
-import { HeartPulse, ShieldCheck } from 'lucide-react';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 export function ProtectedRoute({ allowedRoles, children }) {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -13,7 +8,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
 
   if (isLoading) {
     return (
-<<<<<<< HEAD
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-3">
           <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
@@ -22,30 +16,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
       </div>
     );
   }
-=======
-      <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-10">
-        <section
-          className="w-full max-w-sm rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm sm:p-10"
-          role="status"
-          aria-live="polite"
-        >
-          <span className="mx-auto mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-blue-50 text-blue-700">
-            <HeartPulse className="h-7 w-7" aria-hidden="true" />
-          </span>
-          <span className="mx-auto mb-4 block h-8 w-8 animate-spin rounded-full border-4 border-blue-100 border-t-blue-600 motion-reduce:animate-none" aria-hidden="true" />
-          <h1 className="text-lg font-bold tracking-tight text-slate-900">Getting your workspace ready</h1>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            We’re securely checking your account. This should only take a moment.
-          </p>
-          <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">
-            <ShieldCheck className="h-4 w-4 text-emerald-600" aria-hidden="true" />
-            Your account is protected
-          </span>
-        </section>
-      </main>
-    );
-  } 
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   // Not signed in: redirect to login with return path
   if (!isAuthenticated || !user) {
@@ -55,7 +25,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
 
   // Role validation
   if (allowedRoles && allowedRoles.length > 0) {
-<<<<<<< HEAD
     // Map between formats ('doctor_admin' vs 'clinic_admin', etc.)
     const normalizedUserRole = user.role;
     const isAllowed = allowedRoles.some((r) => {
@@ -68,9 +37,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
       if (r === 'superadmin' && normalizedUserRole === 'super_admin') return true;
       return false;
     });
-=======
-    const isAllowed = allowedRoles.some((role) => toAuthRole(role) === user.role);
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
     if (!isAllowed) {
       return (
@@ -84,7 +50,4 @@ export function ProtectedRoute({ allowedRoles, children }) {
 
   return children ? children : <Outlet />;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

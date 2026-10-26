@@ -20,16 +20,6 @@ import {
 export function PatientDoctorsPage() {
   const { doctors, clinics, formatCurrency } = useApp();
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
-  const publicClinics = clinics.filter(
-    (clinic) =>
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected' &&
-      clinic.status !== 'Pending'
-  );
-  const publicClinicIds = new Set(publicClinics.map((clinic) => clinic.id));
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const [searchTerm, setSearchTerm] = useState('');
   const [specialtyFilter, setSpecialtyFilter] = useState('All');
@@ -50,10 +40,6 @@ export function PatientDoctorsPage() {
   ];
 
   const filteredDoctors = doctors.filter((doc) => {
-<<<<<<< HEAD
-=======
-    if (!publicClinicIds.has(doc.clinicId)) return false;
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     const matchesSearch =
       doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       doc.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -136,11 +122,7 @@ export function PatientDoctorsPage() {
               className="text-xs border border-slate-200 rounded-lg px-2.5 py-2 bg-white text-slate-700 font-medium"
             >
               <option value="All">All 5 Clinics</option>
-<<<<<<< HEAD
               {clinics.map((c) => (
-=======
-              {publicClinics.map((c) => (
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
@@ -193,11 +175,7 @@ export function PatientDoctorsPage() {
       {/* Doctors Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filteredDoctors.map((doc) => {
-<<<<<<< HEAD
           const clinic = clinics.find((c) => c.id === doc.clinicId);
-=======
-          const clinic = publicClinics.find((c) => c.id === doc.clinicId);
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
           return (
             <Card key={doc.id} className="p-4 border-slate-200 hover:border-blue-300 transition-all shadow-xs flex flex-col justify-between">

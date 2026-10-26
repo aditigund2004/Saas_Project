@@ -22,15 +22,6 @@ import {
 export function PatientClinicsPage() {
   const { clinics, doctors } = useApp();
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
-  const publicClinics = clinics.filter(
-    (clinic) =>
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected' &&
-      clinic.status !== 'Pending'
-  );
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('All');
@@ -54,11 +45,7 @@ export function PatientClinicsPage() {
   // Cities
   const citiesList = ['All', 'Pune', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Navi Mumbai'];
 
-<<<<<<< HEAD
   const filteredClinics = clinics.filter((c) => {
-=======
-  const filteredClinics = publicClinics.filter((c) => {
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     const matchesSearch =
       c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -340,7 +327,4 @@ export function PatientClinicsPage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, ShieldCheck, Stethoscope, Clock, CheckCircle2, Building2, HelpCircle } from 'lucide-react';
-<<<<<<< HEAD
-=======
-import { ThemeToggle } from '../../components/ui/ThemeToggle';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
 export function AuthLayout({
   title,
@@ -19,12 +15,7 @@ export function AuthLayout({
   ]
 }) {
   return (
-<<<<<<< HEAD
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-between text-[#1E293B]">
-=======
-    <div className="auth-layout min-h-screen bg-[#F8FAFC] flex flex-col justify-between text-[#1E293B]">
-      <ThemeToggle className="auth-theme-toggle fixed right-4 top-12 z-[100] bg-white" />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
       {/* Top Banner / Disclaimer */}
       <div className="bg-blue-900 text-blue-100 text-[11px] py-1 px-4 text-center font-medium border-b border-blue-800 flex items-center justify-center gap-2">
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -143,7 +134,4 @@ export function AuthLayout({
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

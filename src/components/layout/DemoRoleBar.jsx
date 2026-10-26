@@ -1,9 +1,5 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-<<<<<<< HEAD
-=======
-import { useAuth } from '../../hooks/useAuth';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
   Sparkles,
@@ -16,12 +12,7 @@ import {
 } from 'lucide-react';
 
 export function DemoRoleBar() {
-<<<<<<< HEAD
   const { currentRole, switchRole, resetDemoData, activeClinic } = useApp();
-=======
-  const { currentRole, resetDemoData, activeClinic, showToast } = useApp();
-  const { loginAsDemoRole } = useAuth();
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -64,19 +55,9 @@ export function DemoRoleBar() {
     }
   ];
 
-<<<<<<< HEAD
   const handleRoleSelect = (roleId, path) => {
     switchRole(roleId);
     navigate(path);
-=======
-  const handleRoleSelect = async (roleId, path) => {
-    const result = await loginAsDemoRole(roleId);
-    if (result.success) {
-      navigate(path);
-    } else {
-      showToast(result.error || 'Could not switch demo account.', 'error');
-    }
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   };
 
   return (

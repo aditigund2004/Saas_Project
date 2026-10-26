@@ -1,22 +1,7 @@
-<<<<<<< HEAD
 import { DemoUser, LoginForm, RegistrationForm, StaffInvitation, UserRole } from '../types/auth';
 
 const STORAGE_KEY_SESSION = 'clinicos_auth_session';
 const STORAGE_KEY_REGISTERED_PATIENTS = 'clinicos_registered_patients';
-=======
-import {
-  DemoUser,
-  LoginForm,
-  RegistrationForm,
-  StaffInvitation,
-  TenantRegistrationForm,
-  UserRole
-} from '../types/auth';
-
-const STORAGE_KEY_SESSION = 'clinicos_auth_session';
-const STORAGE_KEY_REGISTERED_PATIENTS = 'clinicos_registered_patients';
-const STORAGE_KEY_REGISTERED_TENANTS = 'clinicos_registered_tenants';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 const STORAGE_KEY_INVITATIONS = 'clinicos_staff_invitations';
 
 // Seeded demonstration accounts across all 4 roles and 5 clinics
@@ -364,35 +349,10 @@ export class MockAuthService {
     }
   }
 
-<<<<<<< HEAD
   // Get all users (seeded + registered)
   static getAllUsers(): DemoUser[] {
     const registered = this.getRegisteredPatients();
     return [...SEEDED_DEMO_USERS, ...registered];
-=======
-  static getRegisteredTenants(): DemoUser[] {
-    try {
-      const data = localStorage.getItem(STORAGE_KEY_REGISTERED_TENANTS);
-      return data ? JSON.parse(data) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  static saveRegisteredTenants(users: DemoUser[]): void {
-    try {
-      localStorage.setItem(STORAGE_KEY_REGISTERED_TENANTS, JSON.stringify(users));
-    } catch {
-      // Storage unavailable fallback
-    }
-  }
-
-  // Get all users (seeded + registered)
-  static getAllUsers(): DemoUser[] {
-    const registered = this.getRegisteredPatients();
-    const tenantOwners = this.getRegisteredTenants();
-    return [...SEEDED_DEMO_USERS, ...registered, ...tenantOwners];
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   }
 
   // Find user by normalized email or phone
@@ -422,23 +382,6 @@ export class MockAuthService {
       };
     }
 
-<<<<<<< HEAD
-=======
-    if (user.tenantApprovalStatus === 'Pending') {
-      return {
-        success: false,
-        error: 'Your clinic registration is awaiting super-admin approval. You can sign in after it is approved.'
-      };
-    }
-
-    if (user.tenantApprovalStatus === 'Rejected') {
-      return {
-        success: false,
-        error: 'This clinic registration was not approved. Please contact ClinicOS support for assistance.'
-      };
-    }
-
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
     // Role check if logging in from a dedicated role portal
     if (form.role && user.role !== form.role) {
       const roleLabels: Record<UserRole, string> = {
@@ -476,64 +419,6 @@ export class MockAuthService {
     return { success: true, user: activeUser };
   }
 
-<<<<<<< HEAD
-=======
-  static async registerTenant(
-    form: TenantRegistrationForm
-  ): Promise<{ success: boolean; user?: DemoUser; error?: string }> {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const email = normalizeEmail(form.email);
-    if (this.findUserByIdentifier(email)) {
-      return {
-        success: false,
-        error: `An account with email "${email}" already exists. Use another email or sign in.`
-      };
-    }
-
-    const clinicId = `clinic-${form.clinicName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Date.now().toString().slice(-5)}`;
-    const branchId = `branch-${clinicId}-main`;
-    const user: DemoUser = {
-      id: `usr-tenant-admin-${Date.now().toString().slice(-6)}`,
-      name: form.ownerName.trim(),
-      email,
-      phone: form.phone.trim(),
-      role: 'doctor_admin',
-      memberships: [{
-        clinicId,
-        clinicName: form.clinicName.trim(),
-        branchId,
-        branchName: `${form.clinicName.trim()} (Main Branch)`,
-        roleInClinic: 'doctor_admin',
-        isPrimary: true
-      }],
-      activeClinicId: clinicId,
-      activeBranchId: branchId,
-      tenantApprovalStatus: 'Pending',
-      isDemoVerified: true,
-      createdAt: new Date().toISOString().slice(0, 10)
-    };
-
-    this.saveRegisteredTenants([...this.getRegisteredTenants(), user]);
-    return { success: true, user };
-  }
-
-  static updateTenantApproval(
-    clinicId: string,
-    status: 'Approved' | 'Rejected'
-  ): boolean {
-    const users = this.getRegisteredTenants();
-    let updated = false;
-    const nextUsers = users.map((user) => {
-      if (user.activeClinicId !== clinicId) return user;
-      updated = true;
-      return { ...user, tenantApprovalStatus: status };
-    });
-
-    if (updated) this.saveRegisteredTenants(nextUsers);
-    return updated;
-  }
-
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   // Simulate Patient Registration
   static async registerPatient(
     form: RegistrationForm
@@ -739,7 +624,4 @@ export class MockAuthService {
     this.saveStaffInvitations(updated);
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

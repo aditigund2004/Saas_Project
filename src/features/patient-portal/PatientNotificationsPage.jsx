@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-<<<<<<< HEAD
-=======
-import { useAuth } from '../../hooks/useAuth';
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import {
   Bell,
-<<<<<<< HEAD
   MessageSquare,
   Calendar,
   CreditCard,
@@ -17,28 +12,11 @@ import {
   Settings,
   Clock,
   Sparkles
-=======
-  CheckCircle2,
-  Settings,
-  Clock
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function PatientNotificationsPage() {
-<<<<<<< HEAD
   const { notifications: contextNotifications = [], markNotificationAsRead, clearAllNotifications, activeClinic, showToast } = useApp();
-=======
-  const {
-    notifications: contextNotifications = [],
-    markNotificationAsRead,
-    markAllNotificationsAsRead,
-    isNotificationForCurrentUser,
-    activeClinic,
-    showToast
-  } = useApp();
-  const { user } = useAuth();
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
 
   const [preferences, setPreferences] = useState({
     whatsapp: true,
@@ -55,7 +33,6 @@ export function PatientNotificationsPage() {
     });
   };
 
-<<<<<<< HEAD
   // Combine context notifications for patient with fallback demo notifications
   const patientContextNotifs = contextNotifications.filter(
     (n) => n.recipientRole === 'patient' || !n.recipientRole
@@ -90,15 +67,6 @@ export function PatientNotificationsPage() {
 
   const allNotifications = patientContextNotifs.length > 0 ? patientContextNotifs : fallbackNotifications;
 
-=======
-  const allNotifications = contextNotifications.filter(
-    (notification) =>
-      notification.recipientRole === 'patient' &&
-      notification.recipientUserId === user?.id &&
-      isNotificationForCurrentUser(notification)
-  );
-
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -116,12 +84,8 @@ export function PatientNotificationsPage() {
             variant="outline"
             size="sm"
             onClick={() => {
-<<<<<<< HEAD
               if (clearAllNotifications) clearAllNotifications();
               showToast('All notifications marked as read.');
-=======
-              markAllNotificationsAsRead();
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
             }}
           >
             Mark All Read
@@ -191,14 +155,6 @@ export function PatientNotificationsPage() {
               </Card>
             );
           })}
-<<<<<<< HEAD
-=======
-          {allNotifications.length === 0 && (
-            <Card className="p-8 text-center text-xs text-slate-500">
-              No notifications have been sent to this account yet.
-            </Card>
-          )}
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         </div>
 
         {/* Communication Preferences */}
@@ -260,7 +216,4 @@ export function PatientNotificationsPage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf

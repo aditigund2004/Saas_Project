@@ -20,13 +20,8 @@ export function PlatformBillingPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Platform Finance</span>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">SaaS Subscription Invoices</h1>
-=======
-          <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">Platform Finance</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">SaaS Subscription Invoices</h1>
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
           <p className="text-xs text-slate-500 mt-0.5">
             B2B subscription invoices issued to clinic organizations for CliniPulse platform usage.
           </p>
@@ -42,13 +37,8 @@ export function PlatformBillingPage() {
         </Button>
       </div>
 
-<<<<<<< HEAD
       <div className="p-3.5 rounded-xl bg-blue-50/80 border border-blue-200 text-xs text-blue-900 flex items-center gap-2">
         <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
-=======
-      <div className="p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-900 flex items-center gap-2">
-        <ShieldCheck className="w-4 h-4 text-purple-600 shrink-0" />
->>>>>>> 32abc5768414aa018e60e56ec54d0c0028fbb8bf
         <span>
           <strong>Tenant Separation Note:</strong> This ledger contains platform SaaS subscription fees paid by clinics to CliniPulse. It is strictly segregated from individual clinic patient procedure invoices.
         </span>

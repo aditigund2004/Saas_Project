@@ -3,86 +3,69 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import {
   Building2,
+  Users,
   CreditCard,
   Sparkles,
+  TrendingUp,
+  ShieldCheck,
   ArrowRight,
+  Layers,
   CheckCircle2,
-  Clock3
+  AlertCircle
 } from 'lucide-react';
 import { StatCard } from '../../components/ui/StatCard';
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  AreaChart,
+  Area,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar
+} from 'recharts';
+
 export function PlatformDashboardPage() {
   const { clinics, plans } = useApp();
-  const pendingClinics = clinics.filter(
-    (clinic) => clinic.approvalStatus === 'Pending' || clinic.status === 'Pending'
-  );
-  const trialClinics = clinics.filter(
-    (clinic) =>
-      (clinic.isTrial || clinic.status === 'Trial') &&
-      clinic.status !== 'Suspended' &&
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected'
-  );
-  const activeClinics = clinics.filter(
-    (clinic) =>
-      clinic.status === 'Active' &&
-      !clinic.isTrial &&
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected'
-  );
-  const monthlyRevenue = activeClinics.reduce((total, clinic) => {
-    const plan = plans.find((item) => item.id === clinic.subscriptionPlanId);
-    return total + (plan?.monthlyPrice || 0);
-  }, 0);
-  const planCounts = plans.map((plan) => ({
-    ...plan,
-    tenantCount: clinics.filter((clinic) => clinic.subscriptionPlanId === plan.id).length
-  }));
-  const recentClinics = [...clinics].reverse().slice(0, 5);
-  const getClinicStatus = (clinic) => {
-    if (clinic.approvalStatus === 'Pending' || clinic.status === 'Pending') return 'Pending';
-    if (clinic.approvalStatus === 'Rejected') return 'Rejected';
-    if (clinic.status === 'Suspended') return 'Suspended';
-    if (clinic.isTrial || clinic.status === 'Trial') return 'Trial';
-    return clinic.status || 'Unknown';
-  };
-  const sampleRevenueTrend = [
-    { month: 'May', mrr: 88000 },
-    { month: 'Jun', mrr: 104000 },
-    { month: 'Jul', mrr: 118000 },
-    { month: 'Aug', mrr: 129000 },
-    { month: 'Sep', mrr: 141000 },
-    { month: 'Oct', mrr: 153978 }
+
+  const mrrData = [
+    { month: 'May', mrr: 88000, clinics: 16 },
+    { month: 'Jun', mrr: 104000, clinics: 19 },
+    { month: 'Jul', mrr: 118000, clinics: 21 },
+    { month: 'Aug', mrr: 129000, clinics: 23 },
+    { month: 'Sep', mrr: 141000, clinics: 25 },
+    { month: 'Oct', mrr: 153978, clinics: 28 }
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">
-            SaaS administration
+            SaaS Platform Administration
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-            Platform overview
+            Platform Master Cockpit
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-500">
-            Monitor clinic tenants, review new applications, and manage plans from one workspace.
+          <p className="text-xs text-slate-500 mt-0.5">
+            Overview of multi-tenant clinic organizations, trial conversions, and platform revenue.
           </p>
         </div>
 
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <Link to="/superadmin/clinics">
-            <Button variant="outline" size="md" icon={Building2}>
-              View tenants
+        <div className="flex items-center gap-2">
+          <Link to="/platform/clinics">
+            <Button variant="outline" size="sm">
+              Manage Clinics
             </Button>
           </Link>
-          <Link to="/superadmin/plans">
-            <Button variant="primary" size="md" icon={Sparkles}>
-              Manage plans
+          <Link to="/platform/plans">
+            <Button variant="primary" size="sm">
+              Configure Plans
             </Button>
           </Link>
         </div>
@@ -91,90 +74,42 @@ export function PlatformDashboardPage() {
       {/* KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Total tenants"
-          value={clinics.length.toLocaleString('en-IN')}
-          change={`${pendingClinics.length} awaiting review`}
-          trend="neutral"
+          title="Total Registered Clinics"
+          value="28"
+          change="3 new this week"
+          trend="up"
           icon={Building2}
           color="indigo"
-          subtitle="Registered clinics and hospitals"
+          subtitle="Multi-tenant specialty clinics"
         />
         <StatCard
-          title="Pending applications"
-          value={pendingClinics.length.toLocaleString('en-IN')}
-          change={pendingClinics.length ? 'Review needed' : 'All caught up'}
-          trend="neutral"
-          icon={Clock3}
-          color="amber"
-          subtitle="Tenant requests awaiting approval"
-        />
-        <StatCard
-          title="Active trials"
-          value={trialClinics.length.toLocaleString('en-IN')}
-          change="Evaluation period"
-          trend="neutral"
+          title="Active 14-Day Trials"
+          value="4"
+          change="Conversion: 82%"
+          trend="up"
           icon={Sparkles}
           color="teal"
-          subtitle="Tenants exploring the platform"
+          subtitle="Clinics evaluating platform"
         />
         <StatCard
-          title="Monthly plan value"
-          value={`₹${monthlyRevenue.toLocaleString('en-IN')}`}
-          change={`${activeClinics.length} active paid tenants`}
-          trend="neutral"
+          title="Monthly Recurring Revenue"
+          value="₹1,53,978"
+          change="+18.4% vs last month"
+          trend="up"
           icon={CreditCard}
           color="emerald"
-          subtitle="Based on active tenants and current plans"
+          subtitle="SaaS subscription MRR"
+        />
+        <StatCard
+          title="Registered Platform Users"
+          value="1,420"
+          change="Doctors, Staff & Patients"
+          trend="up"
+          icon={Users}
+          color="blue"
+          subtitle="Across all clinic tenants"
         />
       </div>
-
-      <Card>
-        <CardHeader
-          title="Applications to review"
-          subtitle="Approve or reject tenant requests before granting workspace access."
-          action={
-            <Link to="/superadmin/clinics">
-              <Button variant="outline" size="sm">
-                Review tenants <ArrowRight className="ml-1 h-3.5 w-3.5" />
-              </Button>
-            </Link>
-          }
-        />
-        <CardContent>
-          {pendingClinics.length ? (
-            <div className="divide-y divide-slate-100">
-              {pendingClinics.slice(0, 5).map((clinic) => (
-                <div key={clinic.id} className="flex flex-col gap-2 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex min-w-0 items-center gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
-                      <Building2 className="h-4 w-4" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-semibold text-slate-900">{clinic.name}</span>
-                      <span className="block truncate text-xs text-slate-500">
-                        {clinic.ownerName || clinic.email || 'Contact details pending'}
-                        {clinic.city ? ` · ${clinic.city}` : ''}
-                      </span>
-                    </span>
-                  </div>
-                  <Badge variant="Pending">Needs review</Badge>
-                </div>
-              ))}
-              {pendingClinics.length > 5 && (
-                <p className="pt-3 text-xs text-slate-500">
-                  Showing 5 of {pendingClinics.length} applications. Open tenant management to review the rest.
-                </p>
-              )}
-            </div>
-          ) : (
-            <div className="rounded-xl border border-dashed border-slate-300 px-4 py-7 text-center">
-              <CheckCircle2 className="mx-auto h-7 w-7 text-emerald-600" />
-              <p className="mt-2 text-sm font-semibold text-slate-800">You’re all caught up</p>
-              <p className="mt-1 text-xs text-slate-500">New tenant applications will appear here.</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -182,13 +117,13 @@ export function PlatformDashboardPage() {
         <div className="lg:col-span-8">
           <Card>
             <CardHeader
-              title="Sample revenue trend"
-              subtitle="Illustrative monthly revenue data for the prototype; not connected to billing."
+              title="Platform Growth & Subscription Revenue"
+              subtitle="Monthly Recurring Revenue (INR) across the last 6 months"
             />
             <CardContent>
               <div className="h-72 w-full pt-4">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={sampleRevenueTrend}>
+                  <AreaChart data={mrrData}>
                     <defs>
                       <linearGradient id="mrrGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#0d9488" stopOpacity={0.25} />
@@ -226,32 +161,47 @@ export function PlatformDashboardPage() {
         <div className="lg:col-span-4">
           <Card className="h-full flex flex-col justify-between">
             <CardHeader
-              title="Plan overview"
-              subtitle="Tenant count based on current plan assignments."
-              action={
-                <Link to="/superadmin/plans">
-                  <Button variant="outline" size="sm">Manage plans</Button>
-                </Link>
-              }
+              title="Active Subscription Tiers"
+              subtitle="Clinic distribution across plans"
             />
-            <CardContent className="space-y-3">
-              {planCounts.map((plan) => (
-                <div key={plan.id} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 p-3">
-                  <div className="min-w-0">
-                    <span className="block truncate text-sm font-bold text-slate-900">{plan.name}</span>
-                    <span className="text-xs text-slate-500">₹{plan.monthlyPrice.toLocaleString('en-IN')} / month</span>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-blue-900">Professional Plan</span>
+                    <span className="block text-slate-500 text-[10px]">₹6,999/mo (Up to 10 Doctors)</span>
                   </div>
-                  <span className="shrink-0 rounded-full bg-blue-50 px-3 py-1 text-sm font-bold text-blue-800">
-                    {plan.tenantCount} {plan.tenantCount === 1 ? 'tenant' : 'tenants'}
-                  </span>
+                  <span className="text-base font-extrabold text-blue-800">14 Clinics</span>
                 </div>
-              ))}
-              {!planCounts.length && (
-                <p className="py-6 text-center text-sm text-slate-500">No subscription plans are configured yet.</p>
-              )}
-              <p className="border-t border-slate-100 pt-3 text-center text-xs text-slate-500">
-                Plan billing is separate from clinic patient invoices.
-              </p>
+
+                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-blue-900">Starter Plan</span>
+                    <span className="block text-slate-500 text-[10px]">₹2,499/mo (Up to 2 Doctors)</span>
+                  </div>
+                  <span className="text-base font-extrabold text-blue-800">8 Clinics</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-purple-900">Enterprise Plan</span>
+                    <span className="block text-slate-500 text-[10px]">₹14,999/mo (10-30 Bed Nursing Homes)</span>
+                  </div>
+                  <span className="text-base font-extrabold text-purple-800">4 Clinics</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-amber-900">Active 14-Day Free Trials</span>
+                    <span className="block text-slate-500 text-[10px]">In evaluation period</span>
+                  </div>
+                  <span className="text-base font-extrabold text-amber-800">4 Trials</span>
+                </div>
+              </div>
+
+              <div className="pt-2 text-[11px] text-slate-400 text-center">
+                Platform billing is separate from clinic patient invoices.
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -260,18 +210,18 @@ export function PlatformDashboardPage() {
       {/* Recent Clinics Roster Table */}
       <Card>
         <CardHeader
-          title="Recently added tenants"
-          subtitle={`Latest ${recentClinics.length} of ${clinics.length} registered clinics.`}
+          title="Registered Clinic Tenants"
+          subtitle="Showing active clinics, trial status, and owners"
           action={
-            <Link to="/superadmin/clinics">
+            <Link to="/platform/clinics">
               <Button variant="outline" size="sm">
-                View all tenants <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                View All Clinics <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>
             </Link>
           }
         />
         <div className="overflow-x-auto">
-          <table aria-label="Recently added clinic tenants" className="min-w-[680px] w-full text-left text-sm">
+          <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
               <tr>
                 <th className="p-3.5">Clinic Name & Code</th>
@@ -283,39 +233,32 @@ export function PlatformDashboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {recentClinics.map((c) => (
+              {clinics.map((c) => (
                 <tr key={c.id} className="hover:bg-slate-50/50">
                   <td className="p-3.5">
                     <div className="font-bold text-slate-900">{c.name}</div>
-                    <div className="text-[10px] text-slate-400 font-mono">{c.slug || 'No clinic code'}</div>
+                    <div className="text-[10px] text-slate-400 font-mono">{c.slug}</div>
                   </td>
                   <td className="p-3.5">
-                    <span className="font-medium text-slate-700">{c.specialty || 'Not specified'}</span>
+                    <span className="font-medium text-slate-700">{c.specialty}</span>
                   </td>
                   <td className="p-3.5">
-                    <div className="text-slate-800 font-medium">{c.ownerName || 'Not assigned'}</div>
-                    <div className="text-[10px] text-slate-400">{c.email || 'No email provided'}</div>
+                    <div className="text-slate-800 font-medium">{c.ownerName}</div>
+                    <div className="text-[10px] text-slate-400">{c.email}</div>
                   </td>
                   <td className="p-3.5 font-semibold text-slate-700">
-                    {c.branches?.length ?? 0} Branch{c.branches?.length === 1 ? '' : 'es'}
+                    {c.branches.length} Branch{c.branches.length > 1 ? 'es' : ''}
                   </td>
                   <td className="p-3.5">
                     <span className="uppercase text-[10px] font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                      {c.subscriptionPlanId || 'Unassigned'} {getClinicStatus(c) === 'Trial' ? '(Trial)' : ''}
+                      {c.subscriptionPlanId} {c.isTrial ? '(Trial)' : ''}
                     </span>
                   </td>
                   <td className="p-3.5">
-                    <Badge variant={getClinicStatus(c)}>{getClinicStatus(c)}</Badge>
+                    <Badge variant={c.status}>{c.status}</Badge>
                   </td>
                 </tr>
               ))}
-              {!clinics.length && (
-                <tr>
-                  <td colSpan="6" className="px-6 py-10 text-center text-sm text-slate-500">
-                    No tenants registered yet. Register a clinic to get started.
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>
@@ -323,3 +266,4 @@ export function PlatformDashboardPage() {
     </div>
   );
 }
+

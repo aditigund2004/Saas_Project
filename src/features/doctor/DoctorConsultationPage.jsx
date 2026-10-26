@@ -227,7 +227,7 @@ export function DoctorConsultationPage() {
       {/* Top Header & Navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
         <div className="flex items-center gap-3">
-          <Link to="/doctor/dashboard">
+          <Link to="/clinic/dashboard">
             <Button variant="secondary" size="sm" className="px-2">
               <ArrowLeft className="w-4 h-4" />
             </Button>

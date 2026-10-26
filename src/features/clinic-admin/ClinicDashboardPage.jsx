@@ -68,12 +68,12 @@ export function ClinicDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-7 w-full max-w-full">
       {/* Clinic Workspace Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">
               {activeClinic?.specialty} Practice Cockpit
             </span>
             <span className="text-xs text-slate-300">•</span>
@@ -82,7 +82,7 @@ export function ClinicDashboardPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             {activeClinic?.name}
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-sm text-slate-500 mt-1">
             Today: Friday, 23 October 2026 · <span className="tabular-nums">{todaysAppointments.length}</span> Appointments scheduled on current branch
           </p>
         </div>
@@ -151,7 +151,7 @@ export function ClinicDashboardPage() {
               title="Today's Patient Schedule & Queue"
               subtitle={`Active appointments at ${activeBranch?.name}`}
               action={
-                <Link to="/clinic/appointments" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/clinic/appointments" className="text-xs text-[#15803D] font-bold hover:underline">
                   View Full Calendar →
                 </Link>
               }
@@ -174,7 +174,7 @@ export function ClinicDashboardPage() {
                       <p className="text-slate-500">
                         🕒 <strong className="tabular-nums font-semibold">{apt.time}</strong> · {apt.serviceName}
                       </p>
-                      <p className="text-[11px] text-blue-700 font-medium">Doctor: {apt.doctorName}</p>
+                      <p className="text-[11px] text-[#166534] font-medium">Doctor: {apt.doctorName}</p>
                     </div>
 
                     <div className="flex items-center gap-1.5 shrink-0">
@@ -243,8 +243,8 @@ export function ClinicDashboardPage() {
                   <AreaChart data={weeklyTrend}>
                     <defs>
                       <linearGradient id="clinicRev" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2563EB" stopOpacity={0.25} />
-                        <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#15803D" stopOpacity={0.25} />
+                        <stop offset="95%" stopColor="#15803D" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -262,7 +262,7 @@ export function ClinicDashboardPage() {
                     <Area
                       type="monotone"
                       dataKey="revenue"
-                      stroke="#2563EB"
+                      stroke="#15803D"
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#clinicRev)"
@@ -275,7 +275,7 @@ export function ClinicDashboardPage() {
               <div className="pt-4 border-t border-slate-100 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-semibold text-slate-800">Latest Signed Prescriptions</span>
-                  <Link to="/clinic/prescriptions" className="text-blue-600 hover:underline">
+                  <Link to="/clinic/prescriptions" className="text-[#15803D] font-semibold hover:underline">
                     View All ({prescriptions.length})
                   </Link>
                 </div>

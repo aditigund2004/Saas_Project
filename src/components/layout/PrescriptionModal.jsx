@@ -27,7 +27,7 @@ export function PrescriptionModal() {
         {/* Actions bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 no-print">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-50 text-[#15803D] border border-blue-200">
               Ref: {rx.prescriptionNumber}
             </span>
             <span className="text-xs text-slate-500 font-mono">ID: {rx.verificationId}</span>
@@ -46,15 +46,15 @@ export function PrescriptionModal() {
         {/* Printable Prescription Document Area */}
         <div className="prescription-paper bg-white p-6 sm:p-8 rounded-2xl border border-slate-300 shadow-sm text-slate-900 font-sans">
           {/* Header */}
-          <div className="flex items-start justify-between pb-6 border-b-2 border-blue-700">
+          <div className="flex items-start justify-between pb-6 border-b-2 border-[#15803D]">
             <div>
               <h2 className="text-xl font-bold tracking-tight text-slate-900">{activeClinic.name}</h2>
-              <p className="text-xs font-medium text-blue-700">{activeClinic.tagline}</p>
+              <p className="text-xs font-medium text-[#15803D]">{activeClinic.tagline}</p>
               <p className="text-xs text-slate-500 mt-1 max-w-md">{activeClinic.address}, {activeClinic.city}</p>
               <p className="text-xs text-slate-500">Phone: {activeClinic.phone} · Reg. No: CLN-2024-MH-9912</p>
             </div>
             <div className="text-right">
-              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wider rounded border border-blue-200">
+              <span className="inline-block px-3 py-1 bg-[#F0FDF4] text-[#166534] text-xs font-bold uppercase tracking-wider rounded border border-[#DCFCE7]">
                 Official Prescription
               </span>
               <p className="text-xs font-mono text-slate-500 mt-1">Date: {rx.date}</p>
@@ -144,7 +144,7 @@ export function PrescriptionModal() {
                 <Link
                   to={`/verify-prescription/${rx.verificationId}`}
                   target="_blank"
-                  className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium text-xs no-print"
+                  className="inline-flex items-center gap-1 text-blue-600 hover:text-[#15803D] font-medium text-xs no-print"
                 >
                   Verify Portal Link <ExternalLink className="w-3 h-3" />
                 </Link>

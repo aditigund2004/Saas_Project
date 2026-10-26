@@ -40,12 +40,12 @@ export function ReceptionDashboardPage() {
   const pendingFollowUps = followUps.filter((f) => f.status === 'Pending');
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Front Desk Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[#15803D] uppercase tracking-wider">
               Front Desk Station
             </span>
             <span className="text-slate-300">•</span>
@@ -54,7 +54,7 @@ export function ReceptionDashboardPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-1">
             Reception Control Center
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm text-slate-500 mt-1">
             Speed-optimized for multi-clinic booking triage, slot availability verification, walk-ins, and doctor queue.
           </p>
         </div>
@@ -129,7 +129,7 @@ export function ReceptionDashboardPage() {
               title={`Waiting Room & Active Consultations (${waitingPatients.length + inProgress.length})`}
               subtitle="Patients currently at the clinic"
               action={
-                <Link to="/reception/walk-ins" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/reception/walk-ins" className="text-xs text-[#15803D] font-semibold hover:underline">
                   + Issue Token
                 </Link>
               }
@@ -144,7 +144,7 @@ export function ReceptionDashboardPage() {
                   {inProgress.map((apt) => (
                     <div
                       key={apt.id}
-                      className="p-3.5 rounded-xl border border-blue-200/90 bg-blue-50/40 flex items-center justify-between text-xs"
+                      className="p-3.5 rounded-xl border border-[#DCFCE7]/90 bg-[#F0FDF4]/40 flex items-center justify-between text-xs"
                     >
                       <div>
                         <div className="flex items-center gap-2">
@@ -168,12 +168,12 @@ export function ReceptionDashboardPage() {
                   {waitingPatients.map((apt) => (
                     <div
                       key={apt.id}
-                      className="p-3.5 rounded-xl border border-blue-200/80 bg-blue-50/20 flex items-center justify-between text-xs"
+                      className="p-3.5 rounded-xl border border-[#DCFCE7]/80 bg-[#F0FDF4]/20 flex items-center justify-between text-xs"
                     >
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-slate-900">{apt.patientName}</span>
-                          <span className="font-mono text-blue-800 font-semibold text-[11px] bg-blue-100 px-1.5 py-0.5 rounded tabular-nums">
+                          <span className="font-mono text-[#14532D] font-semibold text-[11px] bg-blue-100 px-1.5 py-0.5 rounded tabular-nums">
                             {apt.queueNumber || '#Q-02'}
                           </span>
                           <Badge variant="Checked In">Waiting</Badge>
@@ -201,7 +201,7 @@ export function ReceptionDashboardPage() {
               title={`Online Booking Requests (${pendingRequests.length})`}
               subtitle="Requires receptionist slot verification or alternative proposal"
               action={
-                <Link to="/reception/requests" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/reception/requests" className="text-xs text-[#15803D] font-semibold hover:underline">
                   Open Requests Workspace &rarr;
                 </Link>
               }
@@ -285,7 +285,7 @@ export function ReceptionDashboardPage() {
               title="Follow-Ups Due Today"
               subtitle="Proactive post-procedure reminders"
               action={
-                <Link to="/reception/follow-ups" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/reception/follow-ups" className="text-xs text-[#15803D] font-semibold hover:underline">
                   All ({followUps.length})
                 </Link>
               }
@@ -295,7 +295,7 @@ export function ReceptionDashboardPage() {
                 <div key={f.id} className="p-3 rounded-xl border border-slate-200/90 bg-white text-xs space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-slate-900">{f.patientName}</span>
-                    <span className="text-[10px] text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded border border-blue-200 tabular-nums">
+                    <span className="text-[10px] text-[#166534] font-semibold bg-[#F0FDF4] px-2 py-0.5 rounded border border-[#DCFCE7] tabular-nums">
                       Due: {f.dueDate}
                     </span>
                   </div>

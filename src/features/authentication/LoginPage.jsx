@@ -34,7 +34,7 @@ export function LoginPage() {
       desc: 'Vikramaditya Singhania (Platform Owner & SaaS Operations)',
       path: '/superadmin/dashboard',
       icon: ShieldCheck,
-      color: 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 hover:border-blue-300'
+      color: 'bg-[#F0FDF4] text-[#166534] border-[#DCFCE7] hover:bg-blue-100 hover:border-[#86efac]'
     },
     {
       id: 'clinic_admin',
@@ -42,7 +42,7 @@ export function LoginPage() {
       desc: 'Dr. Arvind Rao, MDS (Clinical Consultations & Clinic Admin)',
       path: '/clinic/dashboard',
       icon: Stethoscope,
-      color: 'bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-100 hover:border-blue-300'
+      color: 'bg-[#F0FDF4] text-[#14532D] border-[#DCFCE7] hover:bg-blue-100 hover:border-[#86efac]'
     },
     {
       id: 'receptionist',
@@ -84,11 +84,11 @@ export function LoginPage() {
       {/* Brand Header */}
       <div className="text-center space-y-2">
         <Link to="/" className="inline-flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-xl shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-[#15803D] text-white flex items-center justify-center font-black text-xl shadow-sm">
             <Activity className="w-6 h-6" />
           </div>
           <span className="text-2xl font-black tracking-tight text-slate-900">
-            Clinic<span className="text-blue-600">OS</span>
+            Clinic<span className="text-[#15803D]">OS</span>
           </span>
         </Link>
         <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
@@ -151,7 +151,7 @@ export function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#15803D] focus:outline-none"
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ export function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#15803D] focus:outline-none font-mono"
               />
             </div>
           </div>
@@ -176,7 +176,7 @@ export function LoginPage() {
 
         <div className="pt-2 text-center text-xs text-slate-500">
           Want to register a new clinic?{' '}
-          <Link to="/register" className="font-semibold text-blue-700 hover:underline">
+          <Link to="/register" className="font-semibold text-[#166534] hover:underline">
             Start Free Trial Onboarding
           </Link>
         </div>

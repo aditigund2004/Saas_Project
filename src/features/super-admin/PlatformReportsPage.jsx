@@ -35,7 +35,7 @@ export function PlatformReportsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Business Intelligence</span>
+        <span className="text-xs font-semibold text-[#15803D] uppercase tracking-wider">Business Intelligence</span>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Platform Analytics & Growth Reports</h1>
         <p className="text-xs text-slate-500 mt-0.5">
           Illustrative platform metrics for clinic registrations, 14-day trial-to-paid conversions, and specialty adoption.
@@ -107,7 +107,7 @@ export function PlatformReportsPage() {
             <div className="p-4 bg-blue-50/60 rounded-xl border border-blue-100 flex items-center justify-between text-xs">
               <div>
                 <p className="font-bold text-blue-900">Total Trial Signups (All-time)</p>
-                <p className="text-[11px] text-blue-700">Self-serve 14-day onboarding initiated</p>
+                <p className="text-[11px] text-[#166534]">Self-serve 14-day onboarding initiated</p>
               </div>
               <span className="text-xl font-extrabold text-blue-900">34 Clinics</span>
             </div>
@@ -115,7 +115,7 @@ export function PlatformReportsPage() {
             <div className="p-4 bg-blue-50/60 rounded-xl border border-blue-100 flex items-center justify-between text-xs">
               <div>
                 <p className="font-bold text-blue-900">Paid Plan Conversions</p>
-                <p className="text-[11px] text-blue-700">Converted within 14 days of free trial</p>
+                <p className="text-[11px] text-[#166534]">Converted within 14 days of free trial</p>
               </div>
               <span className="text-xl font-extrabold text-blue-900">28 Clinics (82%)</span>
             </div>

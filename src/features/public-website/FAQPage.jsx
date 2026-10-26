@@ -51,7 +51,7 @@ export function FAQPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 space-y-10">
       <div className="text-center space-y-3">
-        <span className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wide">
+        <span className="text-xs font-bold text-[#166534] bg-[#F0FDF4] px-3 py-1 rounded-full border border-[#DCFCE7] uppercase tracking-wide">
           Frequently Asked Questions
         </span>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
@@ -69,7 +69,7 @@ export function FAQPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search questions (e.g. multi-branch, WhatsApp, prescriptions)..."
-            className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 text-xs sm:text-sm bg-white shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 text-xs sm:text-sm bg-white shadow-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none"
           />
         </div>
       </div>
@@ -82,7 +82,7 @@ export function FAQPage() {
             <Card
               key={index}
               className={`p-5 transition-all border ${
-                isOpen ? 'border-blue-300 shadow-sm' : 'border-slate-200 hover:border-slate-300'
+                isOpen ? 'border-[#86efac] shadow-sm' : 'border-slate-200 hover:border-slate-300'
               }`}
             >
               <button
@@ -90,14 +90,14 @@ export function FAQPage() {
                 className="w-full text-left flex items-start justify-between gap-4 cursor-pointer"
               >
                 <div>
-                  <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider block mb-1">
+                  <span className="text-[10px] font-bold text-[#166534] uppercase tracking-wider block mb-1">
                     {faq.category}
                   </span>
                   <h3 className="font-bold text-sm sm:text-base text-slate-900">{faq.q}</h3>
                 </div>
                 <ChevronDown
                   className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${
-                    isOpen ? 'rotate-180 text-blue-600' : ''
+                    isOpen ? 'rotate-180 text-[#15803D]' : ''
                   }`}
                 />
               </button>

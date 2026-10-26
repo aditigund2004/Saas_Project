@@ -34,6 +34,11 @@ import {
   DEMO_NOTIFICATIONS
 } from '../demo-data';
 import { ROLE_PERMISSIONS } from '../types';
+import {
+  DEFAULT_FEATURE_CATALOG,
+  DEFAULT_USAGE_THRESHOLDS,
+  INITIAL_APPROVAL_REQUESTS
+} from '../services/subscriptionService.js';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
 
 const AppContext = createContext(null);
@@ -1701,6 +1706,11 @@ export function AppProvider({ children }) {
     );
   };
 
+  const markAllNotificationsAsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    showToast('All notifications marked as read.', 'success');
+  };
+
   const clearAllNotifications = () => {
     setNotifications([]);
     showToast('All notifications cleared.');
@@ -2031,6 +2041,12 @@ export function AppProvider({ children }) {
     localStorage.removeItem('clinipulse_currency');
     localStorage.removeItem('clinipulse_followups');
     localStorage.removeItem('clinipulse_notifications');
+    localStorage.removeItem('clinipulse_approval_requests');
+    localStorage.removeItem('clinipulse_feature_catalog');
+    localStorage.removeItem('clinipulse_threshold_configs');
+    setApprovalRequests(INITIAL_APPROVAL_REQUESTS);
+    setFeatureCatalog(DEFAULT_FEATURE_CATALOG);
+    setThresholdConfigs(DEFAULT_USAGE_THRESHOLDS);
     setClinics(DEMO_CLINICS);
     setPlans(DEMO_PLANS);
     setDoctors(DEMO_DOCTORS);
@@ -2135,6 +2151,7 @@ export function AppProvider({ children }) {
         notifications,
         addNotification,
         markNotificationAsRead,
+        markAllNotificationsAsRead,
         clearAllNotifications,
         prescriptions,
         createPrescription,

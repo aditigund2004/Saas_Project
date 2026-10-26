@@ -33,7 +33,7 @@ export function DoctorPatientsPage() {
           </p>
         </div>
 
-        <Link to="/doctor/consultation">
+        <Link to="/clinic/consultations">
           <Button variant="primary" size="sm">
             <Stethoscope className="w-3.5 h-3.5 mr-1" />
             New Clinical Encounter
@@ -112,7 +112,7 @@ export function DoctorPatientsPage() {
                         <Badge variant="success" size="sm">Active</Badge>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <Link to={`/doctor/consultation`}>
+                        <Link to={`/clinic/consultations`}>
                           <Button variant="secondary" size="sm" className="h-7 text-xs">
                             <Stethoscope className="w-3 h-3 mr-1 text-blue-600" />
                             Consult

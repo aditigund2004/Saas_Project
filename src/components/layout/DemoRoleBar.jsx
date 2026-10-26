@@ -64,8 +64,8 @@ export function DemoRoleBar() {
     <div className="bg-slate-950 text-white text-xs px-3 sm:px-4 py-2 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2.5 sticky top-0 z-50 shadow-md">
       {/* Left indicator */}
       <div className="flex items-center gap-2">
-        <span className="flex items-center gap-1.5 bg-blue-500/20 text-blue-300 font-bold px-2.5 py-0.5 rounded-full border border-blue-500/30 text-[11px]">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+        <span className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30 text-[11px]">
+          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
           DEMO MODE · 4 Roles
         </span>
         <span className="text-slate-400 hidden xl:inline text-[11px]">
@@ -79,7 +79,7 @@ export function DemoRoleBar() {
           to="/"
           className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-colors font-medium text-[11px] whitespace-nowrap ${
             isPublicRoute
-              ? 'bg-blue-600 text-white shadow-xs font-semibold'
+              ? 'bg-[#15803D] text-white shadow-xs font-semibold'
               : 'text-slate-300 hover:bg-slate-800 hover:text-white'
           }`}
         >
@@ -98,7 +98,7 @@ export function DemoRoleBar() {
               onClick={() => handleRoleSelect(r.id, r.path)}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-colors font-semibold text-[11px] whitespace-nowrap cursor-pointer ${
                 isActive
-                  ? 'bg-blue-600 text-white shadow-xs'
+                  ? 'bg-[#15803D] text-white shadow-xs'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
               title={`Switch to ${r.label} (${r.roleSubtitle})`}

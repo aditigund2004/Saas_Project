@@ -81,7 +81,7 @@ export function SolutionsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Tailored SaaS Workflows</span>
+        <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">Tailored SaaS Workflows</span>
         <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
           Specialty Solutions Designed Around Your Clinical Day
         </h1>
@@ -103,17 +103,17 @@ export function SolutionsPage() {
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F0FDF4] text-[#15803D] flex items-center justify-center">
                     <Icon className="w-6 h-6" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">{spec.title}</h2>
-                    <p className="text-sm text-blue-700 font-medium mt-1">{spec.subtitle}</p>
+                    <p className="text-sm text-[#166534] font-medium mt-1">{spec.subtitle}</p>
                   </div>
                   <div className="space-y-3 pt-2">
                     {spec.workflows.map((wf, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-[#15803D] shrink-0 mt-0.5" />
                         <span>{wf}</span>
                       </div>
                     ))}
@@ -138,7 +138,7 @@ export function SolutionsPage() {
                     <p className="font-bold text-slate-900 text-sm">{spec.sampleClinic}</p>
                     <p className="text-xs text-slate-500">Configured with preloaded service fees, doctors, and sample appointments in this demo.</p>
                     <div className="pt-2">
-                      <Link to="/clinic/dashboard" className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
+                      <Link to="/clinic/dashboard" className="text-xs font-semibold text-[#15803D] hover:underline flex items-center gap-1">
                         Open Admin Dashboard <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>

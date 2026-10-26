@@ -11,9 +11,9 @@ export function PublicLayout() {
   const { toast } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans antialiased">
+    <div className="min-h-screen flex flex-col bg-[#F5F8F6] text-[#17211B] font-sans antialiased w-full max-w-full overflow-x-clip">
       <PublicHeader />
-      <main className="flex-1">
+      <main className="flex-1 w-full overflow-x-clip">
         <Outlet />
       </main>
       <PublicFooter />

@@ -45,16 +45,16 @@ export function PatientDashboardPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-7 w-full max-w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">
             Patient Health Dashboard
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-0.5">
             Welcome back, {currentUser?.name || 'Aarav'}
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm text-slate-500 mt-1">
             Discover 5 specialized clinic networks, manage booking requests, and access tamper-evident digital prescriptions.
           </p>
         </div>
@@ -107,7 +107,7 @@ export function PatientDashboardPage() {
 
       {/* Pending Review Notice if any pending without proposal */}
       {actionRequiredProposals.length === 0 && pendingRequests.length > 0 && (
-        <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-xl flex items-center justify-between text-xs text-blue-900">
+        <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-xl flex items-center justify-between text-xs text-[#14532D]">
           <div className="flex items-center gap-2.5">
             <Clock className="w-4 h-4 text-blue-600 shrink-0" />
             <span>
@@ -160,7 +160,7 @@ export function PatientDashboardPage() {
               title="Upcoming Consultations"
               subtitle="Visits scheduled with your healthcare practitioners"
               action={
-                <Link to="/patient/appointments" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/patient/appointments" className="text-xs text-[#15803D] font-bold hover:underline">
                   View All ({myAppointments.length}) →
                 </Link>
               }
@@ -211,11 +211,11 @@ export function PatientDashboardPage() {
                 myPrescriptions.slice(0, 2).map((rx) => (
                   <div
                     key={rx.id}
-                    className="p-4 rounded-xl border border-blue-200/90 bg-blue-50/30 text-xs space-y-2"
+                    className="p-4 rounded-xl border border-[#DCFCE7] bg-[#F0FDF4] text-xs space-y-2"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono font-bold text-blue-900">{rx.prescriptionNumber}</span>
-                      <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-semibold text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded">
                         QR Verified
                       </span>
                     </div>
@@ -226,7 +226,7 @@ export function PatientDashboardPage() {
                       <Link
                         to={`/verify-prescription/${rx.verificationId}`}
                         target="_blank"
-                        className="text-[11px] text-blue-700 underline font-medium"
+                        className="text-[11px] text-[#15803D] underline font-semibold"
                       >
                         Verify Authenticity
                       </Link>

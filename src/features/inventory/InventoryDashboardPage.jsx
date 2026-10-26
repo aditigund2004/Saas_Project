@@ -57,7 +57,7 @@ export function InventoryDashboardPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link to="/inventory/catalog">
+          <Link to="/clinic/inventory">
             <Button variant="primary" size="sm">
               <Plus className="w-3.5 h-3.5 mr-1" />
               Manage Catalog & Stock
@@ -123,7 +123,7 @@ export function InventoryDashboardPage() {
               <AlertTriangle className="w-4 h-4 text-rose-600" />
               Low Stock & Reorder Requirements ({lowStockItems.length})
             </h3>
-            <Link to="/inventory/catalog" className="text-xs text-blue-700 hover:underline">
+            <Link to="/clinic/inventory" className="text-xs text-blue-700 hover:underline">
               Full Catalog
             </Link>
           </div>
@@ -167,7 +167,7 @@ export function InventoryDashboardPage() {
                 <ClipboardList className="w-4 h-4 text-indigo-600" />
                 Department Stock Requests ({pendingRequests.length})
               </h3>
-              <Link to="/inventory/requests" className="text-xs text-blue-700 hover:underline">
+              <Link to="/clinic/inventory/requests" className="text-xs text-blue-700 hover:underline">
                 Review Requests
               </Link>
             </div>
@@ -200,7 +200,7 @@ export function InventoryDashboardPage() {
               <ArrowRightLeft className="w-4 h-4 text-blue-600" />
               Recent Stock Movements Log
             </h3>
-            <Link to="/inventory/movements" className="text-xs text-blue-700 hover:underline">
+            <Link to="/clinic/inventory/movements" className="text-xs text-blue-700 hover:underline">
               Audit Trail
             </Link>
           </div>

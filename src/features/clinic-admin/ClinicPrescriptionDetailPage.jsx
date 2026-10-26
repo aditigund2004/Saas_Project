@@ -92,28 +92,30 @@ export function ClinicPrescriptionDetailPage() {
             <span className="text-xs font-bold text-slate-600 uppercase">Prescribed Medications</span>
           </div>
 
-          <table className="w-full text-left text-xs border border-slate-200 rounded-lg">
-            <thead className="bg-slate-50 text-slate-600 uppercase text-[10px] font-bold border-b border-slate-200">
-              <tr>
-                <th className="p-2.5">#</th>
-                <th className="p-2.5">Medication & Strength</th>
-                <th className="p-2.5">Dosage / Frequency</th>
-                <th className="p-2.5">Duration</th>
-                <th className="p-2.5">Instructions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {rx.medications?.map((m, i) => (
-                <tr key={m.id || i}>
-                  <td className="p-2.5 font-mono text-slate-400">{i + 1}</td>
-                  <td className="p-2.5 font-bold text-slate-900">{m.name}</td>
-                  <td className="p-2.5 text-slate-700 font-mono">{m.dosage} ({m.frequency})</td>
-                  <td className="p-2.5 text-slate-700">{m.duration}</td>
-                  <td className="p-2.5 text-slate-600 text-[11px]">{m.instructions}</td>
+          <div className="overflow-x-auto rounded-lg border border-slate-200">
+            <table className="w-full text-left text-xs min-w-[500px]">
+              <thead className="bg-slate-50 text-slate-600 uppercase text-[10px] font-bold border-b border-slate-200">
+                <tr>
+                  <th className="p-2.5">#</th>
+                  <th className="p-2.5">Medication & Strength</th>
+                  <th className="p-2.5">Dosage / Frequency</th>
+                  <th className="p-2.5">Duration</th>
+                  <th className="p-2.5">Instructions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {rx.medications?.map((m, i) => (
+                  <tr key={m.id || i}>
+                    <td className="p-2.5 font-mono text-slate-400">{i + 1}</td>
+                    <td className="p-2.5 font-bold text-slate-900">{m.name}</td>
+                    <td className="p-2.5 text-slate-700 font-mono">{m.dosage} ({m.frequency})</td>
+                    <td className="p-2.5 text-slate-700">{m.duration}</td>
+                    <td className="p-2.5 text-slate-600 text-[11px]">{m.instructions}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {rx.additionalInstructions && (

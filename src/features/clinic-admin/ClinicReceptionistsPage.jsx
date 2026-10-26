@@ -433,8 +433,8 @@ export function ClinicReceptionistsPage() {
       ) : (
         <>
           {/* Desktop Table */}
-          <div className="hidden lg:block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs">
-            <table className="w-full text-left text-xs text-slate-600">
+          <div className="hidden lg:block overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
+            <table className="w-full text-left text-xs text-slate-600 min-w-[700px]">
               <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold text-[11px]">
                 <tr>
                   <th className="px-4 py-3.5">Staff & Contact</th>

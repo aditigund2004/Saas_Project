@@ -94,12 +94,12 @@ export function DoctorLoginPage() {
       {/* Multi-Clinic Selection Modal / Screen (Section 6) */}
       {multipleClinicsUser ? (
         <div className="space-y-5 animate-in fade-in duration-200">
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl space-y-2">
-            <div className="flex items-center gap-2 text-blue-900 font-bold text-sm">
-              <Building2 className="w-4 h-4 text-blue-600" />
+          <div className="p-4 bg-[#F0FDF4] border border-[#DCFCE7] rounded-2xl space-y-2">
+            <div className="flex items-center gap-2 text-[#14532D] font-bold text-sm">
+              <Building2 className="w-4 h-4 text-[#15803D]" />
               <span>Multiple Clinic Affiliations Detected</span>
             </div>
-            <p className="text-xs text-blue-800 leading-relaxed">
+            <p className="text-xs text-[#14532D] leading-relaxed">
               Dr. {multipleClinicsUser.name} holds clinical consulting privileges at more than one facility. Select your active practice workspace for this session:
             </p>
           </div>
@@ -110,7 +110,7 @@ export function DoctorLoginPage() {
                 key={m.clinicId}
                 className={`flex items-center justify-between p-3.5 rounded-2xl border cursor-pointer transition-all ${
                   selectedClinicId === m.clinicId
-                    ? 'border-blue-600 bg-blue-50/50 shadow-xs ring-1 ring-blue-500'
+                    ? 'border-[#15803D] bg-[#F0FDF4]/50 shadow-xs ring-1 ring-[#15803D]'
                     : 'border-slate-200 hover:bg-slate-50'
                 }`}
               >
@@ -121,7 +121,7 @@ export function DoctorLoginPage() {
                     value={m.clinicId}
                     checked={selectedClinicId === m.clinicId}
                     onChange={() => setSelectedClinicId(m.clinicId)}
-                    className="text-blue-600 focus:ring-blue-500"
+                    className="text-[#15803D] focus:ring-[#15803D]"
                   />
                   <div>
                     <div className="font-bold text-xs text-slate-900">{m.clinicName}</div>
@@ -129,7 +129,7 @@ export function DoctorLoginPage() {
                   </div>
                 </div>
                 {m.isPrimary && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#DCFCE7] text-[#14532D]">
                     Primary
                   </span>
                 )}
@@ -141,7 +141,7 @@ export function DoctorLoginPage() {
             type="button"
             variant="primary"
             size="md"
-            className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold"
+            className="w-full justify-center bg-[#15803D] hover:bg-[#166534] text-white font-bold"
             onClick={handleClinicSelectionConfirm}
           >
             Launch Clinic Workspace <ArrowRight className="w-4 h-4 ml-1" />
@@ -175,7 +175,7 @@ export function DoctorLoginPage() {
                   if (error) setError('');
                 }}
                 placeholder="doctor@clinic.demo"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-[#15803D]" style={{ paddingLeft: '2.85rem' }}
                 required
               />
             </div>
@@ -189,7 +189,7 @@ export function DoctorLoginPage() {
               </label>
               <Link
                 to="/forgot-password"
-                className="text-[12px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+                className="text-[12px] font-semibold text-[#15803D] hover:text-[#14532D] hover:underline"
               >
                 Forgot password?
               </Link>
@@ -204,7 +204,7 @@ export function DoctorLoginPage() {
                   if (error) setError('');
                 }}
                 placeholder="••••••••••••"
-                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-[#15803D]" style={{ paddingLeft: '2.85rem', paddingRight: '2.85rem' }}
                 required
               />
               <button
@@ -226,7 +226,7 @@ export function DoctorLoginPage() {
               <button
                 type="button"
                 onClick={() => setEmail('aarav.mehta@citycare.demo')}
-                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-[#F0FDF4] hover:border-[#86efac] text-left truncate cursor-pointer"
               >
                 <span className="font-bold text-slate-800 block truncate">Dr. Aarav Mehta</span>
                 <span className="text-[10px] text-slate-500">CityCare Family</span>
@@ -234,7 +234,7 @@ export function DoctorLoginPage() {
               <button
                 type="button"
                 onClick={() => setEmail('rohan.deshmukh@heartwell.demo')}
-                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-[#F0FDF4] hover:border-[#86efac] text-left truncate cursor-pointer"
               >
                 <span className="font-bold text-slate-800 block truncate">Dr. Rohan Deshmukh</span>
                 <span className="text-[10px] text-slate-500">HeartWell Cardio</span>
@@ -242,7 +242,7 @@ export function DoctorLoginPage() {
               <button
                 type="button"
                 onClick={() => setEmail('isha.shah@brightsmile.demo')}
-                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-[#F0FDF4] hover:border-[#86efac] text-left truncate cursor-pointer"
               >
                 <span className="font-bold text-slate-800 block truncate">Dr. Isha Shah</span>
                 <span className="text-[10px] text-slate-500">BrightSmile Dental</span>
@@ -263,7 +263,7 @@ export function DoctorLoginPage() {
             type="submit"
             variant="primary"
             size="md"
-            className="w-full justify-center bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm py-2.5 shadow-sm mt-2"
+            className="w-full justify-center bg-[#15803D] hover:bg-[#166534] text-white font-bold text-sm py-2.5 shadow-sm mt-2"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -285,7 +285,7 @@ export function DoctorLoginPage() {
               Doctor and clinician accounts cannot be created via public registration. Privileged credentials are provisioned exclusively through clinic administration.
             </span>
             <div className="pt-0.5">
-              <Link to="/register/clinic" className="text-blue-700 font-bold hover:underline inline-flex items-center gap-1">
+              <Link to="/register/clinic" className="text-[#166534] font-bold hover:underline inline-flex items-center gap-1">
                 Setting up a new clinic? Register Clinic Practice &rarr;
               </Link>
             </div>
@@ -293,7 +293,7 @@ export function DoctorLoginPage() {
 
           {/* Navigation Links */}
           <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100">
-            <Link to="/login" className="font-semibold text-blue-600 hover:underline inline-block">
+            <Link to="/login" className="font-semibold text-[#15803D] hover:underline inline-block">
               &larr; Return to Main Login Page
             </Link>
           </div>

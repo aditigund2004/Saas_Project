@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -14,7 +15,9 @@ import {
   Sparkles,
   Save,
   X,
-  AlertTriangle
+  AlertTriangle,
+  Clock,
+  ArrowRight
 } from 'lucide-react';
 
 // Comprehensive catalog of all features provided across the ClinicOS platform
@@ -388,7 +391,10 @@ const INITIAL_NEW_PLAN = {
 };
 
 export function PlatformPlansPage() {
-  const { plans = [], setPlans, clinics = [], showToast } = useApp();
+  const navigate = useNavigate();
+  const { plans = [], setPlans, clinics = [], approvalRequests = [], showToast } = useApp();
+
+  const pendingApprovalsCount = (approvalRequests || []).filter((r) => r.status === 'Pending Approval').length;
 
   // Active Plan Editor Modal State
   const [editingPlan, setEditingPlan] = useState(null);
@@ -577,7 +583,7 @@ export function PlatformPlansPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Plan Architect</span>
+          <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">Plan Architect</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Subscription Tier Pricing & Limits
           </h1>
@@ -600,6 +606,35 @@ export function PlatformPlansPage() {
         </div>
       </div>
 
+      {/* Pending Custom Subscription Approvals Banner */}
+      {pendingApprovalsCount > 0 && (
+        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+              <Clock className="w-5 h-5 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-amber-800 uppercase tracking-wider">Approval Required</span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-200 text-amber-900 font-mono">
+                  {pendingApprovalsCount} {pendingApprovalsCount === 1 ? 'Request' : 'Requests'} Pending
+                </span>
+              </div>
+              <p className="text-xs text-amber-900 mt-0.5">
+                New clinics have customized their subscription plan during registration and are awaiting Super Admin quota review & approval.
+              </p>
+            </div>
+          </div>
+          <Button
+            size="sm"
+            onClick={() => navigate('/superadmin/subscriptions')}
+            className="bg-amber-600 hover:bg-amber-700 text-white shrink-0 font-semibold gap-1.5 cursor-pointer"
+          >
+            Review Pending Queue <ArrowRight className="w-3.5 h-3.5" />
+          </Button>
+        </div>
+      )}
+
       {/* Plans Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
         {plans.map((plan) => {
@@ -612,7 +647,7 @@ export function PlatformPlansPage() {
             >
               {plan.isPopular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-600 text-white shadow-2xs uppercase tracking-wider">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#15803D] text-white shadow-2xs uppercase tracking-wider">
                     Most Popular
                   </span>
                 </div>
@@ -625,7 +660,7 @@ export function PlatformPlansPage() {
                     <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight truncate">
                       {plan.name}
                     </h3>
-                    <span className="text-[10px] uppercase font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-mono inline-block mt-1">
+                    <span className="text-[10px] uppercase font-bold text-[#166534] bg-[#F0FDF4] px-2 py-0.5 rounded border border-[#DCFCE7] font-mono inline-block mt-1">
                       ID: {plan.id}
                     </span>
                   </div>
@@ -635,7 +670,7 @@ export function PlatformPlansPage() {
                     <button
                       type="button"
                       onClick={() => handleOpenEditModal(plan)}
-                      className="p-1.5 rounded-lg text-slate-500 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-slate-500 hover:text-[#15803D] bg-slate-50 hover:bg-[#F0FDF4] border border-slate-200 hover:border-[#DCFCE7] transition-colors cursor-pointer"
                       title={`Edit ${plan.name} features & pricing`}
                       aria-label={`Edit ${plan.name}`}
                     >

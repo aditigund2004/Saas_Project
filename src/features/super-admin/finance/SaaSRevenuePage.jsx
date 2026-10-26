@@ -71,7 +71,7 @@ export function SaaSRevenuePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Revenue Operations</span>
+          <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">Revenue Operations</span>
           <h1 className="text-2xl font-extrabold text-slate-900">SaaS Revenue & Plan Analytics</h1>
           <p className="text-xs text-slate-500 mt-0.5">
             MRR distribution across subscription tiers, annual vs monthly mix, customer retention, and churn indicators.
@@ -89,8 +89,8 @@ export function SaaSRevenuePage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-4 border-slate-200">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gross Subscription MRR</span>
-          <div className="text-2xl font-extrabold text-blue-700 font-mono mt-1">{formatCurrency(totalMRR)}</div>
-          <span className="text-[10px] text-blue-600 font-semibold mt-1 block">Across 4 active tier tiers</span>
+          <div className="text-2xl font-extrabold text-[#166534] font-mono mt-1">{formatCurrency(totalMRR)}</div>
+          <span className="text-[10px] text-[#15803D] font-semibold mt-1 block">Across 4 active tier tiers</span>
         </Card>
 
         <Card className="p-4 border-slate-200">
@@ -169,11 +169,11 @@ export function SaaSRevenuePage() {
                     <td className="p-3.5 font-mono text-slate-700">{formatCurrency(p.monthlyPrice)}/mo</td>
                     <td className="p-3.5 font-mono text-slate-500">{formatCurrency(p.monthlyPrice * 10)}/yr</td>
                     <td className="p-3.5 font-semibold text-slate-800">{p.clinicCount} Clinics</td>
-                    <td className="p-3.5 font-mono font-bold text-blue-700">{formatCurrency(p.mrr)}</td>
+                    <td className="p-3.5 font-mono font-bold text-[#166534]">{formatCurrency(p.mrr)}</td>
                     <td className="p-3.5">
                       <div className="flex items-center gap-2">
                         <div className="w-16 bg-slate-100 rounded-full h-2 overflow-hidden">
-                          <div className="bg-blue-600 h-full rounded-full" style={{ width: `${sharePercent}%` }} />
+                          <div className="bg-[#15803D] h-full rounded-full" style={{ width: `${sharePercent}%` }} />
                         </div>
                         <span className="font-mono text-[11px] text-slate-600">{sharePercent}%</span>
                       </div>

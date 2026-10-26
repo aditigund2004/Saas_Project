@@ -33,7 +33,7 @@ export function DoctorPrescriptionsPage() {
           </p>
         </div>
 
-        <Link to="/doctor/consultation">
+        <Link to="/clinic/consultations">
           <Button variant="primary" size="sm">
             <Plus className="w-3.5 h-3.5 mr-1" />
             Issue New Prescription

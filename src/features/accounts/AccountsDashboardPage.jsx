@@ -49,7 +49,7 @@ export function AccountsDashboardPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link to="/accounts/invoices">
+          <Link to="/clinic/finance/invoices">
             <Button variant="primary" size="sm">
               <Plus className="w-3.5 h-3.5 mr-1" />
               Create Patient Invoice
@@ -114,7 +114,7 @@ export function AccountsDashboardPage() {
               <Receipt className="w-4 h-4 text-blue-600" />
               Recent Patient Invoices & Collections
             </h3>
-            <Link to="/accounts/invoices" className="text-xs text-blue-700 hover:underline">
+            <Link to="/clinic/finance/invoices" className="text-xs text-[#15803D] hover:underline font-bold">
               View All Invoices
             </Link>
           </div>

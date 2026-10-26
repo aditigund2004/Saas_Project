@@ -159,7 +159,7 @@ export function ClinicReportsFinancePage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Practice Economics & Analytics</span>
+          <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">Practice Economics & Analytics</span>
           <h1 className="text-2xl font-extrabold text-slate-900">Profitability & Doctor Tariffs</h1>
           <p className="text-xs text-slate-500 mt-0.5">
             Doctor tariff shares, service unit economics, and clinic operating margin statement.
@@ -314,7 +314,7 @@ export function ClinicReportsFinancePage() {
                 <tr key={doc.id} className="hover:bg-slate-50/60 transition-colors">
                   <td className="p-3.5">
                     <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                      <Stethoscope className="w-3.5 h-3.5 text-blue-600" />
+                      <Stethoscope className="w-3.5 h-3.5 text-[#15803D]" />
                       {doc.name}
                     </div>
                     <div className="text-[10px] text-slate-400">{doc.specialty}</div>
@@ -326,7 +326,7 @@ export function ClinicReportsFinancePage() {
                     {formatCurrency(doc.grossBillings)}
                   </td>
                   <td className="p-3.5">
-                    <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-mono text-[10px] font-bold">
+                    <span className="px-2 py-0.5 rounded bg-blue-50 text-[#166534] font-mono text-[10px] font-bold">
                       {doc.doctorSharePercent}% / {100 - doc.doctorSharePercent}%
                     </span>
                   </td>

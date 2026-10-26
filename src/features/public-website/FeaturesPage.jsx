@@ -18,14 +18,13 @@ import {
   ArrowRight,
   CheckCircle2
 } from 'lucide-react';
-import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
 export function FeaturesPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
-    { id: 'all', label: 'All Modules' },
+    { id: 'all', label: 'All 14 Modules' },
     { id: 'clinical', label: 'Clinical & Prescriptions' },
     { id: 'frontdesk', label: 'Front-Desk & Booking' },
     { id: 'operations', label: 'Billing & Operations' }
@@ -152,78 +151,100 @@ export function FeaturesPage() {
       : features.filter((f) => f.category === selectedCategory);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Features Explorer</span>
-        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16 animate-fade-in">
+      {/* Header — Medonix Large Font Size & High-Contrast Headline */}
+      <div className="text-center max-w-3xl mx-auto space-y-5">
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#F0FDF4] text-[#166534] text-xs sm:text-sm font-extrabold border-2 border-[#DCFCE7] shadow-2xs">
+          <Sparkles className="w-4 h-4 text-[#15803D] animate-pulse" />
+          <span>Complete Clinical & Practice Suite</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight">
           Everything You Need to Run a Modern Specialty Clinic
         </h1>
-        <p className="text-slate-600 text-base leading-relaxed">
+        <p className="text-slate-700 text-base sm:text-lg leading-relaxed font-normal">
           Explore all 14 core modules engineered for dental, orthopedic, dermatology, pediatric practices, and small local nursing homes.
         </p>
 
-        {/* Filter pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setSelectedCategory(c.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                selectedCategory === c.id
-                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
-                  : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
+        {/* Filter Pills with Medonix High Contrast */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+          {categories.map((c) => {
+            const isSelected = selectedCategory === c.id;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setSelectedCategory(c.id)}
+                className={`px-5 py-2.5 rounded-2xl text-sm font-extrabold transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#15803D] text-white shadow-md shadow-blue-500/25 border-2 border-[#15803D] scale-102'
+                    : 'bg-white text-slate-800 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                {c.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Grid of features */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grid of Features with Medonix Hover Lift & High-Contrast Typography */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
         {filteredFeatures.map((f) => {
           const Icon = f.icon;
           return (
-            <Card key={f.id} className="p-6 border-slate-200 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                  <Icon className="w-6 h-6" />
+            <div
+              key={f.id}
+              className="p-8 rounded-3xl bg-white border-2 border-slate-200/90 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-[#86EFAC] hover:-translate-y-2 transition-all duration-300 space-y-6"
+            >
+              <div className="space-y-5">
+                <div className="w-14 h-14 rounded-2xl bg-[#F0FDF4] text-[#15803D] border border-[#DCFCE7] flex items-center justify-center shadow-xs">
+                  <Icon className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-900">{f.title}</h3>
-                  <p className="text-xs text-slate-500 mt-2 leading-relaxed">{f.desc}</p>
+                  <h3 className="text-xl font-black text-slate-950 tracking-tight">{f.title}</h3>
+                  <p className="text-sm sm:text-base text-slate-600 mt-2.5 leading-relaxed font-normal">{f.desc}</p>
                 </div>
-                <div className="pt-2 border-t border-slate-100 space-y-1.5">
+                <div className="pt-3 border-t-2 border-slate-100 space-y-2.5">
                   {f.bullets.map((b, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-800">
+                      <CheckCircle2 className="w-4 h-4 text-[#15803D] shrink-0" />
                       <span>{b}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <Link to="/clinic/dashboard" className="text-blue-600 font-semibold hover:underline flex items-center gap-1">
-                  Preview in Demo Workspace <ArrowRight className="w-3.5 h-3.5" />
+              <div className="pt-6 border-t-2 border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold">
+                <Link to="/clinic/dashboard" className="text-[#15803D] hover:text-[#166534] flex items-center gap-1.5 transition-colors">
+                  <span>Preview in Demo Cockpit</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-            </Card>
+            </div>
           );
         })}
       </div>
 
-      {/* Bottom CTA */}
-      <div className="bg-slate-900 rounded-3xl p-8 sm:p-10 text-white text-center space-y-4 max-w-4xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold">Start Your 14-Day Free Clinic Trial</h2>
-        <p className="text-slate-400 text-sm max-w-xl mx-auto">
-          No credit card required. Explore role dashboards for Clinic Admin, Receptionist, and Patients immediately.
+      {/* Bottom CTA with Deep Dark Surface & Contrasting White Text */}
+      <div className="bg-slate-950 rounded-3xl p-10 sm:p-14 text-white text-center space-y-5 max-w-4xl mx-auto border-2 border-slate-800 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#15803D]/15 rounded-full blur-3xl pointer-events-none" />
+        <h2
+          style={{ color: '#ffffff' }}
+          className="text-3xl sm:text-4xl font-black text-white !text-white tracking-tight relative z-10"
+        >
+          Start Your 14-Day Free Clinic Trial
+        </h2>
+        <p className="text-slate-300 text-base sm:text-lg max-w-xl mx-auto font-normal leading-relaxed relative z-10">
+          No credit card required. Explore role cockpits for Clinic Admin, Receptionist, and Patients immediately.
         </p>
-        <div className="pt-2">
+        <div className="pt-3 relative z-10">
           <Link to="/register/clinic">
-            <Button variant="primary" size="lg">
-              Get Started Now <ArrowRight className="w-4 h-4 ml-1" />
+            <Button
+              variant="white"
+              size="lg"
+              className="h-13 px-8 text-base font-black rounded-2xl shadow-xl hover:scale-102 transition-all text-slate-950"
+            >
+              Get Started Now <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
         </div>
@@ -231,4 +252,3 @@ export function FeaturesPage() {
     </div>
   );
 }
-

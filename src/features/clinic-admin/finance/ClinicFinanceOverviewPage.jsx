@@ -122,7 +122,7 @@ export function ClinicFinanceOverviewPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Practice Economics</span>
+          <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">Practice Economics</span>
           <h1 className="text-2xl font-extrabold text-slate-900">Clinic Financial Overview</h1>
           <p className="text-xs text-slate-500 mt-0.5">
             Real-time cash flow, patient collections, operating overhead, and clinic profit margin for {activeClinic?.name || 'Aegis Health Clinic'}.
@@ -155,7 +155,7 @@ export function ClinicFinanceOverviewPage() {
         <Card className="p-4 bg-white border border-slate-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">Today's Collections</span>
-            <span className="p-2 rounded-xl bg-blue-50 text-blue-600">
+            <span className="p-2 rounded-xl bg-blue-50 text-[#15803D]">
               <CreditCard className="w-4 h-4" />
             </span>
           </div>
@@ -172,7 +172,7 @@ export function ClinicFinanceOverviewPage() {
         <Card className="p-4 bg-white border border-slate-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">MTD Patient Billings</span>
-            <span className="p-2 rounded-xl bg-blue-50 text-blue-600">
+            <span className="p-2 rounded-xl bg-blue-50 text-[#15803D]">
               <Receipt className="w-4 h-4" />
             </span>
           </div>
@@ -180,7 +180,7 @@ export function ClinicFinanceOverviewPage() {
             {formatCurrency(totalBillings || 485000)}
           </div>
           <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
-            <span>Collected: <strong className="text-blue-700 font-mono">{formatCurrency(totalCollections || 432000)}</strong></span>
+            <span>Collected: <strong className="text-[#166534] font-mono">{formatCurrency(totalCollections || 432000)}</strong></span>
             <span className="font-bold text-emerald-600">{collectionRate}%</span>
           </div>
         </Card>
@@ -198,7 +198,7 @@ export function ClinicFinanceOverviewPage() {
           </div>
           <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
             <span>Pending or partial bills</span>
-            <Link to="/clinic/finance/invoices" className="text-blue-600 hover:underline font-semibold">
+            <Link to="/clinic/finance/invoices" className="text-[#15803D] hover:underline font-semibold">
               Review dues
             </Link>
           </div>
@@ -236,8 +236,8 @@ export function ClinicFinanceOverviewPage() {
                 <AreaChart data={collectionsTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="clinicCollectionGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2563EB" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#2563EB" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#15803D" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#15803D" stopOpacity={0.0} />
                     </linearGradient>
                     <linearGradient id="clinicExpenseGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#DC2626" stopOpacity={0.25} />
@@ -252,12 +252,12 @@ export function ClinicFinanceOverviewPage() {
                       `₹${Number(val).toLocaleString('en-IN')}`,
                       name === 'collections' ? 'Patient Collections' : 'Clinic Expenses'
                     ]}
-                    contentStyle={{ backgroundColor: '#0F172A', color: '#F8FAFC', borderRadius: '8px', fontSize: '12px' }}
+                    contentStyle={{ backgroundColor: '#ffffff', color: '#17211B', border: '1px solid #E2E8F0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', borderRadius: '8px', fontSize: '12px' }}
                   />
                   <Area
                     type="monotone"
                     dataKey="collections"
-                    stroke="#2563EB"
+                    stroke="#15803D"
                     strokeWidth={2.5}
                     fillOpacity={1}
                     fill="url(#clinicCollectionGrad)"
@@ -350,7 +350,7 @@ export function ClinicFinanceOverviewPage() {
                     <td className="p-3 font-mono font-bold text-slate-900">{pay.paymentReference}</td>
                     <td className="p-3 font-semibold text-slate-800">{pay.patientName}</td>
                     <td className="p-3">
-                      <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded-md bg-blue-50 text-[#166534] font-mono text-[10px] font-bold">
                         {pay.paymentMethod}
                       </span>
                     </td>

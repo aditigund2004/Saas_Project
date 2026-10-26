@@ -25,7 +25,7 @@ export function AboutPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
       {/* Hero */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">About CliniPulse</span>
+        <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">About CliniPulse</span>
         <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
           Empowering Independent Clinics with Modern SaaS Operations
         </h1>
@@ -37,7 +37,7 @@ export function AboutPage() {
       {/* Mission & Vision Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Card className="p-8 border-slate-200 space-y-4 bg-gradient-to-br from-blue-50/50 to-white">
-          <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-[#15803D] text-white flex items-center justify-center">
             <Activity className="w-6 h-6" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900">Our Mission</h2>
@@ -47,7 +47,7 @@ export function AboutPage() {
         </Card>
 
         <Card className="p-8 border-slate-200 space-y-4 bg-gradient-to-br from-blue-50/50 to-white">
-          <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-[#15803D] text-white flex items-center justify-center">
             <Users className="w-6 h-6" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900">Our Vision</h2>
@@ -69,7 +69,7 @@ export function AboutPage() {
             const Icon = v.icon;
             return (
               <Card key={i} className="p-6 border-slate-200 space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[#F0FDF4] text-[#15803D] flex items-center justify-center">
                   <Icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-base">{v.title}</h3>

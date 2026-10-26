@@ -36,17 +36,17 @@ export function PlatformDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page Title & Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+          <span className="text-xs font-semibold text-[#15803D] uppercase tracking-wider">
             SaaS Platform Administration
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Platform Master Cockpit
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-sm text-slate-500 mt-1">
             Overview of multi-tenant clinic organizations, trial conversions, and platform revenue.
           </p>
         </div>
@@ -106,10 +106,10 @@ export function PlatformDashboardPage() {
       </div>
 
       {/* Platform Workforce & RBAC Quick Spotlight */}
-      <div className="bg-slate-900 rounded-xl p-5 text-white shadow-2xs border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-blue-950 rounded-2xl p-5 sm:p-6 text-white shadow-sm border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="p-1 rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/30">
+            <span className="p-1 rounded-md bg-[#F0FDF4]0/20 text-blue-300 border border-blue-500/30">
               <ShieldCheck className="w-4 h-4" />
             </span>
             <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
@@ -126,7 +126,7 @@ export function PlatformDashboardPage() {
 
         <Link
           to="/superadmin/role-matrix"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition-colors shrink-0 cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-semibold text-xs shadow-xs transition-colors shrink-0 cursor-pointer"
         >
           <span>Open Role Matrix & Personnel</span>
           <ArrowRight className="w-4 h-4" />
@@ -148,8 +148,8 @@ export function PlatformDashboardPage() {
                   <AreaChart data={mrrData}>
                     <defs>
                       <linearGradient id="mrrGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2563EB" stopOpacity={0.25} />
-                        <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#15803D" stopOpacity={0.25} />
+                        <stop offset="95%" stopColor="#15803D" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -167,7 +167,7 @@ export function PlatformDashboardPage() {
                     <Area
                       type="monotone"
                       dataKey="mrr"
-                      stroke="#2563EB"
+                      stroke="#15803D"
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#mrrGradient)"
@@ -188,12 +188,12 @@ export function PlatformDashboardPage() {
             />
             <CardContent className="space-y-4">
               <div className="space-y-3">
-                <div className="p-3 rounded-xl bg-blue-50/80 border border-blue-100 flex items-center justify-between text-xs">
+                <div className="p-3 rounded-xl bg-[#F0FDF4]/80 border border-blue-100 flex items-center justify-between text-xs">
                   <div>
                     <span className="font-semibold text-blue-900">Professional Plan</span>
                     <span className="block text-slate-500 text-[10px]">₹6,999/mo (Up to 10 Doctors)</span>
                   </div>
-                  <span className="text-sm font-bold text-blue-800 tabular-nums">14 Clinics</span>
+                  <span className="text-sm font-bold text-[#14532D] tabular-nums">14 Clinics</span>
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
@@ -272,7 +272,7 @@ export function PlatformDashboardPage() {
                     {c.branches?.length || 1} Branch{(c.branches?.length || 1) > 1 ? 'es' : ''}
                   </td>
                   <td className="p-3.5">
-                    <span className="uppercase text-[10px] font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                    <span className="uppercase text-[10px] font-semibold text-[#14532D] bg-[#F0FDF4] px-2 py-0.5 rounded-md border border-[#DCFCE7]">
                       {c.subscriptionPlanId} {c.isTrial ? '(Trial)' : ''}
                     </span>
                   </td>

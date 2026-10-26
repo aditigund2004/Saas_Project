@@ -194,7 +194,7 @@ export function SaaSFinanceOverviewPage() {
             <h3 className="font-semibold text-slate-900 text-sm tracking-tight">Monthly Recurring Revenue Trajectory (May – Oct 2026)</h3>
             <p className="text-xs text-slate-500">Comparing normalized MRR against actual settled cash collections</p>
           </div>
-          <span className="text-xs text-blue-700 font-semibold bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 tabular-nums">
+          <span className="text-xs text-[#166534] font-semibold bg-[#DCFCE7] px-2.5 py-1 rounded-lg border border-[#86efac] tabular-nums">
             ARR Run Rate: {formatCurrency(calculatedARR)}
           </span>
         </div>
@@ -204,8 +204,8 @@ export function SaaSFinanceOverviewPage() {
             <AreaChart data={mrrTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="mrrGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563EB" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#2563EB" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="#15803D" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#15803D" stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="collGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#15803D" stopOpacity={0.2} />
@@ -217,9 +217,9 @@ export function SaaSFinanceOverviewPage() {
               <YAxis tick={{ fontSize: 11, fill: '#64748b' }} tickFormatter={(val) => `₹${val / 1000}k`} />
               <Tooltip
                 formatter={(val) => [`₹${Number(val).toLocaleString('en-IN')}`, 'Amount']}
-                contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 12 }}
+                contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', fontSize: 12, backgroundColor: '#ffffff' }}
               />
-              <Area type="monotone" dataKey="mrr" stroke="#2563EB" strokeWidth={2.5} fill="url(#mrrGrad)" name="Normalized MRR" />
+              <Area type="monotone" dataKey="mrr" stroke="#0D9488" strokeWidth={2.5} fill="url(#mrrGrad)" name="Normalized MRR" />
               <Area type="monotone" dataKey="collections" stroke="#15803D" strokeWidth={2} fill="url(#collGrad)" name="Settled Collections" />
             </AreaChart>
           </ResponsiveContainer>

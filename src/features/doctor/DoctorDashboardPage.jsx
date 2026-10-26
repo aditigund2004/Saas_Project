@@ -47,7 +47,7 @@ export function DoctorDashboardPage() {
 
   const handleStartConsultation = (appointment) => {
     updateAppointmentStatus(appointment.id, 'In Progress');
-    navigate(`/doctor/consultation/${appointment.id}`);
+    navigate(`/clinic/consultations/${appointment.id}`);
   };
 
   return (
@@ -72,13 +72,13 @@ export function DoctorDashboardPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link to="/doctor/schedule">
+          <Link to="/clinic/schedules">
             <Button variant="secondary" size="sm">
               <Calendar className="w-3.5 h-3.5 mr-1" />
               Full Schedule
             </Button>
           </Link>
-          <Link to="/doctor/consultation">
+          <Link to="/clinic/consultations">
             <Button variant="primary" size="sm">
               <Stethoscope className="w-3.5 h-3.5 mr-1" />
               Start New Consultation
@@ -181,7 +181,7 @@ export function DoctorDashboardPage() {
               <p className="text-xs text-slate-600">{inProgressApt.serviceName} · Started at {inProgressApt.time}</p>
             </div>
           </div>
-          <Link to={`/doctor/consultation/${inProgressApt.id}`}>
+          <Link to={`/clinic/consultations/${inProgressApt.id}`}>
             <Button variant="primary" size="md" className="bg-amber-600 hover:bg-amber-700 text-white">
               Resume Consultation Notes <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
@@ -306,7 +306,7 @@ export function DoctorDashboardPage() {
                       >
                         {apt.status}
                       </Badge>
-                      <Link to={`/doctor/consultation/${apt.id}`}>
+                      <Link to={`/clinic/consultations/${apt.id}`}>
                         <Button variant="ghost" size="sm" className="h-7 px-2 text-xs">
                           View
                         </Button>
@@ -328,7 +328,7 @@ export function DoctorDashboardPage() {
                 <FileText className="w-4 h-4 text-blue-600" />
                 Recent Prescriptions
               </h3>
-              <Link to="/doctor/prescriptions" className="text-xs text-blue-700 hover:underline">
+              <Link to="/clinic/prescriptions" className="text-xs text-blue-700 hover:underline">
                 View All
               </Link>
             </div>

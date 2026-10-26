@@ -47,8 +47,8 @@ export function AccountsRefundsPage() {
       {/* Eligible Paid Invoices that can be refunded */}
       <div className="space-y-3">
         <h3 className="text-sm font-bold text-slate-900">Paid Invoices Available for Demonstration Refund</h3>
-        <Card className="overflow-hidden border-slate-200">
-          <table className="w-full text-xs text-left">
+        <Card className="overflow-x-auto border-slate-200">
+          <table className="w-full text-xs text-left min-w-[500px]">
             <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
               <tr>
                 <th className="px-4 py-3">Invoice #</th>
@@ -95,8 +95,8 @@ export function AccountsRefundsPage() {
       {refunded.length > 0 && (
         <div className="space-y-3 pt-4">
           <h3 className="text-sm font-bold text-slate-900">Completed Refund Audit Log</h3>
-          <Card className="overflow-hidden border-slate-200">
-            <table className="w-full text-xs text-left">
+          <Card className="overflow-x-auto border-slate-200">
+            <table className="w-full text-xs text-left min-w-[500px]">
               <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                 <tr>
                   <th className="px-4 py-3">Invoice #</th>

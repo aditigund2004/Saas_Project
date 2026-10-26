@@ -77,7 +77,7 @@ export function DemoAccessPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-sm">
+              <div className="w-8 h-8 rounded-xl bg-[#15803D] flex items-center justify-center text-white font-black text-sm">
                 <Activity className="w-4 h-4" />
               </div>
               <span className="text-base font-black text-slate-900 tracking-tight">ClinicOS</span>
@@ -102,7 +102,7 @@ export function DemoAccessPage() {
             </Button>
           </Link>
           <Link to="/register/patient">
-            <Button variant="primary" size="sm" className="bg-blue-600 hover:bg-blue-700 font-bold">
+            <Button variant="primary" size="sm" className="bg-[#15803D] hover:bg-[#166534] font-bold">
               + New Patient Registration
             </Button>
           </Link>
@@ -133,8 +133,7 @@ export function DemoAccessPage() {
             key={t.id}
             onClick={() => setFilterRole(t.id)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-              filterRole === t.id
-                ? 'bg-blue-600 text-white shadow-xs'
+              filterRole === t.id ? 'bg-[#15803D] text-white shadow-xs'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
             }`}
           >
@@ -189,7 +188,7 @@ export function DemoAccessPage() {
                 {/* Clinic Membership Info */}
                 <div className="text-xs text-slate-600 bg-white/80 p-2.5 rounded-xl border border-slate-100 space-y-1">
                   <div className="flex items-center gap-1.5 text-slate-700 font-medium">
-                    <Building2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <Building2 className="w-3.5 h-3.5 text-[#15803D] shrink-0" />
                     <span className="truncate">{primaryClinic}</span>
                   </div>
                   {acc.phone && (

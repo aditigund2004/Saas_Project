@@ -298,6 +298,12 @@ export default function App() {
 
             {/* Backward compatibility redirects for /doctor/* */}
             <Route path="/doctor" element={<Navigate to="/clinic/consultations" replace />} />
+            <Route path="/doctor/dashboard" element={<Navigate to="/clinic/dashboard" replace />} />
+            <Route path="/doctor/schedule" element={<Navigate to="/clinic/schedules" replace />} />
+            <Route path="/doctor/consultation" element={<Navigate to="/clinic/consultations" replace />} />
+            <Route path="/doctor/consultation/:appointmentId" element={<Navigate to="/clinic/consultations/:appointmentId" replace />} />
+            <Route path="/doctor/prescriptions" element={<Navigate to="/clinic/prescriptions" replace />} />
+            <Route path="/doctor/patients" element={<Navigate to="/clinic/patients" replace />} />
             <Route path="/doctor/*" element={<Navigate to="/clinic/consultations" replace />} />
 
             {/* Role 3: Clinic Receptionist/Manager Workspace Routes (Protected) */}
@@ -333,6 +339,11 @@ export default function App() {
 
             {/* Backward compatibility redirects for /inventory/* and /accounts/* */}
             <Route path="/inventory" element={<Navigate to="/clinic/inventory" replace />} />
+            <Route path="/inventory/catalog" element={<Navigate to="/clinic/inventory" replace />} />
+            <Route path="/inventory/requests" element={<Navigate to="/clinic/inventory/requests" replace />} />
+            <Route path="/inventory/movements" element={<Navigate to="/clinic/inventory/movements" replace />} />
+            <Route path="/inventory/expiry" element={<Navigate to="/clinic/inventory/expiry" replace />} />
+            <Route path="/inventory/suppliers" element={<Navigate to="/clinic/inventory/suppliers" replace />} />
             <Route path="/inventory/*" element={<Navigate to="/clinic/inventory" replace />} />
             <Route path="/accounts" element={<Navigate to="/clinic/billing" replace />} />
             <Route path="/accounts/*" element={<Navigate to="/clinic/billing" replace />} />

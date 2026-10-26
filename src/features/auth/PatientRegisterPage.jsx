@@ -142,7 +142,7 @@ export function PatientRegisterPage() {
               <span className="font-bold">Registration Alert:</span> {error}
               {error.includes('already registered') && (
                 <div className="mt-1">
-                  <Link to="/login" className="font-bold underline text-blue-700">
+                  <Link to="/login" className="font-bold underline text-[#166534]">
                     Click here to sign in with this email &rarr;
                   </Link>
                 </div>
@@ -164,7 +164,7 @@ export function PatientRegisterPage() {
               onChange={(e) => setFullName(e.target.value)}
               onBlur={() => markTouched('fullName')}
               placeholder="e.g. Ramesh Chandra"
-              className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#15803D] ${
                 touched.fullName && errors.fullName ? 'border-red-300 bg-red-50/20' : 'border-[#E2E8F0]'
               }`}
             />
@@ -189,7 +189,7 @@ export function PatientRegisterPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={() => markTouched('email')}
                 placeholder="name@domain.com"
-                className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#15803D] ${
                   touched.email && errors.email ? 'border-red-300 bg-red-50/20' : 'border-[#E2E8F0]'
                 }`}
               />
@@ -212,7 +212,7 @@ export function PatientRegisterPage() {
                 onChange={(e) => setPhone(e.target.value)}
                 onBlur={() => markTouched('phone')}
                 placeholder="+91 98765 00000"
-                className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#15803D] ${
                   touched.phone && errors.phone ? 'border-red-300 bg-red-50/20' : 'border-[#E2E8F0]'
                 }`}
               />
@@ -235,7 +235,7 @@ export function PatientRegisterPage() {
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-[#15803D]"
               />
             </div>
           </div>
@@ -247,7 +247,7 @@ export function PatientRegisterPage() {
             <select
               value={preferredCommunication}
               onChange={(e) => setPreferredCommunication(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-[#15803D] font-medium"
             >
               <option value="whatsapp">WhatsApp (Recommended)</option>
               <option value="sms">SMS Text Message</option>
@@ -271,7 +271,7 @@ export function PatientRegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={() => markTouched('password')}
                 placeholder="••••••••"
-                className={`w-full pl-10 pr-10 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full pl-10 pr-10 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#15803D] ${
                   touched.password && errors.password ? 'border-red-300 bg-red-50/20' : 'border-[#E2E8F0]'
                 }`}
               />
@@ -301,7 +301,7 @@ export function PatientRegisterPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 onBlur={() => markTouched('confirmPassword')}
                 placeholder="••••••••"
-                className={`w-full pl-10 pr-10 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full pl-10 pr-10 py-2.5 rounded-xl border text-sm text-[#1E293B] bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#15803D] ${
                   touched.confirmPassword && errors.confirmPassword ? 'border-red-300 bg-red-50/20' : 'border-[#E2E8F0]'
                 }`}
               />
@@ -341,15 +341,15 @@ export function PatientRegisterPage() {
               type="checkbox"
               checked={agreeTerms}
               onChange={(e) => setAgreeTerms(e.target.checked)}
-              className="mt-0.5 rounded text-blue-600 focus:ring-blue-500 w-4 h-4 border-slate-300 cursor-pointer shrink-0"
+              className="mt-0.5 rounded text-[#15803D] focus:ring-[#15803D] w-4 h-4 border-slate-300 cursor-pointer shrink-0"
             />
             <span className="leading-relaxed">
               I agree to the ClinicOS{' '}
-              <Link to="/terms" className="text-blue-600 underline font-semibold hover:text-blue-800">
+              <Link to="/terms" className="text-[#15803D] underline font-semibold hover:text-[#14532D]">
                 Terms of Service
               </Link>{' '}
               and acknowledge the{' '}
-              <Link to="/privacy" className="text-blue-600 underline font-semibold hover:text-blue-800">
+              <Link to="/privacy" className="text-[#15803D] underline font-semibold hover:text-[#14532D]">
                 Patient Privacy Notice
               </Link>
               .
@@ -365,7 +365,7 @@ export function PatientRegisterPage() {
           type="submit"
           variant="primary"
           size="md"
-          className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2.5 shadow-sm mt-3"
+          className="w-full justify-center bg-[#15803D] hover:bg-[#166534] text-white font-bold text-sm py-2.5 shadow-sm mt-3"
           disabled={isLoading || (!isValid && Object.keys(touched).length > 0)}
         >
           {isLoading ? (
@@ -383,7 +383,7 @@ export function PatientRegisterPage() {
         {/* Footer */}
         <div className="text-center pt-2 text-xs text-slate-500 border-t border-slate-100">
           Already registered?{' '}
-          <Link to="/login" className="font-bold text-blue-600 hover:underline">
+          <Link to="/login" className="font-bold text-[#15803D] hover:underline">
             Sign in here &rarr;
           </Link>
         </div>

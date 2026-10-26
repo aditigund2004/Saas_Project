@@ -31,7 +31,7 @@ export function ContactPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Contact & Inquiries</span>
+        <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">Contact & Inquiries</span>
         <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
           Talk to Our Clinic Solutions Team
         </h1>
@@ -47,7 +47,7 @@ export function ContactPage() {
             <h3 className="text-base font-bold text-slate-900">Direct Inquiries</h3>
             <div className="space-y-4 text-xs text-slate-600">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] text-[#15803D] flex items-center justify-center shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
@@ -58,7 +58,7 @@ export function ContactPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] text-[#15803D] flex items-center justify-center shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
@@ -69,7 +69,7 @@ export function ContactPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] text-[#15803D] flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
@@ -81,8 +81,8 @@ export function ContactPage() {
             </div>
           </Card>
 
-          <Card className="p-6 border-slate-200 bg-blue-900 text-white space-y-3">
-            <h4 className="font-bold text-sm text-blue-200">14-Day Free Trial Notice</h4>
+          <Card className="p-6 border-slate-200 bg-[#062412] text-white space-y-3">
+            <h4 className="font-bold text-sm text-emerald-200">14-Day Free Trial Notice</h4>
             <p className="text-xs text-slate-300 leading-relaxed">
               You can test the entire platform right now without contacting sales! Click "Start 14-Day Free Trial" to access preloaded demo accounts across all 4 user roles.
             </p>
@@ -121,7 +121,7 @@ export function ContactPage() {
                       value={form.fullName}
                       onChange={(e) => setForm({ ...form, fullName: e.target.value })}
                       placeholder="Dr. Name or Practice Manager"
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none"
                     />
                   </div>
 
@@ -133,7 +133,7 @@ export function ContactPage() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="doctor@clinicname.demo"
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none"
                     />
                   </div>
 
@@ -145,7 +145,7 @@ export function ContactPage() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+91 98000 00000"
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none"
                     />
                   </div>
 
@@ -157,7 +157,7 @@ export function ContactPage() {
                       value={form.clinicName}
                       onChange={(e) => setForm({ ...form, clinicName: e.target.value })}
                       placeholder="Apex Specialty Center"
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none"
                     />
                   </div>
 
@@ -166,7 +166,7 @@ export function ContactPage() {
                     <select
                       value={form.specialty}
                       onChange={(e) => setForm({ ...form, specialty: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none bg-white"
                     >
                       <option value="Dental">Dental & Orthodontics</option>
                       <option value="Orthopedics">Orthopedics & Joint Care</option>
@@ -182,7 +182,7 @@ export function ContactPage() {
                     <select
                       value={form.inquiryType}
                       onChange={(e) => setForm({ ...form, inquiryType: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none bg-white"
                     >
                       <option value="Free Trial Setup">Free Trial Onboarding Assistance</option>
                       <option value="Multi-Branch Pricing">Multi-Branch Chain Deployment</option>
@@ -200,7 +200,7 @@ export function ContactPage() {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Tell us about your current clinic setup, number of doctors, and what problems you want to solve..."
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#15803D] focus:outline-none"
                   />
                 </div>
 

@@ -43,7 +43,7 @@ export function ClinicReportsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#15803D] uppercase tracking-wider">
             Practice Performance Analytics
           </span>
           <h1 className="text-2xl font-extrabold text-slate-900">Operational & Financial Reports</h1>
@@ -59,7 +59,7 @@ export function ClinicReportsPage() {
                 key={t}
                 onClick={() => setTimeRange(t)}
                 className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${
-                  timeRange === t ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600'
+                  timeRange === t ? 'bg-[#15803D] text-white font-semibold' : 'text-slate-600'
                 }`}
               >
                 {t}
@@ -133,8 +133,8 @@ export function ClinicReportsPage() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                     <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
                     <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
-                    <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '12px' }} />
-                    <Bar dataKey="completed" name="Completed Visits" fill="#0d9488" radius={[4, 4, 0, 0]} />
+                    <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '12px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', backgroundColor: '#ffffff' }} />
+                    <Bar dataKey="completed" name="Completed Visits" fill="#15803D" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="cancelled" name="Cancelled" fill="#94a3b8" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="noShow" name="No-Show" fill="#f43f5e" radius={[4, 4, 0, 0]} />
                   </BarChart>

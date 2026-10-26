@@ -98,7 +98,7 @@ export function ReceptionistLoginPage() {
                 if (error) setError('');
               }}
               placeholder="frontdesk@clinic.demo"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-[#15803D]" style={{ paddingLeft: '2.85rem' }}
               required
             />
           </div>
@@ -112,7 +112,7 @@ export function ReceptionistLoginPage() {
             </label>
             <Link
               to="/forgot-password"
-              className="text-[12px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+              className="text-[12px] font-semibold text-[#15803D] hover:text-[#14532D] hover:underline"
             >
               Forgot password?
             </Link>
@@ -127,7 +127,7 @@ export function ReceptionistLoginPage() {
                 if (error) setError('');
               }}
               placeholder="••••••••••••"
-              className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-[#15803D]" style={{ paddingLeft: '2.85rem', paddingRight: '2.85rem' }}
               required
             />
             <button
@@ -149,7 +149,7 @@ export function ReceptionistLoginPage() {
             <button
               type="button"
               onClick={() => setEmail('priya.sharma@citycare.demo')}
-              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-[#F0FDF4] hover:border-[#86efac] text-left truncate cursor-pointer"
             >
               <span className="font-bold text-slate-800 block truncate">Priya Sharma</span>
               <span className="text-[10px] text-slate-500">CityCare Family</span>
@@ -157,7 +157,7 @@ export function ReceptionistLoginPage() {
             <button
               type="button"
               onClick={() => setEmail('aniket.verma@heartwell.demo')}
-              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-[#F0FDF4] hover:border-[#86efac] text-left truncate cursor-pointer"
             >
               <span className="font-bold text-slate-800 block truncate">Aniket Verma</span>
               <span className="text-[10px] text-slate-500">HeartWell Cardio</span>
@@ -165,7 +165,7 @@ export function ReceptionistLoginPage() {
             <button
               type="button"
               onClick={() => setEmail('sneha.nair@brightsmile.demo')}
-              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-[#F0FDF4] hover:border-[#86efac] text-left truncate cursor-pointer"
             >
               <span className="font-bold text-slate-800 block truncate">Sneha Nair</span>
               <span className="text-[10px] text-slate-500">BrightSmile Dental</span>
@@ -178,7 +178,7 @@ export function ReceptionistLoginPage() {
           type="submit"
           variant="primary"
           size="md"
-          className="w-full justify-center bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm py-2.5 shadow-sm mt-2"
+          className="w-full justify-center bg-[#15803D] hover:bg-[#166534] text-white font-bold text-sm py-2.5 shadow-sm mt-2"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -203,7 +203,7 @@ export function ReceptionistLoginPage() {
 
         {/* Navigation */}
         <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100">
-          <Link to="/login" className="font-semibold text-blue-600 hover:underline inline-block">
+          <Link to="/login" className="font-semibold text-[#15803D] hover:underline inline-block">
             &larr; Return to Main Login Page
           </Link>
         </div>

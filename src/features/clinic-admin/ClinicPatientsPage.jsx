@@ -21,7 +21,8 @@ export function ClinicPatientsPage() {
   const [formAllergies, setFormAllergies] = useState('');
   const [formHistory, setFormHistory] = useState('');
 
-  const filteredPatients = patients.filter((p) => {
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
+  const filteredPatients = clinicPatients.filter((p) => {
     return (
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.patientIdNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||

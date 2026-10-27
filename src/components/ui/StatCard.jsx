@@ -3,12 +3,12 @@ import { Card } from './Card';
 
 export function StatCard({ title, value, change, trend = 'up', icon: Icon, color = 'blue', subtitle }) {
   const colorMap = {
-    blue: 'bg-blue-50 text-blue-700 border border-blue-100',
-    indigo: 'bg-indigo-50 text-indigo-700 border border-indigo-100',
-    emerald: 'bg-emerald-50 text-emerald-700 border border-emerald-100',
-    amber: 'bg-amber-50 text-amber-700 border border-amber-100',
-    rose: 'bg-rose-50 text-rose-700 border border-rose-100',
-    slate: 'bg-slate-50 text-slate-700 border border-slate-100'
+    blue: 'bg-blue-50/90 text-blue-700 border border-blue-200/60',
+    indigo: 'bg-violet-50/90 text-violet-700 border border-violet-200/60',
+    emerald: 'bg-emerald-50/90 text-emerald-700 border border-emerald-200/60',
+    amber: 'bg-amber-50/90 text-amber-800 border border-amber-200/60',
+    rose: 'bg-rose-50/90 text-rose-700 border border-rose-200/60',
+    slate: 'bg-slate-100/90 text-slate-700 border border-slate-200/60'
   };
 
   return (
@@ -16,28 +16,28 @@ export function StatCard({ title, value, change, trend = 'up', icon: Icon, color
       <div className="flex items-center justify-between gap-3">
         <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider truncate">{title}</span>
         {Icon && (
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${colorMap[color] || colorMap.blue}`}>
-            <Icon className="w-4 h-4" />
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${colorMap[color] || colorMap.blue}`}>
+            <Icon className="w-5 h-5" />
           </div>
         )}
       </div>
-      <div className="mt-2.5 flex items-baseline gap-2 flex-wrap">
-        <div className="text-2xl font-bold text-slate-900 tracking-tight tabular-nums">{value}</div>
+      <div className="mt-3 flex items-baseline gap-2.5 flex-wrap">
+        <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight tabular-nums font-display">{value}</div>
         {change && (
           <span
-            className={`text-xs font-medium inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md ${
+            className={`text-xs font-semibold inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border ${
               trend === 'up'
-                ? 'text-emerald-700 bg-emerald-50 font-semibold'
+                ? 'text-emerald-700 bg-emerald-50/90 border-emerald-200/60'
                 : trend === 'down'
-                ? 'text-rose-700 bg-rose-50 font-semibold'
-                : 'text-slate-600 bg-slate-100'
+                ? 'text-rose-700 bg-rose-50/90 border-rose-200/60'
+                : 'text-slate-600 bg-slate-100/90 border-slate-200/60'
             }`}
           >
             {trend === 'up' ? '↑' : trend === 'down' ? '↓' : '•'} {change}
           </span>
         )}
       </div>
-      {subtitle && <p className="text-xs text-slate-400 mt-1 line-clamp-1">{subtitle}</p>}
+      {subtitle && <p className="text-xs text-slate-500 mt-1 line-clamp-1">{subtitle}</p>}
     </Card>
   );
 }

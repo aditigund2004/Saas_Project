@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, ShieldCheck, Stethoscope, Clock, CheckCircle2, Building2, HelpCircle } from 'lucide-react';
+import { Activity, CheckCircle2 } from 'lucide-react';
 
 export function AuthLayout({
   title,
@@ -15,14 +15,14 @@ export function AuthLayout({
   ]
 }) {
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-between text-[#1E293B]">
-      {/* Top Banner / Disclaimer */}
-      <div className="bg-blue-900 text-blue-100 text-[11px] py-1 px-4 text-center font-medium border-b border-blue-800 flex items-center justify-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+    <div className="auth-layout min-h-screen bg-[#F8FAFC] flex flex-col justify-between text-[#1E293B]">
+      {/* Top Banner / Prototype Environment Notice */}
+      <div className="bg-blue-50 text-blue-800 text-[11px] py-1.5 px-4 text-center font-medium border-b border-blue-200/80 flex items-center justify-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
         <span>
-          <strong>Prototype Environment:</strong> Simulated authentication. No real passwords or sensitive patient records are transmitted or stored in production databases.
+          <strong>Prototype Environment:</strong> Simulated authentication. No real passwords or sensitive patient records are transmitted or stored.
         </span>
-        <Link to="/demo-access" className="underline font-bold text-white ml-2 hover:text-blue-200">
+        <Link to="/demo-access" className="underline font-bold text-blue-700 ml-1 hover:text-blue-900">
           Demo Access Hub &rarr;
         </Link>
       </div>
@@ -134,4 +134,3 @@ export function AuthLayout({
     </div>
   );
 }
-

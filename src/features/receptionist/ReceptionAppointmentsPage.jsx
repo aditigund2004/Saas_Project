@@ -18,7 +18,11 @@ export function ReceptionAppointmentsPage() {
   const [search, setSearch] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('All');
 
-  const branchAppointments = appointments.filter((a) => !activeBranch || a.branchId === activeBranch.id);
+  const branchAppointments = appointments.filter(
+    (a) =>
+      a.clinicId === activeClinic?.id &&
+      (!activeBranch || a.branchId === activeBranch.id)
+  );
 
   const filtered = branchAppointments.filter((a) => {
     const matchesSearch =

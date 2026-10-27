@@ -6,7 +6,6 @@ import {
   Calendar,
   Users,
   Stethoscope,
-  Briefcase,
   FileText,
   PlusCircle,
   Building2,
@@ -19,8 +18,6 @@ import {
   UserPlus,
   UserCheck,
   Clock,
-  CheckSquare,
-  Shield,
   ShieldCheck,
   Layers,
   Activity,
@@ -31,9 +28,7 @@ import {
   LifeBuoy,
   Bell,
   Mail,
-  TrendingUp,
   History,
-  ShieldAlert
 } from 'lucide-react';
 
 export function WorkspaceSidebar({ isOpen, onClose }) {
@@ -49,12 +44,12 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
 
   // Badges calculation
   const pendingRequestsCount = appointments.filter(
-    (a) => (a.clinicId === activeClinic?.id || !a.clinicId) && (a.status === 'Pending Clinic Confirmation' || a.status === 'Requested')
+    (a) => a.clinicId === activeClinic?.id && (a.status === 'Pending Clinic Confirmation' || a.status === 'Requested')
   ).length;
 
   const patientRequestsCount = appointments.filter(
     (a) =>
-      (a.patientName === currentUser?.name || a.patientId === currentUser?.id || !a.patientId) &&
+      (a.patientName === currentUser?.name || a.patientId === currentUser?.id) &&
       (a.status === 'Pending Clinic Confirmation' || a.status === 'Alternative Slot Proposed' || a.status === 'Awaiting Patient Response')
   ).length;
 
@@ -128,20 +123,20 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
     ]
   };
 
-  const navItems = navConfigs[currentRole] || navConfigs.clinic_admin;
+  const navItems = navConfigs[currentRole] || navConfigs.patient;
 
   return (
     <>
       {/* Mobile Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 top-16 z-30 bg-slate-900/40 backdrop-blur-xs lg:hidden"
           onClick={onClose}
         />
       )}
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 w-64 bg-white text-slate-700 flex flex-col transition-transform duration-200 ease-out border-r border-slate-200/90 shadow-2xs ${
+        className={`fixed top-16 bottom-0 left-0 z-30 w-64 bg-white text-slate-700 flex flex-col transition-transform duration-200 ease-out border-r border-slate-200/90 shadow-2xs ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -170,7 +165,7 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav id="workspace-navigation" aria-label="Workspace navigation" className="flex-1 p-3 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isCustomActive =
@@ -188,8 +183,8 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 ${
                     isActive || isCustomActive
-                      ? 'bg-blue-50 text-blue-700 font-semibold shadow-2xs border-l-2 border-blue-600'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                      ? 'bg-blue-50/90 text-blue-700 font-semibold shadow-2xs border-l-2 border-blue-600'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`
                 }
               >
@@ -198,7 +193,7 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
                   <span className="truncate">{item.label}</span>
                 </div>
                 {item.badge > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 shrink-0 border border-amber-200">
+                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-800 shrink-0 border border-amber-200/80">
                     {item.badge}
                   </span>
                 )}
@@ -208,30 +203,32 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         </nav>
 
         {/* WhatsApp Messaging Simulator */}
-        <div className="px-3 pt-2.5 pb-2 border-t border-slate-100">
-          <button
-            onClick={() => {
-              if (window.innerWidth < 1024) onClose();
-              openWhatsAppModal({
-                patient_name: 'Aarav Patel',
-                clinic_name: activeClinic?.name || 'CityCare Family Clinic',
-                appointment_date: '23 Oct 2026',
-                appointment_time: '10:30 AM',
-                doctor_name: 'Dr. Aarav Mehta',
-                appointment_reference: 'APT-2601',
-                clinic_phone: activeClinic?.phone || '+91 98200 11223'
-              });
-            }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100/90 border border-emerald-200 transition-colors cursor-pointer group"
-            title="Preview WhatsApp integration templates & simulated delivery"
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <MessageSquare className="w-4 h-4 text-emerald-600 shrink-0 group-hover:scale-105 transition-transform" />
-              <span className="truncate">WhatsApp Messages</span>
-            </div>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-          </button>
-        </div>
+        {(currentRole === 'clinic_admin' || currentRole === 'receptionist') && (
+          <div className="px-3 pt-2.5 pb-2 border-t border-slate-100">
+            <button
+              onClick={() => {
+                if (window.innerWidth < 1024) onClose();
+                openWhatsAppModal({
+                  patient_name: 'Aarav Patel',
+                  clinic_name: activeClinic?.name || 'CityCare Family Clinic',
+                  appointment_date: '23 Oct 2026',
+                  appointment_time: '10:30 AM',
+                  doctor_name: 'Dr. Aarav Mehta',
+                  appointment_reference: 'APT-2601',
+                  clinic_phone: activeClinic?.phone || '+91 98200 11223'
+                });
+              }}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-emerald-700 bg-emerald-50/90 hover:bg-emerald-100/80 border border-emerald-200/80 transition-colors cursor-pointer group"
+              title="Preview WhatsApp integration templates & simulated delivery"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <MessageSquare className="w-4 h-4 text-emerald-600 shrink-0 group-hover:scale-105 transition-transform" />
+                <span className="truncate">WhatsApp Messages</span>
+              </div>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            </button>
+          </div>
+        )}
 
         {/* Footer / Tenant Context Info */}
         <div className="p-3.5 border-t border-slate-100 bg-slate-50/70 text-xs">

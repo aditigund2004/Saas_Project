@@ -68,7 +68,7 @@ export function ReceptionRequestsPage() {
   // Requests belonging to this clinic
   const clinicRequests = appointments.filter((a) => {
     // Show requests that have a requestId or request-related status
-    const isClinicMatch = !a.clinicId || a.clinicId === activeClinic?.id;
+    const isClinicMatch = a.clinicId === activeClinic?.id;
     return isClinicMatch;
   });
 

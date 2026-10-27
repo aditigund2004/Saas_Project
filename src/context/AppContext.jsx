@@ -425,6 +425,7 @@ export function AppProvider({ children }) {
       ...appointmentData,
       id,
       referenceNumber,
+      clinicId: appointmentData.clinicId || activeClinicId,
       createdAt: new Date().toISOString()
     };
     setAppointments((prev) => [newAppointment, ...prev]);

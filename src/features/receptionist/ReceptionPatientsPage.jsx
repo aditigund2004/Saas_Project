@@ -7,10 +7,11 @@ import { Badge } from '../../components/ui/Badge';
 import { Search, UserPlus, Phone, Calendar, ArrowRight } from 'lucide-react';
 
 export function ReceptionPatientsPage() {
-  const { patients } = useApp();
+  const { patients, activeClinic } = useApp();
   const [search, setSearch] = useState('');
 
-  const filtered = patients.filter((p) =>
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
+  const filtered = clinicPatients.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase()) ||
     p.patientIdNumber.toLowerCase().includes(search.toLowerCase()) ||
     p.phone.includes(search)

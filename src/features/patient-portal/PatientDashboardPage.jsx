@@ -151,23 +151,23 @@ export function PatientDashboardPage() {
         />
       </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Main Grid (Cards connected with zero gap) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
         {/* Next Scheduled Visit Card */}
-        <div className="lg:col-span-7 space-y-4">
-          <Card>
+        <div className="lg:col-span-7">
+          <Card className="lg:rounded-r-none lg:border-r-0 h-full">
             <CardHeader
               title="Upcoming Consultations"
               subtitle="Visits scheduled with your healthcare practitioners"
               action={
-                <Link to="/patient/appointments" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/patient/appointments" className="text-sm text-blue-600 font-semibold hover:underline">
                   View All ({myAppointments.length}) →
                 </Link>
               }
             />
-            <div className="p-4 space-y-2.5">
+            <div className="p-4 sm:p-5 space-y-3">
               {upcoming.length === 0 ? (
-                <div className="text-center py-8 text-xs text-slate-400 space-y-2">
+                <div className="text-center py-8 text-sm text-slate-400 space-y-2">
                   <p>You have no active appointments scheduled right now.</p>
                   <Link to="/patient/appointments/book">
                     <Button variant="primary" size="sm">
@@ -179,16 +179,16 @@ export function PatientDashboardPage() {
                 upcoming.map((apt) => (
                   <div
                     key={apt.id}
-                    className="p-4 rounded-xl border border-slate-200/90 bg-white hover:border-slate-300 transition-all space-y-2 text-xs"
+                    className="p-4 rounded-xl border border-slate-200/90 bg-white hover:border-slate-300 transition-all space-y-2 text-sm"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-900 text-sm tracking-tight">{apt.serviceName}</span>
+                      <span className="font-semibold text-slate-900 text-base tracking-tight">{apt.serviceName}</span>
                       <Badge variant={apt.status}>{apt.status}</Badge>
                     </div>
                     <div className="text-slate-600 space-y-1">
-                      <p>👨‍⚕️ <strong>{apt.doctorName}</strong></p>
-                      <p>🕒 <strong className="tabular-nums font-semibold">{apt.date} at {apt.time}</strong></p>
-                      <p className="text-[11px] text-slate-400 font-mono">Ref: {apt.referenceNumber}</p>
+                      <p>👨‍⚕️ <strong className="text-slate-800">{apt.doctorName}</strong></p>
+                      <p>🕒 <strong className="tabular-nums font-semibold text-slate-800">{apt.date} at {apt.time}</strong></p>
+                      <p className="text-xs text-slate-500 font-mono">Ref: {apt.referenceNumber}</p>
                     </div>
                   </div>
                 ))
@@ -198,35 +198,35 @@ export function PatientDashboardPage() {
         </div>
 
         {/* Latest Digital Prescription Card */}
-        <div className="lg:col-span-5 space-y-4">
-          <Card>
+        <div className="lg:col-span-5">
+          <Card className="lg:rounded-l-none h-full">
             <CardHeader
               title="Latest Digital Prescription"
               subtitle="Tamper-evident medical document"
             />
-            <div className="p-4 space-y-2.5">
+            <div className="p-4 sm:p-5 space-y-3">
               {myPrescriptions.length === 0 ? (
-                <p className="text-xs text-slate-400 text-center py-4">No prescriptions on record.</p>
+                <p className="text-sm text-slate-400 text-center py-6">No prescriptions on record.</p>
               ) : (
                 myPrescriptions.slice(0, 2).map((rx) => (
                   <div
                     key={rx.id}
-                    className="p-4 rounded-xl border border-blue-200/90 bg-blue-50/30 text-xs space-y-2"
+                    className="p-4 rounded-xl border border-blue-200/90 bg-blue-50/30 text-sm space-y-2"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-mono font-bold text-blue-900">{rx.prescriptionNumber}</span>
-                      <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
+                      <span className="font-mono font-bold text-blue-900 text-base">{rx.prescriptionNumber}</span>
+                      <span className="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded">
                         QR Verified
                       </span>
                     </div>
-                    <p className="font-medium text-slate-800">Diagnosis: {rx.diagnosis}</p>
-                    <p className="text-[11px] text-slate-500">Doctor: {rx.doctorName} · {rx.date}</p>
+                    <p className="font-semibold text-slate-800">Diagnosis: {rx.diagnosis}</p>
+                    <p className="text-xs text-slate-500">Doctor: {rx.doctorName} · {rx.date}</p>
 
                     <div className="pt-2 flex items-center justify-between">
                       <Link
                         to={`/verify-prescription/${rx.verificationId}`}
                         target="_blank"
-                        className="text-[11px] text-blue-700 underline font-medium"
+                        className="text-xs text-blue-700 underline font-semibold"
                       >
                         Verify Authenticity
                       </Link>

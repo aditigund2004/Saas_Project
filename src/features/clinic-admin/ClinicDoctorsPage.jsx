@@ -234,8 +234,8 @@ export function ClinicDoctorsPage() {
   // Appointments linked to the currently viewed doctor
   const doctorAppointments = useMemo(() => {
     if (!selectedDoctor) return [];
-    return appointments.filter((a) => a.doctorId === selectedDoctor.id);
-  }, [selectedDoctor, appointments]);
+    return appointments.filter((a) => a.doctorId === selectedDoctor.id && a.clinicId === activeClinic?.id);
+  }, [selectedDoctor, appointments, activeClinic?.id]);
 
   return (
     <div className="space-y-6">

@@ -12,9 +12,10 @@ export function DoctorPatientsPage() {
 
   const filteredPatients = patients.filter(
     (p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.patientIdNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.phone.includes(searchTerm)
+      p.clinicId === activeClinic?.id &&
+      (p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.patientIdNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.phone.includes(searchTerm))
   );
 
   return (

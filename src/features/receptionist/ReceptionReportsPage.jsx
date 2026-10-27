@@ -6,9 +6,13 @@ import { Button } from '../../components/ui/Button';
 import { Users, Clock, CheckCircle, Calendar, Download } from 'lucide-react';
 
 export function ReceptionReportsPage() {
-  const { appointments, activeBranch, showToast } = useApp();
+  const { appointments, activeBranch, activeClinic, showToast } = useApp();
 
-  const branchAppointments = appointments.filter((a) => !activeBranch || a.branchId === activeBranch.id);
+  const branchAppointments = appointments.filter(
+    (a) =>
+      a.clinicId === activeClinic?.id &&
+      (!activeBranch || a.branchId === activeBranch.id)
+  );
   const walkInsCount = branchAppointments.filter((a) => a.isWalkIn).length;
   const onlineCount = branchAppointments.filter((a) => !a.isWalkIn).length;
   const completedCount = branchAppointments.filter((a) => a.status === 'Completed').length;

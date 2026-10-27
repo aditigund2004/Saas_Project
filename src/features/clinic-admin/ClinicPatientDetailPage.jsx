@@ -29,10 +29,30 @@ export function ClinicPatientDetailPage() {
     activeClinic
   } = useApp();
 
-  const patient = patients.find((p) => p.id === patientId || p.patientIdNumber === patientId) || patients[0];
-  const patientAppointments = appointments.filter((a) => a.patientId === patient.id || a.patientName === patient.name);
-  const patientPrescriptions = prescriptions.filter((p) => p.patientId === patient.id || p.patientName === patient.name);
-  const patientInvoices = invoices.filter((i) => i.patientId === patient.id || i.patientName === patient.name);
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
+  const patient = clinicPatients.find((p) => p.id === patientId || p.patientIdNumber === patientId) || clinicPatients[0];
+  const patientAppointments = appointments.filter(
+    (a) =>
+      a.clinicId === activeClinic?.id &&
+      (a.patientId === patient?.id || a.patientName === patient?.name)
+  );
+  const patientPrescriptions = prescriptions.filter(
+    (rx) => patient && (rx.patientId === patient.id || rx.patientName === patient.name)
+  );
+  const patientInvoices = invoices.filter(
+    (i) => patient && (i.patientId === patient.id || i.patientName === patient.name)
+  );
+
+  if (!patient) {
+    return (
+      <div className="space-y-3">
+        <Link to="/clinic/patients" className="text-xs text-blue-600 hover:underline">
+          ← Back to Patient Directory
+        </Link>
+        <p className="text-xs text-slate-500">This patient is not registered at your clinic.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

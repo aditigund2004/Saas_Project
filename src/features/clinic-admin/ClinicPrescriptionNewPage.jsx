@@ -31,7 +31,8 @@ export function ClinicPrescriptionNewPage() {
   } = useApp();
 
   const patientQueryId = searchParams.get('patient') || '';
-  const preselectedPatient = patients.find((p) => p.id === patientQueryId) || patients[0];
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic.id);
+  const preselectedPatient = clinicPatients.find((p) => p.id === patientQueryId) || clinicPatients[0];
 
   const clinicDoctors = doctors.filter((d) => d.clinicId === activeClinic.id);
   const currentDoctor = clinicDoctors[0] || doctors[0];
@@ -71,7 +72,7 @@ export function ClinicPrescriptionNewPage() {
 
   const [activeTab, setActiveTab] = useState('editor'); // 'editor' | 'preview'
 
-  const activePatient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+  const activePatient = clinicPatients.find((p) => p.id === selectedPatientId) || clinicPatients[0];
   const activeDoctor = doctors.find((d) => d.id === selectedDoctorId) || currentDoctor;
 
   const handleAddMedication = () => {
@@ -214,7 +215,7 @@ export function ClinicPrescriptionNewPage() {
                   onChange={(e) => setSelectedPatientId(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 bg-white"
                 >
-                  {patients.map((p) => (
+                  {clinicPatients.map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.name} ({p.patientIdNumber})
                     </option>

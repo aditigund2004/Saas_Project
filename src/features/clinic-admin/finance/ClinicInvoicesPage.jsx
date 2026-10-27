@@ -44,7 +44,8 @@ export function ClinicInvoicesPage() {
   const [paymentMethodChoice, setPaymentMethodChoice] = useState('UPI QR');
 
   // Form state for creating a new invoice
-  const [selectedPatientId, setSelectedPatientId] = useState(patients[0]?.id || '');
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
+  const [selectedPatientId, setSelectedPatientId] = useState(clinicPatients[0]?.id || '');
   const [itemDescription, setItemDescription] = useState('Consultation & Clinical Assessment');
   const [itemQuantity, setItemQuantity] = useState(1);
   const [itemUnitPrice, setItemUnitPrice] = useState(800);
@@ -72,7 +73,7 @@ export function ClinicInvoicesPage() {
 
   const handleCreateInvoice = (e) => {
     e.preventDefault();
-    const patient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+    const patient = clinicPatients.find((p) => p.id === selectedPatientId) || clinicPatients[0];
     const subtotal = itemQuantity * itemUnitPrice;
     const discounted = Math.max(0, subtotal - discountAmount);
     const tax = Math.round(discounted * (taxPercent / 100));
@@ -330,7 +331,7 @@ export function ClinicInvoicesPage() {
               onChange={(e) => setSelectedPatientId(e.target.value)}
               className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
             >
-              {patients.map((p) => (
+              {clinicPatients.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name} ({p.patientIdNumber}) - {p.phone}
                 </option>

@@ -114,41 +114,41 @@ export function InventoryDashboardPage() {
         </Card>
       </div>
 
-      {/* Two Column Layout: Critical Stock Attention & Recent Movements */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Two Column Layout (Cards connected with zero gap) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
         {/* Left: Critical Reorder Attention */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose-600" />
+        <div className="space-y-0">
+          <div className="flex items-center justify-between p-3.5 bg-white border border-slate-200 lg:rounded-tl-2xl lg:border-r-0 border-b-0">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-rose-600" />
               Low Stock & Reorder Requirements ({lowStockItems.length})
             </h3>
-            <Link to="/inventory/catalog" className="text-xs text-blue-700 hover:underline">
+            <Link to="/inventory/catalog" className="text-xs font-semibold text-blue-700 hover:underline">
               Full Catalog
             </Link>
           </div>
 
-          <Card className="divide-y divide-slate-100 border-slate-200">
+          <Card className="divide-y divide-slate-100 border-slate-200 lg:rounded-r-none lg:border-r-0 rounded-none border-b-0">
             {lowStockItems.length === 0 ? (
-              <div className="p-8 text-center text-slate-400 text-xs">
+              <div className="p-8 text-center text-slate-400 text-sm">
                 All consumables are above reorder safety thresholds.
               </div>
             ) : (
               lowStockItems.map((item) => (
-                <div key={item.id} className="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50">
+                <div key={item.id} className="p-3.5 sm:p-4 flex items-center justify-between text-sm hover:bg-slate-50">
                   <div>
-                    <div className="font-bold text-slate-900">{item.name}</div>
-                    <div className="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
+                    <div className="font-bold text-slate-900 text-base">{item.name}</div>
+                    <div className="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
                       <span className="font-mono">{item.sku}</span>
                       <span>·</span>
                       <span>Supplier: {item.supplier}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-mono font-bold text-rose-700 text-sm">
+                    <div className="font-mono font-bold text-rose-700 text-base">
                       {item.currentStock} {item.unit}
                     </div>
-                    <span className="text-[10px] text-slate-400 block">
+                    <span className="text-xs text-slate-500 block">
                       Min Threshold: {item.minStockLevel}
                     </span>
                     <Badge variant="danger" size="sm" className="mt-1">
@@ -161,68 +161,66 @@ export function InventoryDashboardPage() {
           </Card>
 
           {/* Pending Internal Requests Card */}
-          <div className="pt-2">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <ClipboardList className="w-4 h-4 text-indigo-600" />
-                Department Stock Requests ({pendingRequests.length})
-              </h3>
-              <Link to="/inventory/requests" className="text-xs text-blue-700 hover:underline">
-                Review Requests
-              </Link>
-            </div>
-            <Card className="divide-y divide-slate-100 border-slate-200">
-              {pendingRequests.map((req) => (
-                <div key={req.id} className="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50">
-                  <div>
-                    <div className="font-bold text-slate-900">{req.itemName}</div>
-                    <div className="text-[11px] text-slate-500">
-                      Requested by <strong>{req.requestedBy}</strong> ({req.department})
-                    </div>
-                    {req.notes && <p className="text-[10px] text-slate-400 italic mt-0.5">"{req.notes}"</p>}
-                  </div>
-                  <div className="text-right">
-                    <span className="font-bold text-indigo-900 block">{req.quantity} {req.unit}</span>
-                    <Badge variant={req.urgency === 'Urgent' ? 'danger' : 'default'} size="sm">
-                      {req.urgency}
-                    </Badge>
-                  </div>
-                </div>
-              ))}
-            </Card>
+          <div className="p-3.5 bg-white border border-slate-200 lg:border-r-0 border-b-0 flex items-center justify-between">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <ClipboardList className="w-5 h-5 text-indigo-600" />
+              Department Stock Requests ({pendingRequests.length})
+            </h3>
+            <Link to="/inventory/requests" className="text-xs font-semibold text-blue-700 hover:underline">
+              Review Requests
+            </Link>
           </div>
+          <Card className="divide-y divide-slate-100 border-slate-200 lg:rounded-r-none lg:border-r-0 rounded-t-none">
+            {pendingRequests.map((req) => (
+              <div key={req.id} className="p-3.5 sm:p-4 flex items-center justify-between text-sm hover:bg-slate-50">
+                <div>
+                  <div className="font-bold text-slate-900 text-base">{req.itemName}</div>
+                  <div className="text-xs text-slate-500">
+                    Requested by <strong>{req.requestedBy}</strong> ({req.department})
+                  </div>
+                  {req.notes && <p className="text-xs text-slate-400 italic mt-0.5">"{req.notes}"</p>}
+                </div>
+                <div className="text-right">
+                  <span className="font-bold text-indigo-900 block text-base">{req.quantity} {req.unit}</span>
+                  <Badge variant={req.urgency === 'Urgent' ? 'danger' : 'default'} size="sm">
+                    {req.urgency}
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </Card>
         </div>
 
         {/* Right: Stock Movements Log */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <ArrowRightLeft className="w-4 h-4 text-blue-600" />
+        <div className="space-y-0">
+          <div className="flex items-center justify-between p-3.5 bg-white border border-slate-200 lg:rounded-tr-2xl lg:border-l-0 border-b-0">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <ArrowRightLeft className="w-5 h-5 text-blue-600" />
               Recent Stock Movements Log
             </h3>
-            <Link to="/inventory/movements" className="text-xs text-blue-700 hover:underline">
+            <Link to="/inventory/movements" className="text-xs font-semibold text-blue-700 hover:underline">
               Audit Trail
             </Link>
           </div>
 
-          <Card className="divide-y divide-slate-100 border-slate-200">
+          <Card className="divide-y divide-slate-100 border-slate-200 lg:rounded-l-none rounded-t-none h-full">
             {inventoryMovements.slice(0, 6).map((mov) => (
-              <div key={mov.id} className="p-3.5 space-y-1 hover:bg-slate-50 text-xs">
+              <div key={mov.id} className="p-3.5 sm:p-4 space-y-1.5 hover:bg-slate-50 text-sm">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-900 line-clamp-1">{mov.itemName}</span>
+                  <span className="font-bold text-slate-900 text-base line-clamp-1">{mov.itemName}</span>
                   <span
-                    className={`font-mono font-bold text-xs ${
+                    className={`font-mono font-bold text-sm ${
                       mov.quantity > 0 ? 'text-emerald-700' : 'text-slate-700'
                     }`}
                   >
                     {mov.quantity > 0 ? `+${mov.quantity}` : mov.quantity}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-500">
+                <div className="flex items-center justify-between text-xs text-slate-600">
                   <span>Type: <Badge variant={mov.type === 'Receipt' ? 'success' : 'default'} size="sm">{mov.type}</Badge></span>
-                  <span>Balance: {mov.previousStock} ➔ <strong>{mov.newStock}</strong></span>
+                  <span>Balance: {mov.previousStock} ➔ <strong className="text-slate-900">{mov.newStock}</strong></span>
                 </div>
-                <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+                <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
                   <span>Reason: {mov.reason}</span>
                   <span>{mov.date}</span>
                 </div>

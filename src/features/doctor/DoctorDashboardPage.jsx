@@ -198,21 +198,22 @@ export function DoctorDashboardPage() {
       )}
 
       {/* Main Two-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Main Two-Column Layout (Cards connected with zero gap) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
         {/* Left Column: Waiting Queue (2 Cols) */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-600" />
+        <div className="lg:col-span-2 space-y-0">
+          <div className="flex items-center justify-between p-3 bg-white border border-slate-200 lg:rounded-tl-2xl lg:rounded-r-none border-b-0">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-blue-600" />
               Waiting Patients Queue ({waitingPatients.length})
             </h3>
-            <span className="text-xs text-slate-500">Auto-synced with Reception Desk</span>
+            <span className="text-xs text-slate-500 font-medium">Auto-synced with Reception Desk</span>
           </div>
 
-          <Card className="overflow-hidden border-slate-200">
+          <Card className="overflow-hidden border-slate-200 lg:rounded-r-none lg:border-r-0 rounded-none border-b-0">
             <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left">
-                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <table className="w-full text-sm text-left">
+                <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
                   <tr>
                     <th className="px-4 py-3">Token #</th>
                     <th className="px-4 py-3">Patient Details</th>
@@ -232,18 +233,18 @@ export function DoctorDashboardPage() {
                   ) : (
                     waitingPatients.map((apt) => (
                       <tr key={apt.id} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="px-4 py-3 font-mono font-bold text-blue-700">
+                        <td className="px-4 py-3 font-mono font-bold text-blue-700 text-sm">
                           {apt.queueNumber || '#Q-1'}
                         </td>
                         <td className="px-4 py-3">
-                          <div className="font-bold text-slate-900">{apt.patientName}</div>
-                          <div className="text-[11px] text-slate-500">{apt.patientPhone}</div>
+                          <div className="font-bold text-slate-900 text-base">{apt.patientName}</div>
+                          <div className="text-xs text-slate-500">{apt.patientPhone}</div>
                         </td>
-                        <td className="px-4 py-3 text-slate-700 font-medium">
+                        <td className="px-4 py-3 text-slate-700 font-semibold tabular-nums">
                           {apt.time}
                         </td>
                         <td className="px-4 py-3">
-                          <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px]">
+                          <span className="inline-block px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-medium">
                             {apt.serviceName}
                           </span>
                         </td>
@@ -259,7 +260,7 @@ export function DoctorDashboardPage() {
                             onClick={() => handleStartConsultation(apt)}
                             className="text-xs hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300"
                           >
-                            <Stethoscope className="w-3.5 h-3.5 mr-1 text-blue-600" />
+                            <Stethoscope className="w-4 h-4 mr-1 text-blue-600" />
                             Consult
                           </Button>
                         </td>
@@ -272,106 +273,101 @@ export function DoctorDashboardPage() {
           </Card>
 
           {/* Today's Schedule Overview */}
-          <div className="pt-2">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-slate-600" />
-                All Today's Appointments ({doctorAppointments.length})
-              </h3>
-            </div>
-            <Card className="p-0 border-slate-200 overflow-hidden">
-              <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
-                {doctorAppointments.map((apt) => (
-                  <div key={apt.id} className="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50">
-                    <div className="flex items-center gap-3">
-                      <div className="font-mono text-slate-500 font-semibold w-16">
-                        {apt.time}
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 flex items-center gap-2">
-                          <span>{apt.patientName}</span>
-                          <span className="text-[10px] text-slate-400 font-normal">({apt.referenceNumber})</span>
-                        </div>
-                        <div className="text-[11px] text-slate-500">{apt.serviceName}</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge
-                        variant={
-                          apt.status === 'Completed' ? 'success' :
-                          apt.status === 'In Progress' ? 'warning' :
-                          apt.status === 'Cancelled' ? 'danger' : 'teal'
-                        }
-                        size="sm"
-                      >
-                        {apt.status}
-                      </Badge>
-                      <Link to={`/doctor/consultation/${apt.id}`}>
-                        <Button variant="ghost" size="sm" className="h-7 px-2 text-xs">
-                          View
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
+          <div className="p-3 bg-white border border-slate-200 lg:border-r-0 border-b-0 flex items-center justify-between">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-slate-600" />
+              All Today's Appointments ({doctorAppointments.length})
+            </h3>
           </div>
-        </div>
-
-        {/* Right Column: Recent Clinical Records & Fast Tools */}
-        <div className="space-y-5">
-          {/* Recent Prescriptions Issued */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-blue-600" />
-                Recent Prescriptions
-              </h3>
-              <Link to="/doctor/prescriptions" className="text-xs text-blue-700 hover:underline">
-                View All
-              </Link>
-            </div>
-            <Card className="divide-y divide-slate-100 border-slate-200">
-              {prescriptions.slice(0, 4).map((rx) => (
-                <div key={rx.id} className="p-3.5 space-y-1 hover:bg-slate-50/50 text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">{rx.patientName}</span>
-                    <span className="text-[10px] font-mono text-slate-400">{rx.prescriptionNumber}</span>
+          <Card className="p-0 border-slate-200 overflow-hidden lg:rounded-r-none lg:border-r-0 rounded-t-none">
+            <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+              {doctorAppointments.map((apt) => (
+                <div key={apt.id} className="p-3.5 sm:p-4 flex items-center justify-between text-sm hover:bg-slate-50">
+                  <div className="flex items-center gap-3">
+                    <div className="font-mono text-slate-600 font-semibold w-18 tabular-nums">
+                      {apt.time}
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900 text-base flex items-center gap-2">
+                        <span>{apt.patientName}</span>
+                        <span className="text-xs text-slate-500 font-normal">({apt.referenceNumber})</span>
+                      </div>
+                      <div className="text-xs text-slate-500 mt-0.5">{apt.serviceName}</div>
+                    </div>
                   </div>
-                  <p className="text-[11px] text-slate-600 line-clamp-1">
-                    <strong>Dx: </strong>{rx.diagnosis}
-                  </p>
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
-                    <span>{rx.medications.length} Medications</span>
-                    <Badge variant="success" size="sm" className="text-[10px]">Active Rx</Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      variant={
+                        apt.status === 'Completed' ? 'success' :
+                        apt.status === 'In Progress' ? 'warning' :
+                        apt.status === 'Cancelled' ? 'danger' : 'teal'
+                      }
+                      size="sm"
+                    >
+                      {apt.status}
+                    </Badge>
+                    <Link to={`/doctor/consultation/${apt.id}`}>
+                      <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
+                        View
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               ))}
-            </Card>
+            </div>
+          </Card>
+        </div>
+
+        {/* Right Column: Recent Clinical Records & Fast Tools */}
+        <div className="space-y-0">
+          <div className="p-3 bg-white border border-slate-200 lg:rounded-tr-2xl lg:border-l-0 border-b-0 flex items-center justify-between">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-blue-600" />
+              Recent Prescriptions
+            </h3>
+            <Link to="/doctor/prescriptions" className="text-xs font-semibold text-blue-700 hover:underline">
+              View All
+            </Link>
           </div>
+          <Card className="divide-y divide-slate-100 border-slate-200 lg:rounded-l-none rounded-none border-b-0">
+            {prescriptions.slice(0, 4).map((rx) => (
+              <div key={rx.id} className="p-3.5 sm:p-4 space-y-1.5 hover:bg-slate-50/50 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900 text-base">{rx.patientName}</span>
+                  <span className="text-xs font-mono text-slate-500">{rx.prescriptionNumber}</span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 line-clamp-1">
+                  <strong>Dx: </strong>{rx.diagnosis}
+                </p>
+                <div className="flex items-center justify-between text-xs text-slate-500 pt-0.5">
+                  <span>{rx.medications.length} Medications</span>
+                  <Badge variant="success" size="sm">Active Rx</Badge>
+                </div>
+              </div>
+            ))}
+          </Card>
 
           {/* Clinical Quick Presets */}
-          <Card className="p-4 border-slate-200 bg-slate-50 space-y-3">
-            <div className="flex items-center gap-2 text-slate-800 font-bold text-xs">
+          <Card className="p-5 border-slate-200 bg-slate-50 space-y-3.5 lg:rounded-l-none rounded-t-none">
+            <div className="flex items-center gap-2 text-slate-800 font-bold text-sm">
               <Sparkles className="w-4 h-4 text-blue-600" />
               <span>Standard Prescribing Shortcuts</span>
             </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Preset combinations automatically load into the Consultation Composer with single-click.
             </p>
-            <div className="space-y-1.5 text-xs">
-              <div className="p-2 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+            <div className="space-y-2 text-sm">
+              <div className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
                 <div>
-                  <div className="font-semibold text-slate-800">Acute Pulpitis Protocol</div>
-                  <div className="text-[10px] text-slate-400">Augmentin 625 + Ketorol-DT + Chlorhexidine</div>
+                  <div className="font-semibold text-slate-900">Acute Pulpitis Protocol</div>
+                  <div className="text-xs text-slate-500">Augmentin 625 + Ketorol-DT + Chlorhexidine</div>
                 </div>
                 <Badge variant="teal" size="sm">3 Drugs</Badge>
               </div>
-              <div className="p-2 bg-white rounded-lg border border-slate-200 flex items-center justify-between">
+              <div className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
                 <div>
-                  <div className="font-semibold text-slate-800">Post-Op Extraction Pack</div>
-                  <div className="text-[10px] text-slate-400">Amoxicillin 500 + Ibuprofen 400 + Pan-D</div>
+                  <div className="font-semibold text-slate-900">Post-Op Extraction Pack</div>
+                  <div className="text-xs text-slate-500">Amoxicillin 500 + Ibuprofen 400 + Pan-D</div>
                 </div>
                 <Badge variant="teal" size="sm">3 Drugs</Badge>
               </div>

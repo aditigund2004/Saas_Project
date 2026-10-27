@@ -8,11 +8,12 @@ import { Receipt, PlusCircle, Printer, Download, CreditCard, CheckCircle } from 
 
 export function ClinicBillingPage() {
   const { invoices, createInvoice, patients, activeClinic, activeBranch, showToast } = useApp();
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
   const [isNewInvoiceOpen, setIsNewInvoiceOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
   // New Invoice Form
-  const [selectedPatientId, setSelectedPatientId] = useState(patients[0]?.id || '');
+  const [selectedPatientId, setSelectedPatientId] = useState(clinicPatients[0]?.id || '');
   const [lineItemDesc, setLineItemDesc] = useState('Root Canal Treatment');
   const [lineItemPrice, setLineItemPrice] = useState(4500);
   const [discount, setDiscount] = useState(0);
@@ -20,7 +21,7 @@ export function ClinicBillingPage() {
 
   const handleCreateInvoice = (e) => {
     e.preventDefault();
-    const patient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+    const patient = clinicPatients.find((p) => p.id === selectedPatientId) || clinicPatients[0];
     const total = Math.max(0, lineItemPrice - discount);
 
     createInvoice({
@@ -200,7 +201,7 @@ export function ClinicBillingPage() {
                 onChange={(e) => setSelectedPatientId(e.target.value)}
                 className="w-full px-3 py-2 border rounded-xl bg-white"
               >
-                {patients.map((p) => (
+                {clinicPatients.map((p) => (
                   <option key={p.id} value={p.id}>{p.name} ({p.patientIdNumber})</option>
                 ))}
               </select>

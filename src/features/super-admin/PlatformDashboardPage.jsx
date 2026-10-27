@@ -133,11 +133,11 @@ export function PlatformDashboardPage() {
         </Link>
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Charts Section (Cards connected with zero gap) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
         {/* MRR & Clinic Growth Area Chart */}
         <div className="lg:col-span-8">
-          <Card>
+          <Card className="lg:rounded-r-none lg:border-r-0 h-full">
             <CardHeader
               title="Platform Growth & Subscription Revenue"
               subtitle="Monthly Recurring Revenue (INR) across the last 6 months"
@@ -153,16 +153,16 @@ export function PlatformDashboardPage() {
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
+                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
                     <YAxis
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fontSize: 11 }}
+                      tick={{ fontSize: 12 }}
                       tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`}
                     />
                     <Tooltip
                       formatter={(v) => [`₹${Number(v).toLocaleString('en-IN')}`, 'MRR']}
-                      contentStyle={{ borderRadius: '12px', fontSize: '12px', borderColor: '#e2e8f0' }}
+                      contentStyle={{ borderRadius: '12px', fontSize: '13px', borderColor: '#e2e8f0' }}
                     />
                     <Area
                       type="monotone"
@@ -181,47 +181,47 @@ export function PlatformDashboardPage() {
 
         {/* Subscription Tier Distribution */}
         <div className="lg:col-span-4">
-          <Card className="h-full flex flex-col justify-between">
+          <Card className="lg:rounded-l-none h-full flex flex-col justify-between">
             <CardHeader
               title="Active Subscription Tiers"
               subtitle="Clinic distribution across plans"
             />
             <CardContent className="space-y-4">
               <div className="space-y-3">
-                <div className="p-3 rounded-xl bg-blue-50/80 border border-blue-100 flex items-center justify-between text-xs">
+                <div className="p-3.5 rounded-xl bg-blue-50/80 border border-blue-100 flex items-center justify-between text-sm">
                   <div>
-                    <span className="font-semibold text-blue-900">Professional Plan</span>
-                    <span className="block text-slate-500 text-[10px]">₹6,999/mo (Up to 10 Doctors)</span>
+                    <span className="font-semibold text-blue-900 text-base">Professional Plan</span>
+                    <span className="block text-slate-500 text-xs">₹6,999/mo (Up to 10 Doctors)</span>
                   </div>
-                  <span className="text-sm font-bold text-blue-800 tabular-nums">14 Clinics</span>
+                  <span className="text-base font-bold text-blue-800 tabular-nums">14 Clinics</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-sm">
                   <div>
-                    <span className="font-semibold text-slate-900">Starter Plan</span>
-                    <span className="block text-slate-500 text-[10px]">₹2,499/mo (Up to 2 Doctors)</span>
+                    <span className="font-semibold text-slate-900 text-base">Starter Plan</span>
+                    <span className="block text-slate-500 text-xs">₹2,499/mo (Up to 2 Doctors)</span>
                   </div>
-                  <span className="text-sm font-bold text-slate-800 tabular-nums">8 Clinics</span>
+                  <span className="text-base font-bold text-slate-800 tabular-nums">8 Clinics</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-indigo-50/80 border border-indigo-100 flex items-center justify-between text-xs">
+                <div className="p-3.5 rounded-xl bg-indigo-50/80 border border-indigo-100 flex items-center justify-between text-sm">
                   <div>
-                    <span className="font-semibold text-indigo-900">Enterprise Plan</span>
-                    <span className="block text-slate-500 text-[10px]">₹14,999/mo (10-30 Bed Facilities)</span>
+                    <span className="font-semibold text-indigo-900 text-base">Enterprise Plan</span>
+                    <span className="block text-slate-500 text-xs">₹14,999/mo (10-30 Bed Facilities)</span>
                   </div>
-                  <span className="text-sm font-bold text-indigo-800 tabular-nums">4 Clinics</span>
+                  <span className="text-base font-bold text-indigo-800 tabular-nums">4 Clinics</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-100 flex items-center justify-between text-xs">
+                <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-100 flex items-center justify-between text-sm">
                   <div>
-                    <span className="font-semibold text-amber-900">Active 14-Day Free Trials</span>
-                    <span className="block text-slate-500 text-[10px]">In evaluation period</span>
+                    <span className="font-semibold text-amber-900 text-base">Active 14-Day Free Trials</span>
+                    <span className="block text-slate-500 text-xs">In evaluation period</span>
                   </div>
-                  <span className="text-sm font-bold text-amber-800 tabular-nums">4 Trials</span>
+                  <span className="text-base font-bold text-amber-800 tabular-nums">4 Trials</span>
                 </div>
               </div>
 
-              <div className="pt-2 text-[11px] text-slate-400 text-center">
+              <div className="pt-2 text-xs text-slate-500 text-center font-medium">
                 Platform billing is separate from clinic patient invoices.
               </div>
             </CardContent>

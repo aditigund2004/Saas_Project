@@ -29,7 +29,7 @@ export function DoctorSchedulePage() {
   ];
 
   const currentAppointments = appointments.filter(
-    (a) => (a.clinicId === activeClinic?.id || !a.clinicId) && ((a.confirmedDate || a.date) === selectedDate)
+    (a) => a.clinicId === activeClinic?.id && ((a.confirmedDate || a.date) === selectedDate)
   );
 
   return (

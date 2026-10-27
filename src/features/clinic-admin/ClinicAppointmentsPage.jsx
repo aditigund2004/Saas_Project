@@ -57,11 +57,12 @@ export function ClinicAppointmentsPage() {
   );
 
   const filteredAppointments = appointments.filter((a) => {
+    const matchesClinic = a.clinicId === activeClinic?.id;
     const matchesBranch = !activeBranch || a.branchId === activeBranch.id;
     const matchesDoctor = selectedDoctorFilter === 'All' || a.doctorId === selectedDoctorFilter;
     const matchesStatus = selectedStatusFilter === 'All' || a.status === selectedStatusFilter;
     const matchesDate = viewMode === 'day' ? a.date === selectedDate : true;
-    return matchesBranch && matchesDoctor && matchesStatus && matchesDate;
+    return matchesClinic && matchesBranch && matchesDoctor && matchesStatus && matchesDate;
   });
 
   const handleCreateSubmit = (e) => {

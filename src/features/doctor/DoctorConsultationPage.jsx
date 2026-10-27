@@ -37,11 +37,13 @@ export function DoctorConsultationPage() {
   } = useApp();
 
   // Find target appointment or default to first waiting
+  const clinicAppointments = appointments.filter((a) => a.clinicId === activeClinic?.id);
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
   const targetAppointment = appointmentId
-    ? appointments.find((a) => a.id === appointmentId)
-    : appointments.find((a) => a.status === 'Checked In' || a.status === 'Patient Checked In' || a.status === 'In Progress' || a.status === 'In Consultation') || appointments[0];
+    ? clinicAppointments.find((a) => a.id === appointmentId)
+    : clinicAppointments.find((a) => a.status === 'Checked In' || a.status === 'Patient Checked In' || a.status === 'In Progress' || a.status === 'In Consultation') || clinicAppointments[0];
 
-  const targetPatient = patients.find((p) => p.id === targetAppointment?.patientId) || patients[0];
+  const targetPatient = clinicPatients.find((p) => p.id === targetAppointment?.patientId) || clinicPatients[0];
 
   // Existing encounter if draft or finalized
   const existingEncounter = encounters.find((e) => e.appointmentId === targetAppointment?.id);

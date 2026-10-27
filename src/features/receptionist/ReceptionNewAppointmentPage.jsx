@@ -44,9 +44,10 @@ export function ReceptionNewAppointmentPage() {
   const [bookedApt, setBookedApt] = useState(null);
 
   const clinicDoctors = doctors.filter((d) => d.clinicId === activeClinic.id);
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic.id);
   const currentDoctor = clinicDoctors.find((d) => d.id === selectedDoctorId) || clinicDoctors[0];
   const currentService = activeClinic.services.find((s) => s.id === selectedServiceId) || activeClinic.services[0];
-  const existingPatient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+  const existingPatient = clinicPatients.find((p) => p.id === selectedPatientId) || clinicPatients[0];
 
   const conflictAppointment = appointments.find(
     (a) =>
@@ -136,7 +137,7 @@ export function ReceptionNewAppointmentPage() {
                 onChange={(e) => setSelectedPatientId(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-blue-500 font-medium"
               >
-                {patients.map((p) => (
+                {clinicPatients.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name} ({p.patientIdNumber}) · {p.phone}
                   </option>

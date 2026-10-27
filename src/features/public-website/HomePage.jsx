@@ -12,7 +12,6 @@ import {
   Sparkles,
   Smartphone,
   Layers,
-  ChevronRight,
   Activity,
   HeartPulse,
   Receipt,
@@ -29,7 +28,7 @@ import { Badge } from '../../components/ui/Badge';
 import { useApp } from '../../context/AppContext';
 
 export function HomePage() {
-  const { clinics, openWhatsAppModal } = useApp();
+  const { clinics } = useApp();
   const [activeTab, setActiveTab] = useState('dental');
 
   const specialtySolutions = {
@@ -93,11 +92,6 @@ export function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold">
-              <Sparkles className="w-4 h-4 text-blue-600" />
-              <span>Multi-Tenant Clinic Management SaaS · 14-Day Free Trial</span>
-            </div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
               Run Your Clinic Smarter. <br />
               <span className="text-blue-600">Spend Less Time on Paperwork.</span>
@@ -157,82 +151,54 @@ export function HomePage() {
 
           {/* Interactive Hero Dashboard Preview */}
           <div className="lg:col-span-5">
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-500 to-blue-600 opacity-20 blur-xl" />
-              <div className="relative bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-rose-400" />
-                    <span className="w-3 h-3 rounded-full bg-amber-400" />
-                    <span className="w-3 h-3 rounded-full bg-emerald-400" />
-                    <span className="text-xs font-semibold text-slate-600 ml-2">Apex Dental Clinic · Downtown</span>
-                  </div>
-                  <Badge variant="Active">Today: 18 Visits</Badge>
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
+              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600">Clinic overview</p>
+                  <h2 className="mt-1 text-lg font-bold text-slate-900">Today at a glance</h2>
                 </div>
+                <span className="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-semibold text-emerald-700">Schedule ready</span>
+              </div>
 
-                {/* Metric Cards in preview */}
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-100 text-center">
-                    <p className="text-[10px] uppercase font-bold text-blue-700">Waiting</p>
-                    <p className="text-xl font-bold text-blue-900">3</p>
+              <div className="grid grid-cols-3 gap-2.5 py-4 sm:gap-3">
+                {[
+                  ['Waiting', '3'],
+                  ['In consultation', '1'],
+                  ['Completed', '14']
+                ].map(([label, count]) => (
+                  <div key={label} className="rounded-xl border border-slate-100 bg-slate-50 px-2 py-3 text-center sm:px-3">
+                    <p className="text-[10px] font-semibold leading-4 text-slate-500 sm:text-xs">{label}</p>
+                    <p className="mt-1 text-xl font-bold tabular-nums text-slate-900">{count}</p>
                   </div>
-                  <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-100 text-center">
-                    <p className="text-[10px] uppercase font-bold text-blue-700">In Chair</p>
-                    <p className="text-xl font-bold text-blue-900">1</p>
-                  </div>
-                  <div className="p-3 bg-emerald-50/70 rounded-xl border border-emerald-100 text-center">
-                    <p className="text-[10px] uppercase font-bold text-emerald-700">Completed</p>
-                    <p className="text-xl font-bold text-emerald-900">14</p>
-                  </div>
-                </div>
+                ))}
+              </div>
 
-                {/* Live Queue Cards in preview */}
-                <div className="space-y-2">
-                  <div className="p-3 rounded-xl border border-blue-200 bg-blue-50/40 flex items-center justify-between text-xs">
-                    <div>
-                      <p className="font-semibold text-slate-900">Aarav Patel (PT-1041)</p>
-                      <p className="text-slate-500">10:30 AM · Root Canal Therapy · Dr. Arvind Rao</p>
-                    </div>
-                    <Badge variant="In Progress">In Progress</Badge>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 rounded-xl border border-slate-100 p-3">
+                  <span className="w-14 shrink-0 text-xs font-bold text-slate-700">10:30</span>
+                  <span className="h-9 w-1 rounded-full bg-blue-500" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-xs font-semibold text-slate-900">Next appointment</p>
+                    <p className="mt-0.5 text-[11px] text-slate-500">Dental consultation</p>
                   </div>
-                  <div className="p-3 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs">
-                    <div>
-                      <p className="font-semibold text-slate-900">Meera Deshmukh (PT-1042)</p>
-                      <p className="text-slate-500">11:30 AM · Dental Consultation · Token #Q-02</p>
-                    </div>
-                    <Badge variant="Checked In">Waiting</Badge>
-                  </div>
+                  <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold text-blue-700">Confirmed</span>
                 </div>
+                <div className="flex items-center gap-3 rounded-xl border border-slate-100 p-3">
+                  <span className="w-14 shrink-0 text-xs font-bold text-slate-700">Queue</span>
+                  <span className="h-9 w-1 rounded-full bg-amber-400" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-xs font-semibold text-slate-900">Walk-in patient</p>
+                    <p className="mt-0.5 text-[11px] text-slate-500">Token #Q-02 · Ready for check-in</p>
+                  </div>
+                  <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-semibold text-amber-700">Waiting</span>
+                </div>
+              </div>
 
-                {/* WhatsApp simulated trigger */}
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <Smartphone className="w-4 h-4 text-emerald-600" />
-                    <span className="text-slate-700">Automated WhatsApp Reminder Sent</span>
-                  </div>
-                  <button
-                    onClick={() =>
-                      openWhatsAppModal({
-                        patient_name: 'Meera Deshmukh',
-                        clinic_name: 'Apex Dental Care',
-                        appointment_date: 'Today',
-                        appointment_time: '11:30 AM',
-                        doctor_name: 'Dr. Arvind Rao',
-                        appointment_reference: 'APT-2602'
-                      })
-                    }
-                    className="text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
-                  >
-                    Preview
-                  </button>
-                </div>
-
-                <div className="pt-2 flex items-center justify-between text-[11px] text-slate-400">
-                  <span>Branch: Downtown Dental Studio</span>
-                  <Link to="/clinic/dashboard" className="text-blue-600 font-medium hover:underline">
-                    Open Live Demo Workspace →
-                  </Link>
-                </div>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                <span className="text-[11px] text-slate-500">Sample branch · Downtown</span>
+                <Link to="/clinic/dashboard" className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-blue-700 transition-colors hover:bg-blue-50 hover:text-blue-800">
+                  Explore workspace <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
             </div>
           </div>
@@ -641,4 +607,3 @@ export function HomePage() {
     </div>
   );
 }
-

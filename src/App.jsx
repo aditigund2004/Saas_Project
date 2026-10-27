@@ -18,8 +18,11 @@ import { AboutPage } from './features/public-website/AboutPage';
 import { ContactPage } from './features/public-website/ContactPage';
 import { PrivacyPage } from './features/public-website/PrivacyPage';
 import { TermsPage } from './features/public-website/TermsPage';
+import { FindDoctorPage } from './features/public-website/FindDoctorPage';
+import { BookDoctorPage } from './features/public-website/BookDoctorPage';
 
 // Clinic Directory & Booking
+
 import { ClinicDirectoryPage } from './features/clinic-directory/ClinicDirectoryPage';
 import { ClinicDetailPage } from './features/clinic-directory/ClinicDetailPage';
 import { GuestBookingPage } from './features/clinic-directory/GuestBookingPage';
@@ -183,9 +186,12 @@ export default function App() {
               <Route path="/clinics/:clinicSlug" element={<ClinicDetailPage />} />
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/faq" element={<FAQPage />} />
-              <Route path="/about" element={<AboutPage />} />
+                            <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/doctors" element={<FindDoctorPage />} />
+              <Route path="/book-doctor/:doctorId" element={<BookDoctorPage />} />
               <Route path="/book-appointment" element={<GuestBookingPage />} />
+
               <Route path="/verify-prescription/:verificationId" element={<PrescriptionVerificationPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/terms" element={<TermsPage />} />
@@ -369,10 +375,10 @@ export default function App() {
             <Route element={<PublicLayout />}>
               <Route path="*" element={<NotFoundPage />} />
             </Route>
-          </Routes>
-        </BrowserRouter>
-      </AppProvider>
-    </AuthProvider>
+            </Routes>
+          </BrowserRouter>
+        </AppProvider>
+      </AuthProvider>
   );
 }
  

@@ -19,7 +19,9 @@ export function ReceptionNewPatientPage() {
   const [notes, setNotes] = useState('');
 
   // Duplicate Check UI
-  const isDuplicate = patients.some((p) => p.phone === phone && phone.trim().length > 6);
+  const isDuplicate = patients.some(
+    (p) => p.clinicId === activeClinic?.id && p.phone === phone && phone.trim().length > 6
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();

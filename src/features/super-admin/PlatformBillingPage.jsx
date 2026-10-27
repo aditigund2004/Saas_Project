@@ -1,0 +1,91 @@
+import React from 'react';
+import { Card, CardHeader } from '../../components/ui/Card';
+import { Badge } from '../../components/ui/Badge';
+import { Button } from '../../components/ui/Button';
+import { CreditCard, Download, ExternalLink, ShieldCheck } from 'lucide-react';
+import { useApp } from '../../context/AppContext';
+
+export function PlatformBillingPage() {
+  const { showToast } = useApp();
+
+  const invoices = [
+    { id: 'sub-inv-1081', clinic: 'Apex Dental Care', plan: 'Professional Plan', amount: 6999, date: '2026-10-21', status: 'Paid', method: 'UPI / Razorpay', ref: 'rzp_pay_99812A' },
+    { id: 'sub-inv-1080', clinic: 'Pulse Orthopedics', plan: 'Professional Plan', amount: 6999, date: '2026-10-18', status: 'Paid', method: 'Corporate Visa', ref: 'txn_vis_77189B' },
+    { id: 'sub-inv-1079', clinic: 'GreenHaven Recovery', plan: 'Enterprise (24 Beds)', amount: 14999, date: '2026-10-15', status: 'Paid', method: 'Net Banking', ref: 'neft_sbi_44120C' },
+    { id: 'sub-inv-1078', clinic: 'DermaGlow Skin Center', plan: 'Starter Plan', amount: 2499, date: '2026-10-12', status: 'Paid', method: 'UPI Autopay', ref: 'upi_auto_33219D' },
+    { id: 'sub-inv-1077', clinic: 'LittleCare Pediatrics', plan: 'Starter Plan', amount: 2499, date: '2026-10-09', status: 'Paid', method: 'MasterCard', ref: 'txn_mc_22091E' }
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Platform Finance</span>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Subscription Invoices</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            B2B subscription invoices issued to clinic organizations for ClinicOS platform usage.
+          </p>
+        </div>
+
+        <Button
+          variant="outline"
+          size="sm"
+          icon={Download}
+          onClick={() => showToast('Platform subscription CSV report exported.')}
+        >
+          Export SaaS Ledger CSV
+        </Button>
+      </div>
+
+      <div className="p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-sm text-blue-900 dark:text-blue-200 flex items-center gap-3">
+        <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
+        <span>
+          <strong>Tenant Separation Note:</strong> This ledger contains platform SaaS subscription fees paid by clinics to ClinicOS. It is strictly segregated from individual clinic patient procedure invoices.
+        </span>
+      </div>
+
+      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+        <CardHeader
+          title="Recent Subscription Invoices"
+          subtitle="Showing transaction references and automated payment gateway webhooks"
+        />
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th className="p-4 text-center w-12 font-bold">#</th>
+                <th className="p-4">Invoice #</th>
+                <th className="p-4">Subscribing Clinic</th>
+                <th className="p-4">Subscription Tier</th>
+                <th className="p-4">Date Paid</th>
+                <th className="p-4">Amount</th>
+                <th className="p-4">Payment Method</th>
+                <th className="p-4">Transaction Ref</th>
+                <th className="p-4">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {invoices.map((inv, idx) => (
+                <tr key={inv.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
+                  <td className="p-4 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
+                  <td className="p-4 font-mono font-bold text-slate-900 dark:text-white text-base">{inv.id}</td>
+                  <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">{inv.clinic}</td>
+                  <td className="p-4 text-slate-600 dark:text-slate-300 font-medium">{inv.plan}</td>
+                  <td className="p-4 text-slate-500 dark:text-slate-400 font-mono text-xs">{inv.date}</td>
+                  <td className="p-4 font-bold font-mono text-slate-900 dark:text-white text-base">
+                    ₹{inv.amount.toLocaleString('en-IN')}
+                  </td>
+                  <td className="p-4 text-slate-600 dark:text-slate-300">{inv.method}</td>
+                  <td className="p-4 font-mono text-slate-500 dark:text-slate-400 text-xs">{inv.ref}</td>
+                  <td className="p-4">
+                    <Badge variant={inv.status}>{inv.status}</Badge>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}

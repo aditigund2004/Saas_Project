@@ -267,15 +267,9 @@ export function PlatformClinicsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tenant Directory</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Clinic Tenant Management</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-=======
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Tenant Directory</span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Clinic Tenant Management</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
->>>>>>> origin/main
             Supervise all multi-tenant healthcare clinics, active trials, branch allocations, and operational statuses.
           </p>
         </div>
@@ -290,43 +284,25 @@ export function PlatformClinicsPage() {
               setFormErrors({});
               setIsProvisionModalOpen(true);
             }}
-<<<<<<< HEAD
             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm cursor-pointer"
           >
             <PlusCircle className="w-4.5 h-4.5" />
             <span>Provision New Clinic</span>
-=======
-            className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm cursor-pointer"
-          >
-            <PlusCircle className="w-4 h-4" />
-            <span>+ Provision New Clinic</span>
->>>>>>> origin/main
           </Button>
         </div>
       </div>
 
       {/* Filters and Search */}
-<<<<<<< HEAD
       <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-=======
-      <Card className="p-4 border-slate-200">
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
-          <div className="sm:col-span-8 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
->>>>>>> origin/main
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search clinic by name, owner doctor, specialty, or city..."
-<<<<<<< HEAD
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-=======
-              className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
             />
           </div>
 
@@ -335,11 +311,7 @@ export function PlatformClinicsPage() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               aria-label="Filter by clinic account status"
-<<<<<<< HEAD
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-medium"
-=======
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-slate-700 font-medium"
->>>>>>> origin/main
             >
               <option value="All">All Statuses ({clinics.length})</option>
               <option value="Active">Active Accounts</option>
@@ -351,7 +323,6 @@ export function PlatformClinicsPage() {
       </Card>
 
       {/* Clinics Table */}
-<<<<<<< HEAD
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
@@ -401,55 +372,6 @@ export function PlatformClinicsPage() {
                   </td>
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-2">
-=======
-      <Card>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
-              <tr>
-                <th className="p-3.5">Clinic Name</th>
-                <th className="p-3.5">Specialty</th>
-                <th className="p-3.5">Administrator</th>
-                <th className="p-3.5">Branches</th>
-                <th className="p-3.5">SaaS Plan</th>
-                <th className="p-3.5">Trial Expiry</th>
-                <th className="p-3.5">Status</th>
-                <th className="p-3.5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {filteredClinics.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/50">
-                  <td className="p-3.5">
-                    <div className="font-bold text-slate-900">{c.name}</div>
-                    <div className="text-[10px] text-slate-400">{c.city} · {c.address}</div>
-                  </td>
-                  <td className="p-3.5">
-                    <span className="font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded text-[11px]">
-                      {c.specialty}
-                    </span>
-                  </td>
-                  <td className="p-3.5">
-                    <div className="font-medium text-slate-800">{c.ownerName}</div>
-                    <div className="text-[10px] text-slate-400">{c.email}</div>
-                  </td>
-                  <td className="p-3.5 font-semibold text-slate-700">
-                    {c.branches?.length || 1}
-                  </td>
-                  <td className="p-3.5">
-                    <span className="uppercase text-[10px] font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                      {c.subscriptionPlanId}
-                    </span>
-                  </td>
-                  <td className="p-3.5 text-slate-600 font-mono text-[11px]">
-                    {c.isTrial ? '14 Days Demo' : 'Subscribed'}
-                  </td>
-                  <td className="p-3.5">
-                    <Badge variant={c.status}>{c.status}</Badge>
-                  </td>
-                  <td className="p-3.5 text-right">
-                    <div className="flex items-center justify-end gap-1.5">
->>>>>>> origin/main
                       <Button
                         variant="ghost"
                         size="sm"
@@ -462,11 +384,7 @@ export function PlatformClinicsPage() {
                         <Button
                           variant="outline"
                           size="sm"
-<<<<<<< HEAD
                           className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border-rose-200 dark:border-rose-900"
-=======
-                          className="text-rose-600 hover:bg-rose-50 border-rose-200"
->>>>>>> origin/main
                           onClick={() =>
                             setStatusModal({ isOpen: true, clinic: c, targetStatus: 'Suspended' })
                           }
@@ -477,11 +395,7 @@ export function PlatformClinicsPage() {
                         <Button
                           variant="outline"
                           size="sm"
-<<<<<<< HEAD
                           className="text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 border-blue-200 dark:border-blue-900"
-=======
-                          className="text-blue-700 hover:bg-blue-50 border-blue-200"
->>>>>>> origin/main
                           onClick={() =>
                             setStatusModal({ isOpen: true, clinic: c, targetStatus: 'Active' })
                           }
@@ -496,11 +410,7 @@ export function PlatformClinicsPage() {
 
               {filteredClinics.length === 0 && (
                 <tr>
-<<<<<<< HEAD
                   <td colSpan={8} className="text-center py-10 text-slate-400 dark:text-slate-500 text-sm">
-=======
-                  <td colSpan={8} className="text-center py-8 text-slate-400 text-xs">
->>>>>>> origin/main
                     No clinics match your search criteria. Click "+ Provision New Clinic" to register one.
                   </td>
                 </tr>
@@ -518,7 +428,6 @@ export function PlatformClinicsPage() {
           title="Register & Provision New Clinic Tenant"
           size="lg"
         >
-<<<<<<< HEAD
           <form onSubmit={handleRegisterClinic} className="space-y-4 text-sm">
             {/* Quick Prefill Bar */}
             <div className="p-3.5 bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 rounded-xl space-y-2">
@@ -534,45 +443,20 @@ export function PlatformClinicsPage() {
                   type="button"
                   onClick={() => handleApplyTemplate('cardiology')}
                   className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/80 shadow-xs transition-colors cursor-pointer"
-=======
-          <form onSubmit={handleRegisterClinic} className="space-y-4 text-xs">
-            {/* Quick Prefill Bar */}
-            <div className="p-3 bg-blue-50/70 border border-blue-200 rounded-xl space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-blue-950 flex items-center gap-1.5 text-xs">
-                  <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                  Quick Prefill Demo Clinic Template:
-                </span>
-                <span className="text-[10px] text-blue-700 font-medium">1-Click Auto-Populate</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => handleApplyTemplate('cardiology')}
-                  className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white text-blue-700 border border-blue-300 hover:bg-blue-50 shadow-2xs transition-colors cursor-pointer"
->>>>>>> origin/main
                 >
                   Cardiology Center (Zenith)
                 </button>
                 <button
                   type="button"
                   onClick={() => handleApplyTemplate('dental')}
-<<<<<<< HEAD
                   className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/80 shadow-xs transition-colors cursor-pointer"
-=======
-                  className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white text-blue-700 border border-blue-300 hover:bg-blue-50 shadow-2xs transition-colors cursor-pointer"
->>>>>>> origin/main
                 >
                   Dental Studio (SmileCraft)
                 </button>
                 <button
                   type="button"
                   onClick={() => handleApplyTemplate('pediatrics')}
-<<<<<<< HEAD
                   className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/80 shadow-xs transition-colors cursor-pointer"
-=======
-                  className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white text-blue-700 border border-blue-300 hover:bg-blue-50 shadow-2xs transition-colors cursor-pointer"
->>>>>>> origin/main
                 >
                   Pediatric Clinic (LittleSteps)
                 </button>
@@ -581,23 +465,14 @@ export function PlatformClinicsPage() {
 
             {/* Section 1: Establishment Identity */}
             <div className="space-y-3">
-<<<<<<< HEAD
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-=======
-              <h4 className="font-bold text-slate-900 border-b border-slate-100 pb-1 flex items-center gap-1.5 text-xs">
-                <Building2 className="w-3.5 h-3.5 text-blue-600" />
->>>>>>> origin/main
                 1. Clinic Establishment Identity
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1 sm:col-span-2">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-=======
-                  <label className="font-semibold text-slate-700 block">
->>>>>>> origin/main
                     Clinic Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -605,7 +480,6 @@ export function PlatformClinicsPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Zenith Advanced Heart & Wellness Clinic"
-<<<<<<< HEAD
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.name ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
                     }`}
@@ -619,21 +493,6 @@ export function PlatformClinicsPage() {
                     value={formData.specialty}
                     onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-=======
-                    className={`w-full px-3 py-2 bg-white border rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                      formErrors.name ? 'border-red-500 bg-red-50/20' : 'border-slate-200'
-                    }`}
-                  />
-                  {formErrors.name && <p className="text-[10px] text-red-600 font-medium">{formErrors.name}</p>}
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-semibold text-slate-700 block">Primary Specialty</label>
-                  <select
-                    value={formData.specialty}
-                    onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
->>>>>>> origin/main
                   >
                     <option value="Cardiology">Cardiology</option>
                     <option value="Dental">Dental & Orthodontics</option>
@@ -649,21 +508,13 @@ export function PlatformClinicsPage() {
                 </div>
 
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Clinic Tagline / Subtitle</label>
-=======
-                  <label className="font-semibold text-slate-700 block">Clinic Tagline / Subtitle</label>
->>>>>>> origin/main
                   <input
                     type="text"
                     value={formData.tagline}
                     onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
                     placeholder="e.g. Premier Cardiovascular Diagnostic Center"
-<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
->>>>>>> origin/main
                   />
                 </div>
               </div>
@@ -671,23 +522,14 @@ export function PlatformClinicsPage() {
 
             {/* Section 2: Clinical Leadership & Contact */}
             <div className="space-y-3 pt-2">
-<<<<<<< HEAD
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <Stethoscope className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-=======
-              <h4 className="font-bold text-slate-900 border-b border-slate-100 pb-1 flex items-center gap-1.5 text-xs">
-                <Stethoscope className="w-3.5 h-3.5 text-blue-600" />
->>>>>>> origin/main
                 2. Clinical Leadership & Administration
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-=======
-                  <label className="font-semibold text-slate-700 block">
->>>>>>> origin/main
                     Chief Administrator / Lead Doctor <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -695,7 +537,6 @@ export function PlatformClinicsPage() {
                     value={formData.ownerName}
                     onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
                     placeholder="e.g. Dr. Rajesh Patel, MBBS, MD"
-<<<<<<< HEAD
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.ownerName ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
                     }`}
@@ -705,36 +546,17 @@ export function PlatformClinicsPage() {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Doctor Qualifications</label>
-=======
-                    className={`w-full px-3 py-2 bg-white border rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                      formErrors.ownerName ? 'border-red-500 bg-red-50/20' : 'border-slate-200'
-                    }`}
-                  />
-                  {formErrors.ownerName && <p className="text-[10px] text-red-600 font-medium">{formErrors.ownerName}</p>}
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-semibold text-slate-700 block">Doctor Qualifications</label>
->>>>>>> origin/main
                   <input
                     type="text"
                     value={formData.qualifications}
                     onChange={(e) => setFormData({ ...formData, qualifications: e.target.value })}
                     placeholder="e.g. MBBS, MD, DM (Cardiology)"
-<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
->>>>>>> origin/main
                   />
                 </div>
 
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-=======
-                  <label className="font-semibold text-slate-700 block">
->>>>>>> origin/main
                     Official Email <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -742,7 +564,6 @@ export function PlatformClinicsPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="e.g. admin@zenithheart.demo"
-<<<<<<< HEAD
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.email ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
                     }`}
@@ -752,17 +573,6 @@ export function PlatformClinicsPage() {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-=======
-                    className={`w-full px-3 py-2 bg-white border rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                      formErrors.email ? 'border-red-500 bg-red-50/20' : 'border-slate-200'
-                    }`}
-                  />
-                  {formErrors.email && <p className="text-[10px] text-red-600 font-medium">{formErrors.email}</p>}
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-semibold text-slate-700 block">
->>>>>>> origin/main
                     Contact Phone <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -770,42 +580,25 @@ export function PlatformClinicsPage() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="e.g. +91 98201 88990"
-<<<<<<< HEAD
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.phone ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
                     }`}
                   />
                   {formErrors.phone && <p className="text-xs text-red-600 dark:text-red-400 font-medium">{formErrors.phone}</p>}
-=======
-                    className={`w-full px-3 py-2 bg-white border rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                      formErrors.phone ? 'border-red-500 bg-red-50/20' : 'border-slate-200'
-                    }`}
-                  />
-                  {formErrors.phone && <p className="text-[10px] text-red-600 font-medium">{formErrors.phone}</p>}
->>>>>>> origin/main
                 </div>
               </div>
             </div>
 
             {/* Section 3: Primary Branch Location */}
             <div className="space-y-3 pt-2">
-<<<<<<< HEAD
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-=======
-              <h4 className="font-bold text-slate-900 border-b border-slate-100 pb-1 flex items-center gap-1.5 text-xs">
-                <MapPin className="w-3.5 h-3.5 text-blue-600" />
->>>>>>> origin/main
                 3. Primary Branch Location
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-=======
-                  <label className="font-semibold text-slate-700 block">
->>>>>>> origin/main
                     City <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -813,23 +606,14 @@ export function PlatformClinicsPage() {
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     placeholder="e.g. Mumbai"
-<<<<<<< HEAD
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.city ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
-=======
-                    className={`w-full px-3 py-2 bg-white border rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                      formErrors.city ? 'border-red-500 bg-red-50/20' : 'border-slate-200'
->>>>>>> origin/main
                     }`}
                   />
                 </div>
 
                 <div className="space-y-1 sm:col-span-2">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-=======
-                  <label className="font-semibold text-slate-700 block">
->>>>>>> origin/main
                     Full Street Address <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -837,52 +621,31 @@ export function PlatformClinicsPage() {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     placeholder="e.g. Plot 42, Bandra Reclamation, Near Lilavati Hub"
-<<<<<<< HEAD
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.address ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
-=======
-                    className={`w-full px-3 py-2 bg-white border rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                      formErrors.address ? 'border-red-500 bg-red-50/20' : 'border-slate-200'
->>>>>>> origin/main
                     }`}
                   />
                 </div>
 
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Branch Code</label>
-=======
-                  <label className="font-semibold text-slate-700 block">Branch Code</label>
->>>>>>> origin/main
                   <input
                     type="text"
                     value={formData.branchCode}
                     onChange={(e) => setFormData({ ...formData, branchCode: e.target.value })}
                     placeholder="e.g. MAIN"
-<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none"
->>>>>>> origin/main
                   />
                 </div>
 
                 <div className="space-y-1 sm:col-span-2">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Operating Hours</label>
-=======
-                  <label className="font-semibold text-slate-700 block">Operating Hours</label>
->>>>>>> origin/main
                   <input
                     type="text"
                     value={formData.operatingHours}
                     onChange={(e) => setFormData({ ...formData, operatingHours: e.target.value })}
                     placeholder="e.g. Mon - Sat: 08:30 AM - 08:00 PM"
-<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none"
->>>>>>> origin/main
                   />
                 </div>
               </div>
@@ -890,31 +653,18 @@ export function PlatformClinicsPage() {
 
             {/* Section 4: SaaS Subscription & Commercial Terms */}
             <div className="space-y-3 pt-2">
-<<<<<<< HEAD
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-=======
-              <h4 className="font-bold text-slate-900 border-b border-slate-100 pb-1 flex items-center gap-1.5 text-xs">
-                <Layers className="w-3.5 h-3.5 text-blue-600" />
->>>>>>> origin/main
                 4. SaaS Subscription Plan & Account Status
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">SaaS Plan Tier</label>
                   <select
                     value={formData.subscriptionPlanId}
                     onChange={(e) => setFormData({ ...formData, subscriptionPlanId: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                  <label className="font-semibold text-slate-700 block">SaaS Plan Tier</label>
-                  <select
-                    value={formData.subscriptionPlanId}
-                    onChange={(e) => setFormData({ ...formData, subscriptionPlanId: e.target.value })}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
->>>>>>> origin/main
                   >
                     <option value="starter">Starter Clinic (₹2,499/mo)</option>
                     <option value="growth">Growth Practice (₹4,499/mo)</option>
@@ -924,19 +674,11 @@ export function PlatformClinicsPage() {
                 </div>
 
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Initial Status</label>
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                  <label className="font-semibold text-slate-700 block">Initial Status</label>
-                  <select
-                    value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
->>>>>>> origin/main
                   >
                     <option value="Active">Active (Paid Account)</option>
                     <option value="Trial">14-Day Free Demo Trial</option>
@@ -944,34 +686,21 @@ export function PlatformClinicsPage() {
                 </div>
 
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Consultation Fee (₹)</label>
-=======
-                  <label className="font-semibold text-slate-700 block">Consultation Fee (₹)</label>
->>>>>>> origin/main
                   <input
                     type="number"
                     min="100"
                     value={formData.consultationFee}
                     onChange={(e) => setFormData({ ...formData, consultationFee: parseInt(e.target.value) || 500 })}
-<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-bold focus:outline-none"
->>>>>>> origin/main
                   />
                 </div>
               </div>
             </div>
 
             {/* CTA Actions */}
-<<<<<<< HEAD
             <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <span className="text-xs text-slate-500 dark:text-slate-400">
-=======
-            <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-              <span className="text-[11px] text-slate-500">
->>>>>>> origin/main
                 Clinic and its chief doctor will be instantly provisioned.
               </span>
               <div className="flex items-center gap-2">
@@ -989,11 +718,7 @@ export function PlatformClinicsPage() {
                   size="sm"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
                 >
-<<<<<<< HEAD
                   <Check className="w-4 h-4 mr-1.5" />
-=======
-                  <Check className="w-3.5 h-3.5 mr-1" />
->>>>>>> origin/main
                   Provision Clinic Tenant
                 </Button>
               </div>
@@ -1010,7 +735,6 @@ export function PlatformClinicsPage() {
           title={`Clinic Tenant: ${selectedClinic.name}`}
           size="lg"
         >
-<<<<<<< HEAD
           <div className="space-y-5 text-sm">
             <div className="grid grid-cols-2 gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/70">
               <div>
@@ -1028,30 +752,10 @@ export function PlatformClinicsPage() {
               <div>
                 <span className="text-slate-400 dark:text-slate-500 text-xs uppercase font-bold tracking-wider">Phone:</span>
                 <p className="font-semibold text-slate-900 dark:text-slate-200 mt-0.5">{selectedClinic.phone}</p>
-=======
-          <div className="space-y-4 text-xs">
-            <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <div>
-                <span className="text-slate-400 text-[10px] uppercase font-semibold">Specialty:</span>
-                <p className="font-bold text-slate-900">{selectedClinic.specialty}</p>
-              </div>
-              <div>
-                <span className="text-slate-400 text-[10px] uppercase font-semibold">Administrator:</span>
-                <p className="font-bold text-slate-900">{selectedClinic.ownerName}</p>
-              </div>
-              <div>
-                <span className="text-slate-400 text-[10px] uppercase font-semibold">Contact Email:</span>
-                <p className="font-bold text-slate-900">{selectedClinic.email}</p>
-              </div>
-              <div>
-                <span className="text-slate-400 text-[10px] uppercase font-semibold">Phone:</span>
-                <p className="font-bold text-slate-900">{selectedClinic.phone}</p>
->>>>>>> origin/main
               </div>
             </div>
 
             <div>
-<<<<<<< HEAD
               <h4 className="font-bold text-slate-900 dark:text-white text-base mb-3">Configured Branches ({selectedClinic.branches?.length || 1})</h4>
               <div className="space-y-2.5">
                 {selectedClinic.branches?.map((b) => (
@@ -1061,17 +765,6 @@ export function PlatformClinicsPage() {
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{b.address}, {b.city}</p>
                     </div>
                     <span className="text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-blue-200 dark:border-blue-800">
-=======
-              <h4 className="font-bold text-slate-900 mb-2">Configured Branches ({selectedClinic.branches?.length || 1})</h4>
-              <div className="space-y-2">
-                {selectedClinic.branches?.map((b) => (
-                  <div key={b.id} className="p-3 rounded-lg border border-slate-200 flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-slate-800">{b.name} ({b.code})</p>
-                      <p className="text-[11px] text-slate-500">{b.address}, {b.city}</p>
-                    </div>
-                    <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
->>>>>>> origin/main
                       {b.operatingHours}
                     </span>
                   </div>
@@ -1079,15 +772,9 @@ export function PlatformClinicsPage() {
               </div>
             </div>
 
-<<<<<<< HEAD
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <Link to={`/clinics/${selectedClinic.slug}`} target="_blank" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5 font-bold text-sm">
                 Open Public Profile <ExternalLink className="w-4 h-4" />
-=======
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-              <Link to={`/clinics/${selectedClinic.slug}`} target="_blank" className="text-blue-600 hover:underline flex items-center gap-1 font-semibold">
-                Open Public Profile <ExternalLink className="w-3.5 h-3.5" />
->>>>>>> origin/main
               </Link>
               <Button variant="outline" size="sm" onClick={() => setSelectedClinic(null)}>
                 Close
@@ -1105,17 +792,10 @@ export function PlatformClinicsPage() {
           title={`Confirm Status Change: ${statusModal.targetStatus}`}
           size="sm"
         >
-<<<<<<< HEAD
           <div className="space-y-4 text-sm">
             <p className="text-slate-600 dark:text-slate-300">
               Are you sure you want to change the status of <strong className="text-slate-900 dark:text-white">{statusModal.clinic?.name}</strong> to{' '}
               <strong className="text-blue-600 dark:text-blue-400">{statusModal.targetStatus}</strong>?
-=======
-          <div className="space-y-4 text-xs">
-            <p className="text-slate-600">
-              Are you sure you want to change the status of <strong>{statusModal.clinic?.name}</strong> to{' '}
-              <strong className="text-slate-900">{statusModal.targetStatus}</strong>?
->>>>>>> origin/main
             </p>
             <div className="flex justify-end gap-2 pt-2">
               <Button

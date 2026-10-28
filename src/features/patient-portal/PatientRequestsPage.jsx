@@ -18,14 +18,10 @@ import {
   Info,
   RefreshCw,
   PlusCircle,
-<<<<<<< HEAD
   HelpCircle,
   List,
   LayoutGrid,
   Eye
-=======
-  HelpCircle
->>>>>>> origin/main
 } from 'lucide-react';
 
 export function PatientRequestsPage() {
@@ -39,10 +35,7 @@ export function PatientRequestsPage() {
 
   const [simulateConflictMode, setSimulateConflictMode] = useState(false);
   const [selectedRequestForDetail, setSelectedRequestForDetail] = useState(null);
-<<<<<<< HEAD
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-=======
->>>>>>> origin/main
 
   // Filter requests for patient: Pending Clinic Confirmation, Alternative Slot Proposed, Awaiting Patient Response, Rejected
   const requestStatuses = [
@@ -110,7 +103,6 @@ export function PatientRequestsPage() {
       </div>
 
       {/* Interactive Scenario 4 Demonstration Helper Box */}
-<<<<<<< HEAD
       <div className="p-4 sm:p-5 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-white dark:from-slate-900 dark:via-blue-950/30 dark:to-slate-900 border border-blue-200 dark:border-blue-900/50 text-sm text-blue-950 dark:text-blue-200 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
         <div className="flex items-start gap-3">
           <HelpCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
@@ -119,23 +111,12 @@ export function PatientRequestsPage() {
               Demo Acceptance Scenario Testing (Scenario 4)
             </strong>
             <p className="text-xs text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
-=======
-      <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-white border border-blue-200 text-xs text-blue-950 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
-        <div className="flex items-start gap-3">
-          <HelpCircle className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-          <div className="space-y-0.5">
-            <strong className="text-slate-900 block text-xs">
-              Demo Acceptance Scenario Testing (Scenario 4)
-            </strong>
-            <p className="text-[11px] text-slate-600 max-w-xl">
->>>>>>> origin/main
               Toggle <strong>"Simulate Concurrency Conflict"</strong> below to test what happens if another patient books the proposed slot before acceptance. The system will detect the conflict, prevent double-booking, and return the request to the receptionist!
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-<<<<<<< HEAD
           <div className="flex items-center gap-2">
             {/* View Mode Toggle */}
             <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
@@ -197,52 +178,16 @@ export function PatientRequestsPage() {
           </div>
           <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">No Pending Booking Requests</h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-=======
-          <button
-            type="button"
-            onClick={() => {
-              setSimulateConflictMode(!simulateConflictMode);
-              showToast(
-                !simulateConflictMode
-                  ? 'Simulated Conflict Mode ENABLED: Accepting alternative will trigger concurrency conflict!'
-                  : 'Simulated Conflict Mode DISABLED: Normal availability check active.'
-              );
-            }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all border cursor-pointer ${
-              simulateConflictMode
-                ? 'bg-red-600 text-white border-red-700 shadow-xs ring-2 ring-red-400/30'
-                : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-            }`}
-          >
-            {simulateConflictMode ? '⚠️ Concurrency Conflict Active' : 'Normal Slot Validation'}
-          </button>
-        </div>
-      </div>
-
-      {/* Requests List */}
-      {myRequests.length === 0 ? (
-        <Card className="p-12 text-center space-y-3 border-dashed border-2 border-slate-200">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 mx-auto flex items-center justify-center font-bold text-xl">
-            <Clock className="w-6 h-6" />
-          </div>
-          <h3 className="font-bold text-slate-900 text-sm">No Pending Booking Requests</h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
->>>>>>> origin/main
             All your appointment requests have either been confirmed or completed. You can browse clinics to book a new appointment.
           </p>
           <div className="pt-2">
             <Link to="/patient/appointments/book">
-<<<<<<< HEAD
               <Button variant="primary" size="md" icon={PlusCircle}>
-=======
-              <Button variant="primary" size="sm" icon={PlusCircle}>
->>>>>>> origin/main
                 Request New Appointment
               </Button>
             </Link>
           </div>
         </Card>
-<<<<<<< HEAD
       ) : viewMode === 'table' ? (
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
@@ -374,8 +319,6 @@ export function PatientRequestsPage() {
             <span>All responses sync with clinic front desk in real-time</span>
           </div>
         </div>
-=======
->>>>>>> origin/main
       ) : (
         <div className="space-y-4">
           {myRequests.map((req) => {
@@ -390,7 +333,6 @@ export function PatientRequestsPage() {
                 key={req.id}
                 className={`overflow-hidden border transition-all ${
                   hasAlternativeProposed
-<<<<<<< HEAD
                     ? 'border-blue-400 dark:border-blue-500/70 ring-1 ring-blue-400/40 shadow-sm bg-white dark:bg-slate-900/90'
                     : 'border-slate-200 dark:border-slate-800 dark:bg-slate-900/90'
                 }`}
@@ -408,46 +350,18 @@ export function PatientRequestsPage() {
                       </div>
                       <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
                         Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
-=======
-                    ? 'border-blue-400 ring-1 ring-blue-400/40 shadow-xs bg-white'
-                    : 'border-slate-200'
-                }`}
-              >
-                {/* Header Row */}
-                <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
-                  <div className="flex items-center gap-2.5">
-                    <span className="p-2 rounded-lg bg-white border border-slate-200 text-blue-600">
-                      <Building2 className="w-4 h-4" />
-                    </span>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-black text-slate-900 text-sm">{req.clinicName}</h3>
-                        <span className="font-mono text-[10px] text-slate-400">{req.requestId || req.referenceNumber}</span>
-                      </div>
-                      <p className="text-xs text-blue-700 font-medium">
-                        Dr. {req.doctorName} · <span className="text-slate-600">{req.serviceName}</span>
->>>>>>> origin/main
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <span
-<<<<<<< HEAD
                       className={`px-3 py-1 rounded-full text-xs font-bold ${
                         hasAlternativeProposed
                           ? 'bg-blue-600 text-white shadow-sm'
                           : req.status === 'Pending Clinic Confirmation' || req.status === 'Requested'
                           ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
                           : 'bg-red-100 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800'
-=======
-                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold ${
-                        hasAlternativeProposed
-                          ? 'bg-blue-600 text-white shadow-2xs'
-                          : req.status === 'Pending Clinic Confirmation' || req.status === 'Requested'
-                          ? 'bg-amber-100 text-amber-800'
-                          : 'bg-red-100 text-red-800'
->>>>>>> origin/main
                       }`}
                     >
                       {req.status}
@@ -456,7 +370,6 @@ export function PatientRequestsPage() {
                 </div>
 
                 {/* Request Content Body */}
-<<<<<<< HEAD
                 <div className="p-5 space-y-4 text-sm">
                   {/* ALTERNATIVE PROPOSAL CARD */}
                   {hasAlternativeProposed && latestAlt && (
@@ -468,26 +381,12 @@ export function PatientRequestsPage() {
                             Alternative Appointment Slot Proposed
                           </h4>
                           <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-=======
-                <div className="p-5 space-y-4 text-xs">
-                  {/* ALTERNATIVE PROPOSAL CARD (Section H) */}
-                  {hasAlternativeProposed && latestAlt && (
-                    <div className="p-4 rounded-xl bg-blue-50/90 border border-blue-200 space-y-3">
-                      <div className="flex items-start gap-2.5">
-                        <AlertTriangle className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
-                        <div>
-                          <h4 className="font-extrabold text-blue-950 text-xs">
-                            Alternative Appointment Slot Proposed
-                          </h4>
-                          <p className="text-[11px] text-slate-600 mt-0.5">
->>>>>>> origin/main
                             "Your requested appointment time is unavailable. The clinic has proposed an alternative appointment. Please review the new time and confirm whether it works for you."
                           </p>
                         </div>
                       </div>
 
                       {/* Comparison Grid */}
-<<<<<<< HEAD
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
                         <div className="p-3.5 bg-white/90 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
                           <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Original Requested Slot</span>
@@ -503,53 +402,23 @@ export function PatientRequestsPage() {
                             {latestAlt.proposedDate} at {latestAlt.proposedTime}
                           </span>
                           <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Ready for Your Confirmation</span>
-=======
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                        <div className="p-3 bg-white/90 rounded-lg border border-slate-200 space-y-1">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 block">Original Requested Slot</span>
-                          <span className="font-mono font-bold text-slate-700 line-through block text-xs">
-                            {req.requestedDate} at {req.requestedTime}
-                          </span>
-                          <span className="text-[10px] text-red-600 font-semibold">Unavailable</span>
-                        </div>
-
-                        <div className="p-3 bg-white rounded-lg border-2 border-blue-500 space-y-1 shadow-2xs">
-                          <span className="text-[10px] uppercase font-bold text-blue-600 block">Proposed Alternative Slot</span>
-                          <span className="font-mono font-extrabold text-blue-900 text-sm block">
-                            {latestAlt.proposedDate} at {latestAlt.proposedTime}
-                          </span>
-                          <span className="text-[10px] text-emerald-700 font-semibold">Ready for Your Confirmation</span>
->>>>>>> origin/main
                         </div>
                       </div>
 
                       {/* Reason from Receptionist */}
-<<<<<<< HEAD
                       <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-900 border border-blue-100 dark:border-blue-900/40 text-xs text-slate-700 dark:text-slate-300">
                         <span className="font-bold text-blue-950 dark:text-blue-200">Receptionist Note: </span>
-=======
-                      <div className="p-2.5 rounded-lg bg-white/80 border border-blue-100 text-[11px] text-slate-700">
-                        <span className="font-bold text-blue-950">Receptionist Note: </span>
->>>>>>> origin/main
                         <span>{latestAlt.reason}</span>
                       </div>
 
                       {/* Accept / Decline Action Buttons */}
-<<<<<<< HEAD
                       <div className="flex items-center justify-end gap-3 pt-1">
-=======
-                      <div className="flex items-center justify-end gap-2.5 pt-1">
->>>>>>> origin/main
                         <Button
                           variant="outline"
                           size="sm"
                           icon={XCircle}
                           onClick={() => handleDeclineAlternative(req.id)}
-<<<<<<< HEAD
                           className="text-xs text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-=======
-                          className="text-xs text-red-600 border-red-200 hover:bg-red-50"
->>>>>>> origin/main
                         >
                           Decline Alternative
                         </Button>
@@ -558,11 +427,7 @@ export function PatientRequestsPage() {
                           size="sm"
                           icon={CheckCircle2}
                           onClick={() => handleAcceptAlternative(req.id)}
-<<<<<<< HEAD
                           className="text-xs shadow-md shadow-blue-500/20 font-bold"
-=======
-                          className="text-xs shadow-xs"
->>>>>>> origin/main
                         >
                           Accept Alternative Slot &rarr;
                         </Button>
@@ -572,13 +437,8 @@ export function PatientRequestsPage() {
 
                   {/* Standard Pending Details */}
                   {req.status === 'Pending Clinic Confirmation' && (
-<<<<<<< HEAD
                     <div className="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-200 text-sm flex items-start gap-3">
                       <Clock className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-=======
-                    <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
-                      <Clock className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
->>>>>>> origin/main
                       <div>
                         <strong>Awaiting Clinic Availability Verification:</strong> Reception is verifying Dr. {req.doctorName}'s procedure rota for <strong>{req.requestedDate} at {req.requestedTime}</strong>. You will be notified immediately upon confirmation.
                       </div>
@@ -587,30 +447,17 @@ export function PatientRequestsPage() {
 
                   {/* Rejected Details */}
                   {req.status === 'Rejected' && (
-<<<<<<< HEAD
                     <div className="p-4 rounded-xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 text-rose-900 dark:text-rose-200 text-sm space-y-1.5">
                       <div className="font-bold flex items-center gap-2">
                         <XCircle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
                         <span>Request Closed</span>
                       </div>
                       <p className="text-xs text-slate-600 dark:text-slate-300">
-=======
-                    <div className="p-3 rounded-xl bg-red-50/70 border border-red-200 text-red-900 text-xs space-y-1">
-                      <div className="font-bold flex items-center gap-1.5">
-                        <XCircle className="w-4 h-4 text-red-600" />
-                        <span>Request Closed</span>
-                      </div>
-                      <p className="text-[11px]">
->>>>>>> origin/main
                         {req.rejectionReason || 'The alternative slot was declined or the clinic could not accommodate this booking.'}
                       </p>
                       <div className="pt-2">
                         <Link to={`/patient/appointments/book?clinicId=${req.clinicId}&doctorId=${req.doctorId}`}>
-<<<<<<< HEAD
                           <Button variant="outline" size="sm">
-=======
-                          <Button variant="outline" size="xs">
->>>>>>> origin/main
                             Submit a New Request &rarr;
                           </Button>
                         </Link>
@@ -619,7 +466,6 @@ export function PatientRequestsPage() {
                   )}
 
                   {/* Request Summary Metadata Row */}
-<<<<<<< HEAD
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-100 dark:border-slate-800">
                     <div>
                       <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Requested Date</span>
@@ -636,34 +482,12 @@ export function PatientRequestsPage() {
                     <div>
                       <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Request Reference</span>
                       <span className="font-mono text-slate-800 dark:text-slate-200">{req.requestId}</span>
-=======
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[11px] text-slate-600 pt-1 border-t border-slate-100">
-                    <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Requested Date</span>
-                      <span className="font-mono text-slate-800 font-bold">{req.requestedDate}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Preferred Time</span>
-                      <span className="font-mono text-slate-800 font-bold">{req.requestedTime}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Consultation Tariff</span>
-                      <span className="font-mono font-bold text-blue-700">{formatCurrency(req.consultationFee || 600)}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Request Reference</span>
-                      <span className="font-mono text-slate-800">{req.requestId}</span>
->>>>>>> origin/main
                     </div>
                   </div>
 
                   {/* Patient Preferences Note if present */}
                   {req.patientAlternativePreferences && (
-<<<<<<< HEAD
                     <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 flex justify-between">
-=======
-                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100 text-[11px] text-slate-600 flex justify-between">
->>>>>>> origin/main
                       <span>
                         <strong>Alternate Preference Provided:</strong> {req.patientAlternativePreferences.secondPreferredDate || 'Flexible'} ({req.patientAlternativePreferences.preferredTimeOfDay})
                       </span>

@@ -27,14 +27,17 @@ import {
   Eye,
   Send,
   HelpCircle,
-<<<<<<< HEAD
-  FileText,
-  List,
-  LayoutGrid
-=======
   FileText
->>>>>>> origin/main
 } from 'lucide-react';
+
+const CATEGORY_COLORS = {
+  'Doctor Care': 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/50',
+  'Waiting Time': 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50',
+  'Clinic Cleanliness': 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50',
+  'Reception & Staff': 'bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-900/50',
+  'Billing & Value': 'bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-900/50',
+  'General Experience': 'bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-900/50'
+};
 
 export function ClinicFeedbackPage() {
   const {
@@ -53,10 +56,6 @@ export function ClinicFeedbackPage() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedRating, setSelectedRating] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
-<<<<<<< HEAD
-  const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-=======
->>>>>>> origin/main
 
   // Modal / Drawer State
   const [selectedFeedback, setSelectedFeedback] = useState(null);
@@ -150,27 +149,16 @@ export function ClinicFeedbackPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Experience & Quality</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Patient Feedback & Ratings Inbox</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-=======
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Patient Experience & Quality</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">Patient Feedback & Ratings Inbox</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
->>>>>>> origin/main
             Confidential quality insights submitted by verified patients across <strong>{activeClinic.name}</strong> branches.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-<<<<<<< HEAD
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-900/50 text-xs font-semibold">
             <Shield className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-=======
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 text-blue-800 border border-blue-200 text-xs font-semibold">
-            <Shield className="w-3.5 h-3.5 text-blue-600" />
->>>>>>> origin/main
             Clinic-Admin Confidential Scope
           </span>
         </div>
@@ -178,7 +166,6 @@ export function ClinicFeedbackPage() {
 
       {/* KPI Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-<<<<<<< HEAD
         <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
           <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Total Submissions</span>
           <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">{metrics.total}</p>
@@ -207,54 +194,16 @@ export function ClinicFeedbackPage() {
           <span className="text-[10px] font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wider">Avg Patient Score</span>
           <div className="flex items-center gap-1.5 mt-1">
             <span className="text-2xl font-black text-amber-900 dark:text-amber-100">{metrics.averageRating}</span>
-=======
-        <Card className="p-4 border-slate-200 bg-white">
-          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Total Submissions</span>
-          <p className="text-2xl font-black text-slate-900 mt-1">{metrics.total}</p>
-          <span className="text-[10px] text-slate-400">All-time clinic reviews</span>
-        </Card>
-
-        <Card className="p-4 border-blue-200 bg-blue-50/40">
-          <span className="text-[10px] font-semibold text-blue-600 uppercase tracking-wider">New / Unread</span>
-          <p className="text-2xl font-black text-blue-700 mt-1">{metrics.newCount}</p>
-          <span className="text-[10px] text-blue-600">Pending initial review</span>
-        </Card>
-
-        <Card className="p-4 border-indigo-200 bg-indigo-50/40">
-          <span className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wider">In Review</span>
-          <p className="text-2xl font-black text-indigo-700 mt-1 tabular-nums">{metrics.reviewedCount}</p>
-          <span className="text-[10px] text-indigo-600">Investigating feedback</span>
-        </Card>
-
-        <Card className="p-4 border-emerald-200 bg-emerald-50/40">
-          <span className="text-[10px] font-semibold text-emerald-600 uppercase tracking-wider">Resolved</span>
-          <p className="text-2xl font-black text-emerald-700 mt-1">{metrics.resolvedCount}</p>
-          <span className="text-[10px] text-emerald-600">Addressed with patient</span>
-        </Card>
-
-        <Card className="p-4 border-amber-200 bg-amber-50/40 col-span-2 lg:col-span-1">
-          <span className="text-[10px] font-semibold text-amber-700 uppercase tracking-wider">Avg Patient Score</span>
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className="text-2xl font-black text-amber-900">{metrics.averageRating}</span>
->>>>>>> origin/main
             <div className="flex items-center text-amber-500">
               <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
             </div>
           </div>
-<<<<<<< HEAD
           <span className="text-[10px] text-amber-700 dark:text-amber-300 font-medium">Out of 5.0 Stars</span>
-=======
-          <span className="text-[10px] text-amber-700 font-medium">Out of 5.0 Stars</span>
->>>>>>> origin/main
         </Card>
       </div>
 
       {/* Filter and Search Bar */}
-<<<<<<< HEAD
       <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
-=======
-      <Card className="p-4 border-slate-200 bg-white space-y-3">
->>>>>>> origin/main
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search */}
           <div className="lg:col-span-2 relative">
@@ -264,11 +213,7 @@ export function ClinicFeedbackPage() {
               placeholder="Search feedback, patient name, ref..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-<<<<<<< HEAD
               className="w-full pl-9 pr-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-blue-500 bg-slate-50/50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-=======
-              className="w-full pl-9 pr-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-blue-500 bg-slate-50/50"
->>>>>>> origin/main
             />
           </div>
 
@@ -277,11 +222,7 @@ export function ClinicFeedbackPage() {
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800 focus:outline-blue-500 text-slate-700 dark:text-slate-200"
-=======
-              className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-slate-50/50 focus:outline-blue-500 text-slate-700"
->>>>>>> origin/main
             >
               <option value="ALL">All Branches</option>
               {activeClinic.branches.map((b) => (
@@ -297,11 +238,7 @@ export function ClinicFeedbackPage() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800 focus:outline-blue-500 text-slate-700 dark:text-slate-200"
-=======
-              className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-slate-50/50 focus:outline-blue-500 text-slate-700"
->>>>>>> origin/main
             >
               <option value="ALL">All Categories</option>
               <option value="Doctor Care">Doctor Care</option>
@@ -318,11 +255,7 @@ export function ClinicFeedbackPage() {
             <select
               value={selectedRating}
               onChange={(e) => setSelectedRating(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800 focus:outline-blue-500 text-slate-700 dark:text-slate-200"
-=======
-              className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-slate-50/50 focus:outline-blue-500 text-slate-700"
->>>>>>> origin/main
             >
               <option value="ALL">All Ratings</option>
               <option value="5">5 Stars (Excellent)</option>
@@ -335,117 +268,64 @@ export function ClinicFeedbackPage() {
         </div>
 
         {/* Secondary controls row */}
-<<<<<<< HEAD
         <div className="flex flex-wrap items-center justify-between text-xs pt-1 border-t border-slate-100 dark:border-slate-800 gap-2">
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-=======
-        <div className="flex flex-wrap items-center justify-between text-xs pt-1 border-t border-slate-100 gap-2">
-          <div className="flex items-center gap-2 text-slate-500">
->>>>>>> origin/main
             <span>
               Showing <strong>{filteredFeedbacks.length}</strong> submission{filteredFeedbacks.length === 1 ? '' : 's'}
             </span>
             {(searchTerm || selectedBranch !== 'ALL' || selectedCategory !== 'ALL' || selectedRating !== 'ALL' || selectedStatus !== 'ALL') && (
               <button
                 onClick={handleResetFilters}
-<<<<<<< HEAD
                 className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium ml-2 cursor-pointer"
-=======
-                className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium ml-2 cursor-pointer"
->>>>>>> origin/main
               >
                 <RotateCcw className="w-3 h-3" /> Clear filters
               </button>
             )}
           </div>
 
-<<<<<<< HEAD
-          <div className="flex items-center gap-3">
-            {/* View Mode Toggle */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+          {/* Status Filter Tabs */}
+          <div className="flex items-center gap-1.5 overflow-x-auto">
+            {[
+              { id: 'ALL', label: 'All Reviews', count: clinicFeedbacks.length },
+              { id: 'New', label: 'New / Unread', count: metrics.newCount },
+              { id: 'Reviewed', label: 'In Review', count: metrics.reviewedCount },
+              { id: 'Resolved', label: 'Resolved', count: metrics.resolvedCount }
+            ].map((st) => (
               <button
+                key={st.id}
                 type="button"
-                onClick={() => setViewMode('table')}
-                className={`p-1 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'table'
-                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                onClick={() => setSelectedStatus(st.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
+                  selectedStatus === st.id
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/60 dark:border-slate-700/60'
                 }`}
-                title="Table View"
               >
-                <List className="w-3.5 h-3.5" />
-                <span>Table</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('cards')}
-                className={`p-1 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'cards'
-                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-                }`}
-                title="Card View"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>Cards</span>
-              </button>
-            </div>
-
-            <div className="flex items-center gap-1">
-              {['ALL', 'New', 'Reviewed', 'Resolved'].map((st) => (
-                <button
-                  key={st}
-                  onClick={() => setSelectedStatus(st)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
-                    selectedStatus === st
-                      ? 'bg-slate-900 dark:bg-blue-600 text-white shadow-xs'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                <span>{st.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                    selectedStatus === st.id
+                      ? 'bg-white/20 text-white'
+                      : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
                   }`}
                 >
-                  {st === 'ALL' ? 'All Statuses' : st}
-                </button>
-              ))}
-            </div>
-=======
-          <div className="flex items-center gap-1">
-            {['ALL', 'New', 'Reviewed', 'Resolved'].map((st) => (
-              <button
-                key={st}
-                onClick={() => setSelectedStatus(st)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
-                  selectedStatus === st
-                    ? 'bg-slate-900 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {st === 'ALL' ? 'All Statuses' : st}
+                  {st.count}
+                </span>
               </button>
             ))}
->>>>>>> origin/main
           </div>
         </div>
       </Card>
 
-<<<<<<< HEAD
-      {/* Inbox List / Table Structure */}
+      {/* Structured Patient Feedback Table */}
       {filteredFeedbacks.length === 0 ? (
-        <Card className="p-12 text-center border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <Card className="p-12 text-center border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-2xl">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-3">
             <MessageSquareHeart className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-slate-800 dark:text-white">No feedback entries found</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mt-1">
-=======
-      {/* Inbox List */}
-      {filteredFeedbacks.length === 0 ? (
-        <Card className="p-12 text-center border-slate-200 bg-white">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-3">
-            <MessageSquareHeart className="w-6 h-6" />
-          </div>
-          <h3 className="text-base font-bold text-slate-800">No feedback entries found</h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
->>>>>>> origin/main
-            No submissions matched your search query or filter selections.
+            No patient reviews matched your search query or filter selections.
           </p>
           <div className="mt-4">
             <Button variant="outline" size="sm" onClick={handleResetFilters}>
@@ -453,250 +333,173 @@ export function ClinicFeedbackPage() {
             </Button>
           </div>
         </Card>
-<<<<<<< HEAD
-      ) : viewMode === 'table' ? (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+      ) : (
+        <Card className="overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-2xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                  <th className="py-3.5 px-3 text-center w-12">#</th>
-                  <th className="py-3.5 px-4">Patient & Ref</th>
-                  <th className="py-3.5 px-3">Rating</th>
-                  <th className="py-3.5 px-3">Category</th>
-                  <th className="py-3.5 px-3">Branch Location</th>
-                  <th className="py-3.5 px-4">Patient Feedback</th>
-                  <th className="py-3.5 px-3">Submitted</th>
-                  <th className="py-3.5 px-3">Status</th>
-                  <th className="py-3.5 px-4 text-right">Action</th>
+            <table className="w-full text-left border-collapse text-xs">
+              <thead className="bg-slate-50/90 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                <tr>
+                  <th className="py-3.5 px-3 text-center w-12 font-semibold">#</th>
+                  <th className="py-3.5 px-4 font-semibold">Patient & Reference</th>
+                  <th className="py-3.5 px-3 font-semibold">Rating</th>
+                  <th className="py-3.5 px-3 font-semibold">Category</th>
+                  <th className="py-3.5 px-3 font-semibold">Branch Location</th>
+                  <th className="py-3.5 px-4 font-semibold">Patient Review Message</th>
+                  <th className="py-3.5 px-3 font-semibold">Submitted</th>
+                  <th className="py-3.5 px-3 font-semibold">Status</th>
+                  <th className="py-3.5 px-4 text-right font-semibold">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {filteredFeedbacks.map((fb, idx) => (
-                  <tr
-                    key={fb.id}
-                    onClick={() => handleOpenDetails(fb)}
-                    className="hover:bg-blue-50/40 dark:hover:bg-slate-800/40 transition-colors group cursor-pointer"
-                  >
-                    <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
-                      {idx + 1}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {fb.patientName}
-                      </div>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-                          {fb.referenceNumber}
+                {filteredFeedbacks.map((fb, idx) => {
+                  const branchName =
+                    activeClinic.branches?.find((b) => b.id === fb.branchId)?.name ||
+                    fb.branchName ||
+                    'Main Clinic Hub';
+                  const catClass =
+                    CATEGORY_COLORS[fb.category] ||
+                    'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700';
+
+                  return (
+                    <tr
+                      key={fb.id}
+                      onClick={() => handleOpenDetails(fb)}
+                      className="hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-colors group cursor-pointer"
+                    >
+                      {/* Index */}
+                      <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
+                        {idx + 1}
+                      </td>
+
+                      {/* Patient & Ref */}
+                      <td className="py-3.5 px-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                            {fb.patientName?.charAt(0) || 'P'}
+                          </div>
+                          <div>
+                            <div className="font-bold text-slate-900 dark:text-white text-xs group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {fb.patientName}
+                            </div>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200/80 dark:border-slate-700/80">
+                                {fb.referenceNumber}
+                              </span>
+                              {fb.appointmentRef && (
+                                <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1.5 py-0.5 rounded font-mono font-medium">
+                                  {fb.appointmentRef}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+
+                      {/* Rating */}
+                      <td className="py-3.5 px-3 whitespace-nowrap">
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-0.5 text-amber-400">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star
+                                key={s}
+                                className={`w-3.5 h-3.5 ${
+                                  s <= fb.rating
+                                    ? 'fill-amber-400 text-amber-400'
+                                    : 'text-slate-200 dark:text-slate-700'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                            {fb.rating}.0 / 5.0
+                          </div>
+                        </div>
+                      </td>
+
+                      {/* Category */}
+                      <td className="py-3.5 px-3 whitespace-nowrap">
+                        <span
+                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold border uppercase tracking-wide ${catClass}`}
+                        >
+                          {fb.category}
                         </span>
-                        {fb.appointmentRef && (
-                          <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1 py-0.5 rounded font-mono">
-                            {fb.appointmentRef}
-                          </span>
-                        )}
-                      </div>
-                    </td>
+                      </td>
 
-                    <td className="py-3.5 px-3">
-                      <div className="flex items-center gap-1 text-amber-400">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <Star
-                            key={s}
-                            className={`w-3.5 h-3.5 ${
-                              s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'
-                            }`}
-                          />
-                        ))}
-                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 ml-1">
-                          {fb.rating}.0
-                        </span>
-                      </div>
-                    </td>
+                      {/* Branch Location */}
+                      <td className="py-3.5 px-3 text-xs text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
+                        <div className="flex items-center gap-1.5">
+                          <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{branchName}</span>
+                        </div>
+                      </td>
 
-                    <td className="py-3.5 px-3">
-                      <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 border border-blue-200/50 dark:border-blue-900/50 px-2 py-0.5 rounded-full whitespace-nowrap">
-                        {fb.category}
-                      </span>
-                    </td>
-
-                    <td className="py-3.5 px-3 text-xs text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap">
-                      {fb.branchName || 'Downtown Branch'}
-                    </td>
-
-                    <td className="py-3.5 px-4 max-w-xs">
-                      <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-1 italic">
-                        "{fb.message}"
-                      </p>
-                      {fb.suggestions && (
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1 mt-0.5">
-                          💡 {fb.suggestions}
+                      {/* Patient Feedback */}
+                      <td className="py-3.5 px-4 max-w-xs sm:max-w-sm">
+                        <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-2 italic leading-relaxed">
+                          "{fb.message}"
                         </p>
-                      )}
-                    </td>
+                        {fb.suggestions && (
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 flex items-center gap-1 mt-0.5">
+                            <span className="text-amber-500 font-bold">💡</span>
+                            <span className="truncate">{fb.suggestions}</span>
+                          </p>
+                        )}
+                      </td>
 
-                    <td className="py-3.5 px-3 text-xs text-slate-500 dark:text-slate-400 font-mono whitespace-nowrap">
-                      {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                      })}
-                    </td>
+                      {/* Date Submitted */}
+                      <td className="py-3.5 px-3 text-xs text-slate-500 dark:text-slate-400 font-mono whitespace-nowrap">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>
+                            {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric'
+                            })}
+                          </span>
+                        </div>
+                      </td>
 
-                    <td className="py-3.5 px-3">
-                      <Badge variant={fb.status}>{fb.status}</Badge>
-                    </td>
+                      {/* Status */}
+                      <td className="py-3.5 px-3 whitespace-nowrap">
+                        <Badge variant={fb.status}>
+                          {fb.status === 'Reviewed' ? 'In Review' : fb.status}
+                        </Badge>
+                      </td>
 
-                    <td className="py-3.5 px-4 text-right" onClick={(e) => e.stopPropagation()}>
-                      <Button
-                        variant="outline"
-                        size="xs"
-                        onClick={() => handleOpenDetails(fb)}
-                        className="text-xs"
+                      {/* Action */}
+                      <td
+                        className="py-3.5 px-4 text-right whitespace-nowrap"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        Inspect
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                        <Button
+                          variant="outline"
+                          size="xs"
+                          onClick={() => handleOpenDetails(fb)}
+                          className="font-semibold text-xs flex items-center gap-1 text-blue-600 dark:text-blue-400 border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-700 shadow-2xs cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Inspect</span>
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
-            <span>Showing {filteredFeedbacks.length} patient review entries</span>
-            <span>Click any row to view full notes and resolve</span>
+
+          {/* Table Summary Footer */}
+          <div className="p-3.5 bg-slate-50/80 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2">
+            <span className="font-medium">
+              Showing <strong>{filteredFeedbacks.length}</strong> patient feedback submissions
+            </span>
+            <span className="text-[11px] text-slate-400 flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+              Click any row or &quot;Inspect&quot; to view internal notes, patient contact info, and resolve reviews
+            </span>
           </div>
-        </div>
-=======
->>>>>>> origin/main
-      ) : (
-        <div className="space-y-3">
-          {filteredFeedbacks.map((fb) => (
-            <Card
-              key={fb.id}
-<<<<<<< HEAD
-              className={`p-4 border transition-all hover:border-blue-400 bg-white dark:bg-slate-900 cursor-pointer ${
-                fb.status === 'New' ? 'border-blue-300 dark:border-blue-700 shadow-xs' : 'border-slate-200 dark:border-slate-800'
-=======
-              className={`p-4 border transition-all hover:border-blue-400 bg-white cursor-pointer ${
-                fb.status === 'New' ? 'border-blue-300 shadow-xs' : 'border-slate-200'
->>>>>>> origin/main
-              }`}
-              onClick={() => handleOpenDetails(fb)}
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                {/* Left: Patient & Star Rating */}
-                <div className="flex items-start gap-3">
-<<<<<<< HEAD
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-sm shrink-0">
-=======
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center font-bold text-sm shrink-0">
->>>>>>> origin/main
-                    {fb.patientName?.charAt(0) || 'P'}
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-2">
-<<<<<<< HEAD
-                      <span className="font-bold text-slate-900 dark:text-white text-sm">{fb.patientName}</span>
-                      <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-                        {fb.referenceNumber}
-                      </span>
-                      {fb.appointmentRef && (
-                        <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1.5 py-0.5 rounded font-mono">
-=======
-                      <span className="font-bold text-slate-900 text-sm">{fb.patientName}</span>
-                      <span className="font-mono text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                        {fb.referenceNumber}
-                      </span>
-                      {fb.appointmentRef && (
-                        <span className="text-[10px] text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded font-mono">
->>>>>>> origin/main
-                          {fb.appointmentRef}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Star Rating & Category */}
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className="flex items-center text-amber-400">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <Star
-                            key={s}
-                            className={`w-3.5 h-3.5 ${
-<<<<<<< HEAD
-                              s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700 fill-slate-100 dark:fill-slate-800'
-=======
-                              s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 fill-slate-100'
->>>>>>> origin/main
-                            }`}
-                          />
-                        ))}
-                      </div>
-<<<<<<< HEAD
-                      <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">({fb.rating}/5)</span>
-                      <span className="text-slate-300 dark:text-slate-700">•</span>
-                      <span className="text-xs font-medium text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 px-2 py-0.5 rounded-full border border-blue-100 dark:border-blue-900/40">
-=======
-                      <span className="text-xs font-semibold text-slate-700">({fb.rating}/5)</span>
-                      <span className="text-slate-300">•</span>
-                      <span className="text-xs font-medium text-blue-700 bg-blue-50/80 px-2 py-0.5 rounded-full border border-blue-100">
->>>>>>> origin/main
-                        {fb.category}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Branch & Status */}
-                <div className="flex items-center justify-between sm:justify-end gap-3 text-xs shrink-0">
-                  <div className="text-left sm:text-right">
-<<<<<<< HEAD
-                    <span className="text-[11px] text-slate-400 dark:text-slate-500 block font-mono">
-=======
-                    <span className="text-[11px] text-slate-400 block font-mono">
->>>>>>> origin/main
-                      {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                      })}
-                    </span>
-<<<<<<< HEAD
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-=======
-                    <span className="text-[10px] text-slate-500 font-medium">
->>>>>>> origin/main
-                      {fb.branchName || 'Downtown Branch'}
-                    </span>
-                  </div>
-
-                  <Badge variant={fb.status}>{fb.status}</Badge>
-                  <Button variant="outline" size="xs" onClick={(e) => { e.stopPropagation(); handleOpenDetails(fb); }}>
-                    Details
-                  </Button>
-                </div>
-              </div>
-
-              {/* Feedback Message Snippet */}
-<<<<<<< HEAD
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-                <p className="text-slate-700 dark:text-slate-300 line-clamp-2 italic">"{fb.message}"</p>
-                {fb.suggestions && (
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">
-                    <span className="font-semibold text-slate-700 dark:text-slate-300">Suggestion:</span> {fb.suggestions}
-=======
-              <div className="mt-3 pt-3 border-t border-slate-100 text-xs">
-                <p className="text-slate-700 line-clamp-2 italic">"{fb.message}"</p>
-                {fb.suggestions && (
-                  <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">
-                    <span className="font-semibold text-slate-700">Suggestion:</span> {fb.suggestions}
->>>>>>> origin/main
-                  </p>
-                )}
-              </div>
-            </Card>
-          ))}
-        </div>
+        </Card>
       )}
 
       {/* ========================================================================= */}
@@ -711,7 +514,6 @@ export function ClinicFeedbackPage() {
         >
           <div className="space-y-4 text-xs">
             {/* Header Summary */}
-<<<<<<< HEAD
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
@@ -719,15 +521,6 @@ export function ClinicFeedbackPage() {
                   <Badge variant={selectedFeedback.status}>{selectedFeedback.status}</Badge>
                 </div>
                 <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-=======
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-slate-900 text-sm">{selectedFeedback.patientName}</span>
-                  <Badge variant={selectedFeedback.status}>{selectedFeedback.status}</Badge>
-                </div>
-                <div className="flex items-center gap-3 text-[11px] text-slate-500 mt-1">
->>>>>>> origin/main
                   <span>{selectedFeedback.patientPhone || 'No phone recorded'}</span>
                   <span>•</span>
                   <span>{selectedFeedback.patientEmail || 'No email recorded'}</span>
@@ -737,36 +530,23 @@ export function ClinicFeedbackPage() {
               </div>
 
               {/* Star Rating Display */}
-<<<<<<< HEAD
               <div className="flex items-center gap-1.5 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shrink-0">
-=======
-              <div className="flex items-center gap-1.5 p-2 bg-white rounded-lg border border-slate-200 shrink-0">
->>>>>>> origin/main
                 <div className="flex items-center text-amber-400">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star
                       key={s}
                       className={`w-4 h-4 ${
-<<<<<<< HEAD
                         s <= selectedFeedback.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'
-=======
-                        s <= selectedFeedback.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
->>>>>>> origin/main
                       }`}
                     />
                   ))}
                 </div>
-<<<<<<< HEAD
                 <span className="font-bold text-slate-800 dark:text-slate-200 ml-1">{selectedFeedback.rating} / 5</span>
-=======
-                <span className="font-bold text-slate-800 ml-1">{selectedFeedback.rating} / 5</span>
->>>>>>> origin/main
               </div>
             </div>
 
             {/* Category & Branch pill */}
             <div className="flex flex-wrap gap-2 text-xs">
-<<<<<<< HEAD
               <span className="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-900/50 font-semibold">
                 Category: {selectedFeedback.category}
               </span>
@@ -775,23 +555,12 @@ export function ClinicFeedbackPage() {
               </span>
               {selectedFeedback.appointmentRef && (
                 <span className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-900/50 font-mono">
-=======
-              <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 font-semibold">
-                Category: {selectedFeedback.category}
-              </span>
-              <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
-                Facility: {selectedFeedback.branchName || 'Downtown Facility'}
-              </span>
-              {selectedFeedback.appointmentRef && (
-                <span className="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
->>>>>>> origin/main
                   Linked Visit: {selectedFeedback.appointmentRef}
                 </span>
               )}
             </div>
 
             {/* Full Patient Message */}
-<<<<<<< HEAD
             <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
               <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider block">Patient Written Review</span>
               <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed italic whitespace-pre-wrap">
@@ -801,64 +570,32 @@ export function ClinicFeedbackPage() {
                 <div className="pt-2 border-t border-slate-100 dark:border-slate-800 mt-2">
                   <span className="font-semibold text-slate-700 dark:text-slate-300 text-[11px]">Constructive Suggestions:</span>
                   <p className="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{selectedFeedback.suggestions}</p>
-=======
-            <div className="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1.5">
-              <span className="text-[11px] font-bold text-slate-800 uppercase tracking-wider block">Patient Written Review</span>
-              <p className="text-slate-700 text-xs leading-relaxed italic whitespace-pre-wrap">
-                "{selectedFeedback.message}"
-              </p>
-              {selectedFeedback.suggestions && (
-                <div className="pt-2 border-t border-slate-100 mt-2">
-                  <span className="font-semibold text-slate-700 text-[11px]">Constructive Suggestions:</span>
-                  <p className="text-slate-600 text-xs mt-0.5">{selectedFeedback.suggestions}</p>
->>>>>>> origin/main
                 </div>
               )}
             </div>
 
             {/* Resolution Note if set */}
             {selectedFeedback.resolutionNote && (
-<<<<<<< HEAD
               <div className="p-3 rounded-xl border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/50 dark:bg-emerald-950/20 space-y-1">
                 <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> Clinic Resolution Message to Patient
                 </span>
                 <p className="text-emerald-900 dark:text-emerald-200 text-xs">{selectedFeedback.resolutionNote}</p>
-=======
-              <div className="p-3 rounded-xl border border-emerald-200 bg-emerald-50/50 space-y-1">
-                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Clinic Resolution Message to Patient
-                </span>
-                <p className="text-emerald-900 text-xs">{selectedFeedback.resolutionNote}</p>
->>>>>>> origin/main
               </div>
             )}
 
             {/* Status Update Form */}
-<<<<<<< HEAD
             <form onSubmit={handleStatusSubmit} className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 space-y-3">
               <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
-=======
-            <form onSubmit={handleStatusSubmit} className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-3">
-              <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
->>>>>>> origin/main
                 Update Feedback Review Status
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-<<<<<<< HEAD
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Status Workflow</label>
                   <select
                     value={statusUpdateVal}
                     onChange={(e) => setStatusUpdateVal(e.target.value)}
                     className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 focus:outline-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-=======
-                  <label className="block font-medium text-slate-700 mb-1">Status Workflow</label>
-                  <select
-                    value={statusUpdateVal}
-                    onChange={(e) => setStatusUpdateVal(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-200 focus:outline-blue-500 bg-white"
->>>>>>> origin/main
                   >
                     <option value="New">New (Unreviewed)</option>
                     <option value="Reviewed">Reviewed (Under Investigation)</option>
@@ -867,21 +604,13 @@ export function ClinicFeedbackPage() {
                   </select>
                 </div>
                 <div>
-<<<<<<< HEAD
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Response / Resolution Note for Patient</label>
-=======
-                  <label className="block font-medium text-slate-700 mb-1">Response / Resolution Note for Patient</label>
->>>>>>> origin/main
                   <input
                     type="text"
                     placeholder="e.g. Spoke with Dr. Rao. Follow-up voucher provided."
                     value={resolutionNoteInput}
                     onChange={(e) => setResolutionNoteInput(e.target.value)}
-<<<<<<< HEAD
                     className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 focus:outline-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-=======
-                    className="w-full px-3 py-2 border rounded-xl border-slate-200 focus:outline-blue-500 bg-white"
->>>>>>> origin/main
                   />
                 </div>
               </div>
@@ -893,7 +622,6 @@ export function ClinicFeedbackPage() {
             </form>
 
             {/* Confidential Internal Staff Notes Section */}
-<<<<<<< HEAD
             <div className="p-3.5 rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-50/30 dark:bg-amber-950/20 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 text-amber-900 dark:text-amber-200 font-bold">
@@ -901,15 +629,6 @@ export function ClinicFeedbackPage() {
                   <span>Confidential Internal Staff Notes</span>
                 </div>
                 <span className="text-[10px] font-semibold bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 px-2 py-0.5 rounded-full">
-=======
-            <div className="p-3.5 rounded-xl border border-amber-200 bg-amber-50/30 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-amber-900 font-bold">
-                  <Lock className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Confidential Internal Staff Notes</span>
-                </div>
-                <span className="text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
->>>>>>> origin/main
                   Never visible to patients
                 </span>
               </div>
@@ -917,7 +636,6 @@ export function ClinicFeedbackPage() {
               {/* Note History List */}
               <div className="space-y-2 max-h-40 overflow-y-auto">
                 {currentFeedbackNotes.length === 0 ? (
-<<<<<<< HEAD
                   <p className="text-slate-400 dark:text-slate-500 italic text-center py-2">No internal staff notes posted yet.</p>
                 ) : (
                   currentFeedbackNotes.map((note) => (
@@ -927,38 +645,19 @@ export function ClinicFeedbackPage() {
                         <span className="text-[10px] text-slate-400 dark:text-slate-500">{new Date(note.createdAt).toLocaleString()}</span>
                       </div>
                       <p className="text-slate-700 dark:text-slate-300">{note.note}</p>
-=======
-                  <p className="text-slate-400 italic text-center py-2">No internal staff notes posted yet.</p>
-                ) : (
-                  currentFeedbackNotes.map((note) => (
-                    <div key={note.id} className="p-2.5 rounded-lg border border-amber-100 bg-white text-xs space-y-1">
-                      <div className="flex items-center justify-between text-[11px] text-slate-500">
-                        <span className="font-semibold text-slate-800">{note.authorStaffName} ({note.authorRole})</span>
-                        <span className="text-[10px] text-slate-400">{new Date(note.createdAt).toLocaleString()}</span>
-                      </div>
-                      <p className="text-slate-700">{note.note}</p>
->>>>>>> origin/main
                     </div>
                   ))
                 )}
               </div>
 
               {/* Add New Internal Note */}
-<<<<<<< HEAD
               <form onSubmit={handleAddInternalNote} className="flex gap-2 pt-2 border-t border-amber-200/60 dark:border-amber-900/40">
-=======
-              <form onSubmit={handleAddInternalNote} className="flex gap-2 pt-2 border-t border-amber-200/60">
->>>>>>> origin/main
                 <input
                   type="text"
                   placeholder="Add private staff observation, phone follow-up note, doctor discussion..."
                   value={newInternalNote}
                   onChange={(e) => setNewInternalNote(e.target.value)}
-<<<<<<< HEAD
                   className="flex-1 px-3 py-2 text-xs border border-amber-200 dark:border-amber-900/40 rounded-xl focus:outline-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-=======
-                  className="flex-1 px-3 py-2 text-xs border border-amber-200 rounded-xl focus:outline-blue-500 bg-white"
->>>>>>> origin/main
                 />
                 <Button type="submit" variant="outline" size="sm" icon={Send} disabled={!newInternalNote.trim()}>
                   Post Note
@@ -968,7 +667,6 @@ export function ClinicFeedbackPage() {
 
             {/* Activity History Audit Trail */}
             <div className="space-y-2">
-<<<<<<< HEAD
               <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Audit Trail</span>
               <div className="space-y-1.5">
                 {currentFeedbackActivities.map((act) => (
@@ -978,27 +676,12 @@ export function ClinicFeedbackPage() {
                       <span>{act.action}</span>
                     </div>
                     <span className="text-slate-400 dark:text-slate-500">{act.timestamp}</span>
-=======
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Audit Trail</span>
-              <div className="space-y-1.5">
-                {currentFeedbackActivities.map((act) => (
-                  <div key={act.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 text-[11px] text-slate-600">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3 h-3 text-blue-600" />
-                      <span>{act.action}</span>
-                    </div>
-                    <span className="text-slate-400">{act.timestamp}</span>
->>>>>>> origin/main
                   </div>
                 ))}
               </div>
             </div>
 
-<<<<<<< HEAD
             <div className="flex justify-end pt-2 border-t border-slate-100 dark:border-slate-800">
-=======
-            <div className="flex justify-end pt-2 border-t border-slate-100">
->>>>>>> origin/main
               <Button variant="outline" size="sm" onClick={() => setIsDetailModalOpen(false)}>
                 Close
               </Button>

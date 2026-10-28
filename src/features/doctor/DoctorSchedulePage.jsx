@@ -13,22 +13,15 @@ import {
   ChevronRight,
   Plus,
   CheckCircle2,
-<<<<<<< HEAD
   AlertCircle,
   List,
   LayoutGrid
-=======
-  AlertCircle
->>>>>>> origin/main
 } from 'lucide-react';
 
 export function DoctorSchedulePage() {
   const { appointments, activeClinic, activeBranch } = useApp();
   const [selectedDate, setSelectedDate] = useState('2026-10-23');
-<<<<<<< HEAD
   const [viewMode, setViewMode] = useState('table');
-=======
->>>>>>> origin/main
 
   const days = [
     { label: 'Wed, 21 Oct', date: '2026-10-21' },
@@ -39,17 +32,12 @@ export function DoctorSchedulePage() {
   ];
 
   const currentAppointments = appointments.filter(
-<<<<<<< HEAD
     (a) => (a.clinicId === activeClinic?.id || !a.clinicId) && ((a.confirmedDate || a.date) === selectedDate)
-=======
-    (a) => a.clinicId === activeClinic?.id && ((a.confirmedDate || a.date) === selectedDate)
->>>>>>> origin/main
   );
 
   return (
     <div className="space-y-6">
       {/* Page Header */}
-<<<<<<< HEAD
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -59,17 +47,6 @@ export function DoctorSchedulePage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinical Schedule</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-=======
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
-              Doctor Rota & Calendar
-            </span>
-          </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Clinical Schedule</h1>
-          <p className="text-xs text-slate-500">
->>>>>>> origin/main
             {activeClinic?.name} · Operatory Schedule & Timetable
           </p>
         </div>
@@ -83,11 +60,7 @@ export function DoctorSchedulePage() {
       </div>
 
       {/* Date Navigation Bar */}
-<<<<<<< HEAD
       <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-2 rounded-xl border border-slate-200 dark:border-slate-800 overflow-x-auto gap-2">
-=======
-      <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-slate-200 overflow-x-auto gap-2">
->>>>>>> origin/main
         <div className="flex items-center gap-1.5">
           {days.map((d) => (
             <button
@@ -96,27 +69,18 @@ export function DoctorSchedulePage() {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors whitespace-nowrap ${
                 selectedDate === d.date
                   ? 'bg-blue-600 text-white shadow-xs'
-<<<<<<< HEAD
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100'
-=======
-                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
->>>>>>> origin/main
               }`}
             >
               {d.label}
             </button>
           ))}
         </div>
-<<<<<<< HEAD
         <div className="text-xs font-medium text-slate-500 dark:text-slate-400 hidden md:block">
-=======
-        <div className="text-xs font-medium text-slate-500 hidden md:block">
->>>>>>> origin/main
           Slot Duration: 30 Mins · Break: 01:30 PM - 02:15 PM
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* Schedule Card / Table Container */}
       <Card className="p-0 border-slate-200 dark:border-slate-800 overflow-hidden">
         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -289,79 +253,7 @@ export function DoctorSchedulePage() {
             )}
           </div>
         )}
-=======
-      {/* Schedule Grid */}
-      <Card className="p-0 border-slate-200 overflow-hidden">
-        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-          <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-            Appointments for {selectedDate} ({currentAppointments.length})
-          </div>
-          <Badge variant="teal" size="sm">Active Session</Badge>
-        </div>
-
-        <div className="divide-y divide-slate-100">
-          {currentAppointments.length === 0 ? (
-            <div className="p-12 text-center text-slate-400 text-xs">
-              No appointments scheduled for {selectedDate}.
-            </div>
-          ) : (
-            currentAppointments.map((apt) => (
-              <div
-                key={apt.id}
-                className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/70 transition-colors"
-              >
-                <div className="flex items-start sm:items-center gap-4">
-                  <div className="p-2 rounded-lg bg-blue-50 border border-blue-100 text-blue-800 font-mono font-bold text-xs text-center min-w-[70px]">
-                    <Clock className="w-3.5 h-3.5 mx-auto mb-0.5 text-blue-600" />
-                    {apt.time}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-slate-900 text-sm">{apt.patientName}</span>
-                      <span className="text-xs text-slate-400 font-mono">({apt.referenceNumber})</span>
-                      {apt.queueNumber && (
-                        <Badge variant="teal" size="sm" className="font-mono">{apt.queueNumber}</Badge>
-                      )}
-                    </div>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Service: <span className="font-medium text-slate-700">{apt.serviceName}</span> · Phone: {apt.patientPhone}
-                    </p>
-                    {apt.notes && (
-                      <p className="text-[11px] text-slate-400 italic mt-0.5">
-                        Notes: {apt.notes}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 self-end sm:self-center">
-                  <Badge
-                    variant={
-                      apt.status === 'Completed' ? 'success' :
-                      apt.status === 'In Progress' ? 'warning' :
-                      apt.status === 'Checked In' ? 'teal' : 'default'
-                    }
-                    size="sm"
-                  >
-                    {apt.status}
-                  </Badge>
-                  <Link to={`/clinic/consultations/${apt.id}`}>
-                    <Button variant="secondary" size="sm" className="text-xs">
-                      <Stethoscope className="w-3.5 h-3.5 mr-1 text-blue-600" />
-                      Consultation
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
->>>>>>> origin/main
       </Card>
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main

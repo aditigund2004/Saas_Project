@@ -47,11 +47,7 @@ export function SaaSPaymentsPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-<<<<<<< HEAD
     showToast('SaaS payments ledger CSV exported.', 'success');
-=======
-    showToast('SaaS payments ledger CSV exported.');
->>>>>>> origin/main
   };
 
   return (
@@ -59,15 +55,9 @@ export function SaaSPaymentsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Gateway Transactions</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Payment Ledger</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-=======
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Gateway Transactions</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">SaaS Payment Ledger</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
->>>>>>> origin/main
             Real-time gateway settlements, Razorpay/Stripe webhooks, UPI autopay debits, and corporate cards.
           </p>
         </div>
@@ -80,27 +70,16 @@ export function SaaSPaymentsPage() {
       <SaaSFinanceNav />
 
       {/* Filter and Search */}
-<<<<<<< HEAD
       <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-=======
-      <Card className="p-4 border-slate-200">
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
-          <div className="sm:col-span-8 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
->>>>>>> origin/main
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by transaction reference (e.g. rzp_pay_99812A), clinic, or invoice..."
-<<<<<<< HEAD
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-=======
-              className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
             />
           </div>
 
@@ -108,11 +87,7 @@ export function SaaSPaymentsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-950 font-medium text-slate-700 dark:text-slate-200"
-=======
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white font-medium text-slate-700"
->>>>>>> origin/main
             >
               <option value="All">All Transaction Statuses</option>
               <option value="Success">Success (Settled)</option>
@@ -124,17 +99,12 @@ export function SaaSPaymentsPage() {
       </Card>
 
       {/* Table */}
-<<<<<<< HEAD
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-=======
-      <Card>
->>>>>>> origin/main
         <CardHeader
           title={`Settled Gateway Transactions (${filteredPayments.length})`}
           subtitle="Showing bank batch reference numbers and payment provider clearance"
         />
         <div className="overflow-x-auto">
-<<<<<<< HEAD
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
               <tr>
@@ -165,57 +135,18 @@ export function SaaSPaymentsPage() {
                         p.status === 'Success'
                           ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                           : 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
-=======
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
-              <tr>
-                <th className="p-3.5">Payment Reference</th>
-                <th className="p-3.5">Subscribing Clinic</th>
-                <th className="p-3.5">Invoice #</th>
-                <th className="p-3.5">Amount</th>
-                <th className="p-3.5">Method</th>
-                <th className="p-3.5">Settlement Date</th>
-                <th className="p-3.5">Status</th>
-                <th className="p-3.5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
-              {filteredPayments.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50/50">
-                  <td className="p-3.5 font-bold text-slate-900">{p.paymentReference}</td>
-                  <td className="p-3.5 font-sans font-semibold text-slate-800">{p.clinicName}</td>
-                  <td className="p-3.5 text-slate-600 font-sans">{p.invoiceNumber}</td>
-                  <td className="p-3.5 font-bold text-slate-900">{formatCurrency(p.amount)}</td>
-                  <td className="p-3.5 text-slate-700 font-sans">{p.paymentMethod}</td>
-                  <td className="p-3.5 text-slate-500">{p.date}</td>
-                  <td className="p-3.5 font-sans">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
-                        p.status === 'Success'
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                          : 'bg-rose-50 text-rose-700 border border-rose-200'
->>>>>>> origin/main
                       }`}
                     >
                       {p.status}
                     </span>
                   </td>
-<<<<<<< HEAD
                   <td className="p-4 text-right font-sans">
-=======
-                  <td className="p-3.5 text-right font-sans">
->>>>>>> origin/main
                     {p.status === 'Failed' ? (
                       <Button
                         variant="outline"
                         size="sm"
-<<<<<<< HEAD
                         className="text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40"
                         onClick={() => showToast(`Payment retry queued for ${p.paymentReference}`, 'info')}
-=======
-                        className="text-blue-700 hover:bg-blue-50"
-                        onClick={() => showToast(`Payment retry queued for ${p.paymentReference}`)}
->>>>>>> origin/main
                       >
                         Retry Debit
                       </Button>
@@ -223,11 +154,7 @@ export function SaaSPaymentsPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-<<<<<<< HEAD
                         onClick={() => showToast(`Gateway receipt verified: ${p.paymentReference}`, 'info')}
-=======
-                        onClick={() => showToast(`Gateway receipt verified: ${p.paymentReference}`)}
->>>>>>> origin/main
                       >
                         Receipt
                       </Button>
@@ -242,7 +169,3 @@ export function SaaSPaymentsPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main

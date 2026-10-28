@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
-<<<<<<< HEAD
 import { StatCard } from '../../components/ui/StatCard';
 import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
-=======
->>>>>>> origin/main
+import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
 import {
   Calendar,
   FileText,
   Receipt,
   PlusCircle,
   Clock,
-<<<<<<< HEAD
   Printer,
   CreditCard,
   MessageSquareHeart,
@@ -23,18 +20,13 @@ import {
   CheckCircle2,
   AlertCircle,
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Video
 } from 'lucide-react';
-=======
-  Printer
-} from 'lucide-react';
-import { StatCard } from '../../components/ui/StatCard';
->>>>>>> origin/main
 
 export function PatientDashboardPage() {
   const {
     currentUser,
-<<<<<<< HEAD
     activePatientId,
     patients = [],
     appointments = [],
@@ -45,6 +37,8 @@ export function PatientDashboardPage() {
     openPrescriptionModal,
     formatCurrency
   } = useApp();
+
+  const [paymentModalApt, setPaymentModalApt] = useState(null);
 
   const activePatient =
     patients.find((p) => p.id === activePatientId || p.patientIdNumber === activePatientId) ||
@@ -92,12 +86,21 @@ export function PatientDashboardPage() {
     (a) => !myFeedbacks.some((f) => f.appointmentId === a.id)
   );
 
-  // Outstanding balance across invoices
-  const totalOutstandingBalance = myInvoices.reduce((sum, inv) => {
+  // Outstanding balance across invoices + unpaid consultation fees
+  const totalInvoiceDues = myInvoices.reduce((sum, inv) => {
     const paid = Number(inv.amountPaid) || 0;
     const balance = Math.max(0, (Number(inv.totalAmount) || 0) - paid);
     return sum + balance;
   }, 0);
+
+  const totalUnpaidAppointmentFees = myAppointments
+    .filter((a) => a.paymentStatus !== 'Paid' && a.status !== 'Cancelled' && a.status !== 'Rejected')
+    .reduce((sum, a) => {
+      const hasInvoice = myInvoices.some((i) => i.appointmentId === a.id || i.referenceNumber === a.referenceNumber);
+      return hasInvoice ? sum : sum + (Number(a.consultationFee) || 600);
+    }, 0);
+
+  const totalOutstandingBalance = totalInvoiceDues + totalUnpaidAppointmentFees;
 
   const upcoming = myAppointments.filter((a) =>
     ['Confirmed', 'Patient Checked In', 'Checked In', 'In Consultation', 'In Progress'].includes(a.status)
@@ -125,68 +128,20 @@ export function PatientDashboardPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link to="/patient/appointments/book">
-            <Button variant="primary" size="md" icon={PlusCircle} className="shadow-md shadow-blue-500/20 font-bold">
-              Book Appointment
-=======
-    appointments = [],
-    prescriptions = [],
-    invoices = [],
-    openPrescriptionModal
-  } = useApp();
-
-  // Patient security boundary: filter strictly by current patient (Aarav Patel in demo)
-  const myAppointments = appointments.filter(
-    (a) => a.patientName === currentUser?.name || a.patientId === 'pt-1041' || !a.patientId
-  );
-  const myPrescriptions = prescriptions.filter(
-    (p) => p.patientName === currentUser?.name || p.patientId === 'pt-1041' || p.patientId === 'PT-1041'
-  );
-  const myInvoices = invoices.filter(
-    (i) => i.patientName === currentUser?.name || i.patientId === 'pt-1041'
-  );
-
-  const actionRequiredProposals = myAppointments.filter(
-    (a) => a.status === 'Alternative Slot Proposed' || a.status === 'Awaiting Patient Response'
-  );
-  const pendingRequests = myAppointments.filter(
-    (a) => a.status === 'Pending Clinic Confirmation'
-  );
-  const upcoming = myAppointments.filter(
-    (a) => ['Confirmed', 'Patient Checked In', 'Checked In', 'In Consultation', 'In Progress'].includes(a.status)
-  );
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
-            Patient Health Dashboard
-          </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-0.5">
-            Welcome back, {currentUser?.name || 'Aarav'}
-          </h1>
-          <p className="text-xs text-slate-500">
-            Discover 5 specialized clinic networks, manage booking requests, and access tamper-evident digital prescriptions.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Link to="/patient/clinics">
-            <Button variant="outline" size="sm">
-              Explore Clinics
+          <Link to="/patient/virtual-consulting">
+            <Button variant="outline" size="md" className="font-bold flex items-center gap-1.5 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+              <Video className="w-4 h-4" />
+              <span>Connect Virtually</span>
             </Button>
           </Link>
           <Link to="/patient/appointments/book">
-            <Button variant="primary" size="sm" icon={PlusCircle}>
-              Book Consultation
->>>>>>> origin/main
+            <Button variant="primary" size="md" icon={PlusCircle} className="shadow-md shadow-blue-500/20 font-bold">
+              Book Appointment
             </Button>
           </Link>
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* 2. Feedback Request Banner for Completed Visits */}
       {appointmentsAwaitingFeedback.length > 0 && (
         <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 border border-amber-300 dark:border-amber-800 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
@@ -215,41 +170,11 @@ export function PatientDashboardPage() {
             <Button variant="primary" size="sm" className="bg-amber-600 hover:bg-amber-700 text-white font-bold whitespace-nowrap shadow-sm">
               <Star className="w-3.5 h-3.5 mr-1.5 fill-white" />
               Rate Visit (1–5 Stars) &rarr;
-=======
-      {/* Action Required Banner for Alternative Proposals */}
-      {actionRequiredProposals.length > 0 && (
-        <div className="p-4 bg-amber-50 border border-amber-300 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-              <Clock className="w-5 h-5 text-amber-700" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-semibold text-amber-900 bg-amber-200 px-2 py-0.5 rounded-full uppercase tracking-wide">
-                  Action Required
-                </span>
-                <span className="text-xs text-slate-500 font-mono">
-                  {actionRequiredProposals[0].requestId || actionRequiredProposals[0].referenceNumber}
-                </span>
-              </div>
-              <h2 className="text-sm font-bold text-slate-900 mt-0.5">
-                Alternative Appointment Slot Proposed
-              </h2>
-              <p className="text-xs text-slate-600 mt-0.5">
-                <strong>{actionRequiredProposals[0].clinicName}</strong> proposed a new slot for Dr. {actionRequiredProposals[0].doctorName}. Please accept or decline to proceed.
-              </p>
-            </div>
-          </div>
-          <Link to="/patient/appointments/requests">
-            <Button variant="primary" size="sm" className="bg-amber-700 hover:bg-amber-800 text-white font-semibold whitespace-nowrap">
-              Review Proposal ({actionRequiredProposals.length}) &rarr;
->>>>>>> origin/main
             </Button>
           </Link>
         </div>
       )}
 
-<<<<<<< HEAD
       {/* 3. Top 4 Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
@@ -318,11 +243,34 @@ export function PatientDashboardPage() {
                   <span className="font-mono text-slate-400">
                     Ref: {nextAppointment.referenceNumber}
                   </span>
+                  <span className="font-bold text-blue-600 dark:text-blue-400 font-mono">
+                    Fee: ₹{(Number(nextAppointment.consultationFee) || 600).toLocaleString('en-IN')}
+                  </span>
+                  {nextAppointment.paymentStatus === 'Paid' ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                      <CheckCircle2 className="w-3 h-3" /> Fee Paid
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
+                      <Clock className="w-3 h-3" /> Fee Due
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2.5">
+              {nextAppointment.paymentStatus !== 'Paid' && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  icon={CreditCard}
+                  onClick={() => setPaymentModalApt(nextAppointment)}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-sm"
+                >
+                  Pay Fee (₹{(Number(nextAppointment.consultationFee) || 600).toLocaleString('en-IN')})
+                </Button>
+              )}
               <Link to="/patient/appointments">
                 <Button variant="outline" size="sm">
                   Manage Visit
@@ -365,7 +313,23 @@ export function PatientDashboardPage() {
                         Dr. {apt.doctorName} · <span className="font-mono">{apt.date} at {apt.time}</span>
                       </div>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right flex items-center justify-end gap-2">
+                      <div className="text-right">
+                        <div className="font-mono font-bold text-slate-800 dark:text-slate-200">
+                          ₹{(Number(apt.consultationFee) || 600).toLocaleString('en-IN')}
+                        </div>
+                        {apt.paymentStatus === 'Paid' ? (
+                          <span className="text-[10px] font-bold text-emerald-600 block">✓ Paid</span>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setPaymentModalApt(apt)}
+                            className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer block"
+                          >
+                            Pay Fee &rarr;
+                          </button>
+                        )}
+                      </div>
                       {apt.status === 'Completed' && (
                         <Link to={`/patient/feedback?appointment=${apt.id}`}>
                           <Button variant="outline" size="sm" className="text-[11px] font-semibold text-amber-700 border-amber-300 dark:border-amber-800 bg-amber-50/50 hover:bg-amber-100">
@@ -374,99 +338,12 @@ export function PatientDashboardPage() {
                           </Button>
                         </Link>
                       )}
-=======
-      {/* Pending Review Notice if any pending without proposal */}
-      {actionRequiredProposals.length === 0 && pendingRequests.length > 0 && (
-        <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-xl flex items-center justify-between text-xs text-blue-900">
-          <div className="flex items-center gap-2.5">
-            <Clock className="w-4 h-4 text-blue-600 shrink-0" />
-            <span>
-              You have <strong>{pendingRequests.length} booking request(s)</strong> awaiting clinic receptionist availability verification.
-            </span>
-          </div>
-          <Link to="/patient/appointments/requests" className="font-semibold underline hover:text-blue-700 shrink-0 ml-3">
-            Track Status &rarr;
-          </Link>
-        </div>
-      )}
-
-      {/* Quick stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard
-          title="Upcoming Appointments"
-          value={upcoming.length.toString()}
-          change={upcoming.length > 0 ? 'Active consultation' : 'None scheduled'}
-          trend="up"
-          icon={Calendar}
-          color="blue"
-          subtitle="Confirmed bookings"
-        />
-        <StatCard
-          title="Digital Prescriptions"
-          value={myPrescriptions.length.toString()}
-          change="QR verified documents"
-          trend="up"
-          icon={FileText}
-          color="emerald"
-          subtitle="Signed by your doctor"
-        />
-        <StatCard
-          title="Paid Receipts"
-          value={myInvoices.length.toString()}
-          change="Available for download"
-          trend="up"
-          icon={Receipt}
-          color="indigo"
-          subtitle="Procedures & treatments"
-        />
-      </div>
-
-      {/* Main Grid (Cards connected with zero gap) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-        {/* Next Scheduled Visit Card */}
-        <div className="lg:col-span-7">
-          <Card className="lg:rounded-r-none lg:border-r-0 h-full">
-            <CardHeader
-              title="Upcoming Consultations"
-              subtitle="Visits scheduled with your healthcare practitioners"
-              action={
-                <Link to="/patient/appointments" className="text-sm text-blue-600 font-semibold hover:underline">
-                  View All ({myAppointments.length}) →
-                </Link>
-              }
-            />
-            <div className="p-4 sm:p-5 space-y-3">
-              {upcoming.length === 0 ? (
-                <div className="text-center py-8 text-sm text-slate-400 space-y-2">
-                  <p>You have no active appointments scheduled right now.</p>
-                  <Link to="/patient/appointments/book">
-                    <Button variant="primary" size="sm">
-                      Schedule a Visit
-                    </Button>
-                  </Link>
-                </div>
-              ) : (
-                upcoming.map((apt) => (
-                  <div
-                    key={apt.id}
-                    className="p-4 rounded-xl border border-slate-200/90 bg-white hover:border-slate-300 transition-all space-y-2 text-sm"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-900 text-base tracking-tight">{apt.serviceName}</span>
-                      <Badge variant={apt.status}>{apt.status}</Badge>
-                    </div>
-                    <div className="text-slate-600 space-y-1">
-                      <p>👨‍⚕️ <strong className="text-slate-800">{apt.doctorName}</strong></p>
-                      <p>🕒 <strong className="tabular-nums font-semibold text-slate-800">{apt.date} at {apt.time}</strong></p>
-                      <p className="text-xs text-slate-500 font-mono">Ref: {apt.referenceNumber}</p>
->>>>>>> origin/main
                     </div>
                   </div>
                 ))
               )}
             </div>
           </Card>
-<<<<<<< HEAD
 
           {/* Invoices & Dues */}
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden">
@@ -541,25 +418,10 @@ export function PatientDashboardPage() {
                 <div className="text-center py-8 text-xs text-slate-400">
                   No active prescriptions on record.
                 </div>
-=======
-        </div>
-
-        {/* Latest Digital Prescription Card */}
-        <div className="lg:col-span-5">
-          <Card className="lg:rounded-l-none h-full">
-            <CardHeader
-              title="Latest Digital Prescription"
-              subtitle="Tamper-evident medical document"
-            />
-            <div className="p-4 sm:p-5 space-y-3">
-              {myPrescriptions.length === 0 ? (
-                <p className="text-sm text-slate-400 text-center py-6">No prescriptions on record.</p>
->>>>>>> origin/main
               ) : (
                 myPrescriptions.slice(0, 2).map((rx) => (
                   <div
                     key={rx.id}
-<<<<<<< HEAD
                     className="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20 text-xs space-y-2"
                   >
                     <div className="flex items-center justify-between">
@@ -585,34 +447,6 @@ export function PatientDashboardPage() {
                       >
                         <Printer className="w-3 h-3 mr-1" />
                         View / Print
-=======
-                    className="p-4 rounded-xl border border-blue-200/90 bg-blue-50/30 text-sm space-y-2"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono font-bold text-blue-900 text-base">{rx.prescriptionNumber}</span>
-                      <span className="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded">
-                        QR Verified
-                      </span>
-                    </div>
-                    <p className="font-semibold text-slate-800">Diagnosis: {rx.diagnosis}</p>
-                    <p className="text-xs text-slate-500">Doctor: {rx.doctorName} · {rx.date}</p>
-
-                    <div className="pt-2 flex items-center justify-between">
-                      <Link
-                        to={`/verify-prescription/${rx.verificationId}`}
-                        target="_blank"
-                        className="text-xs text-blue-700 underline font-semibold"
-                      >
-                        Verify Authenticity
-                      </Link>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        icon={Printer}
-                        onClick={() => openPrescriptionModal(rx)}
-                      >
-                        View & Print
->>>>>>> origin/main
                       </Button>
                     </div>
                   </div>
@@ -620,7 +454,6 @@ export function PatientDashboardPage() {
               )}
             </div>
           </Card>
-<<<<<<< HEAD
 
           {/* Recent Receipts */}
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden">
@@ -663,10 +496,15 @@ export function PatientDashboardPage() {
               )}
             </div>
           </Card>
-=======
->>>>>>> origin/main
         </div>
       </div>
+
+      {/* Doctor Consultation Fee Payment Gateway Modal */}
+      <DoctorPaymentModal
+        isOpen={!!paymentModalApt}
+        onClose={() => setPaymentModalApt(null)}
+        appointment={paymentModalApt}
+      />
     </div>
   );
 }

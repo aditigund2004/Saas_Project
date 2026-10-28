@@ -20,11 +20,8 @@ import {
 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-<<<<<<< HEAD
 import { ScrollRevealCard } from '../../components/medical/ScrollRevealCard';
 import { EcgWaveform } from '../../components/medical/EcgWaveform';
-=======
->>>>>>> origin/main
 
 export function FeaturesPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -157,7 +154,6 @@ export function FeaturesPage() {
       : features.filter((f) => f.category === selectedCategory);
 
   return (
-<<<<<<< HEAD
     <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 space-y-12 transition-colors">
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Features Explorer</span>
@@ -165,24 +161,11 @@ export function FeaturesPage() {
           Everything You Need to Run a Modern Specialty Clinic
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-=======
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Features Explorer</span>
-        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
-          Everything You Need to Run a Modern Specialty Clinic
-        </h1>
-        <p className="text-slate-600 text-base leading-relaxed">
->>>>>>> origin/main
           Explore all 14 core modules engineered for dental, orthopedic, dermatology, pediatric practices, and small local nursing homes.
         </p>
 
         {/* Filter pills */}
-<<<<<<< HEAD
         <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-=======
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
->>>>>>> origin/main
           {categories.map((c) => (
             <button
               key={c.id}
@@ -190,28 +173,20 @@ export function FeaturesPage() {
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 selectedCategory === c.id
                   ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
-<<<<<<< HEAD
                   : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/60'
-=======
-                  : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
->>>>>>> origin/main
               }`}
             >
               {c.label}
             </button>
           ))}
         </div>
-<<<<<<< HEAD
 
         {/* ECG telemetry accent */}
         <EcgWaveform variant="compact" glow={true} className="max-w-md mx-auto pt-2 opacity-60 dark:opacity-75" />
-=======
->>>>>>> origin/main
       </div>
 
       {/* Grid of features */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<<<<<<< HEAD
         {filteredFeatures.map((f, idx) => {
           const Icon = f.icon;
           return (
@@ -242,46 +217,12 @@ export function FeaturesPage() {
                 </div>
               </Card>
             </ScrollRevealCard>
-=======
-        {filteredFeatures.map((f) => {
-          const Icon = f.icon;
-          return (
-            <Card key={f.id} className="p-6 border-slate-200 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                  <Icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">{f.title}</h3>
-                  <p className="text-xs text-slate-500 mt-2 leading-relaxed">{f.desc}</p>
-                </div>
-                <div className="pt-2 border-t border-slate-100 space-y-1.5">
-                  {f.bullets.map((b, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                      <span>{b}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <Link to="/clinic/dashboard" className="text-blue-600 font-semibold hover:underline flex items-center gap-1">
-                  Preview in Demo Workspace <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </Card>
->>>>>>> origin/main
           );
         })}
       </div>
 
       {/* Bottom CTA */}
-<<<<<<< HEAD
       <div className="bg-slate-900 dark:bg-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-10 text-white text-center space-y-4 max-w-4xl mx-auto shadow-xl">
-=======
-      <div className="bg-slate-900 rounded-3xl p-8 sm:p-10 text-white text-center space-y-4 max-w-4xl mx-auto">
->>>>>>> origin/main
         <h2 className="text-2xl sm:text-3xl font-bold">Start Your 14-Day Free Clinic Trial</h2>
         <p className="text-slate-400 text-sm max-w-xl mx-auto">
           No credit card required. Explore role dashboards for Clinic Admin, Receptionist, and Patients immediately.
@@ -297,7 +238,3 @@ export function FeaturesPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main

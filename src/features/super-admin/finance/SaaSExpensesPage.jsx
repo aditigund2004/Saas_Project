@@ -75,11 +75,7 @@ export function SaaSExpensesPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-<<<<<<< HEAD
     showToast('Company operating expenses CSV exported.', 'success');
-=======
-    showToast('Company operating expenses CSV exported.');
->>>>>>> origin/main
   };
 
   return (
@@ -87,15 +83,9 @@ export function SaaSExpensesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Operating Expenditures</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Company Operating Expenses</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-=======
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Operating Expenditures</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">SaaS Company Operating Expenses</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
->>>>>>> origin/main
             Cloud infrastructure, API vendor buffers, compliance audits, and SaaS tooling costs (strictly separate from clinic clinical costs).
           </p>
         </div>
@@ -105,11 +95,7 @@ export function SaaSExpensesPage() {
             Export Expenses CSV
           </Button>
           <Button variant="primary" size="sm" icon={PlusCircle} onClick={() => setIsModalOpen(true)}>
-<<<<<<< HEAD
             Record Company Expense
-=======
-            + Record Company Expense
->>>>>>> origin/main
           </Button>
         </div>
       </div>
@@ -117,40 +103,24 @@ export function SaaSExpensesPage() {
       <SaaSFinanceNav />
 
       {/* Scope Disclaimer Callout */}
-<<<<<<< HEAD
       <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm text-slate-700 dark:text-slate-300 flex items-center gap-3">
         <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
-=======
-      <div className="p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-700 flex items-center gap-2">
-        <ShieldCheck className="w-4 h-4 text-slate-600 shrink-0" />
->>>>>>> origin/main
         <span>
           <strong>Corporate Overhead Distinction:</strong> These expenditures represent ClinicOS platform engineering, AWS hosting, and compliance retainers. They do not represent clinic inventory, clinic nurse salaries, or facility rent.
         </span>
       </div>
 
       {/* Filter and Search */}
-<<<<<<< HEAD
       <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-=======
-      <Card className="p-4 border-slate-200">
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
-          <div className="sm:col-span-8 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
->>>>>>> origin/main
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search expenses by vendor, description, or tooling service..."
-<<<<<<< HEAD
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-=======
-              className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
             />
           </div>
 
@@ -158,11 +128,7 @@ export function SaaSExpensesPage() {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-950 font-medium text-slate-700 dark:text-slate-200"
-=======
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white font-medium text-slate-700"
->>>>>>> origin/main
             >
               <option value="All">All Categories</option>
               <option value="Cloud Infrastructure">Cloud Infrastructure (AWS)</option>
@@ -176,17 +142,12 @@ export function SaaSExpensesPage() {
       </Card>
 
       {/* Table */}
-<<<<<<< HEAD
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-=======
-      <Card>
->>>>>>> origin/main
         <CardHeader
           title={`Platform Operating Ledger (${filteredExpenses.length})`}
           subtitle={`Total Period Operating Outflow: ${formatCurrency(totalExpenseAmount)}`}
         />
         <div className="overflow-x-auto">
-<<<<<<< HEAD
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
               <tr>
@@ -208,27 +169,6 @@ export function SaaSExpensesPage() {
                   <td className="p-4 font-bold text-slate-900 dark:text-white text-sm">{formatCurrency(exp.amount)}</td>
                   <td className="p-4 font-sans">
                     <span className="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-=======
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
-              <tr>
-                <th className="p-3.5">Category</th>
-                <th className="p-3.5">Description & Vendor Details</th>
-                <th className="p-3.5">Expense Date</th>
-                <th className="p-3.5">Amount</th>
-                <th className="p-3.5">Payment Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
-              {filteredExpenses.map((exp) => (
-                <tr key={exp.id} className="hover:bg-slate-50/50">
-                  <td className="p-3.5 font-sans font-bold text-slate-900">{exp.category}</td>
-                  <td className="p-3.5 font-sans text-slate-700 max-w-sm">{exp.description}</td>
-                  <td className="p-3.5 text-slate-500">{exp.date}</td>
-                  <td className="p-3.5 font-bold text-slate-900">{formatCurrency(exp.amount)}</td>
-                  <td className="p-3.5 font-sans">
-                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
->>>>>>> origin/main
                       {exp.paymentStatus}
                     </span>
                   </td>
@@ -247,7 +187,6 @@ export function SaaSExpensesPage() {
           title="Record SaaS Company Operating Expense"
           size="md"
         >
-<<<<<<< HEAD
           <form onSubmit={handleCreateExpense} className="space-y-4 text-sm">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Expense Category *</label>
@@ -255,15 +194,6 @@ export function SaaSExpensesPage() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none"
-=======
-          <form onSubmit={handleCreateExpense} className="space-y-4 text-xs">
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">Expense Category *</label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white font-medium"
->>>>>>> origin/main
               >
                 <option value="Cloud Infrastructure">Cloud Infrastructure (AWS Mumbai)</option>
                 <option value="SaaS Tooling">SaaS Tooling (Datadog, Postmark, Sentry)</option>
@@ -273,55 +203,33 @@ export function SaaSExpensesPage() {
               </select>
             </div>
 
-<<<<<<< HEAD
             <div className="grid grid-cols-2 gap-3.5">
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Amount (INR) *</label>
-=======
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amount (INR) *</label>
->>>>>>> origin/main
                 <input
                   required
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="e.g. 24000"
-<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-=======
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-mono font-bold"
->>>>>>> origin/main
                 />
               </div>
 
               <div>
-<<<<<<< HEAD
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Expense Date *</label>
-=======
-                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">Expense Date *</label>
->>>>>>> origin/main
                 <input
                   required
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-=======
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs"
->>>>>>> origin/main
                 />
               </div>
             </div>
 
             <div>
-<<<<<<< HEAD
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-=======
-              <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
->>>>>>> origin/main
                 Description & Vendor Details *
               </label>
               <textarea
@@ -330,19 +238,11 @@ export function SaaSExpensesPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter description, vendor invoice reference, or service scope..."
-<<<<<<< HEAD
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-=======
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs"
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
->>>>>>> origin/main
               <Button variant="outline" size="sm" onClick={() => setIsModalOpen(false)}>
                 Cancel
               </Button>
@@ -356,7 +256,3 @@ export function SaaSExpensesPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main

@@ -7,7 +7,6 @@ import { Package, AlertTriangle, CheckCircle } from 'lucide-react';
 export function ReceptionInventoryPage() {
   const { inventory, updateStock } = useApp();
 
-<<<<<<< HEAD
   const lowStockCount = inventory.filter((item) => item.currentStock <= item.minStockLevel).length;
 
   return (
@@ -16,19 +15,10 @@ export function ReceptionInventoryPage() {
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Front Desk Stock</span>
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Front Desk Supplies Checklist</h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-=======
-  return (
-    <div className="space-y-6">
-      <div>
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Front Desk Stock</span>
-        <h1 className="text-2xl font-extrabold text-slate-900">Front Desk Supplies Checklist</h1>
-        <p className="text-xs text-slate-500 mt-0.5">
->>>>>>> origin/main
           Reception-accessible supplies tracking for thermal receipts, prescription stationery, and patient hygiene disposables.
         </p>
       </div>
 
-<<<<<<< HEAD
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 flex items-center justify-between">
           <div>
@@ -54,15 +44,11 @@ export function ReceptionInventoryPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-=======
-      <Card>
->>>>>>> origin/main
         <CardHeader
           title="Consumables & Stationeries"
           subtitle="Authorized front desk stock log"
         />
         <div className="overflow-x-auto">
-<<<<<<< HEAD
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
               <tr>
@@ -100,41 +86,6 @@ export function ReceptionInventoryPage() {
                       )}
                     </td>
                     <td className="p-4 text-right">
-=======
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
-              <tr>
-                <th className="p-3.5">Item Name</th>
-                <th className="p-3.5">Category</th>
-                <th className="p-3.5">Current Stock</th>
-                <th className="p-3.5">Status</th>
-                <th className="p-3.5 text-right">Quick Restock</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {inventory.map((item) => {
-                const isLow = item.currentStock <= item.minStockLevel;
-
-                return (
-                  <tr key={item.id} className="hover:bg-slate-50/50">
-                    <td className="p-3.5 font-bold text-slate-900">{item.name}</td>
-                    <td className="p-3.5 text-slate-600">{item.category}</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-800">
-                      {item.currentStock} {item.unit}
-                    </td>
-                    <td className="p-3.5">
-                      {isLow ? (
-                        <span className="text-rose-700 bg-rose-50 px-2 py-0.5 rounded text-[10px] font-bold border border-rose-200">
-                          Low Stock
-                        </span>
-                      ) : (
-                        <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded text-[10px] font-bold border border-emerald-200">
-                          Available
-                        </span>
-                      )}
-                    </td>
-                    <td className="p-3.5 text-right">
->>>>>>> origin/main
                       <Button
                         variant="outline"
                         size="sm"

@@ -590,15 +590,23 @@ export function ClinicPublicBookingPage() {
             </p>
           </div>
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
-            <Link to="/app/dashboard">
-              <Button variant="primary" size="md" className="text-xs font-bold">
-                View in Clinic Dashboard →
+          {/* Patient Self-Service Portal Access Box */}
+          <div className="max-w-md mx-auto p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-left text-xs space-y-1.5">
+            <span className="font-bold text-blue-900 dark:text-blue-200 block">Access Your Patient Portal</span>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300">
+              Sign in or create a patient account using your mobile number or email to view live queue progress, download prescriptions, and access receipts.
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <Link to="/login/patient">
+              <Button variant="primary" size="md" className="text-xs font-bold text-white shadow-md">
+                Sign In to Patient Portal →
               </Button>
             </Link>
-            <Link to="/app/frontdesk/appointments">
+            <Link to={`/register/patient?name=${encodeURIComponent(patientName)}&phone=${encodeURIComponent(patientPhone)}`}>
               <Button variant="outline" size="md" className="text-xs font-semibold">
-                View Front Desk Queue →
+                Register as Patient
               </Button>
             </Link>
             <Link to={`/clinic/${clinic.slug}`}>

@@ -7,14 +7,6 @@ import {
   Mail,
   Clock,
   ShieldCheck,
-<<<<<<< HEAD
-=======
-  Building2,
-  Calendar,
-  CheckCircle2,
-  Stethoscope,
-  Star,
->>>>>>> origin/main
   ArrowRight
 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
@@ -30,11 +22,7 @@ export function ClinicDetailPage() {
   const clinicDoctors = doctors.filter((d) => d.clinicId === clinic.id);
 
   return (
-<<<<<<< HEAD
     <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-10 transition-colors">
-=======
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
->>>>>>> origin/main
       {/* Clinic Header Banner */}
       <div className="relative rounded-3xl overflow-hidden bg-slate-900 text-white border border-slate-800 shadow-xl">
         <div className="h-64 sm:h-80 w-full relative">
@@ -78,7 +66,6 @@ export function ClinicDetailPage() {
         {/* Left Column: Navigation Tabs & Content */}
         <div className="lg:col-span-8 space-y-6">
           {/* Tab selector */}
-<<<<<<< HEAD
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3 overflow-x-auto">
             <button
               onClick={() => setActiveTab('services')}
@@ -86,49 +73,26 @@ export function ClinicDetailPage() {
                 activeTab === 'services'
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-=======
-          <div className="flex items-center gap-2 border-b border-slate-200 pb-3">
-            <button
-              onClick={() => setActiveTab('services')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
-                activeTab === 'services'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:bg-slate-100'
->>>>>>> origin/main
               }`}
             >
               Services & Pricing ({clinic.services.length})
             </button>
             <button
               onClick={() => setActiveTab('doctors')}
-<<<<<<< HEAD
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                 activeTab === 'doctors'
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-=======
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
-                activeTab === 'doctors'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:bg-slate-100'
->>>>>>> origin/main
               }`}
             >
               Consulting Doctors ({clinicDoctors.length})
             </button>
             <button
               onClick={() => setActiveTab('branches')}
-<<<<<<< HEAD
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                 activeTab === 'branches'
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-=======
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
-                activeTab === 'branches'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:bg-slate-100'
->>>>>>> origin/main
               }`}
             >
               Branches & Locations ({clinic.branches.length})
@@ -138,7 +102,6 @@ export function ClinicDetailPage() {
           {/* Services Tab */}
           {activeTab === 'services' && (
             <div className="space-y-4">
-<<<<<<< HEAD
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">Available Procedures & Consultations</h2>
               <div className="grid grid-cols-1 gap-3">
                 {clinic.services.map((srv) => (
@@ -154,23 +117,6 @@ export function ClinicDetailPage() {
 
                     <div className="text-right shrink-0">
                       <div className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
-=======
-              <h2 className="text-lg font-bold text-slate-900">Available Procedures & Consultations</h2>
-              <div className="grid grid-cols-1 gap-3">
-                {clinic.services.map((srv) => (
-                  <Card key={srv.id} className="p-4 border-slate-200 flex items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-sm font-bold text-slate-900">{srv.name}</h3>
-                        <Badge variant="Active">{srv.category}</Badge>
-                      </div>
-                      <p className="text-xs text-slate-500">{srv.description}</p>
-                      <p className="text-[11px] text-slate-400">Standard Duration: {srv.durationMinutes} mins</p>
-                    </div>
-
-                    <div className="text-right shrink-0">
-                      <div className="text-base font-bold text-slate-900">
->>>>>>> origin/main
                         ₹{srv.fee.toLocaleString('en-IN')}
                       </div>
                       <Link to={`/book-appointment?clinic=${clinic.id}&service=${srv.id}`}>
@@ -188,7 +134,6 @@ export function ClinicDetailPage() {
           {/* Doctors Tab */}
           {activeTab === 'doctors' && (
             <div className="space-y-4">
-<<<<<<< HEAD
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">Practitioner Roster</h2>
               <div className="grid grid-cols-1 gap-4">
                 {clinicDoctors.map((doc) => (
@@ -207,26 +152,6 @@ export function ClinicDetailPage() {
                         <span>🕒 {doc.workingHours}</span>
                         <span>•</span>
                         <span className="tabular-nums">Fee: ₹{doc.consultationFee.toLocaleString('en-IN')}</span>
-=======
-              <h2 className="text-lg font-bold text-slate-900">Practitioner Roster</h2>
-              <div className="grid grid-cols-1 gap-4">
-                {clinicDoctors.map((doc) => (
-                  <Card key={doc.id} className="p-5 border-slate-200 flex flex-col sm:flex-row items-start gap-4">
-                    <img
-                      src={doc.avatar}
-                      alt={doc.name}
-                      className="w-16 h-16 rounded-2xl object-cover border border-slate-200"
-                    />
-                    <div className="space-y-1 flex-1">
-                      <h3 className="text-base font-bold text-slate-900">{doc.name}</h3>
-                      <p className="text-xs font-semibold text-blue-700">{doc.specialty}</p>
-                      <p className="text-xs text-slate-500">{doc.qualifications} · {doc.experienceYears} Years Exp</p>
-                      <p className="text-xs text-slate-400 mt-1 line-clamp-2">{doc.bio}</p>
-                      <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-slate-600">
-                        <span>🕒 {doc.workingHours}</span>
-                        <span>•</span>
-                        <span>Fee: ₹{doc.consultationFee.toLocaleString('en-IN')}</span>
->>>>>>> origin/main
                       </div>
                     </div>
                     <div className="shrink-0 sm:self-center">
@@ -245,7 +170,6 @@ export function ClinicDetailPage() {
           {/* Branches Tab */}
           {activeTab === 'branches' && (
             <div className="space-y-4">
-<<<<<<< HEAD
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">Clinic Branch Locations</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {clinic.branches.map((b) => (
@@ -255,17 +179,6 @@ export function ClinicDetailPage() {
                       {b.isMain && <Badge variant="Active">Primary Facility</Badge>}
                     </div>
                     <div className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
-=======
-              <h2 className="text-lg font-bold text-slate-900">Clinic Branch Locations</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {clinic.branches.map((b) => (
-                  <Card key={b.id} className="p-5 border-slate-200 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-base font-bold text-slate-900">{b.name}</h3>
-                      {b.isMain && <Badge variant="Active">Primary Facility</Badge>}
-                    </div>
-                    <div className="space-y-1 text-xs text-slate-600">
->>>>>>> origin/main
                       <p>📍 {b.address}, {b.city}</p>
                       <p>📞 Phone: {b.phone}</p>
                       <p>🕒 Hours: {b.operatingHours}</p>
@@ -286,7 +199,6 @@ export function ClinicDetailPage() {
 
         {/* Right Column: Clinic Information & Policies */}
         <div className="lg:col-span-4 space-y-6">
-<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 space-y-4">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Contact & Hours</h3>
             <div className="space-y-3 text-xs text-slate-600 dark:text-slate-300">
@@ -304,31 +216,11 @@ export function ClinicDetailPage() {
               </div>
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-=======
-          <Card className="p-6 border-slate-200 space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Contact & Hours</h3>
-            <div className="space-y-3 text-xs text-slate-600">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                <span>{clinic.address}, {clinic.city}</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                <span>{clinic.phone}</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                <span>{clinic.email}</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
->>>>>>> origin/main
                 <span>{clinic.operatingHours}</span>
               </div>
             </div>
           </Card>
 
-<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 space-y-3 bg-blue-50/50 dark:bg-blue-950/20">
             <h3 className="text-xs font-bold text-blue-900 dark:text-blue-300 uppercase tracking-wider flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -338,36 +230,16 @@ export function ClinicDetailPage() {
               {clinic.bookingPolicy}
             </p>
             <div className="pt-1 text-[11px] text-blue-700 dark:text-blue-400">
-=======
-          <Card className="p-6 border-slate-200 space-y-3 bg-blue-50/50">
-            <h3 className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-blue-600" />
-              Patient Booking Policy
-            </h3>
-            <p className="text-xs text-blue-800 leading-relaxed">
-              {clinic.bookingPolicy}
-            </p>
-            <div className="pt-1 text-[11px] text-blue-700">
->>>>>>> origin/main
               ✓ Instant confirmation via SMS / WhatsApp notification
             </div>
           </Card>
 
-<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 text-center space-y-3">
             <h4 className="font-bold text-sm text-slate-900 dark:text-white">Are you a healthcare provider?</h4>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               Move your own clinic to ClinicOS with a 14-day free trial.
             </p>
             <Link to="/register/clinic" className="block">
-=======
-          <Card className="p-6 border-slate-200 text-center space-y-3">
-            <h4 className="font-bold text-sm text-slate-900">Are you a healthcare provider?</h4>
-            <p className="text-xs text-slate-500">
-              Move your own clinic to CliniPulse with a 14-day free trial.
-            </p>
-            <Link to="/register" className="block">
->>>>>>> origin/main
               <Button variant="outline" size="sm" className="w-full">
                 Register Your Clinic
               </Button>
@@ -378,7 +250,3 @@ export function ClinicDetailPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main

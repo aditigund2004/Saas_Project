@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext({
@@ -52,28 +51,15 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={{ theme, isDark, toggleTheme, setTheme }}>
-=======
-import React, { createContext, useContext } from 'react';
-
-const ThemeContext = createContext({ theme: 'light', toggleTheme: () => {} });
-
-export function ThemeProvider({ children }) {
-  return (
-    <ThemeContext.Provider value={{ theme: 'light', toggleTheme: () => {} }}>
->>>>>>> origin/main
       {children}
     </ThemeContext.Provider>
   );
 }
 
 export function useTheme() {
-<<<<<<< HEAD
   const context = useContext(ThemeContext);
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
-=======
-  return useContext(ThemeContext);
->>>>>>> origin/main
 }

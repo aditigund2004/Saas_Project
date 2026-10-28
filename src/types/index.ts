@@ -540,16 +540,11 @@ export interface ClinicPaymentRecord {
   patientName: string;
   invoiceNumber: string;
   amount: number;
-<<<<<<< HEAD
   paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking' | string;
-=======
-  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking';
->>>>>>> origin/main
   date: string;
   status: 'Completed' | 'Pending';
 }
 
-<<<<<<< HEAD
 export interface ReceiptRecord {
   id: string;
   receiptNumber: string;
@@ -570,8 +565,6 @@ export interface ReceiptRecord {
   notes?: string;
 }
 
-=======
->>>>>>> origin/main
 export interface ClinicRefundRecord {
   id: string;
   requestReference: string;
@@ -824,5 +817,25 @@ export interface PlatformMetric {
   monthlyRecurringRevenue: number;
   totalAppointmentsMonth: number;
   registeredUsers: number;
+}
+
+export interface VirtualConsultation {
+  id: string;
+  patientId: string;
+  patientName: string;
+  patientPhone: string;
+  patientAvatar?: string;
+  doctorId: string;
+  doctorName: string;
+  doctorSpecialty: string;
+  clinicId: string;
+  clinicName: string;
+  reason: string;
+  status: 'Waiting' | 'Connecting' | 'In Call' | 'Completed' | 'Declined';
+  requestedAt: string;
+  preferredTime: string;
+  meetingLink: string;
+  notes?: string;
+  duration?: string;
 }
 

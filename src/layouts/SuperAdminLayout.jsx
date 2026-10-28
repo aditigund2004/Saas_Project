@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useApp } from '../context/AppContext';
@@ -24,11 +24,7 @@ import {
   X,
   Sun,
   Moon,
-  ChevronDown,
-  CheckCircle2,
-  ExternalLink,
-  Shield,
-  Server
+  ChevronDown
 } from 'lucide-react';
 import { ToastContainer } from '../components/ui/DemoNotice';
 
@@ -43,6 +39,35 @@ export function SuperAdminLayout() {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const notificationsRef = useRef(null);
+  const profileRef = useRef(null);
+
+  // Close dropdowns when clicking anywhere outside or pressing Escape
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+        setNotificationsOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setNotificationsOpen(false);
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleOutsideClick);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handleOutsideClick);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   // Lock body scroll on mobile drawer
   useEffect(() => {
@@ -160,7 +185,7 @@ export function SuperAdminLayout() {
         </div>
 
         {/* Administrator Profile Card in Sidebar */}
-        <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850/60 shrink-0">
+        <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/60 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-extrabold text-xs flex items-center justify-center shadow-xs shrink-0">
               SA
@@ -264,7 +289,7 @@ export function SuperAdminLayout() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search clinics, subscriptions, invoices, audit logs..."
-                className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-850 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
+                className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
               />
             </div>
           </div>
@@ -272,17 +297,26 @@ export function SuperAdminLayout() {
           {/* Right: Operational Status, Notifications, Theme, Profile Dropdown */}
           <div className="flex items-center gap-2">
             {/* Live Platform SLA Pill */}
-            <div className="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-850">
+            <div className="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Platform 99.98% SLA</span>
             </div>
 
             {/* Platform Notifications Button & Dropdown */}
-            <div className="relative">
+            <div ref={notificationsRef} className="relative">
               <button
-                onClick={() => setNotificationsOpen(!notificationsOpen)}
-                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer relative"
+                type="button"
+                onClick={() => {
+                  setNotificationsOpen((prev) => !prev);
+                  setProfileDropdownOpen(false);
+                }}
+                className={`p-2 rounded-xl border shadow-2xs transition-colors cursor-pointer relative ${
+                  notificationsOpen
+                    ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-800'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-700'
+                }`}
                 aria-label="View notifications"
+                aria-expanded={notificationsOpen}
               >
                 <Bell className="w-4 h-4" />
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-600 absolute top-1.5 right-1.5" />
@@ -295,11 +329,17 @@ export function SuperAdminLayout() {
                     <span className="text-[10px] text-blue-600 dark:text-blue-400">Live Webhooks</span>
                   </div>
                   <div className="space-y-2 text-[11px]">
-                    <div className="p-2 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+                    <div
+                      onClick={() => setNotificationsOpen(false)}
+                      className="p-2 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 hover:bg-blue-100/60 dark:hover:bg-blue-900/40 transition-colors cursor-pointer"
+                    >
                       <span className="font-bold text-blue-900 dark:text-blue-200 block">New Tenant Subscription</span>
                       <span className="text-slate-600 dark:text-slate-400">Apex Specialty Care upgraded to Professional plan.</span>
                     </div>
-                    <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                    <div
+                      onClick={() => setNotificationsOpen(false)}
+                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                    >
                       <span className="font-bold text-slate-900 dark:text-slate-200 block">System SLA & Cluster</span>
                       <span className="text-slate-500 dark:text-slate-400">All multi-tenant database clusters operating at nominal latency.</span>
                     </div>
@@ -310,7 +350,12 @@ export function SuperAdminLayout() {
 
             {/* Theme Toggle */}
             <button
-              onClick={toggleTheme}
+              type="button"
+              onClick={() => {
+                toggleTheme();
+                setNotificationsOpen(false);
+                setProfileDropdownOpen(false);
+              }}
               className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer"
               aria-label="Toggle dark/light theme"
             >
@@ -318,10 +363,19 @@ export function SuperAdminLayout() {
             </button>
 
             {/* Administrator Profile Menu */}
-            <div className="relative">
+            <div ref={profileRef} className="relative">
               <button
-                onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="flex items-center gap-2 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-colors cursor-pointer"
+                type="button"
+                onClick={() => {
+                  setProfileDropdownOpen((prev) => !prev);
+                  setNotificationsOpen(false);
+                }}
+                className={`flex items-center gap-2 p-1.5 rounded-xl border shadow-2xs transition-colors cursor-pointer ${
+                  profileDropdownOpen
+                    ? 'bg-blue-50/70 dark:bg-blue-950/50 border-blue-300 dark:border-blue-800'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700'
+                }`}
+                aria-expanded={profileDropdownOpen}
               >
                 <div className="w-7 h-7 rounded-lg bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center">
                   SA
@@ -334,7 +388,11 @@ export function SuperAdminLayout() {
                     Super Admin
                   </span>
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
+                    profileDropdownOpen ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
+                  }`}
+                />
               </button>
 
               {profileDropdownOpen && (
@@ -361,7 +419,11 @@ export function SuperAdminLayout() {
                   </Link>
                   <div className="pt-1 border-t border-slate-100 dark:border-slate-800">
                     <button
-                      onClick={handleLogout}
+                      type="button"
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        handleLogout();
+                      }}
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 font-bold cursor-pointer"
                     >
                       <LogOut className="w-3.5 h-3.5" />

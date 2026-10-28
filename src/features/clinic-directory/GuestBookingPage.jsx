@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/main
 import React, { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
@@ -9,24 +6,10 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import {
-<<<<<<< HEAD
   CheckCircle2,
   ArrowRight,
   MessageSquare
-=======
-  Calendar,
-  Clock,
-  User,
-  Phone,
-  Mail,
-  CheckCircle2,
-  Building2,
-  Stethoscope,
-  ArrowRight,
-  ShieldCheck,
-  MessageSquare,
-  AlertCircle
->>>>>>> origin/main
+
 } from 'lucide-react';
 
 export function GuestBookingPage() {
@@ -112,7 +95,6 @@ export function GuestBookingPage() {
   };
 
   return (
-<<<<<<< HEAD
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-8 transition-colors">
       {/* Header */}
       <div className="text-center space-y-2">
@@ -121,16 +103,7 @@ export function GuestBookingPage() {
           Book an Appointment
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400">
-=======
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-2">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Online Patient Portal</span>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Book an Appointment
-        </h1>
-        <p className="text-xs text-slate-500">
->>>>>>> origin/main
+
           Guest booking available. No account creation required.
         </p>
       </div>
@@ -146,20 +119,14 @@ export function GuestBookingPage() {
           <div key={s.num} className="flex items-center gap-2">
             <span
               className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs ${
-<<<<<<< HEAD
                 step >= s.num ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-=======
-                step >= s.num ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-500'
->>>>>>> origin/main
+
               }`}
             >
               {s.num}
             </span>
-<<<<<<< HEAD
             <span className={`hidden sm:inline ${step >= s.num ? 'text-slate-900 dark:text-white font-semibold' : 'text-slate-400 dark:text-slate-500'}`}>
-=======
-            <span className={`hidden sm:inline ${step >= s.num ? 'text-slate-900 font-semibold' : 'text-slate-400'}`}>
->>>>>>> origin/main
+
               {s.label}
             </span>
           </div>
@@ -168,17 +135,11 @@ export function GuestBookingPage() {
 
       {/* Step 1: Select Clinic and Branch */}
       {step === 1 && (
-<<<<<<< HEAD
         <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
           <div className="space-y-1">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">1. Select Clinic & Location</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">Choose the specialty clinic you would like to visit.</p>
-=======
-        <Card className="p-6 sm:p-8 border-slate-200 space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900">1. Select Clinic & Location</h2>
-            <p className="text-xs text-slate-500">Choose the specialty clinic you would like to visit.</p>
->>>>>>> origin/main
+
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -191,7 +152,6 @@ export function GuestBookingPage() {
                 }}
                 className={`p-4 rounded-2xl border transition-all cursor-pointer ${
                   selectedClinicId === c.id
-<<<<<<< HEAD
                     ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 shadow-xs ring-1 ring-blue-500'
                     : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                 }`}
@@ -202,31 +162,16 @@ export function GuestBookingPage() {
                 </div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{c.city} · {c.address}</p>
                 <p className="text-[11px] text-blue-700 dark:text-blue-400 font-medium mt-2">{c.operatingHours}</p>
-=======
-                    ? 'border-blue-600 bg-blue-50/50 shadow-xs ring-1 ring-blue-500'
-                    : 'border-slate-200 hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900">{c.name}</h3>
-                  <Badge variant="Active">{c.specialty}</Badge>
-                </div>
-                <p className="text-xs text-slate-500 mt-1">{c.city} · {c.address}</p>
-                <p className="text-[11px] text-blue-700 font-medium mt-2">{c.operatingHours}</p>
->>>>>>> origin/main
+
               </div>
             ))}
           </div>
 
           {/* Branch Picker */}
           {availableBranches.length > 1 && (
-<<<<<<< HEAD
             <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Choose Branch Location</label>
-=======
-            <div className="space-y-2 pt-2 border-t border-slate-100">
-              <label className="block text-xs font-semibold text-slate-700">Choose Branch Location</label>
->>>>>>> origin/main
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {availableBranches.map((b) => (
                   <button
@@ -235,21 +180,13 @@ export function GuestBookingPage() {
                     onClick={() => setSelectedBranchId(b.id)}
                     className={`p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
                       currentBranch.id === b.id
-<<<<<<< HEAD
                         ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/50 text-blue-900 dark:text-blue-300 font-semibold'
                         : 'border-slate-200 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                     }`}
                   >
                     <div className="font-bold">{b.name}</div>
                     <div className="text-[10px] text-slate-500 dark:text-slate-400">{b.address}</div>
-=======
-                        ? 'border-blue-600 bg-blue-50 text-blue-900 font-semibold'
-                        : 'border-slate-200 hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <div className="font-bold">{b.name}</div>
-                    <div className="text-[10px] text-slate-500">{b.address}</div>
->>>>>>> origin/main
+
                   </button>
                 ))}
               </div>
@@ -266,17 +203,11 @@ export function GuestBookingPage() {
 
       {/* Step 2: Select Service */}
       {step === 2 && (
-<<<<<<< HEAD
         <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
           <div className="space-y-1">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">2. Select Consultation or Procedure</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">Pick from {selectedClinic.name}’s service catalog.</p>
-=======
-        <Card className="p-6 sm:p-8 border-slate-200 space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900">2. Select Consultation or Procedure</h2>
-            <p className="text-xs text-slate-500">Pick from {selectedClinic.name}’s service catalog.</p>
->>>>>>> origin/main
+
           </div>
 
           <div className="grid grid-cols-1 gap-3">
@@ -286,7 +217,6 @@ export function GuestBookingPage() {
                 onClick={() => setSelectedServiceId(srv.id)}
                 className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                   (selectedServiceId || availableServices[0].id) === srv.id
-<<<<<<< HEAD
                     ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 shadow-xs ring-1 ring-blue-500'
                     : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                 }`}
@@ -298,19 +228,7 @@ export function GuestBookingPage() {
                 </div>
                 <div className="text-right shrink-0">
                   <span className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
-=======
-                    ? 'border-blue-600 bg-blue-50/50 shadow-xs ring-1 ring-blue-500'
-                    : 'border-slate-200 hover:bg-slate-50'
-                }`}
-              >
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900">{srv.name}</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">{srv.description}</p>
-                  <p className="text-[11px] text-slate-400 mt-1">Duration: {srv.durationMinutes} minutes</p>
-                </div>
-                <div className="text-right shrink-0">
-                  <span className="text-base font-bold text-slate-900">
->>>>>>> origin/main
+
                     ₹{srv.fee.toLocaleString('en-IN')}
                   </span>
                 </div>
@@ -331,26 +249,17 @@ export function GuestBookingPage() {
 
       {/* Step 3: Select Doctor and Slot */}
       {step === 3 && (
-<<<<<<< HEAD
         <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
           <div className="space-y-1">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">3. Select Doctor & Schedule Slot</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">Pick an available specialist and consultation time.</p>
-=======
-        <Card className="p-6 sm:p-8 border-slate-200 space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900">3. Select Doctor & Schedule Slot</h2>
-            <p className="text-xs text-slate-500">Pick an available specialist and consultation time.</p>
->>>>>>> origin/main
+
           </div>
 
           {/* Doctors */}
           <div className="space-y-2">
-<<<<<<< HEAD
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Choose Doctor</label>
-=======
-            <label className="block text-xs font-semibold text-slate-700">Choose Doctor</label>
->>>>>>> origin/main
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {availableDoctors.map((doc) => (
                 <div
@@ -358,33 +267,21 @@ export function GuestBookingPage() {
                   onClick={() => setSelectedDoctorId(doc.id)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center gap-3 ${
                     (selectedDoctorId || availableDoctors[0].id) === doc.id
-<<<<<<< HEAD
                       ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 shadow-xs ring-1 ring-blue-500'
                       : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60'
-=======
-                      ? 'border-blue-600 bg-blue-50/50 shadow-xs ring-1 ring-blue-500'
-                      : 'border-slate-200 hover:bg-slate-50'
->>>>>>> origin/main
+
                   }`}
                 >
                   <img
                     src={doc.avatar}
                     alt={doc.name}
-<<<<<<< HEAD
                     className="w-12 h-12 rounded-xl object-cover border border-slate-200 dark:border-slate-700 shrink-0"
                   />
                   <div>
                     <h3 className="text-xs font-bold text-slate-900 dark:text-white">{doc.name}</h3>
                     <p className="text-[11px] text-blue-700 dark:text-blue-400 font-medium">{doc.specialty}</p>
                     <p className="text-[10px] text-slate-500 dark:text-slate-400 tabular-nums">Fee: ₹{doc.consultationFee.toLocaleString('en-IN')}</p>
-=======
-                    className="w-12 h-12 rounded-xl object-cover border border-slate-200"
-                  />
-                  <div>
-                    <h3 className="text-xs font-bold text-slate-900">{doc.name}</h3>
-                    <p className="text-[11px] text-blue-700 font-medium">{doc.specialty}</p>
-                    <p className="text-[10px] text-slate-500">Fee: ₹{doc.consultationFee.toLocaleString('en-IN')}</p>
->>>>>>> origin/main
+
                   </div>
                 </div>
               ))}
@@ -394,30 +291,21 @@ export function GuestBookingPage() {
           {/* Date and Times */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div>
-<<<<<<< HEAD
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Appointment Date</label>
-=======
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Appointment Date</label>
->>>>>>> origin/main
+
               <input
                 type="date"
                 min="2026-10-23"
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
-<<<<<<< HEAD
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-=======
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
+
               />
             </div>
 
             <div>
-<<<<<<< HEAD
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Time Slot</label>
-=======
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Select Time Slot</label>
->>>>>>> origin/main
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {timeSlots.map((time) => {
                   const booked = isSlotBooked(time);
@@ -429,17 +317,11 @@ export function GuestBookingPage() {
                       onClick={() => !booked && setAppointmentTime(time)}
                       className={`py-2 px-1 rounded-xl text-xs font-semibold text-center border transition-all ${
                         booked
-<<<<<<< HEAD
                           ? 'bg-slate-100 dark:bg-slate-800/40 text-slate-400 dark:text-slate-600 border-slate-200 dark:border-slate-800 cursor-not-allowed line-through'
                           : appointmentTime === time
                           ? 'bg-blue-600 text-white border-blue-600 shadow-xs cursor-pointer'
                           : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 cursor-pointer'
-=======
-                          ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed line-through'
-                          : appointmentTime === time
-                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs cursor-pointer'
-                          : 'border-slate-200 hover:bg-slate-50 text-slate-700 cursor-pointer'
->>>>>>> origin/main
+
                       }`}
                     >
                       {time} {booked ? '(Booked)' : ''}
@@ -474,102 +356,71 @@ export function GuestBookingPage() {
 
       {/* Step 4: Patient Details */}
       {step === 4 && (
-<<<<<<< HEAD
         <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
           <div className="space-y-1">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">4. Patient Information</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">We will send appointment confirmation and WhatsApp notifications to this number.</p>
-=======
-        <Card className="p-6 sm:p-8 border-slate-200 space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900">4. Patient Information</h2>
-            <p className="text-xs text-slate-500">We will send appointment confirmation and WhatsApp notifications to this number.</p>
->>>>>>> origin/main
+
           </div>
 
           <form onSubmit={handleBookingSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-<<<<<<< HEAD
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
-=======
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
->>>>>>> origin/main
+
                 <input
                   required
                   type="text"
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
                   placeholder="e.g. Aarav Patel"
-<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-=======
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
+
                 />
               </div>
 
               <div>
-<<<<<<< HEAD
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number (with WhatsApp) *</label>
-=======
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Phone Number (with WhatsApp) *</label>
->>>>>>> origin/main
+
                 <input
                   required
                   type="tel"
                   value={patientPhone}
                   onChange={(e) => setPatientPhone(e.target.value)}
                   placeholder="+91 98765 43210"
-<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-=======
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
+
                 />
               </div>
 
               <div className="sm:col-span-2">
-<<<<<<< HEAD
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address (Optional)</label>
-=======
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Email Address (Optional)</label>
->>>>>>> origin/main
+
                 <input
                   type="email"
                   value={patientEmail}
                   onChange={(e) => setPatientEmail(e.target.value)}
                   placeholder="patient@example.demo"
-<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-=======
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
+
                 />
               </div>
 
               <div className="sm:col-span-2">
-<<<<<<< HEAD
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Symptoms or Notes for the Doctor</label>
-=======
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Symptoms or Notes for the Doctor</label>
->>>>>>> origin/main
+
                 <textarea
                   rows={3}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Briefly describe your symptoms or reason for visit..."
-<<<<<<< HEAD
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-=======
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
->>>>>>> origin/main
+
                 />
               </div>
             </div>
 
             {/* Booking Summary Box */}
-<<<<<<< HEAD
             <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Clinic:</span>
@@ -586,24 +437,7 @@ export function GuestBookingPage() {
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Scheduled:</span>
                 <span className="font-semibold text-blue-700 dark:text-blue-400">{appointmentDate} at {appointmentTime}</span>
-=======
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-slate-500">Clinic:</span>
-                <span className="font-semibold text-slate-900">{selectedClinic.name} ({currentBranch.name})</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Doctor:</span>
-                <span className="font-semibold text-slate-900">{currentDoctor.name} ({currentDoctor.specialty})</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Service:</span>
-                <span className="font-semibold text-slate-900">{currentService.name} (₹{currentService.fee})</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Scheduled:</span>
-                <span className="font-semibold text-blue-700">{appointmentDate} at {appointmentTime}</span>
->>>>>>> origin/main
+
               </div>
             </div>
 
@@ -621,18 +455,13 @@ export function GuestBookingPage() {
 
       {/* Step 5: Booking Confirmation Success */}
       {step === 5 && completedAppointment && (
-<<<<<<< HEAD
         <Card className="p-8 sm:p-10 border-slate-200 dark:border-slate-800 text-center space-y-6">
           <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
-=======
-        <Card className="p-8 sm:p-10 border-slate-200 text-center space-y-6">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
->>>>>>> origin/main
+
             <CheckCircle2 className="w-10 h-10" />
           </div>
 
           <div className="space-y-2">
-<<<<<<< HEAD
             <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
               Booking Requested Successfully
             </span>
@@ -643,24 +472,12 @@ export function GuestBookingPage() {
               Your appointment request has been submitted to {selectedClinic.name}. The front desk has allocated reference number:
             </p>
             <div className="inline-block px-4 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl font-mono font-bold text-sm border border-slate-200 dark:border-slate-700">
-=======
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">
-              Booking Requested Successfully
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              You’re All Set, {patientName.split(' ')[0]}!
-            </h2>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Your appointment request has been submitted to {selectedClinic.name}. The front desk has allocated reference number:
-            </p>
-            <div className="inline-block px-4 py-1.5 bg-slate-100 text-slate-800 rounded-xl font-mono font-bold text-sm border border-slate-200">
->>>>>>> origin/main
+
               {completedAppointment.referenceNumber}
             </div>
           </div>
 
           {/* Details breakdown */}
-<<<<<<< HEAD
           <div className="max-w-md mx-auto p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-left text-xs space-y-2">
             <div className="flex justify-between">
               <span className="text-slate-500 dark:text-slate-400">Doctor:</span>
@@ -677,24 +494,7 @@ export function GuestBookingPage() {
             <div className="flex justify-between">
               <span className="text-slate-500 dark:text-slate-400">Location:</span>
               <span className="font-semibold text-slate-900 dark:text-white">{currentBranch.name}, {selectedClinic.city}</span>
-=======
-          <div className="max-w-md mx-auto p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left text-xs space-y-2">
-            <div className="flex justify-between">
-              <span className="text-slate-500">Doctor:</span>
-              <span className="font-semibold text-slate-900">{currentDoctor.name}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">Service:</span>
-              <span className="font-semibold text-slate-900">{currentService.name}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">Date & Time:</span>
-              <span className="font-semibold text-blue-700">{appointmentDate} at {appointmentTime}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">Location:</span>
-              <span className="font-semibold text-slate-900">{currentBranch.name}, {selectedClinic.city}</span>
->>>>>>> origin/main
+
             </div>
           </div>
 
@@ -720,11 +520,8 @@ export function GuestBookingPage() {
             </Button>
           </div>
 
-<<<<<<< HEAD
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-center gap-4">
-=======
-          <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-center gap-4">
->>>>>>> origin/main
+
             <Link to="/patient/dashboard">
               <Button variant="outline" size="sm">
                 View in Patient Portal
@@ -748,7 +545,4 @@ export function GuestBookingPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/main

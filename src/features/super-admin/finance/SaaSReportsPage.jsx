@@ -52,11 +52,8 @@ export function SaaSReportsPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-<<<<<<< HEAD
     showToast('SaaS retention & reports CSV exported.', 'success');
-=======
-    showToast('SaaS retention & reports CSV exported.');
->>>>>>> origin/main
+
   };
 
   return (
@@ -64,15 +61,10 @@ export function SaaSReportsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-<<<<<<< HEAD
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Financial Intelligence</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Growth & Cohort Retention Reports</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-=======
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Financial Intelligence</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">SaaS Growth & Cohort Retention Reports</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
->>>>>>> origin/main
+
             Documented customer retention matrices, net revenue retention (NRR), and renewal performance indicators.
           </p>
         </div>
@@ -85,81 +77,52 @@ export function SaaSReportsPage() {
       <SaaSFinanceNav />
 
       {/* Metric Calculation Definitions */}
-<<<<<<< HEAD
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-5 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Net Revenue Retention</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-blue-700 dark:text-blue-400 mt-1">118.4% NRR</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-=======
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Net Revenue Retention</span>
-          <div className="text-2xl font-extrabold text-blue-700 mt-1">118.4% NRR</div>
-          <p className="text-[10px] text-slate-500 mt-0.5">
->>>>>>> origin/main
+
             Formula: (Starting MRR + Expansion - Churn - Contraction) / Starting MRR
           </p>
         </Card>
 
-<<<<<<< HEAD
         <Card className="p-5 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Customer Lifetime Value</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">₹1,94,400</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Customer Lifetime Value</span>
-          <div className="text-2xl font-extrabold text-slate-900 font-mono mt-1">₹1,94,400</div>
-          <p className="text-[10px] text-slate-500 mt-0.5">
->>>>>>> origin/main
+
             Formula: ARPU (₹4,860/mo) / Monthly Churn Rate (2.5%)
           </p>
         </Card>
 
-<<<<<<< HEAD
         <Card className="p-5 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Customer Acquisition Cost</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">₹18,200</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Customer Acquisition Cost</span>
-          <div className="text-2xl font-extrabold text-slate-900 font-mono mt-1">₹18,200</div>
-          <p className="text-[10px] text-slate-500 mt-0.5">
->>>>>>> origin/main
+
             Formula: (Sales + Onboarding + Cloud trial costs) / New Clinics
           </p>
         </Card>
 
-<<<<<<< HEAD
         <Card className="p-5 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">LTV to CAC Ratio</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">10.6 : 1</div>
           <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-1">
-=======
-        <Card className="p-4 border-slate-200">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">LTV to CAC Ratio</span>
-          <div className="text-2xl font-extrabold text-emerald-600 mt-1">10.6 : 1</div>
-          <p className="text-[10px] text-emerald-600 font-semibold mt-0.5">
->>>>>>> origin/main
+
             Healthy unit economics (&gt; 3.0 : 1 target)
           </p>
         </Card>
       </div>
 
       {/* Cohort Retention Table */}
-<<<<<<< HEAD
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-=======
-      <Card>
->>>>>>> origin/main
+
         <CardHeader
           title="Tenant Cohort Retention Matrix (2026)"
           subtitle="Percentage of clinic organizations retained at Month 1, Month 3, and Month 6 after signup"
         />
         <div className="overflow-x-auto">
-<<<<<<< HEAD
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
               <tr>
@@ -185,31 +148,7 @@ export function SaaSReportsPage() {
                   <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold">{c.expansionRate}</td>
                   <td className="p-4 font-sans">
                     <span className="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-=======
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
-              <tr>
-                <th className="p-3.5">Signup Cohort</th>
-                <th className="p-3.5">Clinics Onboarded</th>
-                <th className="p-3.5">Month 1 Retention</th>
-                <th className="p-3.5">Month 3 Retention</th>
-                <th className="p-3.5">Month 6 Retention</th>
-                <th className="p-3.5">Expansion Rate</th>
-                <th className="p-3.5">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
-              {cohortData.map((c, i) => (
-                <tr key={i} className="hover:bg-slate-50/50">
-                  <td className="p-3.5 font-bold font-sans text-slate-900">{c.cohort}</td>
-                  <td className="p-3.5 font-sans font-semibold text-slate-800">{c.signups} Clinics</td>
-                  <td className="p-3.5 text-blue-700 font-bold">{c.retainedM1}</td>
-                  <td className="p-3.5 text-blue-700 font-bold">{c.retainedM3}</td>
-                  <td className="p-3.5 text-blue-700 font-bold">{c.retainedM6}</td>
-                  <td className="p-3.5 text-emerald-600 font-bold">{c.expansionRate}</td>
-                  <td className="p-3.5 font-sans">
-                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
->>>>>>> origin/main
+
                       Active Cohort
                     </span>
                   </td>
@@ -222,7 +161,4 @@ export function SaaSReportsPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/main

@@ -9,7 +9,6 @@ import { Clock, UserCheck, Stethoscope, Play, AlertCircle, Phone, ArrowRight } f
 export function ClinicQueuePage() {
   const { appointments, activeClinic, updateAppointmentStatus, showToast } = useApp();
 
-<<<<<<< HEAD
   const todayApts = appointments.filter((a) => {
     const isClinicMatch = !activeClinic?.id || a.clinicId === activeClinic.id;
     const isDateMatch = a.date === '2026-10-27' || a.date === '2026-10-23' || a.date === new Date().toISOString().split('T')[0];
@@ -24,23 +23,11 @@ export function ClinicQueuePage() {
   const handleCallPatient = (apt) => {
     updateAppointmentStatus(apt.id, 'In Consultation');
     showToast(`Called token ${apt.queueNumber || apt.referenceNumber || 'Q-1'} (${apt.patientName}) into operatory!`);
-=======
-  const todayStr = '2026-10-23';
-  const todayApts = appointments.filter((a) => a.clinicId === activeClinic.id && a.date === todayStr);
 
-  const waitingQueue = todayApts.filter((a) => a.status === 'Checked In');
-  const inProgress = todayApts.filter((a) => a.status === 'In Progress');
-  const completed = todayApts.filter((a) => a.status === 'Completed');
-
-  const handleCallPatient = (apt) => {
-    updateAppointmentStatus(apt.id, 'In Progress');
-    showToast(`Called token ${apt.queueNumber} (${apt.patientName}) into operatory!`);
->>>>>>> origin/main
   };
 
   return (
     <div className="space-y-6">
-<<<<<<< HEAD
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -50,17 +37,7 @@ export function ClinicQueuePage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Live Patient Waiting Queue</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-=======
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 uppercase tracking-wide">
-              OPD Flow Monitor
-            </span>
-          </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Live Patient Waiting Queue</h1>
-          <p className="text-xs text-slate-500">
->>>>>>> origin/main
+
             Real-time multi-operatory token tracking, waiting time indicators, and room call-in controls
           </p>
         </div>
@@ -68,7 +45,6 @@ export function ClinicQueuePage() {
 
       {/* Metric Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-<<<<<<< HEAD
         <Card className="p-4 border-blue-200 dark:border-blue-900/40 bg-blue-50/50 dark:bg-blue-950/20">
           <div className="flex items-center justify-between text-blue-800 dark:text-blue-300 mb-1">
             <span className="text-xs font-bold uppercase">Currently Waiting</span>
@@ -94,39 +70,12 @@ export function ClinicQueuePage() {
           </div>
           <div className="text-3xl font-black text-emerald-950 dark:text-emerald-100">{completed.length} Consultations</div>
           <p className="text-[11px] text-emerald-700 dark:text-emerald-300 mt-1">Prescriptions issued and bills settled</p>
-=======
-        <Card className="p-4 border-blue-200 bg-blue-50/50">
-          <div className="flex items-center justify-between text-blue-800 mb-1">
-            <span className="text-xs font-bold uppercase">Currently Waiting</span>
-            <Clock className="w-4 h-4 text-blue-600" />
-          </div>
-          <div className="text-3xl font-black text-blue-950">{waitingQueue.length} Patients</div>
-          <p className="text-[11px] text-blue-700 mt-1">Average wait time: 14 mins</p>
-        </Card>
 
-        <Card className="p-4 border-amber-200 bg-amber-50/50">
-          <div className="flex items-center justify-between text-amber-800 mb-1">
-            <span className="text-xs font-bold uppercase">In Consultations</span>
-            <Play className="w-4 h-4 text-amber-600" />
-          </div>
-          <div className="text-3xl font-black text-amber-950">{inProgress.length} Operatories</div>
-          <p className="text-[11px] text-amber-700 mt-1">Active doctor consultations</p>
-        </Card>
-
-        <Card className="p-4 border-emerald-200 bg-emerald-50/50">
-          <div className="flex items-center justify-between text-emerald-800 mb-1">
-            <span className="text-xs font-bold uppercase">Completed Today</span>
-            <UserCheck className="w-4 h-4 text-emerald-600" />
-          </div>
-          <div className="text-3xl font-black text-emerald-950">{completed.length} Consultations</div>
-          <p className="text-[11px] text-emerald-700 mt-1">Prescriptions issued and bills settled</p>
->>>>>>> origin/main
         </Card>
       </div>
 
       {/* Live Waiting Queue Table */}
       <div className="space-y-3">
-<<<<<<< HEAD
         <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           Queue Progression (Checked-In Order)
@@ -138,18 +87,7 @@ export function ClinicQueuePage() {
               <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-=======
-        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-          <Clock className="w-4 h-4 text-blue-600" />
-          Queue Progression (Checked-In Order)
-        </h3>
 
-        <Card className="overflow-hidden border-slate-200">
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs text-left">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
-                <tr>
->>>>>>> origin/main
                   <th className="px-4 py-3">Token #</th>
                   <th className="px-4 py-3">Patient Name</th>
                   <th className="px-4 py-3">Assigned Doctor</th>
@@ -159,23 +97,16 @@ export function ClinicQueuePage() {
                   <th className="px-4 py-3 text-right">Action</th>
                 </tr>
               </thead>
-<<<<<<< HEAD
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {waitingQueue.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-=======
-              <tbody className="divide-y divide-slate-100">
-                {waitingQueue.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="px-4 py-8 text-center text-slate-400">
->>>>>>> origin/main
+
                       No patients currently waiting in the OPD queue.
                     </td>
                   </tr>
                 ) : (
                   waitingQueue.map((apt, idx) => (
-<<<<<<< HEAD
                     <tr key={apt.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-3 py-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
                       <td className="px-4 py-3 font-mono font-bold text-blue-700 dark:text-blue-400 text-sm">
@@ -192,30 +123,13 @@ export function ClinicQueuePage() {
                         {apt.time}
                       </td>
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-=======
-                    <tr key={apt.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-4 py-3 font-mono font-bold text-blue-700 text-sm">
-                        {apt.queueNumber || `#Q-${idx + 1}`}
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="font-bold text-slate-900">{apt.patientName}</div>
-                        <div className="text-[11px] text-slate-400 font-mono">{apt.patientPhone}</div>
-                      </td>
-                      <td className="px-4 py-3 font-semibold text-slate-800">
-                        {apt.doctorName}
-                      </td>
-                      <td className="px-4 py-3 font-mono text-slate-600">
-                        {apt.time}
-                      </td>
-                      <td className="px-4 py-3 text-slate-700">
->>>>>>> origin/main
+
                         {apt.serviceName}
                       </td>
                       <td className="px-4 py-3">
                         <Badge variant="teal" size="sm">Waiting (Pos {idx + 1})</Badge>
                       </td>
                       <td className="px-4 py-3 text-right">
-<<<<<<< HEAD
                         <div className="flex items-center justify-end gap-2">
                           <Button
                             variant="primary"
@@ -237,17 +151,7 @@ export function ClinicQueuePage() {
                             </Button>
                           </Link>
                         </div>
-=======
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          onClick={() => handleCallPatient(apt)}
-                          className="h-7 text-xs bg-blue-600 hover:bg-blue-700"
-                        >
-                          <Play className="w-3 h-3 mr-1 fill-current" />
-                          Call Patient In
-                        </Button>
->>>>>>> origin/main
+
                       </td>
                     </tr>
                   ))
@@ -257,7 +161,6 @@ export function ClinicQueuePage() {
           </div>
         </Card>
       </div>
-<<<<<<< HEAD
 
       {/* Active Consultations in Progress Section */}
       {inProgress.length > 0 && (
@@ -288,8 +191,7 @@ export function ClinicQueuePage() {
           </div>
         </div>
       )}
-=======
->>>>>>> origin/main
+
     </div>
   );
 }

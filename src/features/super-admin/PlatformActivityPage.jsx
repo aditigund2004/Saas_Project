@@ -17,7 +17,11 @@ import {
 } from 'lucide-react';
 
 export function PlatformActivityPage() {
+<<<<<<< HEAD
   const { auditLogs = [], showToast } = useApp();
+=======
+  const { auditLogs, showToast } = useApp();
+>>>>>>> origin/main
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
 
@@ -53,23 +57,36 @@ export function PlatformActivityPage() {
   return (
     <div className="space-y-6">
       {/* Page Header */}
+<<<<<<< HEAD
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
         <div>
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Security & Governance</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Administrative Activity Log</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+=======
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Security & Governance</span>
+          <h1 className="text-2xl font-extrabold text-slate-900">Administrative Activity Log</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
             Immutable platform audit trail tracking administrative actions, role escalations, and tenant changes.
           </p>
         </div>
 
+<<<<<<< HEAD
         <Button variant="outline" size="sm" onClick={handleExportCSV}>
           <Download className="w-4 h-4 mr-1.5" />
+=======
+        <Button variant="outline" size="sm" icon={Download} onClick={handleExportCSV}>
+>>>>>>> origin/main
           Export Audit Trail (.CSV)
         </Button>
       </div>
 
       {/* Summary KPI Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<<<<<<< HEAD
         <Card className="p-4 border-slate-200 dark:border-slate-800">
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Logged Audit Events</span>
           <div className="text-2xl font-black text-slate-900 dark:text-white mt-1 tabular-nums">{auditLogs.length} Records</div>
@@ -92,11 +109,39 @@ export function PlatformActivityPage() {
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Retention Policy</span>
           <div className="text-2xl font-black text-slate-800 dark:text-slate-200 mt-1 tabular-nums">365 Days</div>
           <span className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 block">Immutable write-once log</span>
+=======
+        <Card className="p-4 border-slate-200">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged Audit Events</span>
+          <div className="text-2xl font-extrabold text-slate-900 mt-1">{auditLogs.length} Records</div>
+          <span className="text-[10px] text-blue-600 font-semibold mt-1 block">Live compliance ledger</span>
+        </Card>
+
+        <Card className="p-4 border-slate-200">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Privileged Admins</span>
+          <div className="text-2xl font-extrabold text-blue-700 mt-1">4 Active Keys</div>
+          <span className="text-[10px] text-slate-500 mt-1 block">Hardware 2FA verified</span>
+        </Card>
+
+        <Card className="p-4 border-slate-200">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Security Alerts</span>
+          <div className="text-2xl font-extrabold text-emerald-600 mt-1">0 Anomalies</div>
+          <span className="text-[10px] text-emerald-600 font-semibold mt-1 block">Zero unauthorized escalations</span>
+        </Card>
+
+        <Card className="p-4 border-slate-200">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Retention Policy</span>
+          <div className="text-2xl font-extrabold text-slate-800 mt-1">365 Days</div>
+          <span className="text-[10px] text-slate-500 mt-1 block">Immutable write-once log</span>
+>>>>>>> origin/main
         </Card>
       </div>
 
       {/* Filters and Search */}
+<<<<<<< HEAD
       <Card className="p-4 border-slate-200 dark:border-slate-800">
+=======
+      <Card className="p-4 border-slate-200">
+>>>>>>> origin/main
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -105,7 +150,11 @@ export function PlatformActivityPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search audit trail by action, admin email, or specific details..."
+<<<<<<< HEAD
               className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
+=======
+              className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
             />
           </div>
 
@@ -113,7 +162,11 @@ export function PlatformActivityPage() {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
+<<<<<<< HEAD
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-medium"
+=======
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-slate-700 font-medium"
+>>>>>>> origin/main
             >
               <option value="All">All Categories</option>
               <option value="Security">Security & Access</option>
@@ -126,16 +179,26 @@ export function PlatformActivityPage() {
       </Card>
 
       {/* Activity Table */}
+<<<<<<< HEAD
       <Card className="border-slate-200 dark:border-slate-800 overflow-hidden">
+=======
+      <Card>
+>>>>>>> origin/main
         <CardHeader
           title={`Administrative Audit Entries (${filteredLogs.length})`}
           subtitle="Chronological trail of superadmin operations with source IP timestamps"
         />
         <div className="overflow-x-auto">
+<<<<<<< HEAD
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
+=======
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
+              <tr>
+>>>>>>> origin/main
                 <th className="p-3.5">Timestamp</th>
                 <th className="p-3.5">Action Event</th>
                 <th className="p-3.5">Administrator</th>
@@ -144,6 +207,7 @@ export function PlatformActivityPage() {
                 <th className="p-3.5">Audit Details</th>
               </tr>
             </thead>
+<<<<<<< HEAD
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-mono text-xs">
               {filteredLogs.map((log, idx) => (
                 <tr key={log.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
@@ -161,13 +225,36 @@ export function PlatformActivityPage() {
                           : log.category === 'Billing'
                           ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                           : 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800'
+=======
+            <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
+              {filteredLogs.map((log) => (
+                <tr key={log.id} className="hover:bg-slate-50/50">
+                  <td className="p-3.5 text-slate-500 whitespace-nowrap">{log.timestamp}</td>
+                  <td className="p-3.5 font-bold font-sans text-slate-900">{log.action}</td>
+                  <td className="p-3.5 font-sans">
+                    <span className="font-semibold text-slate-800">{log.user}</span>
+                  </td>
+                  <td className="p-3.5 font-sans">
+                    <span
+                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
+                        log.category === 'Security'
+                          ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                          : log.category === 'Billing'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-blue-50 text-blue-700 border border-blue-200'
+>>>>>>> origin/main
                       }`}
                     >
                       {log.category}
                     </span>
                   </td>
+<<<<<<< HEAD
                   <td className="p-3.5 text-slate-500 dark:text-slate-400">{log.ip}</td>
                   <td className="p-3.5 font-sans text-slate-600 dark:text-slate-300 max-w-xs">{log.details}</td>
+=======
+                  <td className="p-3.5 text-slate-400">{log.ip}</td>
+                  <td className="p-3.5 font-sans text-slate-600 max-w-xs">{log.details}</td>
+>>>>>>> origin/main
                 </tr>
               ))}
             </tbody>
@@ -177,3 +264,7 @@ export function PlatformActivityPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main

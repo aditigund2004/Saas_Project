@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+=======
+import React, { useState, useMemo } from 'react';
+>>>>>>> origin/main
 import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+<<<<<<< HEAD
 import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
+=======
+>>>>>>> origin/main
 import {
   MessageSquareHeart,
   Star,
@@ -16,9 +23,13 @@ import {
   Sparkles,
   Building2,
   Lock,
+<<<<<<< HEAD
   HeartHandshake,
   List,
   LayoutGrid
+=======
+  HeartHandshake
+>>>>>>> origin/main
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -39,20 +50,27 @@ const RATING_DESCRIPTIONS = {
 };
 
 export function PatientFeedbackPage() {
+<<<<<<< HEAD
   const [searchParams] = useSearchParams();
   const urlAptId = searchParams.get('appointment') || '';
 
+=======
+>>>>>>> origin/main
   const {
     feedbacks,
     appointments,
     activeClinic,
     currentUser,
+<<<<<<< HEAD
     activePatientId,
     patients = [],
+=======
+>>>>>>> origin/main
     submitPatientFeedback,
     showToast
   } = useApp();
 
+<<<<<<< HEAD
   const activePatient =
     patients.find((p) => p.id === activePatientId || p.patientIdNumber === activePatientId) ||
     patients.find((p) => p.name === currentUser?.name) ||
@@ -60,16 +78,24 @@ export function PatientFeedbackPage() {
 
   const [activeTab, setActiveTab] = useState('new'); // 'new' | 'history'
   const [historyViewMode, setHistoryViewMode] = useState('table');
+=======
+  const [activeTab, setActiveTab] = useState('new'); // 'new' | 'history'
+>>>>>>> origin/main
 
   // Form State
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [category, setCategory] = useState('Doctor Care');
+<<<<<<< HEAD
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(urlAptId);
+=======
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState('');
+>>>>>>> origin/main
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+<<<<<<< HEAD
   useEffect(() => {
     if (urlAptId) {
       setSelectedAppointmentId(urlAptId);
@@ -77,10 +103,13 @@ export function PatientFeedbackPage() {
     }
   }, [urlAptId]);
 
+=======
+>>>>>>> origin/main
   // Patient's own appointments at this clinic
   const patientAppointments = useMemo(() => {
     return appointments.filter(
       (a) =>
+<<<<<<< HEAD
         (a.patientId === activePatient?.id ||
           a.patientId === activePatient?.patientIdNumber ||
           a.patientName === activePatient?.name) &&
@@ -99,6 +128,23 @@ export function PatientFeedbackPage() {
         f.clinicId === activeClinic.id
     );
   }, [feedbacks, activePatient, activeClinic.id]);
+=======
+        (a.patientId === currentUser.id || a.patientName === currentUser.name) &&
+        a.clinicId === activeClinic.id
+    );
+  }, [appointments, currentUser, activeClinic.id]);
+
+  // STRICT PRIVACY FILTER: Only feedbacks submitted by the logged-in patient!
+  const myFeedbacks = useMemo(() => {
+    return feedbacks.filter(
+      (f) =>
+        (f.patientId === currentUser.id ||
+          f.patientEmail === currentUser.email ||
+          f.patientName === currentUser.name) &&
+        f.clinicId === activeClinic.id
+    );
+  }, [feedbacks, currentUser, activeClinic.id]);
+>>>>>>> origin/main
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -142,6 +188,7 @@ export function PatientFeedbackPage() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
+<<<<<<< HEAD
       <DemoPatientSwitcher />
 
       {/* Header */}
@@ -150,11 +197,20 @@ export function PatientFeedbackPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Care Quality</span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">Your Feedback Matters</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+=======
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Patient Care Quality</span>
+          <h1 className="text-2xl font-extrabold text-slate-900">Your Feedback Matters</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
             Help <strong>{activeClinic.name}</strong> maintain clinical excellence and improve future visits.
           </p>
         </div>
 
         {/* Tab Switcher */}
+<<<<<<< HEAD
         <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl text-xs font-medium self-start sm:self-auto border border-slate-200 dark:border-slate-700">
           <button
             onClick={() => setActiveTab('new')}
@@ -162,21 +218,41 @@ export function PatientFeedbackPage() {
               activeTab === 'new'
                 ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-bold shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+=======
+        <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl text-xs font-medium self-start sm:self-auto">
+          <button
+            onClick={() => setActiveTab('new')}
+            className={`px-3 py-1.5 rounded-lg transition-all ${
+              activeTab === 'new'
+                ? 'bg-white text-slate-900 font-bold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+>>>>>>> origin/main
             }`}
           >
             Share Experience
           </button>
           <button
             onClick={() => setActiveTab('history')}
+<<<<<<< HEAD
             className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'history'
                 ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-bold shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+=======
+            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+              activeTab === 'history'
+                ? 'bg-white text-slate-900 font-bold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+>>>>>>> origin/main
             }`}
           >
             <span>My Submissions</span>
             {myFeedbacks.length > 0 && (
+<<<<<<< HEAD
               <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-bold">
+=======
+              <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold">
+>>>>>>> origin/main
                 {myFeedbacks.length}
               </span>
             )}
@@ -186,11 +262,19 @@ export function PatientFeedbackPage() {
 
       {/* VIEW 1: SUBMIT NEW FEEDBACK */}
       {activeTab === 'new' && (
+<<<<<<< HEAD
         <Card className="p-6 sm:p-7 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm space-y-6">
           <form onSubmit={handleSubmit} className="space-y-6 text-sm">
             {/* Rating Selector */}
             <div className="text-center py-5 bg-slate-50/70 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2.5">
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+=======
+        <Card className="p-6 border-slate-200 bg-white space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 text-xs">
+            {/* Rating Selector */}
+            <div className="text-center py-4 bg-slate-50/70 rounded-2xl border border-slate-100 space-y-2">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+>>>>>>> origin/main
                 How would you rate your recent experience?
               </label>
 
@@ -207,27 +291,46 @@ export function PatientFeedbackPage() {
                     <Star
                       className={`w-8 h-8 sm:w-10 sm:h-10 transition-colors ${
                         starVal <= currentDisplayRating
+<<<<<<< HEAD
                           ? 'fill-amber-400 text-amber-400 drop-shadow-sm'
                           : 'text-slate-200 dark:text-slate-700 fill-slate-100 dark:fill-slate-800'
+=======
+                          ? 'fill-amber-400 text-amber-400 drop-shadow-xs'
+                          : 'text-slate-200 fill-slate-100'
+>>>>>>> origin/main
                       }`}
                     />
                   </button>
                 ))}
               </div>
 
+<<<<<<< HEAD
               <div className="flex items-center justify-center gap-2 text-base font-bold mt-1">
                 <span>{ratingMeta.emoji}</span>
                 <span className={ratingMeta.color}>{ratingMeta.label}</span>
                 <span className="text-slate-400 dark:text-slate-500 font-normal text-xs">({currentDisplayRating} out of 5)</span>
+=======
+              <div className="flex items-center justify-center gap-1.5 text-sm font-bold mt-1">
+                <span>{ratingMeta.emoji}</span>
+                <span className={ratingMeta.color}>{ratingMeta.label}</span>
+                <span className="text-slate-400 font-normal">({currentDisplayRating} out of 5)</span>
+>>>>>>> origin/main
               </div>
             </div>
 
             {/* Category Selection */}
             <div className="space-y-2">
+<<<<<<< HEAD
               <label className="block font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider">
                 What area does your feedback primarily relate to? *
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+=======
+              <label className="block font-bold text-slate-800">
+                What area does your feedback primarily relate to? *
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+>>>>>>> origin/main
                 {CATEGORIES.map((cat) => {
                   const isSelected = category === cat.id;
                   return (
@@ -235,6 +338,7 @@ export function PatientFeedbackPage() {
                       key={cat.id}
                       type="button"
                       onClick={() => setCategory(cat.id)}
+<<<<<<< HEAD
                       className={`p-3.5 rounded-xl border text-left transition-all flex items-center gap-3 cursor-pointer ${
                         isSelected
                           ? 'border-blue-500 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 shadow-sm ring-1 ring-blue-500'
@@ -243,6 +347,16 @@ export function PatientFeedbackPage() {
                     >
                       <span className="text-xl">{cat.icon}</span>
                       <span className={`text-xs ${isSelected ? 'font-bold text-blue-900 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'}`}>
+=======
+                      className={`p-3 rounded-xl border text-left transition-all flex items-center gap-2.5 cursor-pointer ${
+                        isSelected
+                          ? 'border-blue-500 bg-blue-50/50 shadow-xs'
+                          : 'border-slate-200 hover:border-slate-300 bg-white'
+                      }`}
+                    >
+                      <span className="text-lg">{cat.icon}</span>
+                      <span className={`text-xs ${isSelected ? 'font-bold text-blue-900' : 'text-slate-700'}`}>
+>>>>>>> origin/main
                         {cat.label}
                       </span>
                     </button>
@@ -254,13 +368,21 @@ export function PatientFeedbackPage() {
             {/* Optional Appointment Selector */}
             {patientAppointments.length > 0 && (
               <div className="space-y-1.5">
+<<<<<<< HEAD
                 <label className="block font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider">
+=======
+                <label className="block font-bold text-slate-800">
+>>>>>>> origin/main
                   Select Associated Visit (Optional)
                 </label>
                 <select
                   value={selectedAppointmentId}
                   onChange={(e) => setSelectedAppointmentId(e.target.value)}
+<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 text-sm border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
+=======
+                  className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-blue-500 bg-white"
+>>>>>>> origin/main
                 >
                   <option value="">General feedback (Not tied to a specific appointment)</option>
                   {patientAppointments.map((apt) => (
@@ -275,10 +397,17 @@ export function PatientFeedbackPage() {
             {/* Written Message */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
+<<<<<<< HEAD
                 <label className="block font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider">
                   Tell us about your experience *
                 </label>
                 <span className={`text-xs font-mono ${message.length > 900 ? 'text-rose-600 font-bold' : 'text-slate-400'}`}>
+=======
+                <label className="block font-bold text-slate-800">
+                  Tell us about your experience *
+                </label>
+                <span className={`text-[11px] font-mono ${message.length > 900 ? 'text-rose-600 font-bold' : 'text-slate-400'}`}>
+>>>>>>> origin/main
                   {message.length} / 1000
                 </span>
               </div>
@@ -289,14 +418,24 @@ export function PatientFeedbackPage() {
                 placeholder="What went well? Was your treatment comfortable? Were doctor explanations clear and reassuring?..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+<<<<<<< HEAD
                 className="w-full px-3.5 py-2.5 text-sm border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500 leading-relaxed"
               />
               <p className="text-xs text-slate-400">Minimum 10 characters.</p>
+=======
+                className="w-full px-3.5 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-blue-500 leading-relaxed"
+              />
+              <p className="text-[10px] text-slate-400">Minimum 10 characters.</p>
+>>>>>>> origin/main
             </div>
 
             {/* Improvement Suggestions */}
             <div className="space-y-1.5">
+<<<<<<< HEAD
               <label className="block font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider">
+=======
+              <label className="block font-bold text-slate-800">
+>>>>>>> origin/main
                 Any suggestions for how we could improve? (Optional)
               </label>
               <textarea
@@ -305,14 +444,24 @@ export function PatientFeedbackPage() {
                 placeholder="e.g. Lounge seating, waiting room music, parking instructions, follow-up messages..."
                 value={suggestions}
                 onChange={(e) => setSuggestions(e.target.value)}
+<<<<<<< HEAD
                 className="w-full px-3.5 py-2.5 text-sm border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500 leading-relaxed"
+=======
+                className="w-full px-3.5 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-blue-500 leading-relaxed"
+>>>>>>> origin/main
               />
             </div>
 
             {/* Privacy & Quality Disclaimer */}
+<<<<<<< HEAD
             <div className="p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 flex items-start gap-3 text-blue-950 dark:text-blue-200">
               <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
               <div className="text-xs leading-relaxed">
+=======
+            <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 flex items-start gap-2.5 text-blue-900">
+              <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+              <div className="text-[11px] leading-relaxed">
+>>>>>>> origin/main
                 <span className="font-bold">Strict Patient Privacy Assurance:</span> Your feedback is transmitted securely directly to <strong>{activeClinic.name}</strong>'s clinical management team. It is strictly confidential, never displayed publicly, and used only to continuously improve treatment quality and patient comfort.
               </div>
             </div>
@@ -325,7 +474,10 @@ export function PatientFeedbackPage() {
                 size="md"
                 icon={Send}
                 disabled={isSubmitting || message.trim().length < 10}
+<<<<<<< HEAD
                 className="shadow-md shadow-blue-500/20 font-bold"
+=======
+>>>>>>> origin/main
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Patient Feedback'}
               </Button>
@@ -338,6 +490,7 @@ export function PatientFeedbackPage() {
       {activeTab === 'history' && (
         <div className="space-y-4">
           {myFeedbacks.length === 0 ? (
+<<<<<<< HEAD
             <Card className="p-12 text-center border-slate-200 dark:border-slate-800 dark:bg-slate-900/60 space-y-3.5">
               <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto">
                 <MessageSquareHeart className="w-6 h-6" />
@@ -347,11 +500,23 @@ export function PatientFeedbackPage() {
                 You haven't submitted any feedback for {activeClinic.name} yet. Share your experience to help us serve you better!
               </p>
               <Button variant="primary" size="md" onClick={() => setActiveTab('new')} className="font-bold">
+=======
+            <Card className="p-12 text-center border-slate-200 bg-white space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
+                <MessageSquareHeart className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-slate-800 text-sm">No feedback submitted yet</h3>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                You haven't submitted any feedback for {activeClinic.name} yet. Share your experience to help us serve you better!
+              </p>
+              <Button variant="primary" size="sm" onClick={() => setActiveTab('new')}>
+>>>>>>> origin/main
                 Share Your Feedback
               </Button>
             </Card>
           ) : (
             <div className="space-y-3">
+<<<<<<< HEAD
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-1">
                 <span>Displaying your past submitted reviews ({myFeedbacks.length})</span>
                 <div className="flex items-center gap-2.5">
@@ -526,6 +691,82 @@ export function PatientFeedbackPage() {
                   </Card>
                 ))
               )}
+=======
+              <div className="flex items-center justify-between text-xs text-slate-500 px-1">
+                <span>Displaying your past submitted reviews ({myFeedbacks.length})</span>
+                <span className="text-[11px] text-blue-600 font-medium">Confidential Patient Records</span>
+              </div>
+
+              {myFeedbacks.map((fb) => (
+                <Card key={fb.id} className="p-5 border-slate-200 bg-white space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-bold text-slate-700">{fb.referenceNumber}</span>
+                        <span className="text-slate-300">•</span>
+                        <span className="text-xs font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
+                          {fb.category}
+                        </span>
+                        {fb.appointmentRef && (
+                          <span className="text-[10px] text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-full font-mono">
+                            {fb.appointmentRef}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[11px] text-slate-400 mt-0.5 block">
+                        Submitted on {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                        })}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center text-amber-400">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star
+                            key={s}
+                            className={`w-4 h-4 ${
+                              s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <Badge variant={fb.status}>
+                        {fb.status === 'New'
+                          ? 'Submitted · Pending Review'
+                          : fb.status === 'Reviewed'
+                          ? 'Under Clinic Review'
+                          : 'Resolved by Clinic'}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Written Message */}
+                  <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-700 leading-relaxed italic border border-slate-100">
+                    "{fb.message}"
+                  </div>
+
+                  {fb.suggestions && (
+                    <div className="text-xs text-slate-500 pl-1">
+                      <span className="font-semibold text-slate-700">Suggestion:</span> {fb.suggestions}
+                    </div>
+                  )}
+
+                  {/* Clinic Resolution Message Response if provided */}
+                  {fb.resolutionNote && (
+                    <div className="p-3 bg-emerald-50/70 border border-emerald-200 rounded-xl text-xs space-y-1">
+                      <span className="font-bold text-emerald-900 flex items-center gap-1.5 text-[11px]">
+                        <HeartHandshake className="w-3.5 h-3.5 text-emerald-600" />
+                        Response from {activeClinic.name} Management:
+                      </span>
+                      <p className="text-emerald-800 leading-relaxed">{fb.resolutionNote}</p>
+                    </div>
+                  )}
+                </Card>
+              ))}
+>>>>>>> origin/main
             </div>
           )}
         </div>

@@ -18,9 +18,13 @@ import {
   FileText,
   Calendar,
   ArrowLeft,
+<<<<<<< HEAD
   QrCode,
   Receipt,
   Printer
+=======
+  QrCode
+>>>>>>> origin/main
 } from 'lucide-react';
 
 export function DoctorConsultationPage() {
@@ -35,14 +39,18 @@ export function DoctorConsultationPage() {
     finalizeEncounter,
     encounters,
     prescriptions,
+<<<<<<< HEAD
     invoices,
     createInvoice,
     updateAppointmentStatus,
     openPrescriptionModal,
+=======
+>>>>>>> origin/main
     showToast
   } = useApp();
 
   // Find target appointment or default to first waiting
+<<<<<<< HEAD
   const targetAppointment = appointmentId
     ? appointments.find((a) => a.id === appointmentId)
     : appointments.find((a) => a.status === 'Checked In' || a.status === 'Patient Checked In' || a.status === 'In Progress' || a.status === 'In Consultation') || appointments[0];
@@ -55,6 +63,15 @@ export function DoctorConsultationPage() {
       updateAppointmentStatus(targetAppointment.id, 'In Consultation');
     }
   }, [targetAppointment?.id]);
+=======
+  const clinicAppointments = appointments.filter((a) => a.clinicId === activeClinic?.id);
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
+  const targetAppointment = appointmentId
+    ? clinicAppointments.find((a) => a.id === appointmentId)
+    : clinicAppointments.find((a) => a.status === 'Checked In' || a.status === 'Patient Checked In' || a.status === 'In Progress' || a.status === 'In Consultation') || clinicAppointments[0];
+
+  const targetPatient = clinicPatients.find((p) => p.id === targetAppointment?.patientId) || clinicPatients[0];
+>>>>>>> origin/main
 
   // Existing encounter if draft or finalized
   const existingEncounter = encounters.find((e) => e.appointmentId === targetAppointment?.id);
@@ -230,6 +247,7 @@ export function DoctorConsultationPage() {
     };
     finalizeEncounter(payload);
     setIsFinalized(true);
+<<<<<<< HEAD
 
     // Automatically generate OPD invoice for this completed encounter if not already issued
     const hasInvoice = invoices.some(
@@ -263,6 +281,8 @@ export function DoctorConsultationPage() {
       });
       showToast('Encounter finalized! E-Prescription issued and OPD Invoice generated.');
     }
+=======
+>>>>>>> origin/main
   };
 
   // Find issued prescription for this patient if already finalized
@@ -271,7 +291,11 @@ export function DoctorConsultationPage() {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Top Header & Navigation */}
+<<<<<<< HEAD
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
+=======
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+>>>>>>> origin/main
         <div className="flex items-center gap-3">
           <Link to="/doctor/dashboard">
             <Button variant="secondary" size="sm" className="px-2">
@@ -280,7 +304,11 @@ export function DoctorConsultationPage() {
           </Link>
           <div>
             <div className="flex items-center gap-2">
+<<<<<<< HEAD
               <h1 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
+=======
+              <h1 className="text-xl font-black text-slate-900 tracking-tight">
+>>>>>>> origin/main
                 Clinical Consultation & Rx Composer
               </h1>
               {isFinalized ? (
@@ -293,7 +321,11 @@ export function DoctorConsultationPage() {
                 </Badge>
               )}
             </div>
+<<<<<<< HEAD
             <p className="text-xs text-slate-500 dark:text-slate-400">
+=======
+            <p className="text-xs text-slate-500">
+>>>>>>> origin/main
               Encounter for {targetPatient?.name} · Ref: {targetAppointment?.referenceNumber || 'APT-2601'}
             </p>
           </div>
@@ -302,6 +334,7 @@ export function DoctorConsultationPage() {
         <div className="flex items-center gap-2">
           {!isFinalized && (
             <Button variant="secondary" size="sm" onClick={handleSaveDraft} type="button">
+<<<<<<< HEAD
               <Save className="w-3.5 h-3.5 mr-1 text-slate-600 dark:text-slate-300" />
               Save Draft
             </Button>
@@ -327,6 +360,12 @@ export function DoctorConsultationPage() {
               </Link>
             </>
           )}
+=======
+              <Save className="w-3.5 h-3.5 mr-1 text-slate-600" />
+              Save Draft
+            </Button>
+          )}
+>>>>>>> origin/main
           <Button
             variant="primary"
             size="sm"
@@ -335,25 +374,40 @@ export function DoctorConsultationPage() {
             type="button"
           >
             <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
+<<<<<<< HEAD
             {isFinalized ? 'Re-Finalize Encounter' : 'Finalize & Issue Rx & Invoice'}
+=======
+            {isFinalized ? 'Re-Finalize Consultation' : 'Finalize & Issue Prescription'}
+>>>>>>> origin/main
           </Button>
         </div>
       </div>
 
       {/* Demo Watermark Banner */}
+<<<<<<< HEAD
       <div className="p-3 bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-xl text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+=======
+      <div className="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+>>>>>>> origin/main
           <span>
             <strong>Synthetic Demonstration Record:</strong> Simulated clinical workflow for ClinicOS SaaS evaluation. Never use for actual medical diagnoses or treatments.
           </span>
         </div>
+<<<<<<< HEAD
         <span className="font-mono text-[10px] text-amber-800 dark:text-amber-300 uppercase font-bold">
+=======
+        <span className="font-mono text-[10px] text-amber-800 uppercase font-bold">
+>>>>>>> origin/main
           DEMO MODE
         </span>
       </div>
 
       {/* Patient Demographic Summary Strip */}
+<<<<<<< HEAD
       <Card className="p-4 border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/50">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
           <div>
@@ -371,16 +425,44 @@ export function DoctorConsultationPage() {
           <div>
             <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 block">Known Allergies</span>
             <span className="font-bold text-amber-700 dark:text-amber-300 bg-amber-100/70 dark:bg-amber-950/40 px-1.5 py-0.5 rounded text-[11px] inline-block">
+=======
+      <Card className="p-4 border-slate-200 bg-slate-50/60">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+          <div>
+            <span className="text-[10px] uppercase font-bold text-slate-400 block">Patient Name</span>
+            <span className="font-bold text-slate-900">{targetPatient?.name}</span>
+          </div>
+          <div>
+            <span className="text-[10px] uppercase font-bold text-slate-400 block">Patient ID / Gender</span>
+            <span className="font-medium text-slate-700">{targetPatient?.patientIdNumber} · {targetPatient?.gender}</span>
+          </div>
+          <div>
+            <span className="text-[10px] uppercase font-bold text-slate-400 block">Blood Group</span>
+            <span className="font-bold text-rose-700">{targetPatient?.bloodGroup || 'O +ve'}</span>
+          </div>
+          <div>
+            <span className="text-[10px] uppercase font-bold text-slate-400 block">Known Allergies</span>
+            <span className="font-bold text-amber-700 bg-amber-100/70 px-1.5 py-0.5 rounded text-[11px] inline-block">
+>>>>>>> origin/main
               {targetPatient?.allergies?.join(', ') || 'Sulfa Drugs'}
             </span>
           </div>
           <div>
+<<<<<<< HEAD
             <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 block">Phone</span>
             <span className="text-slate-700 dark:text-slate-300 font-mono">{targetPatient?.phone}</span>
           </div>
           <div>
             <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 block">Attending Clinician</span>
             <span className="font-semibold text-blue-800 dark:text-blue-400">{currentUser?.name || 'Dr. Arvind Rao'}</span>
+=======
+            <span className="text-[10px] uppercase font-bold text-slate-400 block">Phone</span>
+            <span className="text-slate-700 font-mono">{targetPatient?.phone}</span>
+          </div>
+          <div>
+            <span className="text-[10px] uppercase font-bold text-slate-400 block">Attending Clinician</span>
+            <span className="font-semibold text-blue-800">{currentUser?.name || 'Dr. Arvind Rao'}</span>
+>>>>>>> origin/main
           </div>
         </div>
       </Card>
@@ -388,60 +470,106 @@ export function DoctorConsultationPage() {
       {/* Main Consultation Form */}
       <form onSubmit={handleFinalize} className="space-y-6">
         {/* Vitals Bar */}
+<<<<<<< HEAD
         <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
           <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
             <Stethoscope className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+=======
+        <Card className="p-4 border-slate-200 space-y-2">
+          <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+            <Stethoscope className="w-3.5 h-3.5 text-blue-600" />
+>>>>>>> origin/main
             Patient Clinical Vitals
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1">
             <div>
+<<<<<<< HEAD
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Blood Pressure</label>
+=======
+              <label className="text-[10px] font-semibold text-slate-500">Blood Pressure</label>
+>>>>>>> origin/main
               <input
                 type="text"
                 value={vitals.bp}
                 onChange={(e) => setVitals({ ...vitals, bp: e.target.value })}
                 placeholder="120/80 mmHg"
+<<<<<<< HEAD
                 className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono font-medium focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Pulse Rate</label>
+=======
+                className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-mono font-medium focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-semibold text-slate-500">Pulse Rate</label>
+>>>>>>> origin/main
               <input
                 type="text"
                 value={vitals.pulse}
                 onChange={(e) => setVitals({ ...vitals, pulse: e.target.value })}
                 placeholder="72 bpm"
+<<<<<<< HEAD
                 className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono font-medium focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Temperature</label>
+=======
+                className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-mono font-medium focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-semibold text-slate-500">Temperature</label>
+>>>>>>> origin/main
               <input
                 type="text"
                 value={vitals.temp}
                 onChange={(e) => setVitals({ ...vitals, temp: e.target.value })}
                 placeholder="98.6 °F"
+<<<<<<< HEAD
                 className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono font-medium focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">SpO2</label>
+=======
+                className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-mono font-medium focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-semibold text-slate-500">SpO2</label>
+>>>>>>> origin/main
               <input
                 type="text"
                 value={vitals.spO2}
                 onChange={(e) => setVitals({ ...vitals, spO2: e.target.value })}
                 placeholder="99%"
+<<<<<<< HEAD
                 className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono font-medium focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Body Weight</label>
+=======
+                className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-mono font-medium focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-semibold text-slate-500">Body Weight</label>
+>>>>>>> origin/main
               <input
                 type="text"
                 value={vitals.weight}
                 onChange={(e) => setVitals({ ...vitals, weight: e.target.value })}
                 placeholder="68 kg"
+<<<<<<< HEAD
                 className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono font-medium focus:ring-2 focus:ring-blue-500"
+=======
+                className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-mono font-medium focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
               />
             </div>
           </div>
@@ -449,40 +577,64 @@ export function DoctorConsultationPage() {
 
         {/* Complaints, Findings & Diagnosis */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<<<<<<< HEAD
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Presenting Chief Complaints *</label>
+=======
+          <Card className="p-4 border-slate-200 space-y-2">
+            <label className="text-xs font-bold text-slate-800">Presenting Chief Complaints *</label>
+>>>>>>> origin/main
             <textarea
               required
               rows={3}
               value={presentingComplaint}
               onChange={(e) => setPresentingComplaint(e.target.value)}
               placeholder="Record chief complaints in patient's words..."
+<<<<<<< HEAD
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </Card>
 
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Clinical Examination & Findings</label>
+=======
+              className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </Card>
+
+          <Card className="p-4 border-slate-200 space-y-2">
+            <label className="text-xs font-bold text-slate-800">Clinical Examination & Findings</label>
+>>>>>>> origin/main
             <textarea
               rows={3}
               value={clinicalFindings}
               onChange={(e) => setClinicalFindings(e.target.value)}
               placeholder="Objective findings, oral inspection, percussion..."
+<<<<<<< HEAD
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
+              className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
             />
           </Card>
         </div>
 
         {/* Assessment, Diagnosis & Treatment Plan */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<<<<<<< HEAD
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Clinical Diagnosis / ICD Description *</label>
+=======
+          <Card className="p-4 border-slate-200 space-y-2">
+            <label className="text-xs font-bold text-slate-800">Clinical Diagnosis / ICD Description *</label>
+>>>>>>> origin/main
             <input
               required
               type="text"
               value={diagnosis}
               onChange={(e) => setDiagnosis(e.target.value)}
               placeholder="e.g. Acute Irreversible Pulpitis of #46"
+<<<<<<< HEAD
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-semibold text-blue-900 dark:text-blue-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
             <span className="text-[10px] text-slate-400 dark:text-slate-500">Required for prescription generator and patient summary</span>
@@ -490,18 +642,34 @@ export function DoctorConsultationPage() {
 
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Treatment Plan & Procedures</label>
+=======
+              className="w-full text-xs p-2.5 rounded-xl border border-slate-200 font-semibold text-blue-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <span className="text-[10px] text-slate-400">Required for prescription generator and patient summary</span>
+          </Card>
+
+          <Card className="p-4 border-slate-200 space-y-2">
+            <label className="text-xs font-bold text-slate-800">Treatment Plan & Procedures</label>
+>>>>>>> origin/main
             <input
               type="text"
               value={treatmentPlan}
               onChange={(e) => setTreatmentPlan(e.target.value)}
               placeholder="e.g. RCT single sitting under LA, core buildup"
+<<<<<<< HEAD
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
             <span className="text-[10px] text-slate-400 dark:text-slate-500">Summarizes proposed clinical interventions</span>
+=======
+              className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <span className="text-[10px] text-slate-400">Summarizes proposed clinical interventions</span>
+>>>>>>> origin/main
           </Card>
         </div>
 
         {/* Prescription Composer Section */}
+<<<<<<< HEAD
         <Card className="p-5 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div>
@@ -510,24 +678,46 @@ export function DoctorConsultationPage() {
                 Digital Prescription Composer
               </h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
+=======
+        <Card className="p-5 border-slate-200 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-blue-600" />
+                Digital Prescription Composer
+              </h3>
+              <p className="text-[11px] text-slate-500">
+>>>>>>> origin/main
                 Prescribe medications with dosage, frequency, route, and specific patient instructions.
               </p>
             </div>
 
             {/* Quick Presets */}
             <div className="flex items-center gap-1.5">
+<<<<<<< HEAD
               <span className="text-[11px] text-slate-400 dark:text-slate-500 font-semibold">Quick Presets:</span>
               <button
                 type="button"
                 onClick={() => applyDrugPreset('paracetamol')}
                 className="text-[11px] px-2 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md cursor-pointer font-medium"
+=======
+              <span className="text-[11px] text-slate-400 font-semibold">Quick Presets:</span>
+              <button
+                type="button"
+                onClick={() => applyDrugPreset('paracetamol')}
+                className="text-[11px] px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md cursor-pointer font-medium"
+>>>>>>> origin/main
               >
                 + Dolo 650
               </button>
               <button
                 type="button"
                 onClick={() => applyDrugPreset('pantoprazole')}
+<<<<<<< HEAD
                 className="text-[11px] px-2 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md cursor-pointer font-medium"
+=======
+                className="text-[11px] px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md cursor-pointer font-medium"
+>>>>>>> origin/main
               >
                 + Pan 40
               </button>
@@ -539,10 +729,17 @@ export function DoctorConsultationPage() {
             {medications.map((med, index) => (
               <div
                 key={med.id}
+<<<<<<< HEAD
                 className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-600 transition-colors space-y-2.5 shadow-xs"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 font-bold text-[10px] flex items-center justify-center">
+=======
+                className="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-blue-300 transition-colors space-y-2.5 shadow-xs"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-bold text-[10px] flex items-center justify-center">
+>>>>>>> origin/main
                     {index + 1}
                   </span>
                   <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -551,27 +748,43 @@ export function DoctorConsultationPage() {
                       value={med.name}
                       onChange={(e) => handleMedChange(med.id, 'name', e.target.value)}
                       placeholder="Medication Name (e.g. Augmentin)"
+<<<<<<< HEAD
                       className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
+=======
+                      className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-bold text-slate-800 focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                     />
                     <input
                       type="text"
                       value={med.strength}
                       onChange={(e) => handleMedChange(med.id, 'strength', e.target.value)}
                       placeholder="Strength (e.g. 625 mg)"
+<<<<<<< HEAD
                       className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
+=======
+                      className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                     />
                     <input
                       type="text"
                       value={med.dosage}
                       onChange={(e) => handleMedChange(med.id, 'dosage', e.target.value)}
                       placeholder="Dosage (e.g. 1 Tablet)"
+<<<<<<< HEAD
                       className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
+=======
+                      className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveMedication(med.id)}
+<<<<<<< HEAD
                     className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+=======
+                    className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors cursor-pointer"
+>>>>>>> origin/main
                     title="Remove item"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -580,43 +793,75 @@ export function DoctorConsultationPage() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
                   <div>
+<<<<<<< HEAD
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Frequency</label>
+=======
+                    <label className="text-[10px] text-slate-400 block font-medium">Frequency</label>
+>>>>>>> origin/main
                     <input
                       type="text"
                       value={med.frequency}
                       onChange={(e) => handleMedChange(med.id, 'frequency', e.target.value)}
                       placeholder="Twice a day (1-0-1)"
+<<<<<<< HEAD
                       className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                     />
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Duration</label>
+=======
+                      className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-slate-400 block font-medium">Duration</label>
+>>>>>>> origin/main
                     <input
                       type="text"
                       value={med.duration}
                       onChange={(e) => handleMedChange(med.id, 'duration', e.target.value)}
                       placeholder="5 days"
+<<<<<<< HEAD
                       className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                     />
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Route / Timing</label>
+=======
+                      className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-slate-400 block font-medium">Route / Timing</label>
+>>>>>>> origin/main
                     <input
                       type="text"
                       value={med.route}
                       onChange={(e) => handleMedChange(med.id, 'route', e.target.value)}
                       placeholder="Oral, after meals"
+<<<<<<< HEAD
                       className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                     />
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Quantity</label>
+=======
+                      className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-slate-400 block font-medium">Quantity</label>
+>>>>>>> origin/main
                     <input
                       type="text"
                       value={med.quantity}
                       onChange={(e) => handleMedChange(med.id, 'quantity', e.target.value)}
                       placeholder="10 Tablets"
+<<<<<<< HEAD
                       className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+=======
+                      className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200"
+>>>>>>> origin/main
                     />
                   </div>
                 </div>
@@ -627,7 +872,11 @@ export function DoctorConsultationPage() {
                     value={med.instructions}
                     onChange={(e) => handleMedChange(med.id, 'instructions', e.target.value)}
                     placeholder="Specific patient instructions (e.g. Swallow whole with water, avoid alcohol)..."
+<<<<<<< HEAD
                     className="w-full text-[11px] px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 italic"
+=======
+                    className="w-full text-[11px] px-2.5 py-1 rounded-md border border-slate-200 text-slate-600 italic"
+>>>>>>> origin/main
                   />
                 </div>
               </div>
@@ -649,16 +898,28 @@ export function DoctorConsultationPage() {
         </Card>
 
         {/* Follow-up Date & Bottom Actions */}
+<<<<<<< HEAD
         <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <div>
               <label className="text-xs font-bold text-slate-800 dark:text-white block">Scheduled Review / Follow-Up Date</label>
+=======
+        <Card className="p-4 border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Calendar className="w-4 h-4 text-blue-600" />
+            <div>
+              <label className="text-xs font-bold text-slate-800 block">Scheduled Review / Follow-Up Date</label>
+>>>>>>> origin/main
               <input
                 type="date"
                 value={followUpDate}
                 onChange={(e) => setFollowUpDate(e.target.value)}
+<<<<<<< HEAD
                 className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 mt-1 focus:ring-2 focus:ring-blue-500"
+=======
+                className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 font-medium text-slate-800 mt-1 focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
               />
             </div>
           </div>
@@ -666,7 +927,11 @@ export function DoctorConsultationPage() {
           <div className="flex items-center gap-2">
             {!isFinalized && (
               <Button variant="secondary" size="md" onClick={handleSaveDraft} type="button">
+<<<<<<< HEAD
                 <Save className="w-4 h-4 mr-1 text-slate-600 dark:text-slate-300" />
+=======
+                <Save className="w-4 h-4 mr-1 text-slate-600" />
+>>>>>>> origin/main
                 Save Draft
               </Button>
             )}
@@ -685,22 +950,38 @@ export function DoctorConsultationPage() {
 
       {/* Finalized Record Preview with QR Badge */}
       {isFinalized && issuedRx && (
+<<<<<<< HEAD
         <Card className="p-5 border-2 border-emerald-400 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-950/20 space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200 dark:border-emerald-900/50 pb-2">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <h3 className="font-bold text-sm text-emerald-950 dark:text-emerald-100">
+=======
+        <Card className="p-5 border-2 border-emerald-400 bg-emerald-50/40 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200 pb-2">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+              <h3 className="font-bold text-sm text-emerald-950">
+>>>>>>> origin/main
                 Official Digital Prescription Issued ({issuedRx.prescriptionNumber})
               </h3>
             </div>
             <Link to={`/verify-prescription/${issuedRx.verificationId}`} target="_blank">
+<<<<<<< HEAD
               <Button variant="secondary" size="sm" className="bg-white dark:bg-slate-900 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800 text-xs">
+=======
+              <Button variant="secondary" size="sm" className="bg-white text-emerald-800 border-emerald-300 text-xs">
+>>>>>>> origin/main
                 <QrCode className="w-3.5 h-3.5 mr-1" />
                 Verify QR Code Authenticity
               </Button>
             </Link>
           </div>
+<<<<<<< HEAD
           <p className="text-xs text-slate-600 dark:text-slate-300">
+=======
+          <p className="text-xs text-slate-600">
+>>>>>>> origin/main
             This digital record has been cryptographically generated in the simulated clinic vault. The patient can access it via the ClinicOS Patient Portal or pharmacy QR scan.
           </p>
         </Card>

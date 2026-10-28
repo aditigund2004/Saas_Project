@@ -31,12 +31,18 @@ import {
   DEMO_SAAS_EXPENSES,
   DEMO_CLINIC_PAYMENTS,
   DEMO_CLINIC_REFUNDS,
+<<<<<<< HEAD
   DEMO_RECEIPTS,
+=======
+>>>>>>> origin/main
   DEMO_NOTIFICATIONS
 } from '../demo-data';
 import { ROLE_PERMISSIONS } from '../types';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
+<<<<<<< HEAD
 import { getDefaultWebsiteSettings } from '../features/website-builder/websiteBuilderDefaults';
+=======
+>>>>>>> origin/main
 
 const AppContext = createContext(null);
 
@@ -82,11 +88,15 @@ export function AppProvider({ children }) {
   // Domain Entity Collections with LocalStorage hydration for smooth demo edits
   const [clinics, setClinics] = useState(() => {
     const s = localStorage.getItem('clinipulse_clinics');
+<<<<<<< HEAD
     const raw = s ? JSON.parse(s) : DEMO_CLINICS;
     return raw.map((c) => ({
       ...c,
       websiteSettings: c.websiteSettings || getDefaultWebsiteSettings(c)
     }));
+=======
+    return s ? JSON.parse(s) : DEMO_CLINICS;
+>>>>>>> origin/main
   });
 
   const [doctors, setDoctors] = useState(() => {
@@ -225,6 +235,7 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_CLINIC_REFUNDS;
   });
 
+<<<<<<< HEAD
   const [receipts, setReceipts] = useState(() => {
     const s = localStorage.getItem('clinipulse_receipts');
     return s ? JSON.parse(s) : DEMO_RECEIPTS;
@@ -234,6 +245,8 @@ export function AppProvider({ children }) {
     return localStorage.getItem('clinipulse_active_patient_id') || 'pt-1041';
   });
 
+=======
+>>>>>>> origin/main
   // Simulated Notifications Center
   const [notifications, setNotifications] = useState(() => {
     const s = localStorage.getItem('clinipulse_notifications');
@@ -375,6 +388,7 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_followups', JSON.stringify(followUps));
   }, [followUps]);
 
+<<<<<<< HEAD
   useEffect(() => {
     localStorage.setItem('clinipulse_receipts', JSON.stringify(receipts));
   }, [receipts]);
@@ -383,6 +397,8 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_active_patient_id', activePatientId);
   }, [activePatientId]);
 
+=======
+>>>>>>> origin/main
   // Toast Notification Trigger
   const showToast = (message, type = 'success') => {
     setToast({ id: Date.now(), message, type });
@@ -442,6 +458,7 @@ export function AppProvider({ children }) {
       return null;
     }
 
+<<<<<<< HEAD
     // Ensure patient exists in patients collection for seamless end-to-end lookup
     let targetPatientId = appointmentData.patientId;
     if (appointmentData.patientName) {
@@ -473,13 +490,20 @@ export function AppProvider({ children }) {
       }
     }
 
+=======
+>>>>>>> origin/main
     const id = `apt-${Date.now().toString().slice(-5)}`;
     const referenceNumber = `APT-${Math.floor(2000 + Math.random() * 8000)}`;
     const newAppointment = {
       ...appointmentData,
       id,
+<<<<<<< HEAD
       patientId: targetPatientId || appointmentData.patientId,
       referenceNumber,
+=======
+      referenceNumber,
+      clinicId: appointmentData.clinicId || activeClinicId,
+>>>>>>> origin/main
       createdAt: new Date().toISOString()
     };
     setAppointments((prev) => [newAppointment, ...prev]);
@@ -509,6 +533,7 @@ export function AppProvider({ children }) {
     return newPatient;
   };
 
+<<<<<<< HEAD
   const updatePatient = (patientId, updates) => {
     setPatients((prev) =>
       prev.map((p) => (p.id === patientId || p.patientIdNumber === patientId ? { ...p, ...updates } : p))
@@ -539,6 +564,8 @@ export function AppProvider({ children }) {
     showToast(`Switched active patient: ${pt.name} (${pt.patientIdNumber || pt.id})`);
   };
 
+=======
+>>>>>>> origin/main
   const createPrescription = (rxData) => {
     const seq = Math.floor(8820 + Math.random() * 900);
     const id = `rx-2026-${seq}`;
@@ -776,10 +803,13 @@ export function AppProvider({ children }) {
 
   // Patient Feedback Actions
   const submitPatientFeedback = (feedbackData) => {
+<<<<<<< HEAD
     if (feedbackData.appointmentId && feedbacks.some((f) => f.appointmentId === feedbackData.appointmentId)) {
       showToast('Feedback has already been recorded for this appointment.', 'warning');
       return null;
     }
+=======
+>>>>>>> origin/main
     const seq = Math.floor(2600 + Math.random() * 900);
     const newFb = {
       ...feedbackData,
@@ -1818,8 +1848,28 @@ export function AppProvider({ children }) {
   };
 
   // Billing & Payments
+<<<<<<< HEAD
   const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
     return recordClinicPayment(invoiceId, paymentMethod, amountPaid, transactionRef);
+=======
+  const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan') => {
+    setInvoices((prev) =>
+      prev.map((inv) => {
+        if (inv.id === invoiceId) {
+          const totalPaid = (inv.amountPaid || 0) + Number(amountPaid);
+          const isFullyPaid = totalPaid >= inv.totalAmount;
+          return {
+            ...inv,
+            amountPaid: totalPaid,
+            status: isFullyPaid ? 'Paid' : 'Partially Paid',
+            paymentMethod
+          };
+        }
+        return inv;
+      })
+    );
+    showToast(`Simulated Payment of ${formatCurrency(amountPaid)} received via ${paymentMethod}! (Demo Transaction - No real charge)`);
+>>>>>>> origin/main
   };
 
   const requestRefund = (invoiceId, reason) => {
@@ -1921,6 +1971,7 @@ export function AppProvider({ children }) {
     showToast(`Clinic subscription plan updated to ${newPlanId.toUpperCase()}`);
   };
 
+<<<<<<< HEAD
   const updateClinic = (clinicId, updates) => {
     setClinics((prev) => {
       const next = prev.map((c) => (c.id === clinicId ? { ...c, ...updates } : c));
@@ -2008,6 +2059,8 @@ export function AppProvider({ children }) {
     showToast('Website unpublished and set to private draft mode.', 'info');
   };
 
+=======
+>>>>>>> origin/main
   // Centralized Permission Checker
   const hasPermission = (permission) => {
     const perms = ROLE_PERMISSIONS[currentRole] || [];
@@ -2067,6 +2120,7 @@ export function AppProvider({ children }) {
   };
 
   // Clinic Finance Actions
+<<<<<<< HEAD
   const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount, transactionRef = '') => {
     const inv = invoices.find(
       (i) => i.invoiceNumber === invoiceNumber || i.id === invoiceNumber
@@ -2101,6 +2155,20 @@ export function AppProvider({ children }) {
               status: newStatus,
               paymentMethod
             }
+=======
+  const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount) => {
+    const inv = invoices.find((i) => i.invoiceNumber === invoiceNumber);
+    if (!inv) return;
+    const remaining = inv.totalAmount - (inv.amountPaid || 0);
+    const paidAmount = Number(amount) || (remaining > 0 ? remaining : inv.totalAmount);
+    const newAmountPaid = (inv.amountPaid || 0) + paidAmount;
+    const newStatus = newAmountPaid >= inv.totalAmount ? 'Paid' : 'Partially Paid';
+
+    setInvoices((prev) =>
+      prev.map((i) =>
+        i.invoiceNumber === invoiceNumber
+          ? { ...i, amountPaid: newAmountPaid, status: newStatus, paymentMethod }
+>>>>>>> origin/main
           : i
       )
     );
@@ -2114,11 +2182,15 @@ export function AppProvider({ children }) {
       invoiceNumber: inv.invoiceNumber,
       amount: paidAmount,
       paymentMethod,
+<<<<<<< HEAD
       transactionRef: transactionRef || '',
+=======
+>>>>>>> origin/main
       date: new Date().toISOString().slice(0, 10),
       status: 'Completed'
     };
     setClinicPayments((prev) => [newPayRecord, ...prev]);
+<<<<<<< HEAD
 
     const rSeq = Math.floor(1000 + Math.random() * 9000);
     const newReceipt = {
@@ -2145,6 +2217,10 @@ export function AppProvider({ children }) {
 
     showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded! Receipt #${newReceipt.receiptNumber} generated.`);
     return { payment: newPayRecord, receipt: newReceipt };
+=======
+    showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded on ${invoiceNumber} (${paymentMethod})`);
+    return newPayRecord;
+>>>>>>> origin/main
   };
 
   const requestClinicRefund = (refundData) => {
@@ -2325,12 +2401,15 @@ export function AppProvider({ children }) {
         addFeedbackInternalNote,
         patients,
         createPatient,
+<<<<<<< HEAD
         updatePatient,
         activePatientId,
         setActivePatientId,
         switchDemoPatient,
         receipts,
         setReceipts,
+=======
+>>>>>>> origin/main
         appointments,
         createAppointment,
         updateAppointmentStatus,
@@ -2406,11 +2485,14 @@ export function AppProvider({ children }) {
         requestClinicRefund,
         approveClinicRefund,
         createClinicExpense,
+<<<<<<< HEAD
         updateClinic,
         updateClinicWebsite,
         saveClinicWebsiteDraft,
         publishClinicWebsite,
         unpublishClinicWebsite,
+=======
+>>>>>>> origin/main
         toast,
         showToast,
         whatsAppModal,

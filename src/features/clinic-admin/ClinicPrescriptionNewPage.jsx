@@ -31,7 +31,12 @@ export function ClinicPrescriptionNewPage() {
   } = useApp();
 
   const patientQueryId = searchParams.get('patient') || '';
+<<<<<<< HEAD
   const preselectedPatient = patients.find((p) => p.id === patientQueryId) || patients[0];
+=======
+  const clinicPatients = patients.filter((p) => p.clinicId === activeClinic.id);
+  const preselectedPatient = clinicPatients.find((p) => p.id === patientQueryId) || clinicPatients[0];
+>>>>>>> origin/main
 
   const clinicDoctors = doctors.filter((d) => d.clinicId === activeClinic.id);
   const currentDoctor = clinicDoctors[0] || doctors[0];
@@ -71,7 +76,11 @@ export function ClinicPrescriptionNewPage() {
 
   const [activeTab, setActiveTab] = useState('editor'); // 'editor' | 'preview'
 
+<<<<<<< HEAD
   const activePatient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+=======
+  const activePatient = clinicPatients.find((p) => p.id === selectedPatientId) || clinicPatients[0];
+>>>>>>> origin/main
   const activeDoctor = doctors.find((d) => d.id === selectedDoctorId) || currentDoctor;
 
   const handleAddMedication = () => {
@@ -139,6 +148,7 @@ export function ClinicPrescriptionNewPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
+<<<<<<< HEAD
             <Link to="/clinic/prescriptions" className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
               ← Prescriptions List
             </Link>
@@ -149,18 +159,38 @@ export function ClinicPrescriptionNewPage() {
             Generate Digital Prescription
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
+=======
+            <Link to="/clinic/prescriptions" className="text-xs text-blue-600 hover:underline">
+              ← Prescriptions List
+            </Link>
+            <span className="text-slate-300">•</span>
+            <span className="text-xs font-semibold text-slate-500">Consultation Workspace</span>
+          </div>
+          <h1 className="text-2xl font-extrabold text-slate-900 mt-1">
+            Generate Digital Prescription
+          </h1>
+          <p className="text-xs text-slate-500">
+>>>>>>> origin/main
             Official A4 medical document with structured medications and verifiable QR hash.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           {/* Switch tab buttons */}
+<<<<<<< HEAD
           <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-1 text-xs">
+=======
+          <div className="flex items-center rounded-xl border border-slate-200 bg-white p-1 text-xs">
+>>>>>>> origin/main
             <button
               type="button"
               onClick={() => setActiveTab('editor')}
               className={`px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5 cursor-pointer ${
+<<<<<<< HEAD
                 activeTab === 'editor' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600 dark:text-slate-400'
+=======
+                activeTab === 'editor' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600'
+>>>>>>> origin/main
               }`}
             >
               <Edit3 className="w-3.5 h-3.5" />
@@ -170,7 +200,11 @@ export function ClinicPrescriptionNewPage() {
               type="button"
               onClick={() => setActiveTab('preview')}
               className={`px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5 cursor-pointer ${
+<<<<<<< HEAD
                 activeTab === 'preview' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600 dark:text-slate-400'
+=======
+                activeTab === 'preview' ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600'
+>>>>>>> origin/main
               }`}
             >
               <Eye className="w-3.5 h-3.5" />
@@ -201,13 +235,19 @@ export function ClinicPrescriptionNewPage() {
       {activeTab === 'editor' && (
         <div className="space-y-6">
           {/* Section 1: Patient and Doctor Details */}
+<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4">
             <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+=======
+          <Card className="p-6 border-slate-200 space-y-4">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+>>>>>>> origin/main
               1. Patient & Practitioner Selection
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
               <div>
+<<<<<<< HEAD
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Patient *</label>
                 <select
                   value={selectedPatientId}
@@ -215,24 +255,45 @@ export function ClinicPrescriptionNewPage() {
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
                 >
                   {patients.map((p) => (
+=======
+                <label className="block font-semibold text-slate-700 mb-1">Select Patient *</label>
+                <select
+                  value={selectedPatientId}
+                  onChange={(e) => setSelectedPatientId(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  {clinicPatients.map((p) => (
+>>>>>>> origin/main
                     <option key={p.id} value={p.id}>
                       {p.name} ({p.patientIdNumber})
                     </option>
                   ))}
                 </select>
                 {activePatient?.allergies && activePatient.allergies.length > 0 && (
+<<<<<<< HEAD
                   <p className="text-[11px] text-rose-600 dark:text-rose-400 font-semibold mt-1">
+=======
+                  <p className="text-[11px] text-rose-600 font-semibold mt-1">
+>>>>>>> origin/main
                     ⚠ Allergies: {activePatient.allergies.join(', ')}
                   </p>
                 )}
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Prescribing Doctor *</label>
                 <select
                   value={selectedDoctorId}
                   onChange={(e) => setSelectedDoctorId(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
+=======
+                <label className="block font-semibold text-slate-700 mb-1">Prescribing Doctor *</label>
+                <select
+                  value={selectedDoctorId}
+                  onChange={(e) => setSelectedDoctorId(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 bg-white"
+>>>>>>> origin/main
                 >
                   {clinicDoctors.map((d) => (
                     <option key={d.id} value={d.id}>
@@ -243,58 +304,102 @@ export function ClinicPrescriptionNewPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Consultation Date</label>
+=======
+                <label className="block font-semibold text-slate-700 mb-1">Consultation Date</label>
+>>>>>>> origin/main
                 <input
                   type="date"
                   value={consultationDate}
                   onChange={(e) => setConsultationDate(e.target.value)}
+<<<<<<< HEAD
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
+=======
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                 />
               </div>
             </div>
 
             {/* Vitals */}
+<<<<<<< HEAD
             <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
               <span className="block text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase mb-2">Patient Vitals</span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                 <div>
                   <label className="block text-slate-500 dark:text-slate-400 text-[10px]">Blood Pressure</label>
+=======
+            <div className="pt-2 border-t border-slate-100">
+              <span className="block text-[11px] font-semibold text-slate-500 uppercase mb-2">Patient Vitals</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <label className="block text-slate-500 text-[10px]">Blood Pressure</label>
+>>>>>>> origin/main
                   <input
                     type="text"
                     value={bp}
                     onChange={(e) => setBp(e.target.value)}
                     placeholder="120/80"
+<<<<<<< HEAD
                     className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
                   />
                 </div>
                 <div>
                   <label className="block text-slate-500 dark:text-slate-400 text-[10px]">Pulse (bpm)</label>
+=======
+                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-500 text-[10px]">Pulse (bpm)</label>
+>>>>>>> origin/main
                   <input
                     type="text"
                     value={pulse}
                     onChange={(e) => setPulse(e.target.value)}
                     placeholder="72"
+<<<<<<< HEAD
                     className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
                   />
                 </div>
                 <div>
                   <label className="block text-slate-500 dark:text-slate-400 text-[10px]">Temperature (°F)</label>
+=======
+                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-500 text-[10px]">Temperature (°F)</label>
+>>>>>>> origin/main
                   <input
                     type="text"
                     value={temp}
                     onChange={(e) => setTemp(e.target.value)}
                     placeholder="98.6"
+<<<<<<< HEAD
                     className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
                   />
                 </div>
                 <div>
                   <label className="block text-slate-500 dark:text-slate-400 text-[10px]">Body Weight (kg)</label>
+=======
+                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-500 text-[10px]">Body Weight (kg)</label>
+>>>>>>> origin/main
                   <input
                     type="text"
                     value={weight}
                     onChange={(e) => setWeight(e.target.value)}
                     placeholder="68"
+<<<<<<< HEAD
                     className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
+=======
+                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"
+>>>>>>> origin/main
                   />
                 </div>
               </div>
@@ -302,8 +407,13 @@ export function ClinicPrescriptionNewPage() {
           </Card>
 
           {/* Section 2: Clinical Assessment */}
+<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
             <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+=======
+          <Card className="p-6 border-slate-200 space-y-3">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+>>>>>>> origin/main
               2. Clinical Assessment & Diagnosis *
             </h3>
             <textarea
@@ -311,11 +421,16 @@ export function ClinicPrescriptionNewPage() {
               value={diagnosis}
               onChange={(e) => setDiagnosis(e.target.value)}
               placeholder="e.g. Acute periapical abscess #46; Severe cold sensitivity on molar..."
+<<<<<<< HEAD
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500 font-medium"
+=======
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 font-medium"
+>>>>>>> origin/main
             />
           </Card>
 
           {/* Section 3: Medication Rows Builder */}
+<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -324,6 +439,16 @@ export function ClinicPrescriptionNewPage() {
                   <span>3. Prescribed Medications & Dosages</span>
                 </h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Add rows for drugs, strengths, administration routes, and schedules.</p>
+=======
+          <Card className="p-6 border-slate-200 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <span className="text-lg font-serif font-bold text-blue-800">℞</span>
+                  <span>3. Prescribed Medications & Dosages</span>
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">Add rows for drugs, strengths, administration routes, and schedules.</p>
+>>>>>>> origin/main
               </div>
 
               <Button variant="outline" size="sm" icon={Plus} onClick={handleAddMedication}>
@@ -335,6 +460,7 @@ export function ClinicPrescriptionNewPage() {
               {medications.map((med, index) => (
                 <div
                   key={med.id}
+<<<<<<< HEAD
                   className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-2 text-xs"
                 >
                   <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-800">
@@ -343,6 +469,16 @@ export function ClinicPrescriptionNewPage() {
                       type="button"
                       onClick={() => handleRemoveMedication(med.id)}
                       className="text-rose-600 dark:text-rose-400 hover:text-rose-700 flex items-center gap-1 font-semibold text-[11px] cursor-pointer"
+=======
+                  className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2 text-xs"
+                >
+                  <div className="flex items-center justify-between pb-1 border-b border-slate-200">
+                    <span className="font-bold text-slate-700">Medication #{index + 1}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveMedication(med.id)}
+                      className="text-rose-600 hover:text-rose-700 flex items-center gap-1 font-semibold text-[11px] cursor-pointer"
+>>>>>>> origin/main
                     >
                       <Trash2 className="w-3 h-3" /> Remove
                     </button>
@@ -350,58 +486,98 @@ export function ClinicPrescriptionNewPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-2">
                     <div className="sm:col-span-5">
+<<<<<<< HEAD
                       <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-semibold mb-0.5">Drug Name & Strength *</label>
+=======
+                      <label className="block text-[10px] text-slate-500 font-semibold mb-0.5">Drug Name & Strength *</label>
+>>>>>>> origin/main
                       <input
                         type="text"
                         value={med.name}
                         onChange={(e) => handleMedicationChange(med.id, 'name', e.target.value)}
                         placeholder="e.g. Tab Augmentin 625mg"
+<<<<<<< HEAD
                         className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-xs bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-medium"
+=======
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-medium"
+>>>>>>> origin/main
                       />
                     </div>
 
                     <div className="sm:col-span-3">
+<<<<<<< HEAD
                       <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-semibold mb-0.5">Dosage / Frequency</label>
+=======
+                      <label className="block text-[10px] text-slate-500 font-semibold mb-0.5">Dosage / Frequency</label>
+>>>>>>> origin/main
                       <input
                         type="text"
                         value={med.frequency}
                         onChange={(e) => handleMedicationChange(med.id, 'frequency', e.target.value)}
                         placeholder="1-0-1 Twice Daily"
+<<<<<<< HEAD
                         className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-xs bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+=======
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white"
+>>>>>>> origin/main
                       />
                     </div>
 
                     <div className="sm:col-span-2">
+<<<<<<< HEAD
                       <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-semibold mb-0.5">Duration</label>
+=======
+                      <label className="block text-[10px] text-slate-500 font-semibold mb-0.5">Duration</label>
+>>>>>>> origin/main
                       <input
                         type="text"
                         value={med.duration}
                         onChange={(e) => handleMedicationChange(med.id, 'duration', e.target.value)}
                         placeholder="5 days"
+<<<<<<< HEAD
                         className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-xs bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+=======
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white"
+>>>>>>> origin/main
                       />
                     </div>
 
                     <div className="sm:col-span-2">
+<<<<<<< HEAD
                       <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-semibold mb-0.5">Route</label>
+=======
+                      <label className="block text-[10px] text-slate-500 font-semibold mb-0.5">Route</label>
+>>>>>>> origin/main
                       <input
                         type="text"
                         value={med.route}
                         onChange={(e) => handleMedicationChange(med.id, 'route', e.target.value)}
                         placeholder="Oral / Topical"
+<<<<<<< HEAD
                         className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-xs bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+=======
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white"
+>>>>>>> origin/main
                       />
                     </div>
                   </div>
 
                   <div>
+<<<<<<< HEAD
                     <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-semibold mb-0.5">Patient Instructions</label>
+=======
+                    <label className="block text-[10px] text-slate-500 font-semibold mb-0.5">Patient Instructions</label>
+>>>>>>> origin/main
                     <input
                       type="text"
                       value={med.instructions}
                       onChange={(e) => handleMedicationChange(med.id, 'instructions', e.target.value)}
                       placeholder="e.g. Immediately after food; Rinse thoroughly"
+<<<<<<< HEAD
                       className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-xs bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+=======
+                      className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white"
+>>>>>>> origin/main
                     />
                   </div>
                 </div>
@@ -410,32 +586,55 @@ export function ClinicPrescriptionNewPage() {
           </Card>
 
           {/* Section 4: Follow-up and Advice */}
+<<<<<<< HEAD
           <Card className="p-6 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4">
             <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+=======
+          <Card className="p-6 border-slate-200 space-y-4">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+>>>>>>> origin/main
               4. Patient Advice & Scheduled Follow-Up
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
+<<<<<<< HEAD
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">General Dietary Advice / Precautions</label>
+=======
+                <label className="block font-semibold text-slate-700 mb-1">General Dietary Advice / Precautions</label>
+>>>>>>> origin/main
                 <textarea
                   rows={2}
                   value={additionalAdvice}
                   onChange={(e) => setAdditionalAdvice(e.target.value)}
                   placeholder="e.g. Warm saline rinses 3x daily; Avoid hard foods on left side..."
+<<<<<<< HEAD
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
+=======
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs"
+>>>>>>> origin/main
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Review / Next Follow-Up Date</label>
+=======
+                <label className="block font-semibold text-slate-700 mb-1">Review / Next Follow-Up Date</label>
+>>>>>>> origin/main
                 <input
                   type="date"
                   value={followUpDate}
                   onChange={(e) => setFollowUpDate(e.target.value)}
+<<<<<<< HEAD
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
                 />
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
+=======
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs"
+                />
+                <p className="text-[11px] text-slate-400 mt-1">
+>>>>>>> origin/main
                   A front-desk follow-up task and WhatsApp reminder will be triggered on this date.
                 </p>
               </div>

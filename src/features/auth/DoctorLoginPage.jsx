@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> origin/main
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { AuthLayout } from './AuthLayout';
@@ -23,6 +27,7 @@ export function DoctorLoginPage() {
   const location = useLocation();
   const { login, isLoading, switchClinic } = useAuth();
 
+<<<<<<< HEAD
   const regState = location.state || {};
   const [email, setEmail] = useState(() => regState.email || 'aarav.mehta@citycare.demo');
   const [password, setPassword] = useState(() => regState.password || 'Doctor@Demo123');
@@ -51,6 +56,12 @@ export function DoctorLoginPage() {
       });
     }
   }, [location.state]);
+=======
+  const [email, setEmail] = useState('aarav.mehta@citycare.demo');
+  const [password, setPassword] = useState('Doctor@Demo123');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+>>>>>>> origin/main
 
   // Multi-clinic selection state (Section 6)
   const [multipleClinicsUser, setMultipleClinicsUser] = useState(null);
@@ -79,9 +90,12 @@ export function DoctorLoginPage() {
     });
 
     if (res.success && res.user) {
+<<<<<<< HEAD
       if (registeredInfo?.clinicId) {
         switchClinic(registeredInfo.clinicId);
       }
+=======
+>>>>>>> origin/main
       // Check if doctor belongs to multiple clinics (Section 6)
       if (res.user.memberships && res.user.memberships.length > 1) {
         setMultipleClinicsUser(res.user);
@@ -89,8 +103,13 @@ export function DoctorLoginPage() {
         return;
       }
 
+<<<<<<< HEAD
       // Single clinic membership: auto-selected & redirect to clinic owner / doctor dashboard
       if (redirectPath && (redirectPath.startsWith('/clinic') || redirectPath.startsWith('/app'))) {
+=======
+      // Single clinic membership: auto-selected & redirect
+      if (redirectPath && redirectPath.startsWith('/clinic')) {
+>>>>>>> origin/main
         navigate(redirectPath);
       } else {
         navigate('/clinic/dashboard');
@@ -121,12 +140,21 @@ export function DoctorLoginPage() {
       {/* Multi-Clinic Selection Modal / Screen (Section 6) */}
       {multipleClinicsUser ? (
         <div className="space-y-5 animate-in fade-in duration-200">
+<<<<<<< HEAD
           <div className="p-4 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 rounded-2xl space-y-2">
             <div className="flex items-center gap-2 text-blue-900 dark:text-blue-200 font-bold text-sm">
               <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span>Multiple Clinic Affiliations Detected</span>
             </div>
             <p className="text-xs text-blue-800 dark:text-blue-300 leading-relaxed">
+=======
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl space-y-2">
+            <div className="flex items-center gap-2 text-blue-900 font-bold text-sm">
+              <Building2 className="w-4 h-4 text-blue-600" />
+              <span>Multiple Clinic Affiliations Detected</span>
+            </div>
+            <p className="text-xs text-blue-800 leading-relaxed">
+>>>>>>> origin/main
               Dr. {multipleClinicsUser.name} holds clinical consulting privileges at more than one facility. Select your active practice workspace for this session:
             </p>
           </div>
@@ -137,8 +165,13 @@ export function DoctorLoginPage() {
                 key={m.clinicId}
                 className={`flex items-center justify-between p-3.5 rounded-2xl border cursor-pointer transition-all ${
                   selectedClinicId === m.clinicId
+<<<<<<< HEAD
                     ? 'border-blue-600 dark:border-blue-500 bg-blue-50/50 dark:bg-blue-950/40 shadow-xs ring-1 ring-blue-500'
                     : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+=======
+                    ? 'border-blue-600 bg-blue-50/50 shadow-xs ring-1 ring-blue-500'
+                    : 'border-slate-200 hover:bg-slate-50'
+>>>>>>> origin/main
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -151,12 +184,21 @@ export function DoctorLoginPage() {
                     className="text-blue-600 focus:ring-blue-500"
                   />
                   <div>
+<<<<<<< HEAD
                     <div className="font-bold text-xs text-slate-900 dark:text-white">{m.clinicName}</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400">{m.branchName || 'Main Hub'}</div>
                   </div>
                 </div>
                 {m.isPrimary && (
                   <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200">
+=======
+                    <div className="font-bold text-xs text-slate-900">{m.clinicName}</div>
+                    <div className="text-[11px] text-slate-500">{m.branchName || 'Main Hub'}</div>
+                  </div>
+                </div>
+                {m.isPrimary && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+>>>>>>> origin/main
                     Primary
                   </span>
                 )}
@@ -177,6 +219,7 @@ export function DoctorLoginPage() {
       ) : (
         /* Regular Login Form */
         <form onSubmit={handleSubmit} className="space-y-4">
+<<<<<<< HEAD
           {/* Registration Success Welcome Banner */}
           {registeredInfo && (
             <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-900 dark:text-emerald-200 space-y-1.5 shadow-xs animate-in fade-in slide-in-from-top-2 duration-300">
@@ -194,6 +237,12 @@ export function DoctorLoginPage() {
           {error && (
             <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-xs text-red-800 dark:text-red-200 flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+=======
+          {/* Error Banner */}
+          {error && (
+            <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+>>>>>>> origin/main
               <div className="flex-1 leading-relaxed">
                 <span className="font-bold">Access Blocked:</span> {error}
               </div>
@@ -201,8 +250,13 @@ export function DoctorLoginPage() {
           )}
 
           {/* Work Email */}
+<<<<<<< HEAD
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
+=======
+          <div className="space-y-1">
+            <label className="text-[13px] font-semibold text-[#1E293B] block">
+>>>>>>> origin/main
               Clinic Work Email <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -215,21 +269,35 @@ export function DoctorLoginPage() {
                   if (error) setError('');
                 }}
                 placeholder="doctor@clinic.demo"
+<<<<<<< HEAD
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500"
+=======
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                 required
               />
             </div>
           </div>
 
           {/* Password */}
+<<<<<<< HEAD
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
+=======
+          <div className="space-y-1">
+            <div className="flex items-center justify-between">
+              <label className="text-[13px] font-semibold text-[#1E293B]">
+>>>>>>> origin/main
                 Password <span className="text-red-500">*</span>
               </label>
               <Link
                 to="/forgot-password"
+<<<<<<< HEAD
                 className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 hover:underline"
+=======
+                className="text-[12px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+>>>>>>> origin/main
               >
                 Forgot password?
               </Link>
@@ -244,25 +312,81 @@ export function DoctorLoginPage() {
                   if (error) setError('');
                 }}
                 placeholder="••••••••••••"
+<<<<<<< HEAD
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500"
+=======
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+<<<<<<< HEAD
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-1"
+=======
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+>>>>>>> origin/main
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
+<<<<<<< HEAD
+=======
+          {/* Quick Doctor Account Switchers */}
+          <div className="space-y-1.5 pt-1">
+            <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+              Quick Test Credentials (5 Clinics + Multi-Clinic):
+            </label>
+            <div className="grid grid-cols-2 gap-1.5 text-xs">
+              <button
+                type="button"
+                onClick={() => setEmail('aarav.mehta@citycare.demo')}
+                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              >
+                <span className="font-bold text-slate-800 block truncate">Dr. Aarav Mehta</span>
+                <span className="text-[10px] text-slate-500">CityCare Family</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEmail('rohan.deshmukh@heartwell.demo')}
+                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              >
+                <span className="font-bold text-slate-800 block truncate">Dr. Rohan Deshmukh</span>
+                <span className="text-[10px] text-slate-500">HeartWell Cardio</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEmail('isha.shah@brightsmile.demo')}
+                className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              >
+                <span className="font-bold text-slate-800 block truncate">Dr. Isha Shah</span>
+                <span className="text-[10px] text-slate-500">BrightSmile Dental</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEmail('sanjay.kulkarni@clinicos.demo')}
+                className="p-1.5 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 text-left truncate cursor-pointer"
+              >
+                <span className="font-bold text-amber-900 block truncate">Dr. Sanjay (Multi-Clinic)</span>
+                <span className="text-[10px] text-amber-700">CityCare & BrightSmile</span>
+              </button>
+            </div>
+          </div>
+
+>>>>>>> origin/main
           {/* Submit CTA */}
           <Button
             type="submit"
             variant="primary"
             size="md"
+<<<<<<< HEAD
             className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2.5 shadow-sm mt-3 cursor-pointer"
+=======
+            className="w-full justify-center bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm py-2.5 shadow-sm mt-2"
+>>>>>>> origin/main
             disabled={isLoading}
           >
             {isLoading ? (
@@ -277,6 +401,7 @@ export function DoctorLoginPage() {
             )}
           </Button>
 
+<<<<<<< HEAD
           {/* Registration & Trial Plan Setup Option */}
           <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-50/90 via-indigo-50/40 to-slate-50 dark:from-slate-800/80 dark:via-blue-950/30 dark:to-slate-800/60 border border-blue-200/90 dark:border-blue-900/60 text-xs space-y-2.5 shadow-2xs">
             <div className="flex items-center gap-2.5">
@@ -305,13 +430,31 @@ export function DoctorLoginPage() {
               <span className="text-[10px] text-slate-400 font-medium">
                 No credit card required · Instant online setup · Cancel anytime
               </span>
+=======
+          {/* Public Signup Disclaimer */}
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1.5">
+            <span className="font-bold text-slate-800 block">Staff Account Policy:</span>
+            <span>
+              Doctor and clinician accounts cannot be created via public registration. Privileged credentials are provisioned exclusively through clinic administration.
+            </span>
+            <div className="pt-0.5">
+              <Link to="/register/clinic" className="text-blue-700 font-bold hover:underline inline-flex items-center gap-1">
+                Setting up a new clinic? Register Clinic Practice &rarr;
+              </Link>
+>>>>>>> origin/main
             </div>
           </div>
 
           {/* Navigation Links */}
+<<<<<<< HEAD
           <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100 dark:border-slate-800">
             <Link to="/" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-block">
               &larr; Return to Home Page
+=======
+          <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100">
+            <Link to="/login" className="font-semibold text-blue-600 hover:underline inline-block">
+              &larr; Return to Main Login Page
+>>>>>>> origin/main
             </Link>
           </div>
         </form>
@@ -319,3 +462,7 @@ export function DoctorLoginPage() {
     </AuthLayout>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main

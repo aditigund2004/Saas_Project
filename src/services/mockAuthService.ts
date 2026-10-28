@@ -5,6 +5,7 @@ const STORAGE_KEY_REGISTERED_PATIENTS = 'clinicos_registered_patients';
 const STORAGE_KEY_INVITATIONS = 'clinicos_staff_invitations';
 
 // Seeded demonstration accounts across all 4 roles and 5 clinics
+<<<<<<< HEAD
 export const SUPERADMIN_CREDENTIALS = {
   email: 'superadmin@admin.com',
   password: 'superadmin@123',
@@ -15,12 +16,19 @@ export const SUPERADMIN_CREDENTIALS = {
 
 export const SUPERADMIN_DEMO_CREDENTIALS = SUPERADMIN_CREDENTIALS;
 
+=======
+>>>>>>> origin/main
 export const SEEDED_DEMO_USERS: DemoUser[] = [
   // 1. SaaS Superadmin (Platform Business Owner)
   {
     id: 'usr-superadmin',
+<<<<<<< HEAD
     name: 'Super Administrator',
     email: 'superadmin@admin.com',
+=======
+    name: 'Vikramaditya Singhania',
+    email: 'admin@clinicos.health',
+>>>>>>> origin/main
     phone: '+91 98000 00001',
     role: 'superadmin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -371,12 +379,15 @@ export class MockAuthService {
     const cleanPhone = identifier.trim().replace(/\s+/g, '');
     const allUsers = this.getAllUsers();
 
+<<<<<<< HEAD
     // Check alias emails for superadmin
     if (normalized === 'superadmin@admin.com') {
       const superadminUser = allUsers.find((u) => u.role === 'superadmin');
       if (superadminUser) return superadminUser;
     }
 
+=======
+>>>>>>> origin/main
     return allUsers.find(
       (u) =>
         normalizeEmail(u.email) === normalized ||
@@ -392,12 +403,15 @@ export class MockAuthService {
     const user = this.findUserByIdentifier(form.identifier);
 
     if (!user) {
+<<<<<<< HEAD
       if (form.role === 'superadmin') {
         return {
           success: false,
           error: 'No administrator account found with this email. Please verify credentials.'
         };
       }
+=======
+>>>>>>> origin/main
       return {
         success: false,
         error: 'No demo account found matching this email or phone number. Check credentials or register.'
@@ -418,6 +432,7 @@ export class MockAuthService {
       };
     }
 
+<<<<<<< HEAD
     // Super Admin specific password validation: strictly superadmin@123
     if (user.role === 'superadmin' || form.role === 'superadmin') {
       if (form.password !== 'superadmin@123') {
@@ -434,6 +449,14 @@ export class MockAuthService {
           error: 'Password must be at least 4 characters long in demo mode.'
         };
       }
+=======
+    // Check password (In prototype demo mode, accept any non-empty password of at least 4 characters)
+    if (!form.password || form.password.length < 4) {
+      return {
+        success: false,
+        error: 'Password must be at least 4 characters long in demo mode.'
+      };
+>>>>>>> origin/main
     }
 
     // Resolve active clinic if specified
@@ -496,6 +519,7 @@ export class MockAuthService {
     return { success: true, user: newUser };
   }
 
+<<<<<<< HEAD
   // Register a new Doctor / Clinic Owner
   static registerDoctor(doctorData: {
     name: string;
@@ -540,6 +564,8 @@ export class MockAuthService {
     return newUser;
   }
 
+=======
+>>>>>>> origin/main
   // Simulate Email Verification
   static async verifyEmail(tokenOrEmail: string): Promise<{ success: boolean; user?: DemoUser; error?: string }> {
     await new Promise((resolve) => setTimeout(resolve, 400));

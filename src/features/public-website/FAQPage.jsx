@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+<<<<<<< HEAD
 import { ChevronDown, Search, ArrowRight } from 'lucide-react';
+=======
+import { ChevronDown, Search, HelpCircle, ArrowRight, Sparkles } from 'lucide-react';
+>>>>>>> origin/main
 import { Link } from 'react-router-dom';
 
 export function FAQPage() {
@@ -49,6 +53,7 @@ export function FAQPage() {
   );
 
   return (
+<<<<<<< HEAD
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-10 transition-colors">
       <div className="text-center space-y-3">
         <span className="text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 uppercase tracking-wide">
@@ -58,6 +63,17 @@ export function FAQPage() {
           Everything You Need to Know About ClinicOS
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
+=======
+    <div className="max-w-5xl mx-auto px-4 py-12 space-y-10">
+      <div className="text-center space-y-3">
+        <span className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wide">
+          Frequently Asked Questions
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          Everything You Need to Know About ClinicOS
+        </h1>
+        <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
+>>>>>>> origin/main
           Clear answers on clinic onboarding, digital prescription verification, multi-branch operations, and SaaS subscription tiers.
         </p>
 
@@ -69,7 +85,11 @@ export function FAQPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search questions (e.g. multi-branch, WhatsApp, prescriptions)..."
+<<<<<<< HEAD
             className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
+=======
+            className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 text-xs sm:text-sm bg-white shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
           />
         </div>
       </div>
@@ -82,9 +102,13 @@ export function FAQPage() {
             <Card
               key={index}
               className={`p-5 transition-all border ${
+<<<<<<< HEAD
                 isOpen
                   ? 'border-blue-300 dark:border-blue-700 shadow-sm'
                   : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+=======
+                isOpen ? 'border-blue-300 shadow-sm' : 'border-slate-200 hover:border-slate-300'
+>>>>>>> origin/main
               }`}
             >
               <button
@@ -92,6 +116,7 @@ export function FAQPage() {
                 className="w-full text-left flex items-start justify-between gap-4 cursor-pointer"
               >
                 <div>
+<<<<<<< HEAD
                   <span className="text-[10px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider block mb-1">
                     {faq.category}
                   </span>
@@ -100,12 +125,26 @@ export function FAQPage() {
                 <ChevronDown
                   className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${
                     isOpen ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
+=======
+                  <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider block mb-1">
+                    {faq.category}
+                  </span>
+                  <h3 className="font-bold text-sm sm:text-base text-slate-900">{faq.q}</h3>
+                </div>
+                <ChevronDown
+                  className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${
+                    isOpen ? 'rotate-180 text-blue-600' : ''
+>>>>>>> origin/main
                   }`}
                 />
               </button>
 
               {isOpen && (
+<<<<<<< HEAD
                 <div className="pt-3 mt-3 border-t border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+=======
+                <div className="pt-3 mt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed">
+>>>>>>> origin/main
                   {faq.a}
                 </div>
               )}
@@ -115,10 +154,17 @@ export function FAQPage() {
       </div>
 
       {/* CTA Box */}
+<<<<<<< HEAD
       <Card className="p-8 bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white rounded-3xl text-center space-y-4 shadow-xl border-slate-800">
         <h2 className="text-xl sm:text-2xl font-black text-white">Ready to modernise your healthcare clinic?</h2>
         <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
           Start your 14-day fully featured free trial or explore the interactive prototype across 4 roles.
+=======
+      <Card className="p-8 bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white rounded-3xl text-center space-y-4">
+        <h2 className="text-xl sm:text-2xl font-black text-white">Ready to modernise your healthcare clinic?</h2>
+        <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
+          Start your 14-day fully featured free trial or explore the interactive prototype across 8 roles.
+>>>>>>> origin/main
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link to="/register/clinic">
@@ -136,3 +182,7 @@ export function FAQPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main

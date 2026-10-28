@@ -1183,8 +1183,11 @@ class EmailNotificationService {
       amount?: string;
       transactionId?: string;
       customVariables?: Record<string, string>;
+<<<<<<< HEAD
       themeId?: string;
       themeName?: string;
+=======
+>>>>>>> origin/main
     } = {}
   ): {
     success: boolean;
@@ -1286,9 +1289,13 @@ class EmailNotificationService {
       status: isSimulatedFailure ? 'failed' : 'delivered',
       errorReason: isSimulatedFailure ? 'Simulated Delivery Failure: Transient mail server timeout' : undefined,
       renderedHtml: rendered.html,
+<<<<<<< HEAD
       renderedText: rendered.text,
       themeId: eventPayload.themeId,
       themeName: eventPayload.themeName
+=======
+      renderedText: rendered.text
+>>>>>>> origin/main
     });
 
     // Update trigger metrics
@@ -1296,14 +1303,21 @@ class EmailNotificationService {
     trigger.totalTriggeredCount = (trigger.totalTriggeredCount || 0) + 1;
     this.saveTrigger(trigger);
 
+<<<<<<< HEAD
     const themeSuffix = eventPayload.themeName ? ` using ${eventPayload.themeName} theme` : '';
 
+=======
+>>>>>>> origin/main
     return {
       success: !isSimulatedFailure,
       status: isSimulatedFailure ? 'failed' : 'delivered',
       message: isSimulatedFailure
         ? `Simulated email failure recorded for event "${eventKey}".`
+<<<<<<< HEAD
         : `Simulated email "${rendered.subject}" dispatched successfully to ${log.recipientEmail}${themeSuffix}!`,
+=======
+        : `Simulated email "${rendered.subject}" dispatched successfully to ${log.recipientEmail}!`,
+>>>>>>> origin/main
       log
     };
   }

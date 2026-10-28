@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+<<<<<<< HEAD
 import { CheckSquare, Plus, CheckCircle, Clock, List, LayoutGrid, AlertCircle } from 'lucide-react';
+=======
+import { CheckSquare, Plus, CheckCircle, Clock } from 'lucide-react';
+>>>>>>> origin/main
 import { useApp } from '../../context/AppContext';
 
 export function ReceptionTasksPage() {
   const { showToast } = useApp();
+<<<<<<< HEAD
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
+=======
+>>>>>>> origin/main
 
   const [tasks, setTasks] = useState([
     { id: 1, title: 'Morning Setup & OPD Waiting Room Sanitization Check', priority: 'High', dueTime: '08:45 AM', status: 'Completed', notes: 'Autoclave batches verified' },
@@ -22,6 +29,7 @@ export function ReceptionTasksPage() {
     showToast('Task status updated.');
   };
 
+<<<<<<< HEAD
   const completedCount = tasks.filter((t) => t.status === 'Completed').length;
   const pendingCount = tasks.length - completedCount;
   const highPriorityPending = tasks.filter((t) => t.status !== 'Completed' && t.priority === 'High').length;
@@ -33,10 +41,20 @@ export function ReceptionTasksPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Front Desk Operations</span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Daily Reception Checklist</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+=======
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Front Desk Operations</span>
+          <h1 className="text-2xl font-extrabold text-slate-900">Daily Reception Checklist</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
             Shift tasks, morning preparation, patient follow-up calls, and end-of-day billing reconciliation.
           </p>
         </div>
 
+<<<<<<< HEAD
         <div className="flex items-center gap-2.5">
           {/* View Mode Toggle */}
           <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
@@ -250,6 +268,54 @@ export function ReceptionTasksPage() {
           })}
         </div>
       )}
+=======
+        <Button variant="outline" size="sm" icon={Plus} onClick={() => showToast('New custom task created.')}>
+          Add Daily Task
+        </Button>
+      </div>
+
+      <div className="space-y-3">
+        {tasks.map((task) => {
+          const isDone = task.status === 'Completed';
+
+          return (
+            <Card
+              key={task.id}
+              className={`p-4 border transition-all ${
+                isDone ? 'bg-slate-50/70 border-slate-200' : 'bg-white border-slate-200 shadow-xs'
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4 text-xs">
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={isDone}
+                    onChange={() => toggleTask(task.id)}
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                  />
+                  <div>
+                    <h3 className={`font-bold ${isDone ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                      {task.title}
+                    </h3>
+                    <p className="text-slate-500 text-[11px] mt-0.5">{task.notes}</p>
+                    <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-400">
+                      <Clock className="w-3 h-3 text-slate-400" />
+                      <span>Due: {task.dueTime}</span>
+                      <span>•</span>
+                      <span className={`font-bold ${task.priority === 'High' ? 'text-rose-600' : 'text-slate-600'}`}>
+                        {task.priority} Priority
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <Badge variant={task.status}>{task.status}</Badge>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+>>>>>>> origin/main
     </div>
   );
 }

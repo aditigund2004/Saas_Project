@@ -19,7 +19,10 @@ export function ReceptionWalkInsPage() {
     activeClinic,
     activeBranch,
     doctors,
+<<<<<<< HEAD
     appointments,
+=======
+>>>>>>> origin/main
     createAppointment,
     createPatient,
     showToast
@@ -36,12 +39,15 @@ export function ReceptionWalkInsPage() {
   const currentDoctor = clinicDoctors.find((d) => d.id === selectedDoctorId) || clinicDoctors[0];
   const currentService = activeClinic.services.find((s) => s.id === selectedServiceId) || activeClinic.services[0];
 
+<<<<<<< HEAD
   const walkInList = appointments.filter(
     (a) =>
       (a.clinicId === activeClinic.id || !a.clinicId) &&
       (a.isWalkIn || a.queueNumber?.startsWith('#W-') || a.time?.toLowerCase().includes('immediate'))
   );
 
+=======
+>>>>>>> origin/main
   const handleWalkInSubmit = (e) => {
     e.preventDefault();
     const tokenSeq = Math.floor(100 + Math.random() * 899);
@@ -92,6 +98,7 @@ export function ReceptionWalkInsPage() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="max-w-5xl space-y-6">
       <div>
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Front Desk Express Counter</span>
@@ -119,34 +126,78 @@ export function ReceptionWalkInsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">
                   <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Patient Full Name *</label>
+=======
+    <div className="max-w-4xl space-y-6">
+      <div>
+        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Front Desk Express Counter</span>
+        <h1 className="text-2xl font-extrabold text-slate-900">Walk-In Patient Check-In & Token Issuer</h1>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Rapidly register patients who arrive in-person without an online booking. Issues instant queue token.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        {/* Walk-in Form */}
+        <div className="md:col-span-7">
+          <Card className="p-6 border-slate-200 space-y-4">
+            <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+              <Clock className="w-5 h-5 text-blue-600" />
+              <h2 className="text-sm font-bold text-slate-900">30-Second Express Walk-In Registration</h2>
+            </div>
+
+            <form onSubmit={handleWalkInSubmit} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="sm:col-span-2">
+                  <label className="block font-semibold text-slate-700 mb-1">Patient Full Name *</label>
+>>>>>>> origin/main
                   <input
                     required
                     type="text"
                     value={walkInName}
                     onChange={(e) => setWalkInName(e.target.value)}
                     placeholder="Enter walk-in patient name..."
+<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 font-medium"
+=======
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 font-medium"
+>>>>>>> origin/main
                   />
                 </div>
 
                 <div className="sm:col-span-2">
+<<<<<<< HEAD
                   <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mobile / WhatsApp Number *</label>
+=======
+                  <label className="block font-semibold text-slate-700 mb-1">Mobile / WhatsApp Number *</label>
+>>>>>>> origin/main
                   <input
                     required
                     type="tel"
                     value={walkInPhone}
                     onChange={(e) => setWalkInPhone(e.target.value)}
                     placeholder="+91 98000 00000"
+<<<<<<< HEAD
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
+=======
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                   />
                 </div>
 
                 <div>
+<<<<<<< HEAD
                   <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Assign Doctor *</label>
                   <select
                     value={selectedDoctorId}
                     onChange={(e) => setSelectedDoctorId(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
+=======
+                  <label className="block font-semibold text-slate-700 mb-1">Assign Doctor *</label>
+                  <select
+                    value={selectedDoctorId}
+                    onChange={(e) => setSelectedDoctorId(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 bg-white"
+>>>>>>> origin/main
                   >
                     {clinicDoctors.map((d) => (
                       <option key={d.id} value={d.id}>{d.name} ({d.specialty})</option>
@@ -155,11 +206,19 @@ export function ReceptionWalkInsPage() {
                 </div>
 
                 <div>
+<<<<<<< HEAD
                   <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Service / Reason *</label>
                   <select
                     value={selectedServiceId}
                     onChange={(e) => setSelectedServiceId(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
+=======
+                  <label className="block font-semibold text-slate-700 mb-1">Service / Reason *</label>
+                  <select
+                    value={selectedServiceId}
+                    onChange={(e) => setSelectedServiceId(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 bg-white"
+>>>>>>> origin/main
                   >
                     {activeClinic.services.map((s) => (
                       <option key={s.id} value={s.id}>{s.name} (₹{s.fee})</option>
@@ -169,13 +228,21 @@ export function ReceptionWalkInsPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Chief Complaint / Symptoms</label>
+=======
+                <label className="block font-semibold text-slate-700 mb-1">Chief Complaint / Symptoms</label>
+>>>>>>> origin/main
                 <textarea
                   rows={2}
                   value={chiefComplaint}
                   onChange={(e) => setChiefComplaint(e.target.value)}
                   placeholder="e.g. Toothache since yesterday; acute pain..."
+<<<<<<< HEAD
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
+=======
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500"
+>>>>>>> origin/main
                 />
               </div>
 
@@ -183,7 +250,11 @@ export function ReceptionWalkInsPage() {
                 variant="primary"
                 size="md"
                 type="submit"
+<<<<<<< HEAD
                 className="w-full font-bold shadow-md shadow-blue-500/20"
+=======
+                className="w-full font-bold bg-blue-700 hover:bg-blue-800"
+>>>>>>> origin/main
               >
                 Issue Token & Seat in Waiting Room
               </Button>
@@ -192,6 +263,7 @@ export function ReceptionWalkInsPage() {
         </div>
 
         {/* Issued Queue Ticket Display */}
+<<<<<<< HEAD
         <div className="lg:col-span-5 space-y-4">
           {issuedTicket ? (
             <Card className="p-6 border-blue-400 dark:border-blue-600/50 bg-blue-50/50 dark:bg-blue-950/20 text-center space-y-4 shadow-lg">
@@ -217,6 +289,33 @@ export function ReceptionWalkInsPage() {
                 <div className="flex justify-between items-center">
                   <span className="text-slate-500 dark:text-slate-400">Service:</span>
                   <span className="text-slate-700 dark:text-slate-300 font-medium">{issuedTicket.serviceName}</span>
+=======
+        <div className="md:col-span-5 space-y-4">
+          {issuedTicket ? (
+            <Card className="p-6 border-blue-500 bg-blue-50/40 text-center space-y-4 shadow-md">
+              <span className="text-[10px] uppercase font-bold text-blue-800 tracking-wider">
+                Current Issued Queue Ticket
+              </span>
+              <div className="py-2">
+                <span className="text-4xl font-extrabold text-blue-900 font-mono tracking-tight">
+                  {issuedTicket.token}
+                </span>
+                <p className="text-xs text-slate-500 mt-1">Issued at {issuedTicket.timeIssued}</p>
+              </div>
+
+              <div className="p-3 bg-white rounded-xl border border-blue-200 text-xs text-left space-y-1">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Patient:</span>
+                  <span className="font-bold text-slate-900">{issuedTicket.patientName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Doctor:</span>
+                  <span className="font-semibold text-slate-800">{issuedTicket.doctorName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Service:</span>
+                  <span className="text-slate-700">{issuedTicket.serviceName}</span>
+>>>>>>> origin/main
                 </div>
               </div>
 
@@ -230,24 +329,38 @@ export function ReceptionWalkInsPage() {
               </div>
             </Card>
           ) : (
+<<<<<<< HEAD
             <Card className="p-8 border-dashed border-slate-300 dark:border-slate-800 dark:bg-slate-900/40 text-center space-y-3 text-slate-400 dark:text-slate-500">
               <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
                 <Clock className="w-6 h-6" />
               </div>
               <p className="font-semibold text-slate-700 dark:text-slate-300 text-sm">No active walk-in ticket selected</p>
               <p className="text-xs max-w-xs mx-auto">Complete the form to register a walk-in patient and issue a thermal queue slip.</p>
+=======
+            <Card className="p-6 border-dashed border-slate-300 text-center space-y-2 text-xs text-slate-400">
+              <Clock className="w-8 h-8 text-slate-300 mx-auto" />
+              <p className="font-semibold text-slate-600">No active walk-in ticket selected</p>
+              <p>Complete the form to register a walk-in patient and issue a thermal queue slip.</p>
+>>>>>>> origin/main
             </Card>
           )}
 
           {/* Architecture note */}
+<<<<<<< HEAD
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 space-y-1.5">
             <p className="font-bold text-slate-700 dark:text-slate-300">Offline-Ready Architecture Specification</p>
             <p className="leading-relaxed">
+=======
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 space-y-1">
+            <p className="font-bold text-slate-700">Offline-Ready Architecture Specification</p>
+            <p className="text-[11px] leading-relaxed">
+>>>>>>> origin/main
               Designed for future client-side service worker synchronization. In intermittent connectivity, walk-in tokens queue in memory and reconcile with backend authoritative IDs upon network reconnect.
             </p>
           </div>
         </div>
       </div>
+<<<<<<< HEAD
 
       {/* Today's Walk-in Queue Roster Table */}
       <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-800">
@@ -353,6 +466,8 @@ export function ReceptionWalkInsPage() {
           </div>
         </Card>
       </div>
+=======
+>>>>>>> origin/main
     </div>
   );
 }

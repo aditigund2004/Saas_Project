@@ -145,7 +145,8 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           { label: 'Virtual Consulting', path: '/clinic/virtual-consulting', icon: Video },
           { label: 'Reviews', path: '/clinic/feedback', icon: Star },
           { label: 'Analytics', path: '/clinic/reports', icon: BarChart3 },
-          { label: 'Online Payments', path: '/clinic/finance/invoices', icon: CreditCard }
+          { label: 'Online Payments', path: '/clinic/finance/invoices', icon: CreditCard },
+          { label: 'Referrals & Rewards', path: '/clinic/referrals', icon: Award }
         ]
       },
       {

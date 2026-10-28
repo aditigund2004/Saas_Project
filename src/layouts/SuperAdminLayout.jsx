@@ -24,7 +24,9 @@ import {
   X,
   Sun,
   Moon,
-  ChevronDown
+  ChevronDown,
+  Award,
+  Share2
 } from 'lucide-react';
 import { ToastContainer } from '../components/ui/DemoNotice';
 
@@ -113,6 +115,19 @@ export function SuperAdminLayout() {
         { label: 'Tenant Subscriptions', path: '/superadmin/subscriptions', icon: Layers },
         { label: 'Platform Analytics', path: '/superadmin/analytics', icon: BarChart3 },
         { label: 'SaaS Corporate Finance', path: '/superadmin/finance/overview', icon: CreditCard }
+      ]
+    },
+    {
+      title: 'Referral & Affiliates',
+      items: [
+        { label: 'Referral Dashboard', path: '/superadmin/referrals/dashboard', icon: LayoutDashboard },
+        { label: 'Affiliate Partners', path: '/superadmin/referrals/partners', icon: Users },
+        { label: 'Referral Codes', path: '/superadmin/referrals/codes', icon: Award },
+        { label: 'Referral Tracking', path: '/superadmin/referrals/tracking', icon: Activity },
+        { label: 'Commission Rules', path: '/superadmin/referrals/rules', icon: Layers },
+        { label: 'Commission Ledger', path: '/superadmin/referrals/ledger', icon: CreditCard },
+        { label: 'Payout Management', path: '/superadmin/referrals/payouts', icon: CreditCard },
+        { label: 'Referral Reports', path: '/superadmin/referrals/reports', icon: BarChart3 }
       ]
     },
     {

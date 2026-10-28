@@ -4,6 +4,20 @@ import { ThemeProvider } from './context/ThemeContext';
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { ReferralProvider } from './context/ReferralContext';
+import {
+  ReferralDashboardPage,
+  AffiliatePartnersPage,
+  ReferralCodesPage,
+  ReferralTrackingPage,
+  CommissionRulesPage,
+  CommissionLedgerPage,
+  PayoutManagementPage,
+  ReferralReportsPage,
+  AffiliatePortalPreviewPage
+} from './features/super-admin/referrals';
+import { ClinicReferralsPage } from './features/clinic-admin/ClinicReferralsPage';
+
 
 // Layouts
 import { PublicLayout } from './components/layout/PublicLayout';
@@ -199,6 +213,7 @@ export default function App() {
     <ThemeProvider>
       <AuthProvider>
         <AppProvider>
+        <ReferralProvider>
           <BrowserRouter>
             <Routes>
             {/* Public Marketing & Guest Routes */}
@@ -284,6 +299,18 @@ export default function App() {
               <Route path="/superadmin/email/:tab" element={<EmailManagementPage />} />
               <Route path="/superadmin/platform" element={<PlatformMonitoringPage />} />
               <Route path="/superadmin/activity" element={<PlatformActivityPage />} />
+              {/* Referral & Affiliates Suite */}
+              <Route path="/superadmin/referrals" element={<Navigate to="/superadmin/referrals/dashboard" replace />} />
+              <Route path="/superadmin/referrals/dashboard" element={<ReferralDashboardPage />} />
+              <Route path="/superadmin/referrals/partners" element={<AffiliatePartnersPage />} />
+              <Route path="/superadmin/referrals/codes" element={<ReferralCodesPage />} />
+              <Route path="/superadmin/referrals/tracking" element={<ReferralTrackingPage />} />
+              <Route path="/superadmin/referrals/rules" element={<CommissionRulesPage />} />
+              <Route path="/superadmin/referrals/ledger" element={<CommissionLedgerPage />} />
+              <Route path="/superadmin/referrals/payouts" element={<PayoutManagementPage />} />
+              <Route path="/superadmin/referrals/reports" element={<ReferralReportsPage />} />
+              <Route path="/superadmin/referrals/preview" element={<AffiliatePortalPreviewPage />} />
+
             </Route>
 
             {/* Backward compatibility redirects for /platform/* */}
@@ -338,6 +365,7 @@ export default function App() {
               <Route path="feedback" element={<ClinicFeedbackPage />} />
               <Route path="reports" element={<ClinicReportsPage />} />
               <Route path="subscription" element={<ClinicSubscriptionPage />} />
+              <Route path="referrals" element={<ClinicReferralsPage />} />
               <Route path="certificates" element={<CertificatesPage />} />
               <Route path="virtual-consulting" element={<VirtualConsultingPage />} />
               <Route path="telemedicine" element={<Navigate to="/clinic/virtual-consulting" replace />} />
@@ -494,6 +522,7 @@ export default function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+      </ReferralProvider>
       </AppProvider>
     </AuthProvider>
     </ThemeProvider>

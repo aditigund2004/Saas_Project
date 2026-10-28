@@ -32,12 +32,9 @@ import {
   SaaSRefund,
   SaaSExpense,
   ClinicPaymentRecord,
-<<<<<<< HEAD
   ClinicRefundRecord,
   ReceiptRecord
-=======
-  ClinicRefundRecord
->>>>>>> origin/main
+
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -2203,13 +2200,9 @@ export const DEMO_PLATFORM_METRICS: PlatformMetric = {
 export const DEMO_USERS: Record<string, User> = {
   super_admin: {
     id: 'usr-superadmin',
-<<<<<<< HEAD
     name: 'Super Administrator',
     email: 'superadmin@admin.com',
-=======
-    name: 'Vikramaditya Singhania',
-    email: 'admin@clinicos.health',
->>>>>>> origin/main
+
     phone: '+91 98000 00001',
     role: 'super_admin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -2526,7 +2519,6 @@ export const DEMO_CLINIC_PAYMENTS: ClinicPaymentRecord[] = [
   }
 ];
 
-<<<<<<< HEAD
 export const DEMO_RECEIPTS: ReceiptRecord[] = [
   {
     id: 'rcp-101',
@@ -2598,8 +2590,7 @@ export const DEMO_RECEIPTS: ReceiptRecord[] = [
   }
 ];
 
-=======
->>>>>>> origin/main
+
 export const DEMO_CLINIC_REFUNDS: ClinicRefundRecord[] = [
   {
     id: 'cref-101',

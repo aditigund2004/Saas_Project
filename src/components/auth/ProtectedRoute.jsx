@@ -20,7 +20,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
   // Not signed in: redirect to login with return path
   if (!isAuthenticated || !user) {
     const returnUrl = encodeURIComponent(location.pathname + location.search);
-<<<<<<< HEAD
     if (location.pathname.startsWith('/superadmin')) {
       return <Navigate to={`/superadmin?redirect=${returnUrl}`} replace />;
     }
@@ -31,9 +30,7 @@ export function ProtectedRoute({ allowedRoles, children }) {
       return <Navigate to={`/login/receptionist?redirect=${returnUrl}`} replace />;
     }
     return <Navigate to="/" replace />;
-=======
-    return <Navigate to={`/login?redirect=${returnUrl}`} replace />;
->>>>>>> origin/main
+
   }
 
   // Role validation
@@ -52,7 +49,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
     });
 
     if (!isAllowed) {
-<<<<<<< HEAD
       if (location.pathname.startsWith('/superadmin')) {
         return (
           <Navigate
@@ -64,8 +60,7 @@ export function ProtectedRoute({ allowedRoles, children }) {
           />
         );
       }
-=======
->>>>>>> origin/main
+
       return (
         <Navigate
           to={`/access-denied?attempted=${user.role}&required=${allowedRoles.join(',')}&from=${encodeURIComponent(location.pathname)}`}

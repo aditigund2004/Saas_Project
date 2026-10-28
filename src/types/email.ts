@@ -95,11 +95,9 @@ export interface EmailActivityLog {
   renderedHtml?: string;
   renderedText?: string;
   retryCount?: number;
-<<<<<<< HEAD
   themeId?: string;
   themeName?: string;
-=======
->>>>>>> origin/main
+
 }
 
 export interface EmailSettings {

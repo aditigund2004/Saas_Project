@@ -52,7 +52,6 @@ export function PatientDoctorDetailPage() {
       </div>
 
       {/* Hero Profile Card */}
-<<<<<<< HEAD
       <Card className="p-6 sm:p-7 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start gap-6">
           <img
@@ -67,49 +66,24 @@ export function PatientDoctorDetailPage() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">{doctor.name}</h1>
                 <p className="text-sm font-bold text-blue-600 dark:text-blue-400 mt-0.5">{doctor.specialty}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{doctor.qualifications}</p>
-=======
-      <Card className="p-6 border-slate-200 shadow-xs">
-        <div className="flex flex-col sm:flex-row items-start gap-5">
-          <img
-            src={doctor.avatar}
-            alt={doctor.name}
-            className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-blue-100 shadow-xs shrink-0"
-          />
 
-          <div className="flex-1 min-w-0 space-y-2">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <h1 className="text-2xl font-black text-slate-900 tracking-tight">{doctor.name}</h1>
-                <p className="text-xs font-bold text-blue-700">{doctor.specialty}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{doctor.qualifications}</p>
->>>>>>> origin/main
               </div>
 
               <div className="flex items-center gap-3">
                 <div className="text-right">
-<<<<<<< HEAD
                   <div className="flex items-center gap-1.5 text-amber-500 font-bold text-base justify-end">
                     <Star className="w-4 h-4 fill-amber-400" />
                     <span>{doctor.rating || 4.9}</span>
                   </div>
                   <span className="text-xs text-slate-400 dark:text-slate-500 font-mono">
-=======
-                  <div className="flex items-center gap-1 text-amber-500 font-bold text-sm justify-end">
-                    <Star className="w-4 h-4 fill-amber-400" />
-                    <span>{doctor.rating || 4.9}</span>
-                  </div>
-                  <span className="text-[10px] text-slate-400 font-mono">
->>>>>>> origin/main
+
                     {doctor.reviewsCount || 110}+ Verified Reviews
                   </span>
                 </div>
 
                 <Link to={`/patient/appointments/book?clinicId=${doctor.clinicId}&doctorId=${doctor.id}`}>
-<<<<<<< HEAD
                   <Button variant="primary" size="md" icon={Calendar} className="shadow-md shadow-blue-500/20 font-bold">
-=======
-                  <Button variant="primary" size="md" icon={Calendar}>
->>>>>>> origin/main
+
                     Book Consultation
                   </Button>
                 </Link>
@@ -118,7 +92,6 @@ export function PatientDoctorDetailPage() {
 
             {/* Quick Metadata Badges */}
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-<<<<<<< HEAD
               <span className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">
                 Reg No: <strong className="font-mono">{doctor.registrationNumber || 'MMC-2012-08819'}</strong>
               </span>
@@ -126,15 +99,7 @@ export function PatientDoctorDetailPage() {
                 {doctor.experienceYears} Years Clinical Experience
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-bold font-mono border border-blue-200/50 dark:border-blue-900/50">
-=======
-              <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium">
-                Reg No: <strong className="font-mono">{doctor.registrationNumber || 'MMC-2012-08819'}</strong>
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 font-medium">
-                {doctor.experienceYears} Years Clinical Experience
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 font-bold font-mono">
->>>>>>> origin/main
+
                 Fee: ₹{doctor.consultationFee}
               </span>
             </div>
@@ -146,16 +111,12 @@ export function PatientDoctorDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column (2 Cols): Bio, Clinical Focus, Schedule */}
         <div className="lg:col-span-2 space-y-6">
-<<<<<<< HEAD
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-=======
-          <Card>
->>>>>>> origin/main
+
             <CardHeader
               title="Doctor Biography & Clinical Focus"
               subtitle="Medical training, procedural expertise, and clinical approach"
             />
-<<<<<<< HEAD
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               {doctor.bio}
             </p>
@@ -164,27 +125,14 @@ export function PatientDoctorDetailPage() {
               <div>
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Typical Slot Duration</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 font-mono mt-1 text-sm block">
-=======
-            <p className="text-xs text-slate-600 leading-relaxed">
-              {doctor.bio}
-            </p>
 
-            <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-4 text-xs">
-              <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Typical Slot Duration</span>
-                <span className="font-bold text-slate-900 font-mono mt-0.5 block">
->>>>>>> origin/main
                   {doctor.appointmentDurationMinutes || 30} Minutes
                 </span>
               </div>
               <div>
-<<<<<<< HEAD
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Mode</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 mt-1 text-sm block">
-=======
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Consultation Mode</span>
-                <span className="font-bold text-slate-900 mt-0.5 block">
->>>>>>> origin/main
+
                   In-Person Clinic Consultation
                 </span>
               </div>
@@ -192,16 +140,12 @@ export function PatientDoctorDetailPage() {
           </Card>
 
           {/* Clinical Working Hours */}
-<<<<<<< HEAD
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-=======
-          <Card>
->>>>>>> origin/main
+
             <CardHeader
               title="Availability Schedule"
               subtitle="Standard clinical consultation timings"
             />
-<<<<<<< HEAD
             <div className="space-y-3.5 text-sm">
               <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <div>
@@ -216,22 +160,7 @@ export function PatientDoctorDetailPage() {
 
               <div className="p-3.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 text-blue-950 dark:text-blue-200 text-xs flex items-center gap-2.5 border border-blue-200 dark:border-blue-900/50">
                 <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-=======
-            <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-                <div>
-                  <span className="font-bold text-slate-900 block">Consulting Days:</span>
-                  <span className="text-blue-700 font-semibold">{doctor.availableDays?.join(', ')}</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-slate-900 block">Working Hours:</span>
-                  <span className="font-mono text-slate-600">{doctor.workingHours}</span>
-                </div>
-              </div>
 
-              <div className="p-3 rounded-lg bg-blue-50 text-blue-900 text-xs flex items-center gap-2">
-                <Clock className="w-4 h-4 text-blue-600 shrink-0" />
->>>>>>> origin/main
                 <span>
                   Exact slots are verified by the clinic receptionist to prevent double-booking and accommodate hospital rounds.
                 </span>
@@ -242,7 +171,6 @@ export function PatientDoctorDetailPage() {
 
         {/* Right Column (1 Col): Practicing Clinic Details */}
         <div className="space-y-6">
-<<<<<<< HEAD
           <Card padding="none" className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
             <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800">
               <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">Practicing Clinic</h3>
@@ -270,46 +198,15 @@ export function PatientDoctorDetailPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-slate-400 shrink-0" />
-=======
-          <Card padding="none">
-            <div className="p-4 border-b border-slate-200">
-              <h3 className="text-sm font-bold text-slate-900">Practicing Clinic</h3>
-              <p className="text-xs text-slate-500">Official clinic affiliation</p>
-            </div>
 
-            {clinic && (
-              <div className="p-4 space-y-3 text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">{clinic.logo || '🏥'}</span>
-                  <div>
-                    <h4 className="font-bold text-slate-900">{clinic.name}</h4>
-                    <p className="text-[11px] text-blue-700 font-medium">{clinic.specialty}</p>
-                  </div>
-                </div>
-
-                <p className="text-[11px] text-slate-600 line-clamp-2">
-                  {clinic.description}
-                </p>
-
-                <div className="space-y-1.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600">
-                  <div className="flex items-start gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                    <span>{clinic.address}, {clinic.city}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
->>>>>>> origin/main
                     <span className="font-mono">{clinic.phone}</span>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <Link to={`/patient/clinics/${clinic.id}`}>
-<<<<<<< HEAD
                     <Button variant="outline" size="sm" className="w-full text-xs font-medium">
-=======
-                    <Button variant="outline" size="xs" className="w-full text-xs">
->>>>>>> origin/main
+
                       View Clinic Profile &rarr;
                     </Button>
                   </Link>
@@ -319,7 +216,6 @@ export function PatientDoctorDetailPage() {
           </Card>
 
           {/* Direct Booking Card */}
-<<<<<<< HEAD
           <Card className="p-5 bg-gradient-to-br from-blue-600 to-blue-700 text-white space-y-3.5 shadow-md">
             <h3 className="font-bold text-base">Ready for an Appointment?</h3>
             <p className="text-xs text-blue-100 leading-relaxed">
@@ -327,15 +223,7 @@ export function PatientDoctorDetailPage() {
             </p>
             <Link to={`/patient/appointments/book?clinicId=${doctor.clinicId}&doctorId=${doctor.id}`}>
               <Button variant="secondary" size="md" className="w-full text-xs font-bold bg-white text-blue-700 hover:bg-blue-50 shadow-sm">
-=======
-          <Card className="p-4 bg-gradient-to-br from-blue-600 to-blue-700 text-white space-y-3">
-            <h3 className="font-bold text-base">Ready for an Appointment?</h3>
-            <p className="text-xs text-blue-100">
-              Submit your preferred date and time. Our receptionist will verify the slot and notify you immediately.
-            </p>
-            <Link to={`/patient/appointments/book?clinicId=${doctor.clinicId}&doctorId=${doctor.id}`}>
-              <Button variant="secondary" size="md" className="w-full text-xs font-bold bg-white text-blue-700 hover:bg-blue-50">
->>>>>>> origin/main
+
                 Start Booking Request &rarr;
               </Button>
             </Link>

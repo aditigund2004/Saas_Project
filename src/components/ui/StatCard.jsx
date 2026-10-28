@@ -35,7 +35,6 @@ export function StatCard({ title, value, change, trend = 'up', icon: Icon, color
                 : trend === 'down'
                 ? 'text-rose-700 bg-rose-50 dark:text-rose-300 dark:bg-rose-950/50 font-semibold'
                 : 'text-slate-600 bg-slate-100 dark:text-slate-400 dark:bg-slate-800'
-
             }`}
           >
             {trend === 'up' ? '↑' : trend === 'down' ? '↓' : '•'} {change}
@@ -43,7 +42,6 @@ export function StatCard({ title, value, change, trend = 'up', icon: Icon, color
         )}
       </div>
       {subtitle && <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 line-clamp-1">{subtitle}</p>}
-
     </Card>
   );
 }

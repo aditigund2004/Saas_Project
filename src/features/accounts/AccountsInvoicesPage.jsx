@@ -132,14 +132,12 @@ export function AccountsInvoicesPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Patient Invoices & Receipts</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Generate OPD bills, simulate digital collections, and maintain audit trails
           </p>
         </div>
 
         <Button variant="primary" size="sm" onClick={() => setCreateModalOpen(true)} className="font-semibold shadow-sm">
           <Plus className="w-4 h-4 mr-1.5" />
-
           Create New Invoice
         </Button>
       </div>
@@ -148,14 +146,12 @@ export function AccountsInvoicesPage() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by invoice number (e.g. INV-2026-0391) or patient..."
             className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
           />
         </div>
 
@@ -163,7 +159,6 @@ export function AccountsInvoicesPage() {
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
           className="text-xs border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
         >
           <option value="All">All Invoices</option>
           <option value="Paid">Fully Paid</option>
@@ -180,7 +175,6 @@ export function AccountsInvoicesPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                 <th className="px-4 py-3">Invoice #</th>
                 <th className="px-4 py-3">Patient Name</th>
                 <th className="px-4 py-3">Date Billed</th>
@@ -195,7 +189,6 @@ export function AccountsInvoicesPage() {
               {filteredInvoices.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No matching invoices found.
                   </td>
                 </tr>
@@ -225,7 +218,6 @@ export function AccountsInvoicesPage() {
                         {formatCurrency(inv.amountPaid || 0)}
                       </td>
                       <td className="px-4 py-3.5">
-
                         <Badge
                           variant={
                             inv.status === 'Paid' ? 'success' :
@@ -238,7 +230,6 @@ export function AccountsInvoicesPage() {
                         </Badge>
                       </td>
                       <td className="px-4 py-3.5 text-right whitespace-nowrap">
-
                         <div className="flex items-center justify-end gap-1.5">
                           {inv.status !== 'Paid' && inv.status !== 'Refunded' && (
                             <Button
@@ -248,7 +239,6 @@ export function AccountsInvoicesPage() {
                               className="h-8 text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100"
                             >
                               <CreditCard className="w-3.5 h-3.5 mr-1" />
-
                               Simulate Pay
                             </Button>
                           )}
@@ -260,7 +250,6 @@ export function AccountsInvoicesPage() {
                             title="View Invoice Receipt"
                           >
                             <Eye className="w-4 h-4" />
-
                           </Button>
                         </div>
                       </td>
@@ -296,7 +285,6 @@ export function AccountsInvoicesPage() {
             <form onSubmit={handleCreate} className="space-y-3.5 text-xs">
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Select Patient</label>
-
                 <select
                   value={newInv.patientId}
                   onChange={(e) => {
@@ -311,7 +299,6 @@ export function AccountsInvoicesPage() {
                     }
                   }}
                   className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 >
                   {patients.map((p) => (
                     <option key={p.id} value={p.id}>{p.name} ({p.patientIdNumber})</option>
@@ -321,7 +308,6 @@ export function AccountsInvoicesPage() {
 
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Line Item Description *</label>
-
                 <input
                   required
                   type="text"
@@ -335,7 +321,6 @@ export function AccountsInvoicesPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Quantity</label>
-
                   <input
                     type="number"
                     min="1"
@@ -346,14 +331,12 @@ export function AccountsInvoicesPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Unit Fee (₹)</label>
-
                   <input
                     type="number"
                     min="0"
                     value={newInv.unitPrice}
                     onChange={(e) => setNewInv({ ...newInv, unitPrice: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
@@ -361,7 +344,6 @@ export function AccountsInvoicesPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Discount (₹)</label>
-
                   <input
                     type="number"
                     min="0"
@@ -372,14 +354,12 @@ export function AccountsInvoicesPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">GST Tax (₹)</label>
-
                   <input
                     type="number"
                     min="0"
                     value={newInv.tax}
                     onChange={(e) => setNewInv({ ...newInv, tax: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
@@ -387,13 +367,11 @@ export function AccountsInvoicesPage() {
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex justify-between items-center font-bold">
                 <span className="text-slate-700 dark:text-slate-300">Net Total Amount:</span>
                 <span className="font-mono text-blue-800 dark:text-blue-300 text-sm">
-
                   {formatCurrency((Number(newInv.itemQuantity) * Number(newInv.unitPrice)) - Number(newInv.discount) + Number(newInv.tax))}
                 </span>
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setCreateModalOpen(false)}>
                   Cancel
                 </Button>
@@ -437,7 +415,6 @@ export function AccountsInvoicesPage() {
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
                 <span className="text-slate-600 dark:text-slate-300">Patient Balance Due:</span>
                 <strong className="font-mono text-slate-900 dark:text-white text-sm">
-
                   {formatCurrency(selectedInvoice.totalAmount - (selectedInvoice.amountPaid || 0))}
                 </strong>
               </div>
@@ -448,7 +425,6 @@ export function AccountsInvoicesPage() {
                   value={paymentData.method}
                   onChange={(e) => setPaymentData({ ...paymentData, method: e.target.value })}
                   className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 >
                   <option value="UPI / Dynamic QR">UPI / Dynamic QR Scan</option>
                   <option value="POS Card Swipe">POS Credit / Debit Card Terminal</option>
@@ -459,7 +435,6 @@ export function AccountsInvoicesPage() {
 
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Amount to Record (₹)</label>
-
                 <input
                   required
                   type="number"
@@ -472,7 +447,6 @@ export function AccountsInvoicesPage() {
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setPayModalOpen(false)}>
                   Cancel
                 </Button>
@@ -526,7 +500,6 @@ export function AccountsInvoicesPage() {
                       <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Qty: {item.quantity} × {formatCurrency(item.unitPrice)}</div>
                     </div>
                     <div className="font-mono font-bold text-slate-900 dark:text-white text-sm">{formatCurrency(item.total)}</div>
-
                   </div>
                 ))}
               </div>
@@ -549,7 +522,6 @@ export function AccountsInvoicesPage() {
                   <span>{formatCurrency(viewInvoice.totalAmount)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-emerald-700 dark:text-emerald-400 text-sm">
-
                   <span>Amount Paid:</span>
                   <span>{formatCurrency(viewInvoice.amountPaid || 0)}</span>
                 </div>
@@ -557,7 +529,6 @@ export function AccountsInvoicesPage() {
             </div>
 
             <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="secondary" size="sm" onClick={() => setViewInvoice(null)}>
                 Close
               </Button>
@@ -568,4 +539,3 @@ export function AccountsInvoicesPage() {
     </div>
   );
 }
-

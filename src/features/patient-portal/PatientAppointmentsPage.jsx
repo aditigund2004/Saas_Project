@@ -16,9 +16,13 @@ import {
   FileText,
   Printer,
   AlertCircle,
-  Star
+  Star,
+  CreditCard,
+  CheckCircle2,
+  Receipt
 } from 'lucide-react';
 import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
+import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
 
 export function PatientAppointmentsPage() {
   const {
@@ -33,6 +37,7 @@ export function PatientAppointmentsPage() {
   } = useApp();
   const [filter, setFilter] = useState('All');
   const [cancelModal, setCancelModal] = useState({ isOpen: false, apt: null });
+  const [paymentModalApt, setPaymentModalApt] = useState(null);
 
   const activePatient =
     patients.find((p) => p.id === activePatientId || p.patientIdNumber === activePatientId) ||
@@ -45,7 +50,6 @@ export function PatientAppointmentsPage() {
       a.patientId === activePatient?.id ||
       a.patientId === activePatient?.patientIdNumber ||
       a.patientName === activePatient?.name
-
   );
 
   // Separate requests from confirmed/historical appointments
@@ -107,7 +111,6 @@ export function PatientAppointmentsPage() {
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">My Consultations & Appointments</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             View upcoming visits, check in at reception, and download consultation summaries.
           </p>
         </div>
@@ -117,14 +120,12 @@ export function PatientAppointmentsPage() {
             <Link to="/patient/appointments/requests">
               <Button variant="outline" size="md" className="relative border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 font-semibold">
                 <Clock className="w-4 h-4 mr-1.5 text-amber-600 dark:text-amber-400" />
-
                 Requests Queue ({pendingRequestsCount})
               </Button>
             </Link>
           )}
           <Link to="/patient/appointments/book">
             <Button variant="primary" size="md" icon={PlusCircle} className="shadow-md shadow-blue-500/20 font-bold">
-
               Book Consultation
             </Button>
           </Link>
@@ -142,7 +143,6 @@ export function PatientAppointmentsPage() {
                 filter === f
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'
-
               }`}
             >
               {f}
@@ -153,7 +153,6 @@ export function PatientAppointmentsPage() {
         <Link
           to="/patient/appointments/requests"
           className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5"
-
         >
           <span>Looking for unverified booking requests?</span>
           <span className="font-bold">View Requests Page &rarr;</span>
@@ -171,6 +170,7 @@ export function PatientAppointmentsPage() {
                 <th className="p-4">Clinic Name</th>
                 <th className="p-4">Doctor & Service</th>
                 <th className="p-4">Date & Time</th>
+                <th className="p-4">Consultation Fee</th>
                 <th className="p-4">Queue / Mode</th>
                 <th className="p-4">Status</th>
                 <th className="p-4 text-right">Actions</th>
@@ -179,16 +179,16 @@ export function PatientAppointmentsPage() {
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="p-10 text-center text-slate-400 dark:text-slate-500 text-sm">
-
+                  <td colSpan={9} className="p-10 text-center text-slate-400 dark:text-slate-500 text-sm">
                     No appointments found matching this filter.
                   </td>
                 </tr>
               ) : (
                 filtered.map((apt, idx) => {
-
                   const isUpcoming = ['Confirmed', 'Patient Checked In', 'Checked In'].includes(apt.status);
                   const isCompleted = apt.status === 'Completed';
+                  const fee = Number(apt.consultationFee) || 600;
+                  const isPaid = apt.paymentStatus === 'Paid';
 
                   return (
                     <tr key={apt.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
@@ -211,6 +211,20 @@ export function PatientAppointmentsPage() {
                         <div className="text-xs text-slate-500 dark:text-slate-400">{apt.confirmedTime || apt.time}</div>
                       </td>
                       <td className="p-4">
+                        <div className="font-mono font-bold text-slate-900 dark:text-slate-100">
+                          ₹{fee.toLocaleString('en-IN')}
+                        </div>
+                        {isPaid ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                            <CheckCircle2 className="w-3 h-3" /> Paid
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                            <Clock className="w-3 h-3" /> Fee Due
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-4">
                         {apt.queueNumber ? (
                           <span className="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-mono text-xs font-bold border border-blue-200/50 dark:border-blue-900/50">
                             Token {apt.queueNumber}
@@ -223,9 +237,26 @@ export function PatientAppointmentsPage() {
                         {getStatusBadge(apt.status)}
                       </td>
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
+                        {!isPaid && apt.status !== 'Cancelled' && apt.status !== 'Rejected' && (
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            icon={CreditCard}
+                            onClick={() => setPaymentModalApt(apt)}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                          >
+                            Pay Fee
+                          </Button>
+                        )}
+                        {isPaid && (
+                          <Link to="/patient/receipts">
+                            <Button variant="ghost" size="sm" icon={Receipt} className="text-emerald-700 dark:text-emerald-400">
+                              Receipt
+                            </Button>
+                          </Link>
+                        )}
                         <Link to={`/patient/appointments/${apt.id}`}>
                           <Button variant="outline" size="sm" icon={Eye}>
-
                             Details
                           </Button>
                         </Link>
@@ -235,7 +266,6 @@ export function PatientAppointmentsPage() {
                             size="sm"
                             onClick={() => setCancelModal({ isOpen: true, apt })}
                             className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30"
-
                           >
                             Cancel
                           </Button>
@@ -254,7 +284,6 @@ export function PatientAppointmentsPage() {
                               </Button>
                             </Link>
                           </>
-
                         )}
                       </td>
                     </tr>
@@ -289,6 +318,13 @@ export function PatientAppointmentsPage() {
           </div>
         </div>
       </Modal>
+
+      {/* Doctor Consultation Fee Payment Gateway Modal */}
+      <DoctorPaymentModal
+        isOpen={!!paymentModalApt}
+        onClose={() => setPaymentModalApt(null)}
+        appointment={paymentModalApt}
+      />
     </div>
   );
 }

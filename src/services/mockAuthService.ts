@@ -15,14 +15,12 @@ export const SUPERADMIN_CREDENTIALS = {
 
 export const SUPERADMIN_DEMO_CREDENTIALS = SUPERADMIN_CREDENTIALS;
 
-
 export const SEEDED_DEMO_USERS: DemoUser[] = [
   // 1. SaaS Superadmin (Platform Business Owner)
   {
     id: 'usr-superadmin',
     name: 'Super Administrator',
     email: 'superadmin@admin.com',
-
     phone: '+91 98000 00001',
     role: 'superadmin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -379,7 +377,6 @@ export class MockAuthService {
       if (superadminUser) return superadminUser;
     }
 
-
     return allUsers.find(
       (u) =>
         normalizeEmail(u.email) === normalized ||
@@ -401,7 +398,6 @@ export class MockAuthService {
           error: 'No administrator account found with this email. Please verify credentials.'
         };
       }
-
       return {
         success: false,
         error: 'No demo account found matching this email or phone number. Check credentials or register.'
@@ -438,7 +434,6 @@ export class MockAuthService {
           error: 'Password must be at least 4 characters long in demo mode.'
         };
       }
-
     }
 
     // Resolve active clinic if specified
@@ -544,7 +539,6 @@ export class MockAuthService {
 
     return newUser;
   }
-
 
   // Simulate Email Verification
   static async verifyEmail(tokenOrEmail: string): Promise<{ success: boolean; user?: DemoUser; error?: string }> {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { verificationService } from '../../services/verificationService';
 import { ShieldCheck, ShieldAlert } from 'lucide-react';
-
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
@@ -26,7 +25,6 @@ export function PrescriptionVerificationPage() {
       <div className="max-w-xl mx-auto px-4 py-24 text-center space-y-4">
         <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-xs text-slate-500 dark:text-slate-400">Querying prescription verification registry...</p>
-
       </div>
     );
   }
@@ -48,7 +46,6 @@ export function PrescriptionVerificationPage() {
           <code className="font-mono text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800">
             {verificationId}
           </code>
-
         </p>
       </div>
 
@@ -62,7 +59,6 @@ export function PrescriptionVerificationPage() {
             </div>
           ) : (
             <div className="w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-
               <ShieldAlert className="w-10 h-10" />
             </div>
           )}
@@ -79,7 +75,6 @@ export function PrescriptionVerificationPage() {
             </span>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               Prescription Ref: <strong className="font-mono text-slate-900 dark:text-white">{result?.prescriptionNumber}</strong>
-
             </p>
           </div>
         </div>
@@ -108,7 +103,6 @@ export function PrescriptionVerificationPage() {
             <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-semibold">Scheduled Follow-Up</span>
             <p className="font-bold text-slate-900 dark:text-white text-sm">{result?.followUpDate || 'As advised'}</p>
             <p className="text-slate-500 dark:text-slate-400">Follow-up appointment window</p>
-
           </div>
         </div>
 
@@ -119,7 +113,6 @@ export function PrescriptionVerificationPage() {
             Healthcare Privacy Safeguard
           </p>
           <p className="text-blue-850 dark:text-blue-300 leading-relaxed text-[11px]">
-
             In compliance with patient confidentiality standards, specific medical diagnosis notes, full clinical histories, and prescription dosages are deliberately withheld from public QR scanning views. Only verified healthcare practitioners and the authenticated patient may access complete clinical documentation.
           </p>
         </div>
@@ -129,14 +122,12 @@ export function PrescriptionVerificationPage() {
           <p className="font-semibold">Sample Verification Demo Mode</p>
           <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">
             {result?.verificationNotice}
-
           </p>
         </div>
 
         {/* Bottom Actions */}
         <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs">
           <Link to="/" className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium">
-
             ← Return to Public Home
           </Link>
           <Link to="/clinics">
@@ -149,4 +140,3 @@ export function PrescriptionVerificationPage() {
     </div>
   );
 }
-

@@ -32,7 +32,6 @@ export function AccountsServicesPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinical Service Tariffs</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Standard OPD treatment procedures, standard consultation durations, and fee schedule
           </p>
         </div>
@@ -40,14 +39,12 @@ export function AccountsServicesPage() {
 
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search clinical procedures and categories..."
           className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm"
-
         />
       </div>
 
@@ -60,7 +57,6 @@ export function AccountsServicesPage() {
                 <Badge variant="teal" size="sm">{srv.category}</Badge>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-
                 {srv.description}
               </p>
             </div>
@@ -71,7 +67,6 @@ export function AccountsServicesPage() {
                 <span>{srv.durationMinutes} mins</span>
               </div>
               <div className="font-mono font-bold text-blue-700 dark:text-blue-400 text-base">
-
                 {formatCurrency(srv.fee)}
               </div>
             </div>
@@ -81,4 +76,3 @@ export function AccountsServicesPage() {
     </div>
   );
 }
-

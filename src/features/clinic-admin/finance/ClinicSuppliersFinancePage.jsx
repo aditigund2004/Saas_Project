@@ -24,7 +24,6 @@ export function ClinicSuppliersFinancePage() {
   const {
     suppliers = [],
     purchaseOrders = [],
-
     showToast,
     formatCurrency,
     activeClinic
@@ -68,7 +67,6 @@ export function ClinicSuppliersFinancePage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Medical Supply Chain Finance</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Distributor & Supplier Payables</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Manage commercial distributor liabilities, credit lines, and procurement purchase order settlements.
           </p>
         </div>
@@ -80,7 +78,6 @@ export function ClinicSuppliersFinancePage() {
             onClick={() => showToast('Exporting medical distributor payables ledger CSV...')}
           >
             <Download className="w-4 h-4 mr-1.5" />
-
             Export Ledger
           </Button>
         </div>
@@ -99,7 +96,6 @@ export function ClinicSuppliersFinancePage() {
             {formatCurrency(totalPayables || 94500)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Across {suppliers.length} authorized clinical vendors
           </div>
         </Card>
@@ -115,7 +111,6 @@ export function ClinicSuppliersFinancePage() {
             {formatCurrency(totalSettledMTD)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Via corporate current account RTGS / NEFT
           </div>
         </Card>
@@ -131,7 +126,6 @@ export function ClinicSuppliersFinancePage() {
             Net 30 Days
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Zero overdue penalties accrued
           </div>
         </Card>
@@ -142,7 +136,6 @@ export function ClinicSuppliersFinancePage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search distributor by company or contact person..."
@@ -152,7 +145,6 @@ export function ClinicSuppliersFinancePage() {
             />
           </div>
           <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Showing {filteredSuppliers.length} active suppliers
           </span>
         </div>
@@ -162,7 +154,6 @@ export function ClinicSuppliersFinancePage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Distributor Name</th>
                 <th className="p-3.5">Category Supplied</th>
                 <th className="p-3.5">Credit Terms</th>
@@ -199,20 +190,17 @@ export function ClinicSuppliersFinancePage() {
                     </td>
                     <td className="p-3.5">
                       <Badge variant="success" size="sm">Active Vendor</Badge>
-
                     </td>
                     <td className="p-3.5 text-right">
                       <Button
                         variant="primary"
                         size="xs"
-
                         onClick={() => {
                           setSelectedSupplierForPayment(s);
                           setPaymentAmount(balance);
                         }}
                       >
                         <CreditCard className="w-3.5 h-3.5 mr-1" />
-
                         Settle Dues
                       </Button>
                     </td>
@@ -240,7 +228,6 @@ export function ClinicSuppliersFinancePage() {
               <div className="flex justify-between">
                 <span className="text-slate-600 dark:text-slate-400">Current Ledger Balance:</span>
                 <span className="font-mono font-bold text-amber-600 dark:text-amber-400 tabular-nums">
-
                   {formatCurrency(paymentAmount || 25000)}
                 </span>
               </div>
@@ -248,7 +235,6 @@ export function ClinicSuppliersFinancePage() {
 
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Disbursement Amount (₹)</label>
-
               <input
                 type="number"
                 required
@@ -256,7 +242,6 @@ export function ClinicSuppliersFinancePage() {
                 value={paymentAmount}
                 onChange={(e) => setPaymentAmount(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-
               />
             </div>
 
@@ -266,7 +251,6 @@ export function ClinicSuppliersFinancePage() {
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
               >
                 <option value="Bank Transfer (NEFT)">Corporate Current Account NEFT</option>
                 <option value="Bank Transfer (RTGS)">High-Value RTGS Immediate Settlement</option>
@@ -276,7 +260,6 @@ export function ClinicSuppliersFinancePage() {
             </div>
 
             <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs">
-
               Submitting records this payout in the clinic expense ledger and adjusts the vendor payable liability.
             </div>
 
@@ -286,7 +269,6 @@ export function ClinicSuppliersFinancePage() {
               </Button>
               <Button variant="primary" type="submit">
                 <CheckCircle2 className="w-4 h-4 mr-1.5" />
-
                 Confirm Payout
               </Button>
             </div>
@@ -296,4 +278,3 @@ export function ClinicSuppliersFinancePage() {
     </div>
   );
 }
-

@@ -17,7 +17,6 @@ import {
   DollarSign,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 
 export function PatientDoctorsPage() {
@@ -29,7 +28,6 @@ export function PatientDoctorsPage() {
   const [clinicFilter, setClinicFilter] = useState('All');
   const [feeFilter, setFeeFilter] = useState('All');
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-
 
   const specialtiesList = [
     'All',
@@ -78,14 +76,12 @@ export function PatientDoctorsPage() {
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Search Specialist Doctors</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Compare doctor credentials, patient ratings, clinic affiliations, and request direct consultations.
           </p>
         </div>
 
         <Link to="/patient/appointments/book">
           <Button variant="primary" size="md" icon={Calendar} className="shadow-md shadow-blue-500/20 font-bold">
-
             Guided Booking Wizard &rarr;
           </Button>
         </Link>
@@ -95,13 +91,11 @@ export function PatientDoctorsPage() {
       <div className="p-3.5 bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 rounded-xl text-xs text-blue-950 dark:text-blue-200 flex items-center justify-between">
         <span className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-
           <span>
             <strong>Multi-Clinic Network:</strong> You can book with specialists across any of the 5 participating clinics. Medical records remain isolated per clinic.
           </span>
         </span>
         <span className="hidden sm:inline-block px-2.5 py-0.5 rounded bg-blue-600 text-white font-mono text-[10px] font-bold">
-
           Cross-Clinic Search
         </span>
       </div>
@@ -111,7 +105,6 @@ export function PatientDoctorsPage() {
         <div className="flex flex-col md:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               value={searchTerm}
@@ -124,14 +117,12 @@ export function PatientDoctorsPage() {
           <div className="flex items-center gap-2.5 flex-wrap">
             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
               <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
               <span>Clinic:</span>
             </div>
             <select
               value={clinicFilter}
               onChange={(e) => setClinicFilter(e.target.value)}
               className="text-sm border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 bg-white dark:bg-slate-950 dark:text-slate-100 font-medium"
-
             >
               <option value="All">All 5 Clinics</option>
               {clinics.map((c) => (
@@ -140,14 +131,12 @@ export function PatientDoctorsPage() {
             </select>
 
             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium ml-1">
-
               <span>Fee:</span>
             </div>
             <select
               value={feeFilter}
               onChange={(e) => setFeeFilter(e.target.value)}
               className="text-sm border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 bg-white dark:bg-slate-950 dark:text-slate-100 font-medium"
-
             >
               <option value="All">All Tariffs</option>
               <option value="under800">Under ₹800</option>
@@ -160,7 +149,6 @@ export function PatientDoctorsPage() {
         {/* Specialty Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-2 border-t border-slate-100 dark:border-slate-800">
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap mr-1">
-
             Specialty:
           </span>
           {specialtiesList.map((spec) => (
@@ -171,7 +159,6 @@ export function PatientDoctorsPage() {
                 specialtyFilter === spec
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-
               }`}
             >
               {spec}
@@ -413,7 +400,6 @@ export function PatientDoctorsPage() {
           })}
         </div>
       )}
-
     </div>
   );
 }

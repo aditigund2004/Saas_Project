@@ -24,7 +24,6 @@ export function PlatformBillingPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Subscription Invoices</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             B2B subscription invoices issued to clinic organizations for ClinicOS platform usage.
-
           </p>
         </div>
 
@@ -46,7 +45,6 @@ export function PlatformBillingPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title="Recent Subscription Invoices"
           subtitle="Showing transaction references and automated payment gateway webhooks"
@@ -80,7 +78,6 @@ export function PlatformBillingPage() {
                   <td className="p-4 text-slate-600 dark:text-slate-300">{inv.method}</td>
                   <td className="p-4 font-mono text-slate-500 dark:text-slate-400 text-xs">{inv.ref}</td>
                   <td className="p-4">
-
                     <Badge variant={inv.status}>{inv.status}</Badge>
                   </td>
                 </tr>
@@ -92,4 +89,3 @@ export function PlatformBillingPage() {
     </div>
   );
 }
-

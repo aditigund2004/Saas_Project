@@ -18,7 +18,6 @@ import {
   List,
   LayoutGrid,
   Eye
-
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +25,6 @@ export function PatientRecordsPage() {
   const { encounters, appointments, currentUser, activeClinic, showToast } = useApp();
   const [selectedEncounter, setSelectedEncounter] = useState(null);
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-
 
   // Filter records strictly for current patient
   const patientAppointments = appointments.filter(
@@ -45,7 +43,6 @@ export function PatientRecordsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Health Records</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">My Clinical Visit Summaries</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Authorized consultation records, clinical diagnoses, and recorded vitals from your clinic visits.
           </p>
         </div>
@@ -95,7 +92,6 @@ export function PatientRecordsPage() {
         <div className="text-xs text-blue-950 dark:text-blue-200">
           <p className="font-bold text-sm">Confidential Health Partition</p>
           <p className="text-blue-800 dark:text-blue-300 text-xs mt-0.5">
-
             Your medical records are strictly partitioned. In this prototype, only your verified patient encounters ({currentUser?.name}) are displayed.
           </p>
         </div>
@@ -215,7 +211,6 @@ export function PatientRecordsPage() {
                   <div>
                     <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">{enc.doctorName}</h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-
                       {activeClinic.name} · Encounter Ref: <span className="font-mono">{enc.id}</span>
                     </p>
                   </div>
@@ -223,7 +218,6 @@ export function PatientRecordsPage() {
 
                 <div className="flex items-center gap-2.5">
                   <span className="text-xs font-mono text-slate-600 dark:text-slate-400 font-medium">
-
                     📅 {enc.createdAt ? new Date(enc.createdAt).toISOString().slice(0, 10) : '2026-10-23'}
                   </span>
                   <Badge variant="Completed">Finalized & Signed</Badge>
@@ -244,7 +238,6 @@ export function PatientRecordsPage() {
                 <div>
                   <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Recorded Vitals</span>
                   <p className="text-slate-600 dark:text-slate-300 mt-1 font-mono text-xs">
-
                     BP: {enc.vitals?.bp || '120/80'} · Pulse: {enc.vitals?.pulse || '72 bpm'}
                   </p>
                 </div>
@@ -253,7 +246,6 @@ export function PatientRecordsPage() {
               <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Follow-up due: <strong className="text-slate-700 dark:text-slate-300">{enc.followUpDate || 'None required'}</strong>
-
                 </span>
                 <div className="flex items-center gap-2">
                   <Button
@@ -269,7 +261,6 @@ export function PatientRecordsPage() {
                     icon={Download}
                     onClick={() => showToast('Simulated summary PDF downloaded.')}
                     className="shadow-sm"
-
                   >
                     Download PDF
                   </Button>
@@ -279,7 +270,6 @@ export function PatientRecordsPage() {
           ))}
         </div>
       )}
-
 
       {/* Clinical Summary Detail Modal */}
       {selectedEncounter && (
@@ -306,14 +296,12 @@ export function PatientRecordsPage() {
               <div>
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500">Next Follow-Up</span>
                 <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{selectedEncounter.followUpDate || 'As needed'}</p>
-
               </div>
             </div>
 
             <div>
               <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-1.5 text-xs uppercase tracking-wider">Clinical Findings & Assessment</h4>
               <p className="p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-
                 {selectedEncounter.clinicalFindings || 'No remarkable findings recorded during initial exam.'}
               </p>
             </div>
@@ -321,7 +309,6 @@ export function PatientRecordsPage() {
             <div>
               <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-1.5 text-xs uppercase tracking-wider">Recommended Treatment Plan</h4>
               <p className="p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-
                 {selectedEncounter.treatmentPlan || 'Follow prescribed medication and return for progress review.'}
               </p>
             </div>
@@ -337,7 +324,6 @@ export function PatientRecordsPage() {
                         <p className="text-xs text-slate-500 dark:text-slate-400">{m.dosage} · {m.frequency} · {m.duration}</p>
                       </div>
                       <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-0.5 rounded-full border border-blue-200/50 dark:border-blue-900/50">
-
                         {m.instructions}
                       </span>
                     </div>
@@ -347,7 +333,6 @@ export function PatientRecordsPage() {
             )}
 
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2.5">
-
               <Button variant="outline" size="sm" onClick={() => setSelectedEncounter(null)}>
                 Close
               </Button>

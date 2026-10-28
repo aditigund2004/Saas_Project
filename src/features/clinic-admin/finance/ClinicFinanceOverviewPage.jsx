@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../../context/AppContext';
 import { useTheme } from '../../../context/ThemeContext';
-
 import { ClinicFinanceNav } from './ClinicFinanceNav';
 import { Card, CardHeader } from '../../../components/ui/Card';
 import { Badge } from '../../../components/ui/Badge';
@@ -44,7 +43,6 @@ export function ClinicFinanceOverviewPage() {
     expenses = [],
     clinicPayments = [],
     clinicRefunds = [],
-
     activeClinic,
     showToast,
     formatCurrency,
@@ -52,7 +50,6 @@ export function ClinicFinanceOverviewPage() {
     recordClinicPayment
   } = useApp();
   const { isDark } = useTheme();
-
 
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
   const [expenseVendor, setExpenseVendor] = useState('Apollo Diagnostics Courier');
@@ -130,7 +127,6 @@ export function ClinicFinanceOverviewPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Practice Economics</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinic Financial Overview</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Real-time cash flow, patient collections, operating overhead, and clinic profit margin for {activeClinic?.name || 'Aegis Health Clinic'}.
           </p>
         </div>
@@ -142,7 +138,6 @@ export function ClinicFinanceOverviewPage() {
             onClick={() => showToast('Generating daily cashier & collection summary PDF...')}
           >
             <Printer className="w-4 h-4 mr-1.5" />
-
             Day Close Sheet
           </Button>
           <Button
@@ -151,7 +146,6 @@ export function ClinicFinanceOverviewPage() {
             onClick={() => setIsExpenseModalOpen(true)}
           >
             <PlusCircle className="w-4 h-4 mr-1.5" />
-
             Record Expense
           </Button>
         </div>
@@ -171,7 +165,6 @@ export function ClinicFinanceOverviewPage() {
             {formatCurrency(todayCollections)}
           </div>
           <div className="mt-2 flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-
             <TrendingUp className="w-3.5 h-3.5" />
             <span>+14.2% vs yesterday (18 receipts)</span>
           </div>
@@ -191,7 +184,6 @@ export function ClinicFinanceOverviewPage() {
           <div className="mt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Collected: <strong className="text-blue-700 dark:text-blue-400 font-mono">{formatCurrency(totalCollections || 432000)}</strong></span>
             <span className="font-bold text-emerald-600 dark:text-emerald-400">{collectionRate}%</span>
-
           </div>
         </Card>
 
@@ -209,7 +201,6 @@ export function ClinicFinanceOverviewPage() {
           <div className="mt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Pending or partial bills</span>
             <Link to="/clinic/finance/invoices" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
-
               Review dues
             </Link>
           </div>
@@ -229,7 +220,6 @@ export function ClinicFinanceOverviewPage() {
           <div className="mt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Net Profit: <strong className="font-mono text-slate-900 dark:text-white">{formatCurrency(operatingProfit || 283800)}</strong></span>
             <span className="text-emerald-600 dark:text-emerald-400 font-medium">Healthy</span>
-
           </div>
         </Card>
       </div>
@@ -238,7 +228,6 @@ export function ClinicFinanceOverviewPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Collections vs Expenses Area Chart (2 cols) */}
         <Card className="lg:col-span-2 border-slate-200 dark:border-slate-800">
-
           <CardHeader
             title="Practice Cash Flow & Operating Cost Trend (Past 14 Days)"
             subtitle="Comparing patient cash inflows against clinic daily operational overhead"
@@ -260,7 +249,6 @@ export function ClinicFinanceOverviewPage() {
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? '#1F2937' : '#E2E8F0'} />
                   <XAxis dataKey="date" tick={{ fontSize: 11, fill: isDark ? '#94A3B8' : '#64748B' }} stroke={isDark ? '#374151' : '#CBD5E1'} />
                   <YAxis tick={{ fontSize: 11, fill: isDark ? '#94A3B8' : '#64748B' }} stroke={isDark ? '#374151' : '#CBD5E1'} tickFormatter={(v) => `₹${v / 1000}k`} />
-
                   <Tooltip
                     formatter={(val, name) => [
                       `₹${Number(val).toLocaleString('en-IN')}`,
@@ -273,7 +261,6 @@ export function ClinicFinanceOverviewPage() {
                       borderRadius: '8px',
                       fontSize: '12px'
                     }}
-
                   />
                   <Area
                     type="monotone"
@@ -302,7 +289,6 @@ export function ClinicFinanceOverviewPage() {
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded bg-red-600 inline-block"></span>
                 <span className="text-slate-700 dark:text-slate-300 font-semibold">Clinic Operating Expenses</span>
-
               </div>
             </div>
           </div>
@@ -310,13 +296,11 @@ export function ClinicFinanceOverviewPage() {
 
         {/* Revenue by Clinical Department Bar Chart (1 col) */}
         <Card className="border-slate-200 dark:border-slate-800">
-
           <CardHeader
             title="Revenue by Clinical Department"
             subtitle="MTD gross billings distribution"
           />
           <div className="p-4 pt-0 space-y-3.5">
-
             {serviceBreakdown.map((item) => {
               const pct = ((item.amount / 515500) * 100).toFixed(0);
               return (
@@ -326,14 +310,12 @@ export function ClinicFinanceOverviewPage() {
                     <span className="font-mono font-bold text-slate-900 dark:text-white tabular-nums">{formatCurrency(item.amount)}</span>
                   </div>
                   <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
-
                     <div
                       className="bg-blue-600 h-2 rounded-full transition-all duration-500"
                       style={{ width: `${pct}%` }}
                     />
                   </div>
                   <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
-
                     <span>{item.count} procedures/visits</span>
                     <span>{pct}% of clinic total</span>
                   </div>
@@ -352,7 +334,6 @@ export function ClinicFinanceOverviewPage() {
             <div>
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">Recent Patient Collections</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Live cashier and gateway payment receipts</p>
-
             </div>
             <Link to="/clinic/finance/payments">
               <Button variant="ghost" size="xs">
@@ -365,7 +346,6 @@ export function ClinicFinanceOverviewPage() {
               <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="p-3 text-center w-10 font-semibold">#</th>
-
                   <th className="p-3">Receipt / Ref</th>
                   <th className="p-3">Patient</th>
                   <th className="p-3">Method</th>
@@ -387,7 +367,6 @@ export function ClinicFinanceOverviewPage() {
                     <td className="p-3 font-mono font-bold text-slate-900 dark:text-white tabular-nums">{formatCurrency(pay.amount)}</td>
                     <td className="p-3">
                       <Badge variant="success" size="sm">Completed</Badge>
-
                     </td>
                   </tr>
                 ))}
@@ -402,7 +381,6 @@ export function ClinicFinanceOverviewPage() {
             <div>
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">Recent Practice Expenses</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Facilities, consumables, waste disposal & software</p>
-
             </div>
             <Link to="/clinic/finance/expenses">
               <Button variant="ghost" size="xs">
@@ -415,7 +393,6 @@ export function ClinicFinanceOverviewPage() {
               <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="p-3 text-center w-10 font-semibold">#</th>
-
                   <th className="p-3">Vendor / Payee</th>
                   <th className="p-3">Category</th>
                   <th className="p-3">Amount</th>
@@ -439,7 +416,6 @@ export function ClinicFinanceOverviewPage() {
                     <td className="p-3 font-mono font-bold text-red-600 dark:text-red-400 tabular-nums">{formatCurrency(exp.amount)}</td>
                     <td className="p-3 text-slate-500 dark:text-slate-400 font-mono text-xs">{exp.date}</td>
                     <td className="p-3 text-slate-600 dark:text-slate-300 text-xs">{exp.paymentMethod || 'Bank Transfer'}</td>
-
                   </tr>
                 ))}
               </tbody>
@@ -457,14 +433,12 @@ export function ClinicFinanceOverviewPage() {
         <form onSubmit={handleCreateExpense} className="space-y-4 text-sm">
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Vendor / Payee</label>
-
             <input
               type="text"
               required
               value={expenseVendor}
               onChange={(e) => setExpenseVendor(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-
               placeholder="e.g. Apex Medical Disposables, CleanWaste Services, Clinic Landlord"
             />
           </div>
@@ -476,7 +450,6 @@ export function ClinicFinanceOverviewPage() {
                 value={expenseCategory}
                 onChange={(e) => setExpenseCategory(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
               >
                 <option value="Consumables">Medical Consumables & PPE</option>
                 <option value="Biomedical Waste">Biomedical Waste Disposal</option>
@@ -489,7 +462,6 @@ export function ClinicFinanceOverviewPage() {
             </div>
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Amount (₹)</label>
-
               <input
                 type="number"
                 required
@@ -497,26 +469,22 @@ export function ClinicFinanceOverviewPage() {
                 value={expenseAmount}
                 onChange={(e) => setExpenseAmount(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-
               />
             </div>
           </div>
 
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Description / Memo</label>
-
             <textarea
               rows={2}
               value={expenseDesc}
               onChange={(e) => setExpenseDesc(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-
               placeholder="e.g. Monthly hazmat pick-up, sterilizer chemical refills..."
             />
           </div>
 
           <div className="p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-900 dark:text-blue-200 text-xs">
-
             <strong>Note:</strong> Clinic operational expenses will be immediately deducted from the practice cash flow and reflected in the Operating Profit Margin calculation.
           </div>
 
@@ -533,4 +501,3 @@ export function ClinicFinanceOverviewPage() {
     </div>
   );
 }
-

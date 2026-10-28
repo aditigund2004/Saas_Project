@@ -42,7 +42,6 @@ export function ClinicExpensesPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Practice Overheads</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Clinic Expense Logging</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Log medical consumables purchases, equipment maintenance, facility rent, and utility bills.
           </p>
         </div>
@@ -66,7 +65,6 @@ export function ClinicExpensesPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <CardHeader
           title="Operational Expense Ledger"
           subtitle="Showing all documented expenditures"
@@ -76,7 +74,6 @@ export function ClinicExpensesPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Category</th>
                 <th className="p-3.5">Description</th>
                 <th className="p-3.5">Vendor / Payee</th>
@@ -101,7 +98,6 @@ export function ClinicExpensesPage() {
                     ₹{exp.amount.toLocaleString('en-IN')}
                   </td>
                   <td className="p-3.5 text-slate-600 dark:text-slate-300">{exp.paymentMethod}</td>
-
                 </tr>
               ))}
             </tbody>
@@ -125,7 +121,6 @@ export function ClinicExpensesPage() {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
                 >
                   <option value="Supplies">Clinical Supplies</option>
                   <option value="Equipment">Equipment & Tech</option>
@@ -138,21 +133,18 @@ export function ClinicExpensesPage() {
 
               <div>
                 <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Amount (INR) *</label>
-
                 <input
                   required
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                   className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl font-mono bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
                 />
               </div>
             </div>
 
             <div>
               <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Description / Item Detail *</label>
-
               <input
                 required
                 type="text"
@@ -160,21 +152,18 @@ export function ClinicExpensesPage() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. 10 Boxes Sterile Dental Disposables"
                 className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Vendor / Payee Name</label>
-
                 <input
                   type="text"
                   value={vendorName}
                   onChange={(e) => setVendorName(e.target.value)}
                   placeholder="e.g. DentSupply Pharma"
                   className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
                 />
               </div>
 
@@ -184,7 +173,6 @@ export function ClinicExpensesPage() {
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
                 >
                   <option value="Corporate Net Banking">Corporate Net Banking</option>
                   <option value="UPI">UPI</option>
@@ -195,7 +183,6 @@ export function ClinicExpensesPage() {
             </div>
 
             <div className="pt-2 flex justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setIsNewExpenseOpen(false)}>Cancel</Button>
               <Button variant="primary" size="sm" type="submit">Save Expense</Button>
             </div>
@@ -205,4 +192,3 @@ export function ClinicExpensesPage() {
     </div>
   );
 }
-

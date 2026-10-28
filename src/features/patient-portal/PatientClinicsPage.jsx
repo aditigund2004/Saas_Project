@@ -19,7 +19,6 @@ import {
   Sparkles,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 
 export function PatientClinicsPage() {
@@ -32,7 +31,6 @@ export function PatientClinicsPage() {
   const [feeFilter, setFeeFilter] = useState('All');
   const [sortBy, setSortBy] = useState('relevance');
   const [viewMode, setViewMode] = useState('table');
-
 
   // Specialties across all clinics
   const specialtiesList = [
@@ -102,14 +100,12 @@ export function PatientClinicsPage() {
             Discover Participating Clinics
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Compare accredited private clinics, explore verified medical specialties, review consultation fees, and submit booking requests.
           </p>
         </div>
 
         <Link to="/patient/appointments/book">
           <Button variant="primary" size="md" icon={Calendar} className="shadow-md shadow-blue-500/20">
-
             Book Appointment Wizard &rarr;
           </Button>
         </Link>
@@ -120,7 +116,6 @@ export function PatientClinicsPage() {
         <div className="flex flex-col md:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search by clinic name, specialty, treatment or location..."
@@ -133,14 +128,12 @@ export function PatientClinicsPage() {
           <div className="flex items-center gap-2.5 flex-wrap">
             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
               <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
               <span>City:</span>
             </div>
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
               className="px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 font-medium"
-
             >
               {citiesList.map((c) => (
                 <option key={c} value={c}>{c}</option>
@@ -148,14 +141,12 @@ export function PatientClinicsPage() {
             </select>
 
             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium ml-1">
-
               <span>Fee:</span>
             </div>
             <select
               value={feeFilter}
               onChange={(e) => setFeeFilter(e.target.value)}
               className="px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 font-medium"
-
             >
               <option value="All">All Fee Ranges</option>
               <option value="budget">Under ₹800</option>
@@ -164,14 +155,12 @@ export function PatientClinicsPage() {
             </select>
 
             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium ml-1">
-
               <span>Sort:</span>
             </div>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 font-medium"
-
             >
               <option value="relevance">Relevance</option>
               <option value="rating">Highest Rated</option>
@@ -183,7 +172,6 @@ export function PatientClinicsPage() {
         {/* Specialty Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-2 border-t border-slate-100 dark:border-slate-800">
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap mr-1">
-
             Specialty:
           </span>
           {specialtiesList.map((spec) => (
@@ -194,7 +182,6 @@ export function PatientClinicsPage() {
                 selectedSpecialty === spec
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-
               }`}
             >
               {spec}
@@ -482,7 +469,6 @@ export function PatientClinicsPage() {
           })}
         </div>
       )}
-
     </div>
   );
 }

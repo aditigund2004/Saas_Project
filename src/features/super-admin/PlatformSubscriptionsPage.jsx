@@ -49,7 +49,6 @@ export function PlatformSubscriptionsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Revenue Operations</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Clinic SaaS Subscriptions</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Monitor recurring plan billing cycles, trial conversions, and tier allocation simulations.
           </p>
         </div>
@@ -92,13 +91,11 @@ export function PlatformSubscriptionsPage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Average Revenue / Clinic</span>
           <div className="text-2xl font-extrabold text-purple-700 dark:text-purple-400 font-mono mt-1.5">₹{arpu.toLocaleString('en-IN')}</div>
           <span className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 block">Blended tier ARPU</span>
-
         </Card>
       </div>
 
       {/* Subscriptions Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title="Active Tenant Subscriptions"
           subtitle="All connected clinics, active plans, renewal schedules, and tier switching"
@@ -146,7 +143,6 @@ export function PlatformSubscriptionsPage() {
                       variant="outline"
                       size="sm"
                       className="text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 border-blue-200 dark:border-blue-900"
-
                       onClick={() =>
                         setChangePlanModal({
                           isOpen: true,
@@ -181,7 +177,6 @@ export function PlatformSubscriptionsPage() {
             <div className="space-y-2.5">
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Target Subscription Plan</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
                 {plans.map((p) => {
                   const isSelected = changePlanModal.targetPlanId === p.id;
                   return (
@@ -202,7 +197,6 @@ export function PlatformSubscriptionsPage() {
                         ₹{p.monthlyPrice.toLocaleString('en-IN')}/mo
                       </div>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
                         {p.maxDoctors} Doctors · {p.maxBranches} Branch{p.maxBranches > 1 ? 'es' : ''}
                       </p>
                     </div>
@@ -216,7 +210,6 @@ export function PlatformSubscriptionsPage() {
             </div>
 
             <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
               <Button
                 variant="outline"
                 size="sm"

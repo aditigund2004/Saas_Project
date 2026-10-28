@@ -22,7 +22,6 @@ import {
   List,
   LayoutGrid,
   Eye
-
 } from 'lucide-react';
 
 export function PatientRequestsPage() {
@@ -37,7 +36,6 @@ export function PatientRequestsPage() {
   const [simulateConflictMode, setSimulateConflictMode] = useState(false);
   const [selectedRequestForDetail, setSelectedRequestForDetail] = useState(null);
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-
 
   // Filter requests for patient: Pending Clinic Confirmation, Alternative Slot Proposed, Awaiting Patient Response, Rejected
   const requestStatuses = [
@@ -113,7 +111,6 @@ export function PatientRequestsPage() {
               Demo Acceptance Scenario Testing (Scenario 4)
             </strong>
             <p className="text-xs text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
-
               Toggle <strong>"Simulate Concurrency Conflict"</strong> below to test what happens if another patient books the proposed slot before acceptance. The system will detect the conflict, prevent double-booking, and return the request to the receptionist!
             </p>
           </div>
@@ -181,13 +178,11 @@ export function PatientRequestsPage() {
           </div>
           <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">No Pending Booking Requests</h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-
             All your appointment requests have either been confirmed or completed. You can browse clinics to book a new appointment.
           </p>
           <div className="pt-2">
             <Link to="/patient/appointments/book">
               <Button variant="primary" size="md" icon={PlusCircle}>
-
                 Request New Appointment
               </Button>
             </Link>
@@ -324,7 +319,6 @@ export function PatientRequestsPage() {
             <span>All responses sync with clinic front desk in real-time</span>
           </div>
         </div>
-
       ) : (
         <div className="space-y-4">
           {myRequests.map((req) => {
@@ -356,7 +350,6 @@ export function PatientRequestsPage() {
                       </div>
                       <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
                         Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
-
                       </p>
                     </div>
                   </div>
@@ -369,7 +362,6 @@ export function PatientRequestsPage() {
                           : req.status === 'Pending Clinic Confirmation' || req.status === 'Requested'
                           ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
                           : 'bg-red-100 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800'
-
                       }`}
                     >
                       {req.status}
@@ -389,7 +381,6 @@ export function PatientRequestsPage() {
                             Alternative Appointment Slot Proposed
                           </h4>
                           <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-
                             "Your requested appointment time is unavailable. The clinic has proposed an alternative appointment. Please review the new time and confirm whether it works for you."
                           </p>
                         </div>
@@ -411,27 +402,23 @@ export function PatientRequestsPage() {
                             {latestAlt.proposedDate} at {latestAlt.proposedTime}
                           </span>
                           <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Ready for Your Confirmation</span>
-
                         </div>
                       </div>
 
                       {/* Reason from Receptionist */}
                       <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-900 border border-blue-100 dark:border-blue-900/40 text-xs text-slate-700 dark:text-slate-300">
                         <span className="font-bold text-blue-950 dark:text-blue-200">Receptionist Note: </span>
-
                         <span>{latestAlt.reason}</span>
                       </div>
 
                       {/* Accept / Decline Action Buttons */}
                       <div className="flex items-center justify-end gap-3 pt-1">
-
                         <Button
                           variant="outline"
                           size="sm"
                           icon={XCircle}
                           onClick={() => handleDeclineAlternative(req.id)}
                           className="text-xs text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-
                         >
                           Decline Alternative
                         </Button>
@@ -441,7 +428,6 @@ export function PatientRequestsPage() {
                           icon={CheckCircle2}
                           onClick={() => handleAcceptAlternative(req.id)}
                           className="text-xs shadow-md shadow-blue-500/20 font-bold"
-
                         >
                           Accept Alternative Slot &rarr;
                         </Button>
@@ -453,7 +439,6 @@ export function PatientRequestsPage() {
                   {req.status === 'Pending Clinic Confirmation' && (
                     <div className="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-200 text-sm flex items-start gap-3">
                       <Clock className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-
                       <div>
                         <strong>Awaiting Clinic Availability Verification:</strong> Reception is verifying Dr. {req.doctorName}'s procedure rota for <strong>{req.requestedDate} at {req.requestedTime}</strong>. You will be notified immediately upon confirmation.
                       </div>
@@ -468,13 +453,11 @@ export function PatientRequestsPage() {
                         <span>Request Closed</span>
                       </div>
                       <p className="text-xs text-slate-600 dark:text-slate-300">
-
                         {req.rejectionReason || 'The alternative slot was declined or the clinic could not accommodate this booking.'}
                       </p>
                       <div className="pt-2">
                         <Link to={`/patient/appointments/book?clinicId=${req.clinicId}&doctorId=${req.doctorId}`}>
                           <Button variant="outline" size="sm">
-
                             Submit a New Request &rarr;
                           </Button>
                         </Link>
@@ -499,14 +482,12 @@ export function PatientRequestsPage() {
                     <div>
                       <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Request Reference</span>
                       <span className="font-mono text-slate-800 dark:text-slate-200">{req.requestId}</span>
-
                     </div>
                   </div>
 
                   {/* Patient Preferences Note if present */}
                   {req.patientAlternativePreferences && (
                     <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 flex justify-between">
-
                       <span>
                         <strong>Alternate Preference Provided:</strong> {req.patientAlternativePreferences.secondPreferredDate || 'Flexible'} ({req.patientAlternativePreferences.preferredTimeOfDay})
                       </span>

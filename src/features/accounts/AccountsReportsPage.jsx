@@ -28,14 +28,12 @@ export function AccountsReportsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Accounts & Tax Reports</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Consolidated income statement, GST reconciliation breakdown, and cash collection auditing
           </p>
         </div>
 
         <Button variant="primary" size="sm" onClick={handleExportCSV} className="font-semibold shadow-sm">
           <Download className="w-4 h-4 mr-1.5" />
-
           Export Audit Report (CSV)
         </Button>
       </div>
@@ -43,7 +41,6 @@ export function AccountsReportsPage() {
       {/* Financial Statement Summary Card */}
       <Card className="p-6 border-slate-200 dark:border-slate-800 dark:bg-slate-900 space-y-4 shadow-sm">
         <h3 className="font-bold text-base text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">
-
           Month-to-Date Financial Statement Summary (October 2026)
         </h3>
 
@@ -67,7 +64,6 @@ export function AccountsReportsPage() {
         </div>
 
         <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-
           <span>Formulas Documented: Net Surplus = (Total Collected Receipts) - (Total Operating Expenditures).</span>
           <Badge variant="teal" size="sm">Audited Demo Data</Badge>
         </div>
@@ -75,4 +71,3 @@ export function AccountsReportsPage() {
     </div>
   );
 }
-

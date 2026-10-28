@@ -47,13 +47,11 @@ export function PlatformDashboardPage() {
             Platform Master Cockpit
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Overview of multi-tenant clinic organizations, trial conversions, and platform revenue.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-
           <Link to="/superadmin/clinics">
             <Button variant="outline" size="sm">
               Manage Clinics
@@ -122,7 +120,6 @@ export function PlatformDashboardPage() {
             Workforce Headcount & Role Access Control Matrix
           </h3>
           <p className="text-sm text-slate-300 dark:text-slate-400 max-w-2xl leading-relaxed">
-
             Live monitoring across <strong className="text-white">14 Developers</strong>, <strong className="text-white">6 QA Testers</strong>, <strong className="text-white">4 DevOps SRE</strong>, <strong className="text-white">3 Security/HIPAA</strong>, and <strong className="text-white">7 Support Specialists</strong> powering the ClinicOS SaaS cloud.
           </p>
         </div>
@@ -130,7 +127,6 @@ export function PlatformDashboardPage() {
         <Link
           to="/superadmin/role-matrix"
           className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition-colors shrink-0 cursor-pointer"
-
         >
           <span>Open Role Matrix & Personnel</span>
           <ArrowRight className="w-4 h-4" />
@@ -142,7 +138,6 @@ export function PlatformDashboardPage() {
         {/* MRR & Clinic Growth Area Chart */}
         <div className="lg:col-span-8">
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
             <CardHeader
               title="Platform Growth & Subscription Revenue"
               subtitle="Monthly Recurring Revenue (INR) across the last 6 months"
@@ -163,13 +158,11 @@ export function PlatformDashboardPage() {
                       axisLine={false}
                       tickLine={false}
                       tick={{ fontSize: 13, fill: '#64748B' }}
-
                       tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`}
                     />
                     <Tooltip
                       formatter={(v) => [`₹${Number(v).toLocaleString('en-IN')}`, 'MRR']}
                       contentStyle={{ borderRadius: '12px', fontSize: '13px', backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff' }}
-
                     />
                     <Area
                       type="monotone"
@@ -189,7 +182,6 @@ export function PlatformDashboardPage() {
         {/* Subscription Tier Distribution */}
         <div className="lg:col-span-4">
           <Card className="h-full flex flex-col justify-between border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
             <CardHeader
               title="Active Subscription Tiers"
               subtitle="Clinic distribution across plans"
@@ -230,7 +222,6 @@ export function PlatformDashboardPage() {
               </div>
 
               <div className="pt-2 text-xs text-slate-400 dark:text-slate-500 text-center">
-
                 Platform billing is separate from clinic patient invoices.
               </div>
             </CardContent>
@@ -240,7 +231,6 @@ export function PlatformDashboardPage() {
 
       {/* Recent Clinics Roster Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title="Registered Clinic Tenants"
           subtitle="Showing active clinics, trial status, and owners"
@@ -248,7 +238,6 @@ export function PlatformDashboardPage() {
             <Link to="/superadmin/clinics">
               <Button variant="outline" size="sm">
                 View All Clinics <ArrowRight className="w-4 h-4 ml-1.5" />
-
               </Button>
             </Link>
           }
@@ -290,7 +279,6 @@ export function PlatformDashboardPage() {
                     </span>
                   </td>
                   <td className="p-4">
-
                     <Badge variant={c.status}>{c.status}</Badge>
                   </td>
                 </tr>

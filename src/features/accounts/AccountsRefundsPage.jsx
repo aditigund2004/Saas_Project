@@ -23,7 +23,6 @@ export function AccountsRefundsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Refund Audit & Processing</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Audit trail of patient payment cancellations, treatment plan revisions, and simulated reversals
           </p>
         </div>
@@ -42,7 +41,6 @@ export function AccountsRefundsPage() {
             {formatCurrency(refunded.reduce((acc, curr) => acc + curr.totalAmount, 0))}
           </div>
           <p className="text-xs text-slate-400 dark:text-slate-500">Simulated reversal transactions</p>
-
         </Card>
       </div>
 
@@ -94,7 +92,6 @@ export function AccountsRefundsPage() {
               </tbody>
             </table>
           </div>
-
         </Card>
       </div>
 
@@ -129,11 +126,9 @@ export function AccountsRefundsPage() {
                 </tbody>
               </table>
             </div>
-
           </Card>
         </div>
       )}
     </div>
   );
 }
-

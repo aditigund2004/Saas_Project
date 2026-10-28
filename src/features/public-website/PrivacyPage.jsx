@@ -19,7 +19,6 @@ export function PrivacyPage() {
           </h2>
           <p>
             ClinicOS is engineered with multi-tenant architecture principles. Each clinic organization is provisioned with an isolated tenant boundary. Doctor schedules, registered patient dossiers, clinical diagnosis notes, and financial billing invoices cannot be viewed or accessed by other clinic tenants.
-
           </p>
         </section>
 
@@ -30,14 +29,12 @@ export function PrivacyPage() {
           </h2>
           <p>
             Digital prescriptions generated within the platform embed an opaque cryptographic verification hash (e.g., <code className="text-blue-700 dark:text-blue-400 font-mono">v_apex_8812a</code>). The public QR code scanner displays solely the authenticity verification status, doctor credentials, and issuing date. Sensitive medical histories, diagnoses, and personal contact notes are never baked into unencrypted public QR payloads.
-
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
             3. Patient Consent & WhatsApp Messaging
           </h2>
           <p>
@@ -48,7 +45,6 @@ export function PrivacyPage() {
         <section className="space-y-2">
           <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
             4. Synthetic Demo Mode Environment
           </h2>
           <p>
@@ -59,4 +55,3 @@ export function PrivacyPage() {
     </div>
   );
 }
-

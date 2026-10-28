@@ -1,6 +1,5 @@
 import React from 'react';
 import { HeartHandshake, ShieldCheck, Zap, Activity, Users } from 'lucide-react';
-
 import { Card } from '../../components/ui/Card';
 
 export function AboutPage() {
@@ -32,7 +31,6 @@ export function AboutPage() {
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
           ClinicOS was conceived to address a widespread healthcare reality: independent specialty doctors and small healthcare practices are often forced to choose between cumbersome paper registers and bloated legacy software.
-
         </p>
       </div>
 
@@ -54,7 +52,6 @@ export function AboutPage() {
           </div>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Our Vision</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-
             A healthcare ecosystem where even the smallest neighborhood clinic has access to enterprise-grade scheduling, tamper-evident digital prescriptions, instant WhatsApp confirmations, and structured financial reporting.
           </p>
         </Card>
@@ -65,7 +62,6 @@ export function AboutPage() {
         <div className="text-center max-w-xl mx-auto">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Our Product Principles</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Guiding how we design each workflow, component, and user interaction.</p>
-
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -78,7 +74,6 @@ export function AboutPage() {
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">{v.title}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{v.desc}</p>
-
               </Card>
             );
           })}
@@ -90,10 +85,8 @@ export function AboutPage() {
         <p className="font-semibold text-slate-900 dark:text-slate-200">Architectural Note</p>
         <p>
           ClinicOS is engineered with a strict separation between UI components, typed service adapters, and domain models. When transitioning from demo mode to commercial production, service mock modules are substituted with live REST/GraphQL APIs without rewriting user-facing screens.
-
         </p>
       </div>
     </div>
   );
 }
-

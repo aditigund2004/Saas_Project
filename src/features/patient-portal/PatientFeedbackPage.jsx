@@ -1,12 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
 import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
-
 import {
   MessageSquareHeart,
   Star,
@@ -21,7 +19,6 @@ import {
   HeartHandshake,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -45,7 +42,6 @@ export function PatientFeedbackPage() {
   const [searchParams] = useSearchParams();
   const urlAptId = searchParams.get('appointment') || '';
 
-
   const {
     feedbacks,
     appointments,
@@ -53,7 +49,6 @@ export function PatientFeedbackPage() {
     currentUser,
     activePatientId,
     patients = [],
-
     submitPatientFeedback,
     showToast
   } = useApp();
@@ -66,13 +61,11 @@ export function PatientFeedbackPage() {
   const [activeTab, setActiveTab] = useState('new'); // 'new' | 'history'
   const [historyViewMode, setHistoryViewMode] = useState('table');
 
-
   // Form State
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [category, setCategory] = useState('Doctor Care');
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(urlAptId);
-
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,7 +76,6 @@ export function PatientFeedbackPage() {
       setActiveTab('new');
     }
   }, [urlAptId]);
-
 
   // Patient's own appointments at this clinic
   const patientAppointments = useMemo(() => {
@@ -107,7 +99,6 @@ export function PatientFeedbackPage() {
         f.clinicId === activeClinic.id
     );
   }, [feedbacks, activePatient, activeClinic.id]);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -159,7 +150,6 @@ export function PatientFeedbackPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Care Quality</span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">Your Feedback Matters</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Help <strong>{activeClinic.name}</strong> maintain clinical excellence and improve future visits.
           </p>
         </div>
@@ -172,7 +162,6 @@ export function PatientFeedbackPage() {
               activeTab === 'new'
                 ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-bold shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-
             }`}
           >
             Share Experience
@@ -183,13 +172,11 @@ export function PatientFeedbackPage() {
               activeTab === 'history'
                 ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-bold shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-
             }`}
           >
             <span>My Submissions</span>
             {myFeedbacks.length > 0 && (
               <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-bold">
-
                 {myFeedbacks.length}
               </span>
             )}
@@ -204,7 +191,6 @@ export function PatientFeedbackPage() {
             {/* Rating Selector */}
             <div className="text-center py-5 bg-slate-50/70 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2.5">
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-
                 How would you rate your recent experience?
               </label>
 
@@ -223,7 +209,6 @@ export function PatientFeedbackPage() {
                         starVal <= currentDisplayRating
                           ? 'fill-amber-400 text-amber-400 drop-shadow-sm'
                           : 'text-slate-200 dark:text-slate-700 fill-slate-100 dark:fill-slate-800'
-
                       }`}
                     />
                   </button>
@@ -234,7 +219,6 @@ export function PatientFeedbackPage() {
                 <span>{ratingMeta.emoji}</span>
                 <span className={ratingMeta.color}>{ratingMeta.label}</span>
                 <span className="text-slate-400 dark:text-slate-500 font-normal text-xs">({currentDisplayRating} out of 5)</span>
-
               </div>
             </div>
 
@@ -244,7 +228,6 @@ export function PatientFeedbackPage() {
                 What area does your feedback primarily relate to? *
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-
                 {CATEGORIES.map((cat) => {
                   const isSelected = category === cat.id;
                   return (
@@ -260,7 +243,6 @@ export function PatientFeedbackPage() {
                     >
                       <span className="text-xl">{cat.icon}</span>
                       <span className={`text-xs ${isSelected ? 'font-bold text-blue-900 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'}`}>
-
                         {cat.label}
                       </span>
                     </button>
@@ -273,14 +255,12 @@ export function PatientFeedbackPage() {
             {patientAppointments.length > 0 && (
               <div className="space-y-1.5">
                 <label className="block font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider">
-
                   Select Associated Visit (Optional)
                 </label>
                 <select
                   value={selectedAppointmentId}
                   onChange={(e) => setSelectedAppointmentId(e.target.value)}
                   className="w-full px-3.5 py-2.5 text-sm border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
-
                 >
                   <option value="">General feedback (Not tied to a specific appointment)</option>
                   {patientAppointments.map((apt) => (
@@ -299,7 +279,6 @@ export function PatientFeedbackPage() {
                   Tell us about your experience *
                 </label>
                 <span className={`text-xs font-mono ${message.length > 900 ? 'text-rose-600 font-bold' : 'text-slate-400'}`}>
-
                   {message.length} / 1000
                 </span>
               </div>
@@ -313,13 +292,11 @@ export function PatientFeedbackPage() {
                 className="w-full px-3.5 py-2.5 text-sm border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500 leading-relaxed"
               />
               <p className="text-xs text-slate-400">Minimum 10 characters.</p>
-
             </div>
 
             {/* Improvement Suggestions */}
             <div className="space-y-1.5">
               <label className="block font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider">
-
                 Any suggestions for how we could improve? (Optional)
               </label>
               <textarea
@@ -329,7 +306,6 @@ export function PatientFeedbackPage() {
                 value={suggestions}
                 onChange={(e) => setSuggestions(e.target.value)}
                 className="w-full px-3.5 py-2.5 text-sm border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500 leading-relaxed"
-
               />
             </div>
 
@@ -337,7 +313,6 @@ export function PatientFeedbackPage() {
             <div className="p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 flex items-start gap-3 text-blue-950 dark:text-blue-200">
               <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
               <div className="text-xs leading-relaxed">
-
                 <span className="font-bold">Strict Patient Privacy Assurance:</span> Your feedback is transmitted securely directly to <strong>{activeClinic.name}</strong>'s clinical management team. It is strictly confidential, never displayed publicly, and used only to continuously improve treatment quality and patient comfort.
               </div>
             </div>
@@ -351,7 +326,6 @@ export function PatientFeedbackPage() {
                 icon={Send}
                 disabled={isSubmitting || message.trim().length < 10}
                 className="shadow-md shadow-blue-500/20 font-bold"
-
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Patient Feedback'}
               </Button>
@@ -373,7 +347,6 @@ export function PatientFeedbackPage() {
                 You haven't submitted any feedback for {activeClinic.name} yet. Share your experience to help us serve you better!
               </p>
               <Button variant="primary" size="md" onClick={() => setActiveTab('new')} className="font-bold">
-
                 Share Your Feedback
               </Button>
             </Card>
@@ -553,7 +526,6 @@ export function PatientFeedbackPage() {
                   </Card>
                 ))
               )}
-
             </div>
           )}
         </div>

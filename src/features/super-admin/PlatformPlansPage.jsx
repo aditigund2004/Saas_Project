@@ -5,8 +5,6 @@ import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import {
   Edit2,
-  Power,
-  PowerOff,
   Check,
   CheckSquare,
   Square,
@@ -100,7 +98,6 @@ export function calculateAnnualDiscount(monthlyPrice, annualPrice) {
 
 /**
  * Dynamic Annual Pricing & Commitment Discount Calculator
-
  */
 function AnnualPricingCalculator({
   monthlyPrice,
@@ -124,7 +121,6 @@ function AnnualPricingCalculator({
 
   const discount = calculateAnnualDiscount(monthlyPrice, annualPrice);
 
-
   const handleMonthlyChange = (newVal) => {
     const safeMonthly = Math.max(0, Number(newVal) || 0);
     const pct = activeDiscountPercent > 0 ? activeDiscountPercent : 20;
@@ -137,7 +133,6 @@ function AnnualPricingCalculator({
 
   const handleDiscountChange = (newPct) => {
     const safePct = Math.min(100, Math.max(0, Number(newPct) || 0));
-
     setActiveDiscountPercent(safePct);
     const safeMonthly = Number(monthlyPrice) || 0;
     const newAnnual = Math.round((safeMonthly * 12) * (1 - safePct / 100));
@@ -147,13 +142,11 @@ function AnnualPricingCalculator({
     });
   };
 
-
   const handleAnnualChange = (newAnnualVal) => {
     const safeAnnual = Math.max(0, Number(newAnnualVal) || 0);
     const safeMonthly = Number(monthlyPrice) || 0;
     const standard = safeMonthly * 12;
     const derived = standard > 0 ? Math.max(0, Math.min(100, Math.round(((standard - safeAnnual) / standard) * 100))) : 0;
-
     setActiveDiscountPercent(derived);
     onUpdatePrices({
       monthlyPrice: safeMonthly,
@@ -174,7 +167,6 @@ function AnnualPricingCalculator({
               Dynamic Yearly Commitment Discount Calculator
             </h4>
             <p className="text-xs text-blue-800 dark:text-blue-300 mt-0.5">
-
             </p>
           </div>
         </div>
@@ -193,7 +185,6 @@ function AnnualPricingCalculator({
           </label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">₹</span>
-
             <input
               type="number"
               min="0"
@@ -204,7 +195,6 @@ function AnnualPricingCalculator({
             />
           </div>
           <span className="text-xs text-slate-500 dark:text-slate-400 font-medium block">
-
             12-month standard: ₹{standardAnnual.toLocaleString('en-IN')}
           </span>
         </div>
@@ -216,7 +206,6 @@ function AnnualPricingCalculator({
           </label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">₹</span>
-
             <input
               type="number"
               min="0"
@@ -227,7 +216,6 @@ function AnnualPricingCalculator({
             />
           </div>
           <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium block">
-
             Effective: ₹{discount.effectiveMonthly.toLocaleString('en-IN')}/mo (billed annually)
           </span>
         </div>
@@ -302,14 +290,12 @@ function AnnualPricingCalculator({
                   ₹{discount.effectiveMonthly.toLocaleString('en-IN')}/month
                 </strong>{' '}
                 (Customer pays <strong className="text-emerald-950 dark:text-white">₹{discount.monthlySavings.toLocaleString('en-IN')}/mo less</strong> than the ₹{Number(monthlyPrice).toLocaleString('en-IN')}/mo month-to-month rate).
-
               </div>
             </div>
           </div>
 
           <div className="sm:text-right sm:border-l sm:border-emerald-200 dark:sm:border-emerald-900 sm:pl-4 shrink-0">
             <span className="block text-xs uppercase font-bold text-emerald-700 dark:text-emerald-400">
-
               Yearly Commitment Rate
             </span>
             <div className="font-mono text-xs mt-0.5">
@@ -321,7 +307,6 @@ function AnnualPricingCalculator({
               </span>
             </div>
             <span className="text-xs text-emerald-700 dark:text-emerald-400 block mt-0.5">
-
               1-year full upfront commitment
             </span>
           </div>
@@ -363,7 +348,6 @@ export function PlatformPlansPage() {
   const [featureSearch, setFeatureSearch] = useState('');
   const [customFeatureText, setCustomFeatureText] = useState('');
 
-
   const handleOpenEditModal = (plan) => {
     setEditingPlan({
       ...plan,
@@ -378,7 +362,6 @@ export function PlatformPlansPage() {
     setFeatureSearch('');
     setCustomFeatureText('');
   };
-
 
   const handleOpenCreateModal = () => {
     setNewPlanData({
@@ -397,31 +380,6 @@ export function PlatformPlansPage() {
     setCustomFeatureText('');
   };
 
-
-    const handleTogglePlanStatus = (plan) => {
-    const isCurrentlyActive = plan.status !== 'Inactive' && plan.status !== 'Deactivated' && plan.isActive !== false;
-    const nextStatus = isCurrentlyActive ? 'Inactive' : 'Active';
-    const nextIsActive = !isCurrentlyActive;
-
-    const updated = plans.map((p) =>
-      p.id === plan.id
-        ? {
-            ...p,
-            status: nextStatus,
-            isActive: nextIsActive
-          }
-        : p
-    );
-
-    setPlans(updated);
-    localStorage.setItem('clinipulse_plans', JSON.stringify(updated));
-
-    showToast(
-      `Plan "${plan.name}" is now ${nextStatus === 'Active' ? 'Activated' : 'Deactivated'}.`,
-      nextStatus === 'Active' ? 'success' : 'warning'
-    );
-  };
-
   const handleOpenDeleteModal = (plan) => {
     setDeletingPlan(plan);
   };
@@ -429,7 +387,6 @@ export function PlatformPlansPage() {
   const handleCloseDeleteModal = () => {
     setDeletingPlan(null);
   };
-
 
   const handleConfirmDelete = () => {
     if (!deletingPlan) return;
@@ -450,7 +407,6 @@ export function PlatformPlansPage() {
     }
   };
 
-
   const handleToggleEditingFeature = (featureName) => {
     if (!editingPlan) return;
     const exists = editingPlan.features.includes(featureName);
@@ -464,7 +420,6 @@ export function PlatformPlansPage() {
     });
   };
 
-
   const handleToggleNewPlanFeature = (featureName) => {
     const exists = newPlanData.features.includes(featureName);
     const updatedFeatures = exists
@@ -476,7 +431,6 @@ export function PlatformPlansPage() {
       features: updatedFeatures
     });
   };
-
 
   const handleAddCustomFeatureToCurrent = (isForNewPlan = false) => {
     if (!customFeatureText.trim()) return;
@@ -502,7 +456,6 @@ export function PlatformPlansPage() {
     setCustomFeatureText('');
   };
 
-
   const handleSaveEditModal = () => {
     if (!editingPlan) return;
     const updatedList = plans.map((p) =>
@@ -516,7 +469,6 @@ export function PlatformPlansPage() {
     handleCloseEditModal();
   };
 
-
   const handleSaveNewPlan = (e) => {
     e?.preventDefault();
     if (!newPlanData.name.trim()) {
@@ -526,7 +478,6 @@ export function PlatformPlansPage() {
 
     const cleanId = (newPlanData.id.trim() || newPlanData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')).toLowerCase();
     
-
     if (plans.some((p) => p.id === cleanId)) {
       showToast(`A plan with ID "${cleanId}" already exists. Please choose a different ID.`, 'error');
       return;
@@ -550,7 +501,6 @@ export function PlatformPlansPage() {
     handleCloseCreateModal();
   };
 
-
   const filteredCatalog = ALL_AVAILABLE_FEATURES.filter((f) =>
     f.toLowerCase().includes(featureSearch.toLowerCase())
   );
@@ -565,7 +515,6 @@ export function PlatformPlansPage() {
             Subscription Tier Pricing & Limits
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Configure pricing tiers, dynamic annual commitment discounts, doctor thresholds, and feature entitlements.
           </p>
         </div>
@@ -580,17 +529,14 @@ export function PlatformPlansPage() {
             className="shadow-xs font-bold"
           >
             Create New Plan
-
           </Button>
         </div>
       </div>
 
       {/* Plans Grid: 2 cards per row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-
         {plans.map((plan) => {
           const discountInfo = calculateAnnualDiscount(plan.monthlyPrice, plan.annualPrice);
-          const isPlanActive = plan.status !== 'Inactive' && plan.status !== 'Deactivated' && plan.isActive !== false;
 
           return (
             <Card
@@ -600,7 +546,6 @@ export function PlatformPlansPage() {
               {plan.isPopular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-blue-600 text-white shadow-xs uppercase tracking-wider">
-
                     Most Popular
                   </span>
                 </div>
@@ -614,23 +559,8 @@ export function PlatformPlansPage() {
                       {plan.name}
                     </h3>
                     <span className="text-xs uppercase font-bold text-blue-800 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-0.5 rounded-md border border-blue-200 dark:border-blue-800 font-mono inline-block mt-1">
-
                       ID: {plan.id}
                     </span>
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold border ${
-                          isPlanActive
-                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
-                            : 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800'
-                        }`}
-                      >
-                        <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isPlanActive ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
-                          }`}
-                        />
-                        {isPlanActive ? 'Active' : 'Deactivated'}
-                      </span>
                   </div>
 
                   {/* Header Actions: Edit & Delete */}
@@ -643,7 +573,6 @@ export function PlatformPlansPage() {
                       aria-label={`Edit ${plan.name}`}
                     >
                       <Edit2 className="w-4 h-4" />
-
                     </button>
                     <button
                       type="button"
@@ -653,7 +582,6 @@ export function PlatformPlansPage() {
                       aria-label={`Delete ${plan.name}`}
                     >
                       <Trash2 className="w-4 h-4" />
-
                     </button>
                   </div>
                 </div>
@@ -661,7 +589,6 @@ export function PlatformPlansPage() {
                 {/* Tagline */}
                 {plan.tagline && (
                   <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-
                     {plan.tagline}
                   </p>
                 )}
@@ -744,7 +671,6 @@ export function PlatformPlansPage() {
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                       Included Features ({plan.features?.length || 0})
-
                     </span>
                     <button
                       type="button"
@@ -759,7 +685,6 @@ export function PlatformPlansPage() {
                       <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                         <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                         <span className="leading-snug">{f}</span>
-
                       </div>
                     ))}
                   </div>
@@ -779,31 +704,9 @@ export function PlatformPlansPage() {
                 </Button>
                 <button
                   type="button"
-                  onClick={() => handleTogglePlanStatus(plan)}
-                  className={`p-2 rounded-xl border transition-all cursor-pointer shrink-0 flex items-center justify-center ${
-                    isPlanActive
-                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-300 dark:hover:bg-amber-950/50 dark:hover:border-amber-700 shadow-xs'
-                      : 'text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 border-slate-300 dark:border-slate-700 hover:text-emerald-600 hover:bg-emerald-50 hover:border-emerald-300 dark:hover:bg-emerald-950/50 dark:hover:border-emerald-700'
-                  }`}
-                  title={
-                    isPlanActive
-                      ? `Active Plan — Click to Deactivate ${plan.name}`
-                      : `Deactivated Plan — Click to Activate ${plan.name}`
-                  }
-                  aria-label={isPlanActive ? `Deactivate ${plan.name}` : `Activate ${plan.name}`}
-                >
-                  {isPlanActive ? (
-                    <Power className="w-4 h-4" />
-                  ) : (
-                    <PowerOff className="w-4 h-4" />
-                  )}
-                </button>
-                <button
-                  type="button"
                   onClick={() => handleOpenDeleteModal(plan)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer shrink-0 flex items-center justify-center"
+                  className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer shrink-0"
                   title={`Delete ${plan.name}`}
-                  aria-label={`Delete ${plan.name}`}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -811,7 +714,6 @@ export function PlatformPlansPage() {
             </Card>
           );
         })}
-
       </div>
 
       {/* ========================================================= */}
@@ -828,70 +730,59 @@ export function PlatformPlansPage() {
             {/* Basic Parameters */}
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700 space-y-3">
               <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
-
                 Basic Parameters & Thresholds
               </span>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Plan Name</label>
-
                   <input
                     type="text"
                     value={editingPlan.name}
                     onChange={(e) => setEditingPlan({ ...editingPlan, name: e.target.value })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Max Doctors</label>
-
                   <input
                     type="number"
                     value={editingPlan.maxDoctors}
                     onChange={(e) => setEditingPlan({ ...editingPlan, maxDoctors: Number(e.target.value) })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-bold font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Max Branches</label>
-
                   <input
                     type="number"
                     value={editingPlan.maxBranches}
                     onChange={(e) => setEditingPlan({ ...editingPlan, maxBranches: Number(e.target.value) })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-bold font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Max Staff Seats</label>
-
                   <input
                     type="number"
                     value={editingPlan.maxStaff || 10}
                     onChange={(e) => setEditingPlan({ ...editingPlan, maxStaff: Number(e.target.value) })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-bold font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tagline / Best For</label>
-
                 <input
                   type="text"
                   value={editingPlan.tagline || ''}
                   onChange={(e) => setEditingPlan({ ...editingPlan, tagline: e.target.value })}
                   placeholder="e.g. Best for solo practitioners & startup dental/specialty clinics"
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
               </div>
 
@@ -904,7 +795,6 @@ export function PlatformPlansPage() {
                   className="rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500 h-4 w-4"
                 />
                 <label htmlFor="editPlanIsPopular" className="text-xs font-semibold text-slate-700 dark:text-slate-300 select-none cursor-pointer">
-
                   Highlight as "Most Popular" plan on marketing and pricing pages
                 </label>
               </div>
@@ -931,7 +821,6 @@ export function PlatformPlansPage() {
                     Feature Checklist (Click to add or remove from plan)
                   </h4>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                     Currently <strong>{editingPlan.features?.length || 0} features active</strong> in this tier.
                   </p>
                 </div>
@@ -939,14 +828,12 @@ export function PlatformPlansPage() {
                 {/* Search in Features */}
                 <div className="relative w-full sm:w-64">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
                   <input
                     type="text"
                     value={featureSearch}
                     onChange={(e) => setFeatureSearch(e.target.value)}
                     placeholder="Search available features..."
                     className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
@@ -965,7 +852,6 @@ export function PlatformPlansPage() {
                   }}
                   placeholder="Type a new custom feature to add to this plan..."
                   className="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
                 <Button
                   type="button"
@@ -980,7 +866,6 @@ export function PlatformPlansPage() {
 
               {/* Checklist Items Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto p-2 border border-slate-200 dark:border-slate-700 rounded-2xl bg-slate-50/50 dark:bg-slate-950/40">
-
                 {filteredCatalog.map((featName) => {
                   const isChecked = editingPlan.features.includes(featName);
 
@@ -992,7 +877,6 @@ export function PlatformPlansPage() {
                         isChecked
                           ? 'bg-blue-50/90 dark:bg-blue-950/60 border-blue-400 dark:border-blue-800 text-blue-950 dark:text-blue-200 font-semibold shadow-xs'
                           : 'bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
-
                       }`}
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -1000,7 +884,6 @@ export function PlatformPlansPage() {
                           <CheckSquare className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400 shrink-0" />
                         ) : (
                           <Square className="w-4.5 h-4.5 text-slate-300 dark:text-slate-600 shrink-0" />
-
                         )}
                         <span className="text-xs leading-tight truncate">{featName}</span>
                       </div>
@@ -1008,7 +891,6 @@ export function PlatformPlansPage() {
                       <span
                         className={`text-xs px-2 py-0.5 rounded font-mono shrink-0 ${
                           isChecked ? 'bg-blue-600 text-white font-bold' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500'
-
                         }`}
                       >
                         {isChecked ? 'Included' : 'Off'}
@@ -1025,7 +907,6 @@ export function PlatformPlansPage() {
                     Custom Added Features ({editingPlan.features.filter((f) => !ALL_AVAILABLE_FEATURES.includes(f)).length})
                   </span>
                   <div className="flex flex-wrap gap-2">
-
                     {editingPlan.features
                       .filter((f) => !ALL_AVAILABLE_FEATURES.includes(f))
                       .map((customFeat) => (
@@ -1034,7 +915,6 @@ export function PlatformPlansPage() {
                           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
                         >
                           <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-
                           <span>{customFeat}</span>
                           <button
                             type="button"
@@ -1043,7 +923,6 @@ export function PlatformPlansPage() {
                             title="Remove feature"
                           >
                             <X className="w-3.5 h-3.5" />
-
                           </button>
                         </span>
                       ))}
@@ -1058,7 +937,6 @@ export function PlatformPlansPage() {
                 variant="ghost"
                 size="sm"
                 className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-
                 icon={Trash2}
                 onClick={() => {
                   handleOpenDeleteModal(editingPlan);
@@ -1094,14 +972,12 @@ export function PlatformPlansPage() {
             {/* Basic Parameters */}
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700 space-y-3">
               <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
-
                 Plan Identification & Limits
               </span>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                     Plan Name <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -1119,13 +995,11 @@ export function PlatformPlansPage() {
                       });
                     }}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                     Plan Identifier / Slug (Unique)
                   </label>
                   <input
@@ -1135,46 +1009,39 @@ export function PlatformPlansPage() {
                     value={newPlanData.id}
                     onChange={(e) => setNewPlanData({ ...newPlanData, id: e.target.value })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Max Doctors</label>
-
                   <input
                     type="number"
                     min="1"
                     value={newPlanData.maxDoctors}
                     onChange={(e) => setNewPlanData({ ...newPlanData, maxDoctors: Number(e.target.value) })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-bold font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Max Branches</label>
-
                   <input
                     type="number"
                     min="1"
                     value={newPlanData.maxBranches}
                     onChange={(e) => setNewPlanData({ ...newPlanData, maxBranches: Number(e.target.value) })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-bold font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Max Staff Seats</label>
-
                   <input
                     type="number"
                     min="1"
                     value={newPlanData.maxStaff}
                     onChange={(e) => setNewPlanData({ ...newPlanData, maxStaff: Number(e.target.value) })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-bold font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
 
@@ -1187,21 +1054,18 @@ export function PlatformPlansPage() {
                       className="rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500 h-4 w-4"
                     />
                     <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Mark as Popular</span>
-
                   </label>
                 </div>
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tagline / Subtitle</label>
-
                 <input
                   type="text"
                   placeholder="e.g. Best for growing clinics expanding doctors and multi-chair operations"
                   value={newPlanData.tagline}
                   onChange={(e) => setNewPlanData({ ...newPlanData, tagline: e.target.value })}
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
               </div>
             </div>
@@ -1227,7 +1091,6 @@ export function PlatformPlansPage() {
                     Feature Checklist (Select features provided in this tier)
                   </h4>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                     Currently <strong>{newPlanData.features?.length || 0} features selected</strong> for this new tier.
                   </p>
                 </div>
@@ -1235,14 +1098,12 @@ export function PlatformPlansPage() {
                 {/* Search */}
                 <div className="relative w-full sm:w-64">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
                   <input
                     type="text"
                     value={featureSearch}
                     onChange={(e) => setFeatureSearch(e.target.value)}
                     placeholder="Search features..."
                     className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
@@ -1261,7 +1122,6 @@ export function PlatformPlansPage() {
                   }}
                   placeholder="Type a new custom feature to add to this tier..."
                   className="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
                 <Button
                   type="button"
@@ -1276,7 +1136,6 @@ export function PlatformPlansPage() {
 
               {/* Checklist Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto p-2 border border-slate-200 dark:border-slate-700 rounded-2xl bg-slate-50/50 dark:bg-slate-950/40">
-
                 {filteredCatalog.map((featName) => {
                   const isChecked = newPlanData.features.includes(featName);
 
@@ -1288,7 +1147,6 @@ export function PlatformPlansPage() {
                         isChecked
                           ? 'bg-blue-50/90 dark:bg-blue-950/60 border-blue-400 dark:border-blue-800 text-blue-950 dark:text-blue-200 font-semibold shadow-xs'
                           : 'bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
-
                       }`}
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -1296,7 +1154,6 @@ export function PlatformPlansPage() {
                           <CheckSquare className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400 shrink-0" />
                         ) : (
                           <Square className="w-4.5 h-4.5 text-slate-300 dark:text-slate-600 shrink-0" />
-
                         )}
                         <span className="text-xs leading-tight truncate">{featName}</span>
                       </div>
@@ -1304,7 +1161,6 @@ export function PlatformPlansPage() {
                       <span
                         className={`text-xs px-2 py-0.5 rounded font-mono shrink-0 ${
                           isChecked ? 'bg-blue-600 text-white font-bold' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500'
-
                         }`}
                       >
                         {isChecked ? 'Included' : 'Off'}
@@ -1321,7 +1177,6 @@ export function PlatformPlansPage() {
                     Custom Added Features ({newPlanData.features.filter((f) => !ALL_AVAILABLE_FEATURES.includes(f)).length})
                   </span>
                   <div className="flex flex-wrap gap-2">
-
                     {newPlanData.features
                       .filter((f) => !ALL_AVAILABLE_FEATURES.includes(f))
                       .map((customFeat) => (
@@ -1330,7 +1185,6 @@ export function PlatformPlansPage() {
                           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
                         >
                           <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-
                           <span>{customFeat}</span>
                           <button
                             type="button"
@@ -1339,7 +1193,6 @@ export function PlatformPlansPage() {
                             title="Remove feature"
                           >
                             <X className="w-3.5 h-3.5" />
-
                           </button>
                         </span>
                       ))}
@@ -1350,7 +1203,6 @@ export function PlatformPlansPage() {
 
             {/* Footer Buttons */}
             <div className="flex items-center justify-end gap-2 pt-4 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" type="button" onClick={handleCloseCreateModal}>
                 Cancel
               </Button>
@@ -1382,7 +1234,6 @@ export function PlatformPlansPage() {
                   Permanently delete "{deletingPlan.name}"?
                 </p>
                 <p className="text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
-
                   This will remove the tier (ID: <span className="font-mono font-bold">{deletingPlan.id}</span>, ₹{deletingPlan.monthlyPrice.toLocaleString('en-IN')}/mo) from the active plan architect and self-service pricing directory.
                 </p>
               </div>
@@ -1395,7 +1246,6 @@ export function PlatformPlansPage() {
                 return (
                   <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-xs text-amber-900 dark:text-amber-200 space-y-1">
                     <span className="font-bold flex items-center gap-1.5 text-amber-950 dark:text-amber-100">
-
                       ⚠️ {attached.length} Active Clinic(s) Assigned
                     </span>
                     <p className="leading-relaxed">
@@ -1407,14 +1257,12 @@ export function PlatformPlansPage() {
               }
               return (
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-
                   No registered clinics are currently subscribed to this tier. It can be safely removed.
                 </p>
               );
             })()}
 
             <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={handleCloseDeleteModal}>
                 Cancel
               </Button>

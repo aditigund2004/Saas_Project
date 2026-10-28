@@ -32,7 +32,6 @@ export function ClinicFinanceNav() {
       <div className="p-3.5 rounded-xl bg-blue-50/90 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-950 dark:text-blue-200 text-xs flex items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0">
-
             <Building className="w-4 h-4" />
           </div>
           <div>
@@ -42,21 +41,18 @@ export function ClinicFinanceNav() {
               <span className="font-mono text-xs font-normal text-blue-700 dark:text-blue-400">Practice: {activeClinic?.name || 'Aegis Health Clinic'}</span>
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-
               Tracks patient billings, collections (UPI/Card/Cash), distributor liabilities, doctor remuneration, and practice operating margin. Isolated from SaaS platform metrics.
             </p>
           </div>
         </div>
         <div className="hidden md:flex items-center gap-1.5 shrink-0 px-2.5 py-1 rounded-md bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 font-mono text-xs font-bold">
           <ShieldCheck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-
           <span>Doctor / Admin Scope</span>
         </div>
       </div>
 
       {/* Navigation Pills */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-slate-200 dark:border-slate-800">
-
         {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
@@ -68,7 +64,6 @@ export function ClinicFinanceNav() {
                   isActive
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
-
                 }`
               }
             >
@@ -81,4 +76,3 @@ export function ClinicFinanceNav() {
     </div>
   );
 }
-

@@ -9,7 +9,6 @@ import { AIPreviewAssistant } from '../ui/AIPreviewAssistant';
 import { useApp } from '../../context/AppContext';
 import { MedicalMotionBackground } from './MedicalMotionBackground';
 
-
 export function PublicLayout() {
   const { toast } = useApp();
 
@@ -18,14 +17,12 @@ export function PublicLayout() {
       <MedicalMotionBackground />
       <PublicHeader />
       <main className="flex-1 relative z-10">
-
         <Outlet />
       </main>
       <PublicFooter />
       <WhatsAppModal />
       <PrescriptionModal />
       <AIPreviewAssistant />
-
       <ToastContainer toast={toast} />
     </div>
   );

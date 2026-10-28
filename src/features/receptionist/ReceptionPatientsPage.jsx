@@ -11,14 +11,12 @@ export function ReceptionPatientsPage() {
   const [search, setSearch] = useState('');
 
   const filtered = patients.filter((p) =>
-
     p.name.toLowerCase().includes(search.toLowerCase()) ||
     p.patientIdNumber.toLowerCase().includes(search.toLowerCase()) ||
     p.phone.includes(search)
   );
 
   const allergicCount = patients.filter((p) => p.allergies && p.allergies.length > 0).length;
-
 
   return (
     <div className="space-y-6">
@@ -27,7 +25,6 @@ export function ReceptionPatientsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Front Desk Directory</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Patient Look-Up & Registration</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Quick patient search by name, phone, or unique patient ID number.
           </p>
         </div>
@@ -35,7 +32,6 @@ export function ReceptionPatientsPage() {
         <Link to="/reception/patients/new">
           <Button variant="primary" size="md" icon={UserPlus} className="shadow-md shadow-blue-500/20">
             Register New Patient
-
           </Button>
         </Link>
       </div>
@@ -68,20 +64,17 @@ export function ReceptionPatientsPage() {
       <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search patients by name, PT ID, or phone number..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
           />
         </div>
       </Card>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-
         <CardHeader
           title={`Registered Patients (${filtered.length})`}
           subtitle="Showing all patients registered at this clinic"
@@ -121,7 +114,6 @@ export function ReceptionPatientsPage() {
                   <td className="p-4 text-right">
                     <Link to={`/clinic/patients/${p.id}`}>
                       <Button variant="outline" size="sm" className="font-medium">
-
                         View Dossier
                       </Button>
                     </Link>
@@ -135,7 +127,6 @@ export function ReceptionPatientsPage() {
                   </td>
                 </tr>
               )}
-
             </tbody>
           </table>
         </div>

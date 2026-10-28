@@ -44,7 +44,6 @@ export function AccountsDashboardPage() {
             Accounts & Billing Command Center
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             OPD cash collections, UPI QR settlements, accounts receivable, and expense auditing
           </p>
         </div>
@@ -53,7 +52,6 @@ export function AccountsDashboardPage() {
           <Link to="/accounts/invoices">
             <Button variant="primary" size="sm" className="font-semibold shadow-sm">
               <Plus className="w-4 h-4 mr-1.5" />
-
               Create Patient Invoice
             </Button>
           </Link>
@@ -105,7 +103,6 @@ export function AccountsDashboardPage() {
           </div>
           <div className="text-xl font-black text-rose-950 dark:text-rose-100 truncate">{formatCurrency(totalExpenses)}</div>
           <p className="text-xs text-rose-700 dark:text-rose-300 mt-1">Supplies, rent, salaries</p>
-
         </Card>
       </div>
 
@@ -118,7 +115,6 @@ export function AccountsDashboardPage() {
               Recent Patient Invoices & Collections
             </h3>
             <Link to="/accounts/invoices" className="text-xs font-semibold text-blue-700 dark:text-blue-400 hover:underline">
-
               View All Invoices
             </Link>
           </div>
@@ -132,13 +128,11 @@ export function AccountsDashboardPage() {
                     <span className="text-xs text-slate-400 dark:text-slate-500 font-mono">({inv.invoiceNumber})</span>
                   </div>
                   <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                     {inv.items.map((it) => it.description).join(', ')}
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="font-mono font-bold text-slate-900 dark:text-white text-sm">
-
                     {formatCurrency(inv.totalAmount)}
                   </div>
                   <div className="flex items-center justify-end gap-1.5 mt-1">
@@ -194,7 +188,6 @@ export function AccountsDashboardPage() {
 
             <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 space-y-1">
               <div className="font-bold text-slate-700 dark:text-slate-300">Simulated Gateway Notice:</div>
-
               <p>
                 All payment buttons trigger client-side demo mutations. No real financial credit cards or bank accounts are touched.
               </p>
@@ -205,4 +198,3 @@ export function AccountsDashboardPage() {
     </div>
   );
 }
-

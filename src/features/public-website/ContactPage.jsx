@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
-
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useApp } from '../../context/AppContext';
@@ -37,7 +36,6 @@ export function ContactPage() {
           Talk to Our Clinic Solutions Team
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-
           Have questions about multi-branch deployments, WhatsApp Business API compliance, or setting up your 14-day free trial? We’re here to help.
         </p>
       </div>
@@ -56,7 +54,6 @@ export function ContactPage() {
                   <p className="font-semibold text-slate-800 dark:text-slate-100">Email Support</p>
                   <p className="text-slate-500 dark:text-slate-400">support@clinicos.demo</p>
                   <p className="text-slate-500 dark:text-slate-400">onboarding@clinicos.demo</p>
-
                 </div>
               </div>
 
@@ -68,7 +65,6 @@ export function ContactPage() {
                   <p className="font-semibold text-slate-800 dark:text-slate-100">Phone & WhatsApp Hotline</p>
                   <p className="text-slate-500 dark:text-slate-400">+91 (022) 8800-CLINI</p>
                   <p className="text-slate-500 dark:text-slate-400">Mon - Sat: 9:00 AM - 7:00 PM IST</p>
-
                 </div>
               </div>
 
@@ -80,14 +76,12 @@ export function ContactPage() {
                   <p className="font-semibold text-slate-800 dark:text-slate-100">Product Engineering Headquarters</p>
                   <p className="text-slate-500 dark:text-slate-400">Level 7, Healthcare Tech Tower, BKC</p>
                   <p className="text-slate-500 dark:text-slate-400">Mumbai 400051, India</p>
-
                 </div>
               </div>
             </div>
           </Card>
 
           <Card className="p-6 border-slate-200 dark:border-slate-800 bg-blue-900 text-white space-y-3">
-
             <h4 className="font-bold text-sm text-blue-200">14-Day Free Trial Notice</h4>
             <p className="text-xs text-slate-300 leading-relaxed">
               You can test the entire platform right now without contacting sales! Click "Start 14-Day Free Trial" to access preloaded demo accounts across all 4 user roles.
@@ -105,7 +99,6 @@ export function ContactPage() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white">Message Received!</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
-
                   Thank you, <strong>{form.fullName}</strong>. Your inquiry regarding <strong>{form.clinicName || 'your clinic'}</strong> has been simulated successfully. An onboarding specialist will reach out to <strong>{form.email}</strong>.
                 </p>
                 <Button variant="outline" size="sm" onClick={() => setSubmitted(false)}>
@@ -117,13 +110,11 @@ export function ContactPage() {
                 <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">Submit an Inquiry</h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400">Please provide your clinic details below.</p>
-
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
-
                     <input
                       required
                       type="text"
@@ -131,13 +122,11 @@ export function ContactPage() {
                       onChange={(e) => setForm({ ...form, fullName: e.target.value })}
                       placeholder="Dr. Name or Practice Manager"
                       className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email Address *</label>
-
                     <input
                       required
                       type="email"
@@ -145,13 +134,11 @@ export function ContactPage() {
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="doctor@clinicname.demo"
                       className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Contact Phone Number *</label>
-
                     <input
                       required
                       type="tel"
@@ -159,13 +146,11 @@ export function ContactPage() {
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+91 98000 00000"
                       className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Clinic / Organization Name *</label>
-
                     <input
                       required
                       type="text"
@@ -173,7 +158,6 @@ export function ContactPage() {
                       onChange={(e) => setForm({ ...form, clinicName: e.target.value })}
                       placeholder="Apex Specialty Center"
                       className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
                     />
                   </div>
 
@@ -183,7 +167,6 @@ export function ContactPage() {
                       value={form.specialty}
                       onChange={(e) => setForm({ ...form, specialty: e.target.value })}
                       className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                     >
                       <option value="Dental">Dental & Orthodontics</option>
                       <option value="Orthopedics">Orthopedics & Joint Care</option>
@@ -200,13 +183,11 @@ export function ContactPage() {
                       value={form.inquiryType}
                       onChange={(e) => setForm({ ...form, inquiryType: e.target.value })}
                       className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                     >
                       <option value="Free Trial Setup">Free Trial Onboarding Assistance</option>
                       <option value="Multi-Branch Pricing">Multi-Branch Chain Deployment</option>
                       <option value="WhatsApp Business API">WhatsApp Cloud API Integration</option>
                       <option value="Billing & Invoicing">Billing & Tax Invoice Setup</option>
-
                       <option value="General Inquiry">General Question</option>
                     </select>
                   </div>
@@ -214,14 +195,12 @@ export function ContactPage() {
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Message or Specific Requirements</label>
-
                   <textarea
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Tell us about your current clinic setup, number of doctors, and what problems you want to solve..."
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
                   />
                 </div>
 
@@ -245,4 +224,3 @@ export function ContactPage() {
     </div>
   );
 }
-

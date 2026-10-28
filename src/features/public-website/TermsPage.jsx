@@ -15,7 +15,6 @@ export function TermsPage() {
           <h2 className="text-sm font-bold text-slate-900 dark:text-white">1. SaaS Platform License</h2>
           <p>
             ClinicOS grants subscribing healthcare clinics, authorized practitioners, receptionists, and registered patients access to digital appointment management, prescription generation, inventory tracking, and operational analytics in accordance with their selected subscription tier.
-
           </p>
         </section>
 
@@ -23,7 +22,6 @@ export function TermsPage() {
           <h2 className="text-sm font-bold text-slate-900 dark:text-white">2. Free Trial Conditions</h2>
           <p>
             Eligible independent specialty clinics may access the 14-day free trial without immediate payment obligation. At the expiration of the 14-day trial period, continuing access requires selecting a Starter, Growth, Professional, or Enterprise subscription.
-
           </p>
         </section>
 
@@ -31,13 +29,11 @@ export function TermsPage() {
           <h2 className="text-sm font-bold text-slate-900 dark:text-white">3. Clinical Responsibility Disclaimer</h2>
           <p>
             ClinicOS is an administrative and clinical workflow tool. All medical diagnoses, drug prescriptions, dosages, treatment plans, and emergency procedures remain the sole professional responsibility of the licensed consulting doctor. ClinicOS does not generate automated medical advice or replace clinical judgment.
-
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-sm font-bold text-slate-900 dark:text-white">4. QR Code & Verification Authenticity</h2>
-
           <p>
             Verification QR codes provide digital validation of prescription existence within the issuing clinic's records. In demo mode, verification displays sample validation status and is explicitly labeled as not connected to a live hospital registry.
           </p>
@@ -46,4 +42,3 @@ export function TermsPage() {
     </div>
   );
 }
-

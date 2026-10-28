@@ -2,14 +2,12 @@ import React, { useEffect } from 'react';
 import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../hooks/useAuth';
-
 import {
   LayoutDashboard,
   Calendar,
   Users,
   Stethoscope,
   Briefcase,
-
   FileText,
   PlusCircle,
   Building2,
@@ -24,7 +22,6 @@ import {
   Clock,
   CheckSquare,
   Shield,
-
   ShieldCheck,
   Layers,
   Activity,
@@ -44,7 +41,6 @@ import {
   Star,
   LogOut,
   ChevronDown
-
 } from 'lucide-react';
 
 export function WorkspaceSidebar({ isOpen, onClose }) {
@@ -63,13 +59,11 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
   // Badges calculation
   const pendingRequestsCount = appointments.filter(
     (a) => (a.clinicId === activeClinic?.id || !a.clinicId) && (a.status === 'Pending Clinic Confirmation' || a.status === 'Requested')
-
   ).length;
 
   const patientRequestsCount = appointments.filter(
     (a) =>
       (a.patientName === currentUser?.name || a.patientId === currentUser?.id || !a.patientId) &&
-
       (a.status === 'Pending Clinic Confirmation' || a.status === 'Alternative Slot Proposed' || a.status === 'Awaiting Patient Response')
   ).length;
 
@@ -127,19 +121,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           { label: 'Administrative Activity', path: '/superadmin/activity', icon: History },
           { label: 'Platform Settings', path: '/superadmin/settings', icon: Settings }
         ]
-      },
-      {
-        section: 'Referral & Affiliates',
-        items: [
-          { label: 'Referral Dashboard', path: '/superadmin/referrals/dashboard', icon: LayoutDashboard },
-          { label: 'Affiliate Partners', path: '/superadmin/referrals/partners', icon: Users },
-          { label: 'Referral Codes', path: '/superadmin/referrals/codes', icon: Award },
-          { label: 'Referral Tracking', path: '/superadmin/referrals/tracking', icon: Activity },
-          { label: 'Commission Rules', path: '/superadmin/referrals/rules', icon: FileText },
-          { label: 'Commission Ledger', path: '/superadmin/referrals/ledger', icon: Receipt },
-          { label: 'Payout Management', path: '/superadmin/referrals/payouts', icon: CreditCard },
-          { label: 'Referral Reports', path: '/superadmin/referrals/reports', icon: BarChart3 }
-        ]
       }
     ],
 
@@ -160,8 +141,8 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         items: [
           { label: 'My Website', path: '/app/my-website', icon: Globe },
           { label: 'Clinics', path: '/clinic/branches', icon: Building2 },
-          { label: 'Telemedicine', path: '/clinic/telemedicine', icon: Video },
-          { label: 'WhatsApp', path: '/clinic/whatsapp', icon: MessageSquare },
+          { label: 'Staff Management', path: '/clinic/staff', icon: Users },
+          { label: 'Virtual Consulting', path: '/clinic/virtual-consulting', icon: Video },
           { label: 'Reviews', path: '/clinic/feedback', icon: Star },
           { label: 'Analytics', path: '/clinic/reports', icon: BarChart3 },
           { label: 'Online Payments', path: '/clinic/finance/invoices', icon: CreditCard },
@@ -181,7 +162,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           { label: 'Help & Support', path: '/clinic/support', icon: LifeBuoy }
         ]
       }
-
     ],
 
     // Role 3: Clinic Receptionist/Manager
@@ -217,7 +197,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           { label: 'Platform Support', path: '/reception/support', icon: LifeBuoy }
         ]
       }
-
     ],
 
     // Role 4: Patient
@@ -226,6 +205,7 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         section: 'My Health Hub',
         items: [
           { label: 'Overview', path: '/patient/dashboard', icon: LayoutDashboard },
+          { label: 'Virtual Consulting', path: '/patient/virtual-consulting', icon: Video },
           { label: 'My Appointments', path: '/patient/appointments', icon: Calendar },
           { label: 'Booking Requests', path: '/patient/appointments/requests', icon: Clock, badge: patientRequestsCount },
           { label: 'Book Appointment', path: '/patient/appointments/book', icon: PlusCircle }
@@ -254,7 +234,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
 
   const sections = navConfigs[currentRole] || navConfigs.clinic_admin;
 
-
   return (
     <>
       {/* Mobile Backdrop */}
@@ -263,13 +242,11 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           className="fixed inset-0 w-full h-full min-h-dvh z-40 bg-slate-950/60 backdrop-blur-xs lg:hidden transition-opacity duration-200"
           onClick={onClose}
           aria-hidden="true"
-
         />
       )}
 
       <aside
         className={`fixed top-0 bottom-0 left-0 z-50 w-[280px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 flex flex-col transition-transform duration-200 ease-out border-r border-slate-200/90 dark:border-slate-800 shadow-2xl lg:shadow-2xs ${
-
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -284,7 +261,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
                 Clinic<span className="text-blue-600 dark:text-blue-400">OS</span>
               </span>
               <span className="block text-xs text-slate-500 dark:text-slate-400 font-semibold tracking-wider uppercase">
-
                 Healthcare SaaS
               </span>
             </div>
@@ -292,7 +268,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           <button
             onClick={onClose}
             className="lg:hidden text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
-
             aria-label="Close sidebar"
           >
             <X className="w-5 h-5" />
@@ -408,39 +383,12 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
           ))}
         </nav>
 
-        {/* WhatsApp Messaging Simulator */}
-        <div className="px-3 pt-2.5 pb-2 border-t border-slate-100 dark:border-slate-800 shrink-0">
-          <button
-            onClick={() => {
-              if (window.innerWidth < 1024) onClose();
-              openWhatsAppModal({
-                patient_name: 'Aarav Patel',
-                clinic_name: activeClinic?.name || 'CityCare Family Clinic',
-                appointment_date: '23 Oct 2026',
-                appointment_time: '10:30 AM',
-                doctor_name: 'Dr. Aarav Mehta',
-                appointment_reference: 'APT-2601',
-                clinic_phone: activeClinic?.phone || '+91 98200 11223'
-              });
-            }}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100/90 dark:hover:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-850 transition-colors cursor-pointer group"
-            title="Preview WhatsApp integration templates & simulated delivery"
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <MessageSquare className="w-[18px] h-[18px] text-emerald-600 dark:text-emerald-400 shrink-0 group-hover:scale-105 transition-transform" />
-              <span className="truncate">WhatsApp Messages</span>
-            </div>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-          </button>
-        </div>
-
         {/* Footer / Tenant Context Info */}
         <div className="p-3.5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/50 text-xs shrink-0">
           {currentRole !== 'super_admin' && (
             <div className="mb-2 px-1">
               <div className="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Tenant Workspace</div>
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">{activeClinic?.name}</div>
-
             </div>
           )}
           <Link
@@ -465,7 +413,6 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
             </span>
             <span className="text-[10px] text-slate-400">Exit Session</span>
           </button>
-
         </div>
       </aside>
     </>

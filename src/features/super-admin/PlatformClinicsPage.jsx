@@ -270,7 +270,6 @@ export function PlatformClinicsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tenant Directory</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Clinic Tenant Management</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Supervise all multi-tenant healthcare clinics, active trials, branch allocations, and operational statuses.
           </p>
         </div>
@@ -289,7 +288,6 @@ export function PlatformClinicsPage() {
           >
             <PlusCircle className="w-4.5 h-4.5" />
             <span>Provision New Clinic</span>
-
           </Button>
         </div>
       </div>
@@ -299,14 +297,12 @@ export function PlatformClinicsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search clinic by name, owner doctor, specialty, or city..."
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-
             />
           </div>
 
@@ -316,7 +312,6 @@ export function PlatformClinicsPage() {
               onChange={(e) => setStatusFilter(e.target.value)}
               aria-label="Filter by clinic account status"
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-medium"
-
             >
               <option value="All">All Statuses ({clinics.length})</option>
               <option value="Active">Active Accounts</option>
@@ -377,7 +372,6 @@ export function PlatformClinicsPage() {
                   </td>
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-2">
-
                       <Button
                         variant="ghost"
                         size="sm"
@@ -391,7 +385,6 @@ export function PlatformClinicsPage() {
                           variant="outline"
                           size="sm"
                           className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border-rose-200 dark:border-rose-900"
-
                           onClick={() =>
                             setStatusModal({ isOpen: true, clinic: c, targetStatus: 'Suspended' })
                           }
@@ -403,7 +396,6 @@ export function PlatformClinicsPage() {
                           variant="outline"
                           size="sm"
                           className="text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 border-blue-200 dark:border-blue-900"
-
                           onClick={() =>
                             setStatusModal({ isOpen: true, clinic: c, targetStatus: 'Active' })
                           }
@@ -419,7 +411,6 @@ export function PlatformClinicsPage() {
               {filteredClinics.length === 0 && (
                 <tr>
                   <td colSpan={8} className="text-center py-10 text-slate-400 dark:text-slate-500 text-sm">
-
                     No clinics match your search criteria. Click "+ Provision New Clinic" to register one.
                   </td>
                 </tr>
@@ -452,7 +443,6 @@ export function PlatformClinicsPage() {
                   type="button"
                   onClick={() => handleApplyTemplate('cardiology')}
                   className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/80 shadow-xs transition-colors cursor-pointer"
-
                 >
                   Cardiology Center (Zenith)
                 </button>
@@ -460,7 +450,6 @@ export function PlatformClinicsPage() {
                   type="button"
                   onClick={() => handleApplyTemplate('dental')}
                   className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/80 shadow-xs transition-colors cursor-pointer"
-
                 >
                   Dental Studio (SmileCraft)
                 </button>
@@ -468,7 +457,6 @@ export function PlatformClinicsPage() {
                   type="button"
                   onClick={() => handleApplyTemplate('pediatrics')}
                   className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/80 shadow-xs transition-colors cursor-pointer"
-
                 >
                   Pediatric Clinic (LittleSteps)
                 </button>
@@ -479,14 +467,12 @@ export function PlatformClinicsPage() {
             <div className="space-y-3">
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
                 1. Clinic Establishment Identity
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1 sm:col-span-2">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-
                     Clinic Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -507,7 +493,6 @@ export function PlatformClinicsPage() {
                     value={formData.specialty}
                     onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-
                   >
                     <option value="Cardiology">Cardiology</option>
                     <option value="Dental">Dental & Orthodontics</option>
@@ -524,14 +509,12 @@ export function PlatformClinicsPage() {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Clinic Tagline / Subtitle</label>
-
                   <input
                     type="text"
                     value={formData.tagline}
                     onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
                     placeholder="e.g. Premier Cardiovascular Diagnostic Center"
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
               </div>
@@ -541,14 +524,12 @@ export function PlatformClinicsPage() {
             <div className="space-y-3 pt-2">
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <Stethoscope className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
                 2. Clinical Leadership & Administration
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-
                     Chief Administrator / Lead Doctor <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -565,20 +546,17 @@ export function PlatformClinicsPage() {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Doctor Qualifications</label>
-
                   <input
                     type="text"
                     value={formData.qualifications}
                     onChange={(e) => setFormData({ ...formData, qualifications: e.target.value })}
                     placeholder="e.g. MBBS, MD, DM (Cardiology)"
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-
                     Official Email <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -595,7 +573,6 @@ export function PlatformClinicsPage() {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-
                     Contact Phone <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -608,7 +585,6 @@ export function PlatformClinicsPage() {
                     }`}
                   />
                   {formErrors.phone && <p className="text-xs text-red-600 dark:text-red-400 font-medium">{formErrors.phone}</p>}
-
                 </div>
               </div>
             </div>
@@ -617,14 +593,12 @@ export function PlatformClinicsPage() {
             <div className="space-y-3 pt-2">
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
                 3. Primary Branch Location
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-
                     City <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -634,14 +608,12 @@ export function PlatformClinicsPage() {
                     placeholder="e.g. Mumbai"
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.city ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
-
                     }`}
                   />
                 </div>
 
                 <div className="space-y-1 sm:col-span-2">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">
-
                     Full Street Address <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -651,34 +623,29 @@ export function PlatformClinicsPage() {
                     placeholder="e.g. Plot 42, Bandra Reclamation, Near Lilavati Hub"
                     className={`w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.address ? 'border-red-500 bg-red-50/20' : 'border-slate-200 dark:border-slate-700'
-
                     }`}
                   />
                 </div>
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Branch Code</label>
-
                   <input
                     type="text"
                     value={formData.branchCode}
                     onChange={(e) => setFormData({ ...formData, branchCode: e.target.value })}
                     placeholder="e.g. MAIN"
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
 
                 <div className="space-y-1 sm:col-span-2">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Operating Hours</label>
-
                   <input
                     type="text"
                     value={formData.operatingHours}
                     onChange={(e) => setFormData({ ...formData, operatingHours: e.target.value })}
                     placeholder="e.g. Mon - Sat: 08:30 AM - 08:00 PM"
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
               </div>
@@ -688,7 +655,6 @@ export function PlatformClinicsPage() {
             <div className="space-y-3 pt-2">
               <h4 className="font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2 text-sm">
                 <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-
                 4. SaaS Subscription Plan & Account Status
               </h4>
 
@@ -699,7 +665,6 @@ export function PlatformClinicsPage() {
                     value={formData.subscriptionPlanId}
                     onChange={(e) => setFormData({ ...formData, subscriptionPlanId: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   >
                     <option value="starter">Starter Clinic (₹2,499/mo)</option>
                     <option value="growth">Growth Practice (₹4,499/mo)</option>
@@ -714,7 +679,6 @@ export function PlatformClinicsPage() {
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   >
                     <option value="Active">Active (Paid Account)</option>
                     <option value="Trial">14-Day Free Demo Trial</option>
@@ -723,14 +687,12 @@ export function PlatformClinicsPage() {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-slate-700 dark:text-slate-300 block text-xs">Consultation Fee (₹)</label>
-
                   <input
                     type="number"
                     min="100"
                     value={formData.consultationFee}
                     onChange={(e) => setFormData({ ...formData, consultationFee: parseInt(e.target.value) || 500 })}
                     className="w-full px-3.5 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-800 dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
               </div>
@@ -739,7 +701,6 @@ export function PlatformClinicsPage() {
             {/* CTA Actions */}
             <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <span className="text-xs text-slate-500 dark:text-slate-400">
-
                 Clinic and its chief doctor will be instantly provisioned.
               </span>
               <div className="flex items-center gap-2">
@@ -758,7 +719,6 @@ export function PlatformClinicsPage() {
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
                 >
                   <Check className="w-4 h-4 mr-1.5" />
-
                   Provision Clinic Tenant
                 </Button>
               </div>
@@ -792,7 +752,6 @@ export function PlatformClinicsPage() {
               <div>
                 <span className="text-slate-400 dark:text-slate-500 text-xs uppercase font-bold tracking-wider">Phone:</span>
                 <p className="font-semibold text-slate-900 dark:text-slate-200 mt-0.5">{selectedClinic.phone}</p>
-
               </div>
             </div>
 
@@ -806,7 +765,6 @@ export function PlatformClinicsPage() {
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{b.address}, {b.city}</p>
                     </div>
                     <span className="text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-blue-200 dark:border-blue-800">
-
                       {b.operatingHours}
                     </span>
                   </div>
@@ -817,7 +775,6 @@ export function PlatformClinicsPage() {
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <Link to={`/clinics/${selectedClinic.slug}`} target="_blank" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5 font-bold text-sm">
                 Open Public Profile <ExternalLink className="w-4 h-4" />
-
               </Link>
               <Button variant="outline" size="sm" onClick={() => setSelectedClinic(null)}>
                 Close
@@ -839,7 +796,6 @@ export function PlatformClinicsPage() {
             <p className="text-slate-600 dark:text-slate-300">
               Are you sure you want to change the status of <strong className="text-slate-900 dark:text-white">{statusModal.clinic?.name}</strong> to{' '}
               <strong className="text-blue-600 dark:text-blue-400">{statusModal.targetStatus}</strong>?
-
             </p>
             <div className="flex justify-end gap-2 pt-2">
               <Button

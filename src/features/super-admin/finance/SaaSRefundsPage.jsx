@@ -74,7 +74,6 @@ export function SaaSRefundsPage() {
     link.click();
     document.body.removeChild(link);
     showToast('SaaS refunds ledger CSV exported.', 'success');
-
   };
 
   return (
@@ -85,7 +84,6 @@ export function SaaSRefundsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Payment Adjustments</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Subscription Refunds</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Audit trail of customer subscription reversals, prorated downgrade credits, and billing adjustments.
           </p>
         </div>
@@ -96,7 +94,6 @@ export function SaaSRefundsPage() {
           </Button>
           <Button variant="primary" size="sm" icon={PlusCircle} onClick={() => setIsModalOpen(true)}>
             Issue SaaS Refund
-
           </Button>
         </div>
       </div>
@@ -107,21 +104,18 @@ export function SaaSRefundsPage() {
       <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by refund reference (e.g. RFD-SAAS-55102), clinic name, or reason..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-
           />
         </div>
       </Card>
 
       {/* Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title={`Issued SaaS Refunds (${filteredRefunds.length})`}
           subtitle="Showing authorized reversals credited back to clinic merchant accounts"
@@ -152,7 +146,6 @@ export function SaaSRefundsPage() {
                   <td className="p-4 text-slate-500 dark:text-slate-400">{r.requestDate}</td>
                   <td className="p-4 font-sans">
                     <span className="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-
                       {r.status}
                     </span>
                   </td>
@@ -174,14 +167,12 @@ export function SaaSRefundsPage() {
           <form onSubmit={handleCreateRefund} className="space-y-4 text-sm">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-
                 Subscribing Clinic Tenant *
               </label>
               <select
                 value={clinicId}
                 onChange={(e) => setClinicId(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               >
                 {clinics.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -194,7 +185,6 @@ export function SaaSRefundsPage() {
             <div className="grid grid-cols-2 gap-3.5">
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-
                   Refund Amount (INR) *
                 </label>
                 <input
@@ -204,13 +194,11 @@ export function SaaSRefundsPage() {
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="e.g. 1500"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-
                   Original Gateway Ref *
                 </label>
                 <input
@@ -220,14 +208,12 @@ export function SaaSRefundsPage() {
                   onChange={(e) => setOriginalPaymentRef(e.target.value)}
                   placeholder="e.g. rzp_pay_99812A"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-
                 Reason for Reversal / Adjustment *
               </label>
               <textarea
@@ -241,7 +227,6 @@ export function SaaSRefundsPage() {
             </div>
 
             <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setIsModalOpen(false)}>
                 Cancel
               </Button>
@@ -255,4 +240,3 @@ export function SaaSRefundsPage() {
     </div>
   );
 }
-

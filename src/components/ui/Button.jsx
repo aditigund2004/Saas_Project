@@ -17,7 +17,6 @@ export function Button({
     sm: 'text-xs px-3 py-1.5 gap-1.5',
     md: 'text-sm px-4 py-2 gap-2',
     lg: 'text-sm sm:text-base px-5 py-2.5 gap-2.5 font-semibold'
-
   };
 
   const variants = {
@@ -41,7 +40,6 @@ export function Button({
       'bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white shadow-xs focus-visible:ring-emerald-500',
     whatsapp:
       'bg-[#25D366] hover:bg-[#1EBE5D] active:bg-[#169C4B] text-white shadow-xs font-semibold focus-visible:ring-[#25D366]',
-
     none: ''
   };
 

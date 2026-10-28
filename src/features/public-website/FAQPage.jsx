@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { ChevronDown, Search, ArrowRight } from 'lucide-react';
-
 import { Link } from 'react-router-dom';
 
 export function FAQPage() {
@@ -59,7 +58,6 @@ export function FAQPage() {
           Everything You Need to Know About ClinicOS
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
-
           Clear answers on clinic onboarding, digital prescription verification, multi-branch operations, and SaaS subscription tiers.
         </p>
 
@@ -72,7 +70,6 @@ export function FAQPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search questions (e.g. multi-branch, WhatsApp, prescriptions)..."
             className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
           />
         </div>
       </div>
@@ -88,7 +85,6 @@ export function FAQPage() {
                 isOpen
                   ? 'border-blue-300 dark:border-blue-700 shadow-sm'
                   : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
-
               }`}
             >
               <button
@@ -104,14 +100,12 @@ export function FAQPage() {
                 <ChevronDown
                   className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${
                     isOpen ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
-
                   }`}
                 />
               </button>
 
               {isOpen && (
                 <div className="pt-3 mt-3 border-t border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-
                   {faq.a}
                 </div>
               )}
@@ -125,7 +119,6 @@ export function FAQPage() {
         <h2 className="text-xl sm:text-2xl font-black text-white">Ready to modernise your healthcare clinic?</h2>
         <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
           Start your 14-day fully featured free trial or explore the interactive prototype across 4 roles.
-
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link to="/register/clinic">
@@ -143,4 +136,3 @@ export function FAQPage() {
     </div>
   );
 }
-

@@ -33,7 +33,6 @@ export function SaaSFinanceOverviewPage() {
   const activePaidClinics = clinics.filter((c) => c.status === 'Active' && !c.isTrial).length;
   const trialClinics = clinics.filter((c) => c.isTrial).length;
 
-
   const calculatedMRR = clinics
     .filter((c) => c.status === 'Active' && !c.isTrial)
     .reduce((acc, c) => {
@@ -43,28 +42,23 @@ export function SaaSFinanceOverviewPage() {
 
   const calculatedARR = calculatedMRR * 12;
 
-
   const totalCashCollected = saasPayments
     .filter((p) => p.status === 'Success')
     .reduce((acc, p) => acc + p.amount, 0);
-
 
   const totalOutstanding = saasInvoices
     .filter((i) => i.status === 'Pending' || i.status === 'Overdue' || i.status === 'Failed')
     .reduce((acc, i) => acc + i.amount, 0);
 
-
   const totalRefunds = saasRefunds
     .filter((r) => r.status === 'Completed')
     .reduce((acc, r) => acc + r.amount, 0);
-
 
   const totalCompanyExpenses = saasExpenses
     .filter((e) => e.paymentStatus === 'Paid')
     .reduce((acc, e) => acc + e.amount, 0);
 
   const netSaaSMargin = totalCashCollected - totalRefunds - totalCompanyExpenses;
-
 
   const mrrTrendData = [
     { month: 'May 2026', mrr: 84000, collections: 82000 },
@@ -83,7 +77,6 @@ export function SaaSFinanceOverviewPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Corporate Treasury</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Finance Cockpit</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Normalized recurring revenue (ARR/MRR), cash collected, failed payment recovery, and SaaS operating expenses.
           </p>
         </div>
@@ -93,7 +86,6 @@ export function SaaSFinanceOverviewPage() {
           size="sm"
           icon={Download}
           onClick={() => showToast('Financial overview CSV report generated.', 'success')}
-
         >
           Export Treasury Summary (.CSV)
         </Button>
@@ -118,7 +110,6 @@ export function SaaSFinanceOverviewPage() {
           </div>
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800">
             <strong className="text-slate-900 dark:text-white block font-bold mb-1 text-sm">Operating Margin vs Profit:</strong>
-
             SaaS margin here subtracts cloud hosting, developer tooling, and API gateway reserves from net collected software subscriptions.
           </div>
         </div>
@@ -158,7 +149,6 @@ export function SaaSFinanceOverviewPage() {
             {formatCurrency(totalOutstanding)}
           </div>
           <span className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 block">Pending & failed auto-debits</span>
-
         </Card>
       </div>
 
@@ -186,7 +176,6 @@ export function SaaSFinanceOverviewPage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Net SaaS Cash Margin</span>
           <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-400 tracking-tight tabular-nums mt-1">{formatCurrency(netSaaSMargin)}</div>
           <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-1 block">Positive unit margin</span>
-
         </Card>
       </div>
 
@@ -198,13 +187,11 @@ export function SaaSFinanceOverviewPage() {
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Comparing normalized MRR against actual settled cash collections</p>
           </div>
           <span className="text-xs text-blue-700 dark:text-blue-300 font-bold bg-blue-50 dark:bg-blue-950/60 px-3 py-1.5 rounded-xl border border-blue-200 dark:border-blue-800 tabular-nums">
-
             ARR Run Rate: {formatCurrency(calculatedARR)}
           </span>
         </div>
 
         <div className="h-72 w-full pt-2">
-
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={mrrTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
@@ -223,7 +210,6 @@ export function SaaSFinanceOverviewPage() {
               <Tooltip
                 formatter={(val) => [`₹${Number(val).toLocaleString('en-IN')}`, 'Amount']}
                 contentStyle={{ borderRadius: 12, backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff', fontSize: 13 }}
-
               />
               <Area type="monotone" dataKey="mrr" stroke="#2563EB" strokeWidth={2.5} fill="url(#mrrGrad)" name="Normalized MRR" />
               <Area type="monotone" dataKey="collections" stroke="#15803D" strokeWidth={2} fill="url(#collGrad)" name="Settled Collections" />

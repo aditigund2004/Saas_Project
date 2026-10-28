@@ -32,13 +32,12 @@ import {
   DEMO_CLINIC_PAYMENTS,
   DEMO_CLINIC_REFUNDS,
   DEMO_RECEIPTS,
-
-  DEMO_NOTIFICATIONS
+  DEMO_NOTIFICATIONS,
+  DEMO_VIRTUAL_CONSULTATIONS
 } from '../demo-data';
 import { ROLE_PERMISSIONS } from '../types';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
 import { getDefaultWebsiteSettings } from '../features/website-builder/websiteBuilderDefaults';
-
 
 const AppContext = createContext(null);
 
@@ -89,7 +88,6 @@ export function AppProvider({ children }) {
       ...c,
       websiteSettings: c.websiteSettings || getDefaultWebsiteSettings(c)
     }));
-
   });
 
   const [doctors, setDoctors] = useState(() => {
@@ -174,7 +172,18 @@ export function AppProvider({ children }) {
 
   const [staffMembers, setStaffMembers] = useState(() => {
     const s = localStorage.getItem('clinipulse_staff_members');
-    return s ? JSON.parse(s) : DEMO_STAFF_MEMBERS;
+    if (!s) return DEMO_STAFF_MEMBERS;
+    try {
+      const parsed = JSON.parse(s);
+      if (Array.isArray(parsed) && parsed.length < DEMO_STAFF_MEMBERS.length) {
+        const existingIds = new Set(parsed.map((p) => p.id));
+        const missing = DEMO_STAFF_MEMBERS.filter((d) => !existingIds.has(d.id));
+        return [...parsed, ...missing];
+      }
+      return parsed;
+    } catch {
+      return DEMO_STAFF_MEMBERS;
+    }
   });
 
   const [encounters, setEncounters] = useState(() => {
@@ -237,12 +246,104 @@ export function AppProvider({ children }) {
     return localStorage.getItem('clinipulse_active_patient_id') || 'pt-1041';
   });
 
-
   // Simulated Notifications Center
   const [notifications, setNotifications] = useState(() => {
     const s = localStorage.getItem('clinipulse_notifications');
     return s ? JSON.parse(s) : DEMO_NOTIFICATIONS;
   });
+
+  // Virtual Consulting State
+  const [virtualConsultations, setVirtualConsultations] = useState(() => {
+    const s = localStorage.getItem('clinipulse_virtual_consultations');
+    return s ? JSON.parse(s) : DEMO_VIRTUAL_CONSULTATIONS;
+  });
+
+  const requestVirtualConsultation = (reqData) => {
+    const newVC = {
+      id: `vc-${Date.now().toString().slice(-4)}`,
+      patientId: reqData.patientId || auth?.user?.id || 'usr-patient-aarav',
+      patientName: reqData.patientName || auth?.user?.name || 'Aarav Patel',
+      patientPhone: reqData.patientPhone || auth?.user?.phone || '+91 98765 43210',
+      patientAvatar: reqData.patientAvatar || auth?.user?.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      doctorId: reqData.doctorId || activeDoctor?.id || 'doc-aarav',
+      doctorName: reqData.doctorName || activeDoctor?.name || 'Dr. Aarav Mehta',
+      doctorSpecialty: reqData.doctorSpecialty || activeDoctor?.specialty || 'General Physician',
+      clinicId: reqData.clinicId || activeClinic?.id || 'clinic-citycare',
+      clinicName: reqData.clinicName || activeClinic?.name || 'CityCare Family Clinic',
+      reason: reqData.reason || 'Virtual Consultation Request',
+      status: 'Waiting',
+      requestedAt: 'Just now',
+      preferredTime: reqData.preferredTime || 'Immediate Live Connect',
+      meetingLink: `https://clinicos.health/meet/vc-${Date.now().toString().slice(-4)}-live`,
+      notes: '',
+      duration: '00:00'
+    };
+
+    setVirtualConsultations((prev) => {
+      const updated = [newVC, ...prev];
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+
+    // Also trigger notification
+    const newNotif = {
+      id: `notif-${Date.now()}`,
+      recipientRole: 'clinic_admin',
+      recipientUserId: 'usr-clinicadmin-aarav',
+      clinicId: newVC.clinicId,
+      type: 'request_received_by_clinic',
+      title: 'Virtual Consultation Requested',
+      message: `${newVC.patientName} has requested a virtual consultation: "${newVC.reason}".`,
+      createdAt: new Date().toISOString(),
+      read: false,
+      priority: 'high'
+    };
+    setNotifications((prev) => [newNotif, ...prev]);
+
+    if (showToast) {
+      showToast(`Virtual consultation requested with ${newVC.doctorName}. Doctor has been notified!`, 'success');
+    }
+    return newVC;
+  };
+
+  const acceptVirtualConsultation = (id) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'In Call', duration: '00:01' } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Connected to Virtual Consultation room.', 'success');
+    }
+  };
+
+  const endVirtualConsultation = (id, notes) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'Completed', notes: notes || vc.notes } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Virtual consultation ended and saved.', 'info');
+    }
+  };
+
+  const declineVirtualConsultation = (id) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'Declined' } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Virtual consultation request declined.', 'info');
+    }
+  };
 
   // UI Modals & Feedback
   const [toast, setToast] = useState(null);
@@ -387,7 +488,6 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_active_patient_id', activePatientId);
   }, [activePatientId]);
 
-
   // Toast Notification Trigger
   const showToast = (message, type = 'success') => {
     setToast({ id: Date.now(), message, type });
@@ -478,7 +578,6 @@ export function AppProvider({ children }) {
       }
     }
 
-
     const id = `apt-${Date.now().toString().slice(-5)}`;
     const referenceNumber = `APT-${Math.floor(2000 + Math.random() * 8000)}`;
     const newAppointment = {
@@ -486,7 +585,6 @@ export function AppProvider({ children }) {
       id,
       patientId: targetPatientId || appointmentData.patientId,
       referenceNumber,
-
       createdAt: new Date().toISOString()
     };
     setAppointments((prev) => [newAppointment, ...prev]);
@@ -505,13 +603,31 @@ export function AppProvider({ children }) {
     const seq = Math.floor(1050 + Math.random() * 800);
     const newPatient = {
       ...patientData,
-      id: `pt-${seq}`,
-      patientIdNumber: `PT-${seq}`,
-      clinicId: activeClinicId,
-      registeredAt: new Date().toISOString().slice(0, 10),
-      status: 'Active'
+      id: patientData.id || `pt-${seq}`,
+      patientIdNumber: patientData.patientIdNumber || `PT-${seq}`,
+      clinicId: patientData.clinicId || activeClinicId,
+      registeredAt: patientData.registeredAt || new Date().toISOString().slice(0, 10),
+      status: patientData.status || 'Active'
     };
     setPatients((prev) => [newPatient, ...prev]);
+    setActivePatientId(newPatient.id);
+    localStorage.setItem('clinipulse_active_patient_id', newPatient.id);
+    if (currentRole === 'patient') {
+      setCurrentUser({
+        id: newPatient.id,
+        name: newPatient.name,
+        email: newPatient.email,
+        phone: newPatient.phone,
+        role: 'patient',
+        patientIdNumber: newPatient.patientIdNumber,
+        bloodGroup: newPatient.bloodGroup,
+        allergies: newPatient.allergies,
+        dob: newPatient.dob,
+        gender: newPatient.gender,
+        emergencyContact: newPatient.emergencyContact,
+        address: newPatient.address
+      });
+    }
     showToast(`Patient ${newPatient.name} registered (ID: ${newPatient.patientIdNumber})`);
     return newPatient;
   };
@@ -545,7 +661,6 @@ export function AppProvider({ children }) {
     }
     showToast(`Switched active patient: ${pt.name} (${pt.patientIdNumber || pt.id})`);
   };
-
 
   const createPrescription = (rxData) => {
     const seq = Math.floor(8820 + Math.random() * 900);
@@ -788,7 +903,6 @@ export function AppProvider({ children }) {
       showToast('Feedback has already been recorded for this appointment.', 'warning');
       return null;
     }
-
     const seq = Math.floor(2600 + Math.random() * 900);
     const newFb = {
       ...feedbackData,
@@ -1805,18 +1919,170 @@ export function AppProvider({ children }) {
   };
 
   // Staff Management
-  const inviteStaffMember = (staffData) => {
+  const addStaffMember = (staffData) => {
     const newStaff = {
-      ...staffData,
-      id: `stf-${Date.now()}`,
-      clinicId: activeClinicId,
-      branchIds: [activeBranchId],
-      status: 'Active',
-      joinedDate: new Date().toISOString().slice(0, 10)
+      id: staffData.id || `stf-${Date.now()}`,
+      clinicId: staffData.clinicId || activeClinicId || 'clinic-citycare',
+      branchIds: staffData.branchIds || [activeBranchId || 'branch-citycare-main'],
+      name: staffData.name,
+      email: staffData.email,
+      phone: staffData.phone,
+      role: staffData.role || 'doctor',
+      department: staffData.department || (staffData.role === 'doctor' ? 'General Medicine' : 'Administration'),
+      status: staffData.status || 'Active',
+      shift: staffData.shift || '09:00 - 18:00',
+      joinedDate: staffData.joinedDate || new Date().toISOString().slice(0, 10),
+      qualifications: staffData.qualifications || '',
+      registrationNumber: staffData.registrationNumber || '',
+      avatar: staffData.avatar || '',
+      experienceYears: Number(staffData.experienceYears) || 5,
+      notes: staffData.notes || ''
     };
+
     setStaffMembers((prev) => [newStaff, ...prev]);
-    showToast(`Staff invitation sent to ${newStaff.name} (${newStaff.role.toUpperCase()}).`);
+
+    // If role is doctor, sync into doctors list so appointments & rosters recognize them
+    if (newStaff.role === 'doctor') {
+      const alreadyDoctor = doctors.some(
+        (d) => d.email?.toLowerCase() === newStaff.email?.toLowerCase() || d.name?.toLowerCase() === newStaff.name?.toLowerCase()
+      );
+      if (!alreadyDoctor) {
+        const newDoc = {
+          id: `doc-${Date.now()}`,
+          doctorIdNumber: `DOC-${Math.floor(100 + Math.random() * 900)}`,
+          clinicId: newStaff.clinicId,
+          clinicName: activeClinic?.name || 'CityCare Family Clinic',
+          branchIds: newStaff.branchIds,
+          name: newStaff.name,
+          specialty: newStaff.department,
+          qualifications: newStaff.qualifications || 'MBBS',
+          registrationNumber: newStaff.registrationNumber || `MDC-${Date.now().toString().slice(-5)}`,
+          experienceYears: newStaff.experienceYears,
+          consultationFee: staffData.consultationFee || 500,
+          email: newStaff.email,
+          phone: newStaff.phone,
+          status: 'Active',
+          avatar: newStaff.avatar || 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80',
+          bio: newStaff.notes || `${newStaff.name} is a specialist in ${newStaff.department}.`
+        };
+        setDoctors((prev) => [newDoc, ...prev]);
+      }
+    }
+
+    // If role is receptionist, sync into receptionists list
+    if (newStaff.role === 'receptionist') {
+      const alreadyRec = receptionists.some(
+        (r) => r.email?.toLowerCase() === newStaff.email?.toLowerCase()
+      );
+      if (!alreadyRec) {
+        const newRec = {
+          id: `rec-${Date.now()}`,
+          staffIdNumber: `REC-${Math.floor(100 + Math.random() * 900)}`,
+          clinicId: newStaff.clinicId,
+          branchIds: newStaff.branchIds,
+          name: newStaff.name,
+          email: newStaff.email,
+          phone: newStaff.phone,
+          shift: newStaff.shift,
+          workingDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+          permissions: ['register_patients', 'manage_appointments', 'check_in_patients'],
+          status: 'Active',
+          joiningDate: newStaff.joinedDate,
+          createdAt: newStaff.joinedDate
+        };
+        setReceptionists((prev) => [newRec, ...prev]);
+      }
+    }
+
+    showToast(`Staff member "${newStaff.name}" added to clinic team.`);
     return newStaff;
+  };
+
+  const updateStaffMember = (staffId, updates) => {
+    let updatedMember = null;
+    setStaffMembers((prev) =>
+      prev.map((s) => {
+        if (s.id === staffId) {
+          updatedMember = { ...s, ...updates };
+          return updatedMember;
+        }
+        return s;
+      })
+    );
+
+    if (updatedMember) {
+      if (updatedMember.role === 'doctor') {
+        setDoctors((prev) =>
+          prev.map((d) =>
+            d.email === updatedMember.email || d.name === updatedMember.name
+              ? {
+                  ...d,
+                  name: updatedMember.name,
+                  email: updatedMember.email,
+                  phone: updatedMember.phone,
+                  specialty: updatedMember.department || d.specialty,
+                  qualifications: updatedMember.qualifications || d.qualifications,
+                  registrationNumber: updatedMember.registrationNumber || d.registrationNumber,
+                  status: updatedMember.status === 'Active' ? 'Active' : 'Inactive'
+                }
+              : d
+          )
+        );
+      } else if (updatedMember.role === 'receptionist') {
+        setReceptionists((prev) =>
+          prev.map((r) =>
+            r.email === updatedMember.email || r.name === updatedMember.name
+              ? {
+                  ...r,
+                  name: updatedMember.name,
+                  email: updatedMember.email,
+                  phone: updatedMember.phone,
+                  shift: updatedMember.shift || r.shift,
+                  status: updatedMember.status === 'Active' ? 'Active' : 'Inactive'
+                }
+              : r
+          )
+        );
+      }
+    }
+
+    showToast('Staff profile updated successfully.');
+  };
+
+  const deleteStaffMember = (staffId) => {
+    const target = staffMembers.find((s) => s.id === staffId);
+    if (!target) return { success: false, error: 'Staff member not found.' };
+
+    if (
+      target.id === 'stf-1' ||
+      target.email === currentUser?.email ||
+      target.name.toLowerCase().includes('aarav mehta')
+    ) {
+      showToast('Cannot delete the primary clinic administrator account.', 'error');
+      return { success: false, error: 'Cannot delete primary clinic administrator.' };
+    }
+
+    setStaffMembers((prev) => prev.filter((s) => s.id !== staffId));
+
+    if (target.role === 'doctor') {
+      setDoctors((prev) => prev.filter((d) => d.email !== target.email && d.name !== target.name));
+    } else if (target.role === 'receptionist') {
+      setReceptionists((prev) => prev.filter((r) => r.email !== target.email && r.name !== target.name));
+    }
+
+    showToast(`Staff member "${target.name}" removed from clinic.`);
+    return { success: true };
+  };
+
+  const toggleStaffStatus = (staffId, newStatus) => {
+    setStaffMembers((prev) =>
+      prev.map((s) => (s.id === staffId ? { ...s, status: newStatus } : s))
+    );
+    showToast(`Staff status updated to ${newStatus}.`);
+  };
+
+  const inviteStaffMember = (staffData) => {
+    return addStaffMember(staffData);
   };
 
   const updateStaffRole = (staffId, newRole) => {
@@ -1829,7 +2095,6 @@ export function AppProvider({ children }) {
   // Billing & Payments
   const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
     return recordClinicPayment(invoiceId, paymentMethod, amountPaid, transactionRef);
-
   };
 
   const requestRefund = (invoiceId, reason) => {
@@ -1940,10 +2205,17 @@ export function AppProvider({ children }) {
     showToast('Clinic profile updated successfully.', 'success');
   };
 
-  const updateClinicWebsite = (clinicId, websiteUpdates) => {
+  const updateClinicWebsite = (clinicIdOrUpdates, maybeUpdates) => {
+    let targetClinicId = clinicIdOrUpdates;
+    let websiteUpdates = maybeUpdates;
+    if (typeof clinicIdOrUpdates === 'object' && clinicIdOrUpdates !== null && maybeUpdates === undefined) {
+      targetClinicId = activeClinicId;
+      websiteUpdates = clinicIdOrUpdates;
+    }
+
     setClinics((prev) => {
       const next = prev.map((c) => {
-        if (c.id !== clinicId) return c;
+        if (c.id !== targetClinicId) return c;
         const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
         return {
           ...c,
@@ -2017,7 +2289,6 @@ export function AppProvider({ children }) {
     });
     showToast('Website unpublished and set to private draft mode.', 'info');
   };
-
 
   // Centralized Permission Checker
   const hasPermission = (permission) => {
@@ -2112,7 +2383,6 @@ export function AppProvider({ children }) {
               status: newStatus,
               paymentMethod
             }
-
           : i
       )
     );
@@ -2127,7 +2397,6 @@ export function AppProvider({ children }) {
       amount: paidAmount,
       paymentMethod,
       transactionRef: transactionRef || '',
-
       date: new Date().toISOString().slice(0, 10),
       status: 'Completed'
     };
@@ -2158,7 +2427,143 @@ export function AppProvider({ children }) {
 
     showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded! Receipt #${newReceipt.receiptNumber} generated.`);
     return { payment: newPayRecord, receipt: newReceipt };
+  };
 
+  // Synchronized Doctor Fee Settlement from Patient Portal / Clinic
+  const payDoctorConsultationFee = (appointmentId, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
+    const apt = appointments.find(
+      (a) => a.id === appointmentId || a.referenceNumber === appointmentId || a.requestId === appointmentId
+    );
+    if (!apt) {
+      showToast('Appointment record not found for fee settlement.', 'error');
+      return null;
+    }
+
+    const fee = Number(apt.consultationFee) || 600;
+    const dateStr = new Date().toISOString().slice(0, 10);
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const payRef = transactionRef || `UPI-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+
+    // 1. Update appointment payment status across platform
+    setAppointments((prev) =>
+      prev.map((a) =>
+        a.id === apt.id
+          ? {
+              ...a,
+              paymentStatus: 'Paid',
+              amountPaid: fee,
+              paidAt: `${dateStr} ${timeStr}`,
+              paymentMethod,
+              transactionRef: payRef,
+              paymentReference: payRef
+            }
+          : a
+      )
+    );
+
+    // 2. Synchronize or create matching invoice
+    let matchedInv = invoices.find(
+      (i) =>
+        i.appointmentId === apt.id ||
+        (apt.referenceNumber && i.referenceNumber === apt.referenceNumber) ||
+        (i.patientId === apt.patientId && i.date === (apt.confirmedDate || apt.date))
+    );
+
+    const invNum = matchedInv ? matchedInv.invoiceNumber : `INV-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    if (matchedInv) {
+      setInvoices((prev) =>
+        prev.map((i) =>
+          i.id === matchedInv.id
+            ? {
+                ...i,
+                amountPaid: i.totalAmount || fee,
+                outstandingBalance: 0,
+                status: 'Paid',
+                paymentMethod,
+                paidAt: `${dateStr} ${timeStr}`,
+                transactionRef: payRef
+              }
+            : i
+        )
+      );
+    } else {
+      const newInv = {
+        id: `inv-${Date.now()}`,
+        invoiceNumber: invNum,
+        clinicId: apt.clinicId || activeClinicId,
+        branchId: apt.branchId || activeBranchId,
+        patientId: apt.patientId,
+        patientName: apt.patientName,
+        patientPhone: apt.patientPhone,
+        appointmentId: apt.id,
+        referenceNumber: apt.referenceNumber || apt.requestId,
+        date: dateStr,
+        dueDate: dateStr,
+        items: [
+          {
+            id: `item-${Date.now()}`,
+            description: `${apt.serviceName || 'OPD Consultation'} with Dr. ${apt.doctorName || 'Doctor'}`,
+            quantity: 1,
+            unitPrice: fee,
+            total: fee
+          }
+        ],
+        subtotal: fee,
+        discount: 0,
+        tax: 0,
+        totalAmount: fee,
+        amountPaid: fee,
+        outstandingBalance: 0,
+        status: 'Paid',
+        paymentMethod,
+        paidAt: `${dateStr} ${timeStr}`
+      };
+      setInvoices((prev) => [newInv, ...prev]);
+    }
+
+    // 3. Record in clinicPayments
+    const newPayRecord = {
+      id: `cpay-${Date.now()}`,
+      paymentReference: payRef,
+      patientId: apt.patientId,
+      patientName: apt.patientName,
+      invoiceNumber: invNum,
+      appointmentId: apt.id,
+      amount: fee,
+      paymentMethod,
+      transactionRef: payRef,
+      date: dateStr,
+      status: 'Completed'
+    };
+    setClinicPayments((prev) => [newPayRecord, ...prev]);
+
+    // 4. Generate official Receipt for Patient & Clinic
+    const rSeq = Math.floor(1000 + Math.random() * 9000);
+    const newReceipt = {
+      id: `rcp-${Date.now()}`,
+      receiptNumber: `RCP-2026-${rSeq}`,
+      paymentReference: payRef,
+      invoiceNumber: invNum,
+      appointmentId: apt.id,
+      patientId: apt.patientId,
+      patientName: apt.patientName,
+      amount: fee,
+      paymentMethod,
+      transactionRef: payRef,
+      date: dateStr,
+      time: timeStr,
+      clinicId: apt.clinicId || activeClinicId,
+      clinicName: apt.clinicName || activeClinic?.name || 'CityCare Family Practice',
+      branchId: apt.branchId || activeBranchId,
+      issuedBy: 'Patient Self-Service Payment Gateway',
+      status: 'Issued',
+      notes: `Consultation fee settlement for Dr. ${apt.doctorName} (${apt.serviceName || 'OPD Consultation'})`
+    };
+    setReceipts((prev) => [newReceipt, ...prev]);
+
+    showToast(`Payment of ₹${fee.toLocaleString('en-IN')} paid to Dr. ${apt.doctorName}! Receipt #${newReceipt.receiptNumber} generated.`);
+    return { success: true, receipt: newReceipt, payment: newPayRecord };
   };
 
   const requestClinicRefund = (refundData) => {
@@ -2327,6 +2732,11 @@ export function AppProvider({ children }) {
         currentReceptionist,
         hasReceptionistPermission,
         staffMembers,
+        setStaffMembers,
+        addStaffMember,
+        updateStaffMember,
+        deleteStaffMember,
+        toggleStaffStatus,
         inviteStaffMember,
         updateStaffRole,
         feedbacks,
@@ -2345,7 +2755,6 @@ export function AppProvider({ children }) {
         switchDemoPatient,
         receipts,
         setReceipts,
-
         appointments,
         createAppointment,
         updateAppointmentStatus,
@@ -2418,6 +2827,7 @@ export function AppProvider({ children }) {
         clinicPayments,
         clinicRefunds,
         recordClinicPayment,
+        payDoctorConsultationFee,
         requestClinicRefund,
         approveClinicRefund,
         createClinicExpense,
@@ -2426,7 +2836,6 @@ export function AppProvider({ children }) {
         saveClinicWebsiteDraft,
         publishClinicWebsite,
         unpublishClinicWebsite,
-
         toast,
         showToast,
         whatsAppModal,
@@ -2435,6 +2844,11 @@ export function AppProvider({ children }) {
         prescriptionModal,
         openPrescriptionModal,
         closePrescriptionModal,
+        virtualConsultations,
+        requestVirtualConsultation,
+        acceptVirtualConsultation,
+        endVirtualConsultation,
+        declineVirtualConsultation,
         resetDemoData
       }}
     >

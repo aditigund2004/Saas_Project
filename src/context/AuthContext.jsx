@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
   // Session initialization
   const [user, setUser] = useState(() => {
     return MockAuthService.getSession();
-
   });
 
   const [isLoading, setIsLoading] = useState(false);

@@ -29,8 +29,10 @@ export function ProtectedRoute({ allowedRoles, children }) {
     if (location.pathname.startsWith('/reception')) {
       return <Navigate to={`/login/receptionist?redirect=${returnUrl}`} replace />;
     }
+    if (location.pathname.startsWith('/patient')) {
+      return <Navigate to={`/login/patient?redirect=${returnUrl}`} replace />;
+    }
     return <Navigate to="/" replace />;
-
   }
 
   // Role validation
@@ -60,7 +62,6 @@ export function ProtectedRoute({ allowedRoles, children }) {
           />
         );
       }
-
       return (
         <Navigate
           to={`/access-denied?attempted=${user.role}&required=${allowedRoles.join(',')}&from=${encodeURIComponent(location.pathname)}`}

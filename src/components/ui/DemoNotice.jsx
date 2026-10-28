@@ -7,7 +7,6 @@ export function DemoNotice({ message, className = '' }) {
       className={`flex items-center gap-2 px-3 py-2 rounded-xl bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/80 text-amber-850 dark:text-amber-300 text-xs ${className}`}
     >
       <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-
       <span>
         <strong>Demo Mode:</strong> {message || 'Synthetic test data & frontend simulation. Ready for backend API connection.'}
       </span>
@@ -33,7 +32,6 @@ export function ToastContainer({ toast }) {
         }`}
       >
         <Info className="w-4 h-4 shrink-0 text-blue-400" />
-
         <span>{toast.message}</span>
       </div>
     </div>
@@ -50,9 +48,7 @@ export function EmptyState({ title, description, action, icon: Icon, className =
       )}
       <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{title}</h4>
       {description && <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mt-1">{description}</p>}
-
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
 }
-

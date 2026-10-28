@@ -209,7 +209,6 @@ export function ClinicServicesPage() {
           ))}
         </div>
       )}
-
     </div>
   );
 }

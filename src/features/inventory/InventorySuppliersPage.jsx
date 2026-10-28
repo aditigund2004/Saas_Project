@@ -56,28 +56,24 @@ export function InventorySuppliersPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Authorized Medical Suppliers</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Registered distributors, contract terms, contact points, and performance ratings
           </p>
         </div>
 
         <Button variant="primary" size="sm" onClick={() => setModalOpen(true)} className="font-semibold shadow-sm">
           <Plus className="w-4 h-4 mr-1.5" />
-
           Register New Supplier
         </Button>
       </div>
 
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search suppliers by company name, contact, or city..."
           className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm"
-
         />
       </div>
 
@@ -94,7 +90,6 @@ export function InventorySuppliersPage() {
                 </div>
                 <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 px-2.5 py-0.5 rounded-full text-xs font-bold border border-amber-200 dark:border-amber-800">
                   <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-
                   {s.rating}
                 </div>
               </div>
@@ -114,7 +109,6 @@ export function InventorySuppliersPage() {
               <div className="pt-2 flex flex-wrap gap-1.5">
                 {s.categories.map((c, i) => (
                   <span key={i} className="text-xs px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">
-
                     {c}
                   </span>
                 ))}
@@ -124,7 +118,6 @@ export function InventorySuppliersPage() {
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <span>Terms: <strong className="text-slate-800 dark:text-slate-200">{s.paymentTerms}</strong></span>
               <span className="text-blue-700 dark:text-blue-400 font-semibold">{s.activeOrdersCount || 0} active POs</span>
-
             </div>
           </Card>
         ))}
@@ -153,7 +146,6 @@ export function InventorySuppliersPage() {
             <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Company Name *</label>
-
                 <input
                   required
                   type="text"
@@ -167,7 +159,6 @@ export function InventorySuppliersPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Contact Person</label>
-
                   <input
                     type="text"
                     value={newSup.contactPerson}
@@ -178,13 +169,11 @@ export function InventorySuppliersPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">City</label>
-
                   <input
                     type="text"
                     value={newSup.city}
                     onChange={(e) => setNewSup({ ...newSup, city: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
@@ -192,7 +181,6 @@ export function InventorySuppliersPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Phone</label>
-
                   <input
                     type="text"
                     value={newSup.phone}
@@ -203,21 +191,18 @@ export function InventorySuppliersPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Email</label>
-
                   <input
                     type="email"
                     value={newSup.email}
                     onChange={(e) => setNewSup({ ...newSup, email: e.target.value })}
                     placeholder="orders@vendor.com"
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
 
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Supplied Categories (comma separated)</label>
-
                 <input
                   type="text"
                   value={newSup.categories}
@@ -227,7 +212,6 @@ export function InventorySuppliersPage() {
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setModalOpen(false)}>
                   Cancel
                 </Button>
@@ -242,4 +226,3 @@ export function InventorySuppliersPage() {
     </div>
   );
 }
-

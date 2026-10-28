@@ -23,7 +23,6 @@ import { Button } from '../../components/ui/Button';
 import { ScrollRevealCard } from '../../components/medical/ScrollRevealCard';
 import { EcgWaveform } from '../../components/medical/EcgWaveform';
 
-
 export function FeaturesPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -162,13 +161,11 @@ export function FeaturesPage() {
           Everything You Need to Run a Modern Specialty Clinic
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-
           Explore all 14 core modules engineered for dental, orthopedic, dermatology, pediatric practices, and small local nursing homes.
         </p>
 
         {/* Filter pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-
           {categories.map((c) => (
             <button
               key={c.id}
@@ -177,7 +174,6 @@ export function FeaturesPage() {
                 selectedCategory === c.id
                   ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
                   : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/60'
-
               }`}
             >
               {c.label}
@@ -187,7 +183,6 @@ export function FeaturesPage() {
 
         {/* ECG telemetry accent */}
         <EcgWaveform variant="compact" glow={true} className="max-w-md mx-auto pt-2 opacity-60 dark:opacity-75" />
-
       </div>
 
       {/* Grid of features */}
@@ -222,14 +217,12 @@ export function FeaturesPage() {
                 </div>
               </Card>
             </ScrollRevealCard>
-
           );
         })}
       </div>
 
       {/* Bottom CTA */}
       <div className="bg-slate-900 dark:bg-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-10 text-white text-center space-y-4 max-w-4xl mx-auto shadow-xl">
-
         <h2 className="text-2xl sm:text-3xl font-bold">Start Your 14-Day Free Clinic Trial</h2>
         <p className="text-slate-400 text-sm max-w-xl mx-auto">
           No credit card required. Explore role dashboards for Clinic Admin, Receptionist, and Patients immediately.
@@ -245,4 +238,3 @@ export function FeaturesPage() {
     </div>
   );
 }
-

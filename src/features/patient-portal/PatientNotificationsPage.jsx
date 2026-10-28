@@ -14,7 +14,6 @@ import {
   Sparkles,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +21,6 @@ export function PatientNotificationsPage() {
   const { notifications: contextNotifications = [], markNotificationAsRead, clearAllNotifications, activeClinic, showToast } = useApp();
 
   const [viewMode, setViewMode] = useState('table');
-
   const [preferences, setPreferences] = useState({
     whatsapp: true,
     sms: true,
@@ -80,7 +78,6 @@ export function PatientNotificationsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Communication</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">Notifications & Visit Reminders</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-
             Review clinic alerts, alternative slot proposals, booking confirmations, and simulated WhatsApp dispatches.
           </p>
         </div>
@@ -89,7 +86,6 @@ export function PatientNotificationsPage() {
           <Button
             variant="outline"
             size="md"
-
             onClick={() => {
               if (clearAllNotifications) clearAllNotifications();
               showToast('All notifications marked as read.');
@@ -293,7 +289,6 @@ export function PatientNotificationsPage() {
               );
             })
           )}
-
         </div>
 
         {/* Communication Preferences */}
@@ -311,7 +306,6 @@ export function PatientNotificationsPage() {
             <div className="space-y-3 text-sm">
               <label className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                 <span className="font-medium text-slate-800 dark:text-slate-200">WhatsApp Dispatch</span>
-
                 <input
                   type="checkbox"
                   checked={preferences.whatsapp}
@@ -322,7 +316,6 @@ export function PatientNotificationsPage() {
 
               <label className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                 <span className="font-medium text-slate-800 dark:text-slate-200">SMS Reminders</span>
-
                 <input
                   type="checkbox"
                   checked={preferences.sms}
@@ -333,7 +326,6 @@ export function PatientNotificationsPage() {
 
               <label className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                 <span className="font-medium text-slate-800 dark:text-slate-200">Email Newsletters</span>
-
                 <input
                   type="checkbox"
                   checked={preferences.email}
@@ -344,7 +336,6 @@ export function PatientNotificationsPage() {
 
               <label className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                 <span className="font-medium text-slate-800 dark:text-slate-200">24-Hour Prior Alert</span>
-
                 <input
                   type="checkbox"
                   checked={preferences.reminders24h}

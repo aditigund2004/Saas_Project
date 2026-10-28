@@ -46,7 +46,6 @@ export function PatientBillingPage() {
     setPayAmount(due.toString());
   };
 
-
   const handleConfirmPay = (e) => {
     e.preventDefault();
     if (!payModalInvoice) return;
@@ -63,7 +62,6 @@ export function PatientBillingPage() {
     }
 
     recordInvoicePayment(payModalInvoice.invoiceNumber || payModalInvoice.id, amountToPay, selectedMethod);
-
     setPayModalInvoice(null);
   };
 
@@ -128,7 +126,6 @@ export function PatientBillingPage() {
 
       {/* Invoices List */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-
         <CardHeader
           title={`All Patient Invoices (${displayInvoices.length})`}
           subtitle="Showing all documented consultation & procedure charges"
@@ -214,7 +211,6 @@ export function PatientBillingPage() {
                   );
                 })
               )}
-
             </tbody>
           </table>
         </div>
@@ -239,7 +235,6 @@ export function PatientBillingPage() {
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">{payModalInvoice.invoiceNumber}</p>
               </div>
               <button onClick={() => setPayModalInvoice(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -252,7 +247,6 @@ export function PatientBillingPage() {
               <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between font-bold">
                 <span className="text-slate-700 dark:text-slate-300">Remaining Due:</span>
                 <span className="font-mono text-blue-700 dark:text-blue-400 text-base">
-
                   {formatCurrency(payModalInvoice.totalAmount - (payModalInvoice.amountPaid || 0))}
                 </span>
               </div>
@@ -288,7 +282,6 @@ export function PatientBillingPage() {
                       }`}
                     >
                       <span className="text-xs">{m}</span>
-
                       <input
                         type="radio"
                         name="payMethod"
@@ -307,7 +300,6 @@ export function PatientBillingPage() {
                 </Button>
                 <Button variant="primary" size="sm" type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-sm">
                   Confirm Payment & Generate Receipt
-
                 </Button>
               </div>
             </form>

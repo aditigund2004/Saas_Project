@@ -7,7 +7,6 @@ export function Card({ children, className = '', hover = false, onClick }) {
       className={`bg-white dark:bg-slate-900 rounded-xl border border-slate-200/90 dark:border-slate-800 shadow-2xs text-slate-900 dark:text-slate-100 transition-colors ${
         hover
           ? 'duration-150 ease-out hover:shadow-xs hover:border-slate-300 dark:hover:border-slate-700 cursor-pointer'
-
           : ''
       } ${className}`}
     >
@@ -22,7 +21,6 @@ export function CardHeader({ title, subtitle, action, className = '' }) {
       <div className="min-w-0">
         <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">{title}</h3>
         {subtitle && <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{subtitle}</p>}
-
       </div>
       {action && <div className="shrink-0">{action}</div>}
     </div>

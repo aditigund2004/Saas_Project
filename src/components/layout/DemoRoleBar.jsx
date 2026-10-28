@@ -15,7 +15,6 @@ import {
 
 export function DemoRoleBar() {
   const { currentRole, switchRole, resetDemoData, activeClinic, clinics } = useApp();
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,7 +28,6 @@ export function DemoRoleBar() {
     location.pathname.startsWith('/clinic/');
 
   const targetClinicSlug = activeClinic?.slug || clinics[0]?.slug || 'citycare-family-clinic';
-
 
   const personas = [
     {
@@ -56,7 +54,6 @@ export function DemoRoleBar() {
     {
       id: 'patient',
       label: 'Patient Portal',
-
       path: '/patient/dashboard',
       icon: User,
       roleSubtitle: 'Self-Service'
@@ -78,7 +75,6 @@ export function DemoRoleBar() {
         </span>
         <span className="text-slate-400 hidden xl:inline text-[11px]">
           Multi-Tenant Persona Simulator:
-
         </span>
       </div>
 
@@ -88,14 +84,12 @@ export function DemoRoleBar() {
           to="/"
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-colors font-medium text-xs whitespace-nowrap ${
             location.pathname === '/'
-
               ? 'bg-blue-600 text-white shadow-xs font-semibold'
               : 'text-slate-300 hover:bg-slate-800 hover:text-white'
           }`}
         >
           <Globe className="w-3.5 h-3.5" />
           SaaS Home
-
         </Link>
 
         <div className="h-4 w-px bg-slate-800 mx-1 hidden sm:block" />
@@ -108,20 +102,17 @@ export function DemoRoleBar() {
             (r.id === 'receptionist' && (location.pathname.startsWith('/app/frontdesk') || location.pathname.startsWith('/reception') || currentRole === 'receptionist')) ||
             (r.id === 'patient' && (location.pathname.startsWith('/patient') || currentRole === 'patient'));
 
-
           return (
             <button
               key={r.id}
               onClick={() => handleRoleSelect(r.id, r.path)}
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-colors font-semibold text-xs whitespace-nowrap cursor-pointer ${
-
                 isActive
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
-
               <span>{r.label}</span>
             </button>
           );
@@ -165,7 +156,6 @@ export function DemoRoleBar() {
         <RotateCcw className="w-3 h-3" />
         <span className="hidden sm:inline">Reset Demo</span>
       </button>
-
     </div>
   );
 }

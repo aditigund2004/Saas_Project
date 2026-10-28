@@ -39,7 +39,6 @@ export function AccessDeniedPage() {
       <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6 text-center">
         {/* Warning Icon */}
         <div className="w-16 h-16 rounded-3xl bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto shadow-sm">
-
           <ShieldAlert className="w-8 h-8" />
         </div>
 
@@ -51,7 +50,6 @@ export function AccessDeniedPage() {
             Role Permission Boundary
           </h1>
           <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-
             Your current demonstration session does not hold the required authorization credentials to enter this protected clinical route.
           </p>
         </div>
@@ -65,20 +63,17 @@ export function AccessDeniedPage() {
           <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-700">
             <span className="text-slate-500 dark:text-slate-400">Active Role:</span>
             <span className="font-mono font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
-
               {role ? role.toUpperCase() : 'SIGNED OUT'}
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-slate-500 dark:text-slate-400">Required Role:</span>
             <span className="font-mono font-bold text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/50 px-2 py-0.5 rounded">
-
               {requiredRole.toUpperCase()}
             </span>
           </div>
           {fromPath && (
             <div className="pt-1 text-xs text-slate-400 dark:text-slate-500 font-mono truncate">
-
               Target URL: {fromPath}
             </div>
           )}
@@ -96,7 +91,6 @@ export function AccessDeniedPage() {
             variant="outline"
             size="md"
             className="w-full justify-center text-slate-700 dark:text-slate-200"
-
             onClick={handleSignOutAndSwitch}
           >
             <LogOut className="w-4 h-4 mr-1.5" /> Sign Out & Switch Account
@@ -106,7 +100,6 @@ export function AccessDeniedPage() {
         <div className="pt-2 text-xs text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800">
           Need to test other roles? Explore accounts on the{' '}
           <Link to="/demo-access" className="font-bold text-blue-600 dark:text-blue-400 underline">
-
             Demo Access Hub &rarr;
           </Link>
         </div>
@@ -114,4 +107,3 @@ export function AccessDeniedPage() {
     </div>
   );
 }
-

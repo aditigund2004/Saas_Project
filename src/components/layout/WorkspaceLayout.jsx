@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Outlet } from 'react-router-dom';
 import { WorkspaceHeader } from './WorkspaceHeader';
 import { WorkspaceSidebar } from './WorkspaceSidebar';
@@ -8,7 +7,6 @@ import { PrescriptionModal } from './PrescriptionModal';
 import { AIPreviewAssistant } from '../ui/AIPreviewAssistant';
 import { ToastContainer } from '../ui/DemoNotice';
 import { MedicalMotionBackground } from './MedicalMotionBackground';
-
 import { useApp } from '../../context/AppContext';
 
 export function WorkspaceLayout() {
@@ -23,7 +21,6 @@ export function WorkspaceLayout() {
         <div className="flex-1 lg:pl-[280px] flex flex-col min-w-0">
           <WorkspaceHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
           <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-[1720px] mx-auto">
-
             <Outlet />
           </main>
         </div>

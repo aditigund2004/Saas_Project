@@ -20,8 +20,11 @@ import {
   FileText,
   ShieldCheck,
   User,
-  History
+  History,
+  CreditCard,
+  Receipt
 } from 'lucide-react';
+import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
 
 export function PatientAppointmentDetailPage() {
   const { appointmentId } = useParams();
@@ -34,6 +37,7 @@ export function PatientAppointmentDetailPage() {
     showToast
   } = useApp();
   const navigate = useNavigate();
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const apt = appointments.find((a) => a.id === appointmentId) || appointments[0];
 
@@ -80,7 +84,6 @@ export function PatientAppointmentDetailPage() {
               <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">{apt.clinicName}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-
               {apt.serviceName}
             </h1>
           </div>
@@ -99,7 +102,6 @@ export function PatientAppointmentDetailPage() {
                   : apt.status === 'Completed'
                   ? 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
                   : 'bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
-
               }`}
             >
               {apt.status}
@@ -108,7 +110,6 @@ export function PatientAppointmentDetailPage() {
             <Button
               variant="outline"
               size="md"
-
               icon={Printer}
               onClick={() => showToast(`Printing official appointment slip for ${apt.referenceNumber || apt.requestId}...`)}
             >
@@ -127,7 +128,6 @@ export function PatientAppointmentDetailPage() {
                   Clinic Proposed An Alternative Slot
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-
                   "Your requested appointment time is unavailable. The clinic has proposed an alternative appointment. Please review the new time and confirm whether it works for you."
                 </p>
               </div>
@@ -143,7 +143,6 @@ export function PatientAppointmentDetailPage() {
               <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border-2 border-blue-500 dark:border-blue-400 shadow-sm">
                 <span className="text-xs text-blue-600 dark:text-blue-400 font-bold block uppercase">Proposed Alternative Slot</span>
                 <span className="font-mono text-blue-900 dark:text-blue-200 text-base font-extrabold">
-
                   {latestAlt.proposedDate} at {latestAlt.proposedTime}
                 </span>
               </div>
@@ -154,14 +153,12 @@ export function PatientAppointmentDetailPage() {
             </p>
 
             <div className="flex justify-end gap-2.5 pt-1">
-
               <Button
                 variant="outline"
                 size="sm"
                 icon={XCircle}
                 onClick={() => respondToAlternativeSlot(apt.id, false)}
                 className="text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs"
-
               >
                 Decline Alternative
               </Button>
@@ -171,7 +168,6 @@ export function PatientAppointmentDetailPage() {
                 icon={CheckCircle2}
                 onClick={() => respondToAlternativeSlot(apt.id, true)}
                 className="text-xs font-bold shadow-md shadow-blue-500/20"
-
               >
                 Accept Alternative Slot &rarr;
               </Button>
@@ -186,7 +182,6 @@ export function PatientAppointmentDetailPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Visit Details Card */}
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
             <CardHeader
               title="Consultation Details"
               subtitle="Scheduled appointment parameters and clinical tariff"
@@ -206,12 +201,45 @@ export function PatientAppointmentDetailPage() {
                 <span className="text-slate-500 dark:text-slate-400 text-xs">Duration: {apt.durationMinutes || 30} mins</span>
               </div>
 
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
-                <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Fee</span>
-                <span className="font-bold font-mono text-blue-600 dark:text-blue-400 text-base block">
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Fee</span>
+                  {apt.paymentStatus === 'Paid' ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                      <CheckCircle2 className="w-3 h-3" /> Paid
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
+                      <Clock className="w-3 h-3" /> Due
+                    </span>
+                  )}
+                </div>
+                <span className="font-bold font-mono text-blue-600 dark:text-blue-400 text-lg block">
                   {formatCurrency(apt.consultationFee || doctor?.consultationFee || 600)}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400 text-xs">Payable at clinic reception</span>
+                {apt.paymentStatus === 'Paid' ? (
+                  <div className="pt-1">
+                    <Link to="/patient/receipts">
+                      <Button variant="outline" size="sm" icon={Receipt} className="w-full text-xs text-emerald-700 dark:text-emerald-400 border-emerald-300">
+                        View Official Receipt
+                      </Button>
+                    </Link>
+                  </div>
+                ) : apt.status !== 'Cancelled' && apt.status !== 'Rejected' ? (
+                  <div className="pt-1">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      icon={CreditCard}
+                      onClick={() => setIsPaymentModalOpen(true)}
+                      className="w-full text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                    >
+                      Pay Doctor Fee Now
+                    </Button>
+                  </div>
+                ) : (
+                  <span className="text-slate-500 dark:text-slate-400 text-xs">Appointment Cancelled</span>
+                )}
               </div>
 
               <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
@@ -221,7 +249,6 @@ export function PatientAppointmentDetailPage() {
                 </span>
                 {apt.queueNumber && (
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold text-xs">Token: {apt.queueNumber}</span>
-
                 )}
               </div>
             </div>
@@ -229,7 +256,6 @@ export function PatientAppointmentDetailPage() {
             {apt.notes && (
               <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300">
                 <strong className="block text-slate-900 dark:text-slate-100 mb-1">Clinical / Booking Notes:</strong>
-
                 <span>{apt.notes}</span>
               </div>
             )}
@@ -238,7 +264,6 @@ export function PatientAppointmentDetailPage() {
           {/* Clinic Information */}
           {clinic && (
             <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
               <CardHeader
                 title="Practicing Clinic Details"
                 subtitle="Arrival directions and reception contact"
@@ -266,7 +291,6 @@ export function PatientAppointmentDetailPage() {
                     <span className="font-mono">{clinic.phone}</span>
                   </div>
                   <div className="flex items-center gap-2">
-
                     <Mail className="w-4 h-4 text-slate-400 shrink-0" />
                     <span>{clinic.email}</span>
                   </div>
@@ -299,7 +323,6 @@ export function PatientAppointmentDetailPage() {
                   <div className="text-xs text-slate-400 dark:text-slate-500 font-mono">{entry.timestamp} · {entry.actor}</div>
                   {entry.notes && (
                     <p className="text-xs text-slate-600 dark:text-slate-300 pt-0.5 italic">"{entry.notes}"</p>
-
                   )}
                 </div>
               ))}
@@ -311,11 +334,17 @@ export function PatientAppointmentDetailPage() {
             <span className="font-bold text-slate-900 dark:text-slate-100 block text-sm">Need to Reschedule?</span>
             <p className="leading-relaxed">
               You can contact the clinic reception directly at <strong className="text-slate-800 dark:text-slate-200">{clinic?.phone}</strong> or cancel and submit a new request.
-
             </p>
           </div>
         </div>
       </div>
+
+      {/* Doctor Consultation Fee Payment Gateway Modal */}
+      <DoctorPaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        appointment={apt}
+      />
     </div>
   );
 }

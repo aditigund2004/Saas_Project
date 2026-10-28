@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { MockAuthService, SEEDED_DEMO_USERS } from '../../services/mockAuthService';
 import { Card, CardHeader } from '../../components/ui/Card';
-
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import {
@@ -19,7 +18,6 @@ import {
   CheckCircle2,
   ExternalLink,
   Layers,
-
   ArrowLeft
 } from 'lucide-react';
 
@@ -69,7 +67,6 @@ export function DemoAccessPage() {
         return <Badge variant="success">Patient</Badge>;
       default:
         return <Badge variant="default">{role}</Badge>;
-
     }
   };
 
@@ -79,7 +76,6 @@ export function DemoAccessPage() {
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-
             <Link to="/" className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-sm">
                 <Activity className="w-4 h-4" />
@@ -106,7 +102,6 @@ export function DemoAccessPage() {
             </Button>
           </Link>
           <Link to="/register/patient">
-
             <Button variant="primary" size="sm" className="bg-blue-600 hover:bg-blue-700 font-bold">
               + New Patient Registration
             </Button>
@@ -121,7 +116,6 @@ export function DemoAccessPage() {
           <span>Evaluation Testing Facility Only</span>
         </div>
         <p className="text-amber-800 dark:text-amber-300 leading-relaxed text-xs">
-
           This console is designed strictly for demonstration and investor previews. It allows evaluators to simulate authentication across all 4 system roles without manual password typing. In a production environment, privileged Superadmin and Staff credentials must be secured behind hardware-backed identity providers and server-enforced access controls.
         </p>
       </div>
@@ -142,7 +136,6 @@ export function DemoAccessPage() {
               filterRole === t.id
                 ? 'bg-blue-600 text-white shadow-xs'
                 : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'
-
             }`}
           >
             {t.label}
@@ -180,7 +173,6 @@ export function DemoAccessPage() {
                     <div>
                       <h3 className="font-bold text-base text-slate-900 dark:text-white leading-snug">{acc.name}</h3>
                       <div className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">{acc.email}</div>
-
                     </div>
                   </div>
                 </div>
@@ -189,7 +181,6 @@ export function DemoAccessPage() {
                   {getRoleBadge(acc.role)}
                   {acc.memberships.length > 1 && (
                     <span className="text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
-
                       {acc.memberships.length} Clinics Assigned
                     </span>
                   )}
@@ -203,7 +194,6 @@ export function DemoAccessPage() {
                   </div>
                   {acc.phone && (
                     <div className="text-xs text-slate-400 dark:text-slate-500 font-mono">
-
                       Phone: {acc.phone}
                     </div>
                   )}
@@ -213,13 +203,11 @@ export function DemoAccessPage() {
               {/* 1-Click Sign In Trigger */}
               <div className="pt-4 mt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
                 <span className="text-xs text-slate-400 dark:text-slate-500">Demo Password: Any 4+ chars</span>
-
                 <Button
                   variant="primary"
                   size="sm"
                   onClick={() => handleInstantSignIn(acc)}
                   className="font-bold text-xs"
-
                 >
                   1-Click Test Sign In &rarr;
                 </Button>

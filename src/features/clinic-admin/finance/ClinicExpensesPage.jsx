@@ -23,7 +23,6 @@ import {
 export function ClinicExpensesPage() {
   const {
     expenses = [],
-
     createClinicExpense,
     showToast,
     formatCurrency,
@@ -87,7 +86,6 @@ export function ClinicExpensesPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Practice Overhead & Payables</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinic Operational Expenses</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Log medical consumables, equipment maintenance AMCs, biomedical hazardous waste disposal, facility rent, and ClinicOS SaaS licensing.
           </p>
         </div>
@@ -99,7 +97,6 @@ export function ClinicExpensesPage() {
             onClick={() => showToast('Exporting practice operational expense ledger CSV...')}
           >
             <Download className="w-4 h-4 mr-1.5" />
-
             Export Expenses
           </Button>
           <Button
@@ -108,7 +105,6 @@ export function ClinicExpensesPage() {
             onClick={() => setIsNewExpenseOpen(true)}
           >
             <PlusCircle className="w-4 h-4 mr-1.5" />
-
             Record Practice Expense
           </Button>
         </div>
@@ -137,7 +133,6 @@ export function ClinicExpensesPage() {
                 {cat}
               </div>
               <div className={`text-base font-black font-mono mt-1 tabular-nums ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
-
                 {formatCurrency(catSum)}
               </div>
             </button>
@@ -150,21 +145,18 @@ export function ClinicExpensesPage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search by vendor, memo or description..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
-
             />
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Total Expenses MTD:</span>
             <span className="font-mono font-bold text-red-600 dark:text-red-400 text-base tabular-nums">{formatCurrency(totalExpenseAmount)}</span>
-
           </div>
         </div>
 
@@ -173,7 +165,6 @@ export function ClinicExpensesPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Vendor / Payee</th>
                 <th className="p-3.5">Category</th>
                 <th className="p-3.5">Description</th>
@@ -187,7 +178,6 @@ export function ClinicExpensesPage() {
               {filteredExpenses.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
-
                     No expense records found.
                   </td>
                 </tr>
@@ -202,7 +192,6 @@ export function ClinicExpensesPage() {
                           {exp.vendor || 'Clinic Landlord'}
                           {isSoftware && (
                             <span className="p-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
-
                               <Sparkles className="w-3 h-3" />
                             </span>
                           )}
@@ -214,7 +203,6 @@ export function ClinicExpensesPage() {
                             isSoftware
                               ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-
                           }`}
                         >
                           {exp.category}
@@ -230,7 +218,6 @@ export function ClinicExpensesPage() {
                       </td>
                       <td className="p-3.5">
                         <Badge variant="success" size="sm">Disbursed</Badge>
-
                       </td>
                     </tr>
                   );
@@ -250,14 +237,12 @@ export function ClinicExpensesPage() {
         <form onSubmit={handleCreateExpense} className="space-y-4 text-sm">
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Vendor / Payee</label>
-
             <input
               type="text"
               required
               value={vendor}
               onChange={(e) => setVendor(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-
               placeholder="e.g. Apex Medical Consumables, Pune BioHazard Waste Ltd"
             />
           </div>
@@ -269,7 +254,6 @@ export function ClinicExpensesPage() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
               >
                 <option value="Consumables">Medical Consumables & PPE</option>
                 <option value="Biomedical Waste">Biomedical Waste Disposal</option>
@@ -282,7 +266,6 @@ export function ClinicExpensesPage() {
             </div>
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Amount (₹)</label>
-
               <input
                 type="number"
                 required
@@ -290,21 +273,18 @@ export function ClinicExpensesPage() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-
               />
             </div>
           </div>
 
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Description / Memo</label>
-
             <textarea
               rows={2}
               required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-
               placeholder="Detailed memorandum of expense items..."
             />
           </div>
@@ -315,7 +295,6 @@ export function ClinicExpensesPage() {
               value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
             >
               <option value="Bank Transfer">Bank Transfer (NEFT / IMPS)</option>
               <option value="Cheque">Corporate Current Account Cheque</option>
@@ -337,4 +316,3 @@ export function ClinicExpensesPage() {
     </div>
   );
 }
-

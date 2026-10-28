@@ -15,7 +15,6 @@ export function ReceptionInventoryPage() {
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Front Desk Stock</span>
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Front Desk Supplies Checklist</h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
           Reception-accessible supplies tracking for thermal receipts, prescription stationery, and patient hygiene disposables.
         </p>
       </div>
@@ -45,7 +44,6 @@ export function ReceptionInventoryPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-
         <CardHeader
           title="Consumables & Stationeries"
           subtitle="Authorized front desk stock log"
@@ -88,7 +86,6 @@ export function ReceptionInventoryPage() {
                       )}
                     </td>
                     <td className="p-4 text-right">
-
                       <Button
                         variant="outline"
                         size="sm"

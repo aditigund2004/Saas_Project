@@ -1185,7 +1185,6 @@ class EmailNotificationService {
       customVariables?: Record<string, string>;
       themeId?: string;
       themeName?: string;
-
     } = {}
   ): {
     success: boolean;
@@ -1290,7 +1289,6 @@ class EmailNotificationService {
       renderedText: rendered.text,
       themeId: eventPayload.themeId,
       themeName: eventPayload.themeName
-
     });
 
     // Update trigger metrics
@@ -1300,14 +1298,12 @@ class EmailNotificationService {
 
     const themeSuffix = eventPayload.themeName ? ` using ${eventPayload.themeName} theme` : '';
 
-
     return {
       success: !isSimulatedFailure,
       status: isSimulatedFailure ? 'failed' : 'delivered',
       message: isSimulatedFailure
         ? `Simulated email failure recorded for event "${eventKey}".`
         : `Simulated email "${rendered.subject}" dispatched successfully to ${log.recipientEmail}${themeSuffix}!`,
-
       log
     };
   }

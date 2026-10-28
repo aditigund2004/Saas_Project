@@ -19,7 +19,6 @@ import {
   X,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 
 export function PlatformSupportPage() {
@@ -29,7 +28,6 @@ export function PlatformSupportPage() {
   const [statusFilter, setStatusFilter] = useState('All');
   const [priorityFilter, setPriorityFilter] = useState('All');
   const [viewMode, setViewMode] = useState('table');
-
 
   const [replyText, setReplyText] = useState('');
   const [isInternalNote, setIsInternalNote] = useState(false);
@@ -231,21 +229,18 @@ export function PlatformSupportPage() {
       ) : (
         /* Main Two-Column Layout */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[600px]">
-
         {/* Left Column: Ticket Queue (5 Cols) */}
         <div className="lg:col-span-5 space-y-3 flex flex-col">
           {/* Search & Filters */}
           <div className="space-y-2">
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
-
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search ticket #, clinic, or subject..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-slate-400"
-
               />
             </div>
 
@@ -254,7 +249,6 @@ export function PlatformSupportPage() {
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="text-sm border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-medium flex-1 focus:ring-2 focus:ring-purple-500 focus:outline-none"
-
               >
                 <option value="All">All Statuses</option>
                 <option value="Open">Open</option>
@@ -266,7 +260,6 @@ export function PlatformSupportPage() {
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
                 className="text-sm border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-medium flex-1 focus:ring-2 focus:ring-purple-500 focus:outline-none"
-
               >
                 <option value="All">All Priorities</option>
                 <option value="Critical">Critical</option>
@@ -279,7 +272,6 @@ export function PlatformSupportPage() {
 
           {/* Ticket List */}
           <Card className="divide-y divide-slate-100 dark:divide-slate-800 border-slate-200 dark:border-slate-800 dark:bg-slate-900 flex-1 overflow-y-auto max-h-[550px] shadow-sm">
-
             {filteredTickets.map((t) => {
               const isSelected = selectedTicket?.id === t.id;
               return (
@@ -294,7 +286,6 @@ export function PlatformSupportPage() {
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-purple-700 dark:text-purple-400 text-sm">{t.ticketNumber}</span>
-
                     <Badge
                       variant={
                         t.priority === 'Critical' ? 'danger' :
@@ -315,7 +306,6 @@ export function PlatformSupportPage() {
                   <div className="flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 pt-1">
                     <span>Assigned: {t.assignedAgentName || 'Unassigned'}</span>
                     <span className="font-semibold text-slate-700 dark:text-slate-300">{t.status}</span>
-
                   </div>
                 </div>
               );
@@ -332,7 +322,6 @@ export function PlatformSupportPage() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className="font-mono font-bold text-purple-800 dark:text-purple-300 text-base">{selectedTicket.ticketNumber}</span>
-
                     <Badge variant={selectedTicket.priority === 'Critical' ? 'danger' : 'warning'} size="sm">
                       {selectedTicket.priority} Priority
                     </Badge>
@@ -348,7 +337,6 @@ export function PlatformSupportPage() {
                       value={selectedTicket.status}
                       onChange={(e) => updateTicketStatus(selectedTicket.id, e.target.value)}
                       className="text-xs border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-1.5 bg-white dark:bg-slate-950 font-bold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-purple-500 focus:outline-none"
-
                     >
                       <option value="Open">Open</option>
                       <option value="In Progress">In Progress</option>
@@ -364,7 +352,6 @@ export function PlatformSupportPage() {
                   <span>Tenant: <strong className="text-slate-800 dark:text-slate-200">{selectedTicket.clinicName}</strong></span>
                   <span>·</span>
                   <span>Agent: <strong className="text-slate-800 dark:text-slate-200">{selectedTicket.assignedAgentName}</strong></span>
-
                   <span>·</span>
                   <span>Logged: {selectedTicket.createdAt}</span>
                 </div>
@@ -388,7 +375,6 @@ export function PlatformSupportPage() {
                         <span className="text-xs text-slate-500 dark:text-slate-400">({msg.senderRole})</span>
                         {msg.isInternal && (
                           <span className="text-xs bg-amber-200/60 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 font-bold px-2 py-0.5 rounded uppercase">
-
                             Internal Staff Note
                           </span>
                         )}
@@ -396,7 +382,6 @@ export function PlatformSupportPage() {
                       <span className="text-xs text-slate-400 dark:text-slate-500 font-mono">{msg.timestamp}</span>
                     </div>
                     <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{msg.message}</p>
-
                   </div>
                 ))}
               </div>
@@ -406,7 +391,6 @@ export function PlatformSupportPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <label className="flex items-center gap-2 text-xs text-amber-900 dark:text-amber-200 cursor-pointer font-bold bg-amber-50 dark:bg-amber-950/60 px-3 py-1.5 rounded-xl border border-amber-200 dark:border-amber-800">
-
                       <input
                         type="checkbox"
                         checked={isInternalNote}
@@ -420,7 +404,6 @@ export function PlatformSupportPage() {
                 </div>
 
                 <div className="flex gap-2.5">
-
                   <textarea
                     rows={2}
                     value={replyText}
@@ -431,7 +414,6 @@ export function PlatformSupportPage() {
                         : 'Type response to clinic administrator...'
                     }
                     className="flex-1 text-sm p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-slate-400"
-
                   />
                   <Button
                     type="submit"
@@ -440,7 +422,6 @@ export function PlatformSupportPage() {
                     className="self-end bg-purple-600 hover:bg-purple-700 font-bold text-sm"
                   >
                     <Send className="w-4 h-4 mr-1.5" />
-
                     Send
                   </Button>
                 </div>
@@ -448,7 +429,6 @@ export function PlatformSupportPage() {
             </Card>
           ) : (
             <Card className="flex-1 p-12 text-center text-slate-400 dark:text-slate-500 text-sm">
-
               Select a ticket from the left panel to inspect conversation.
             </Card>
           )}
@@ -458,4 +438,3 @@ export function PlatformSupportPage() {
     </div>
   );
 }
-

@@ -39,7 +39,6 @@
     --success: #22c55e;
     --warning: #f59e0b;
     --error: #ef4444;
-
   }
 }
 
@@ -47,7 +46,6 @@ html {
   font-size: 17px;
   color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
-
 }
 
 body {
@@ -105,7 +103,6 @@ table th {
 
 table td {
   font-size: 0.94rem;
-
 }
 
 /* Tabular numbers for financial metrics, tables, counts, and timestamps */
@@ -121,7 +118,6 @@ table td,
   from {
     opacity: 0;
     transform: translateY(3px);
-
   }
   to {
     opacity: 1;
@@ -270,7 +266,6 @@ table td,
 
 .animate-ai-ping {
   animation: aiRingPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-
 }
 
 /* Reduced motion accessibility */
@@ -298,7 +293,6 @@ table td,
 }
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
-
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
@@ -413,6 +407,121 @@ table td,
   z-index: -1;
 }
 
+/* ========================================================================= */
+/* MEDICAL MOTION SYSTEM: ECG Telemetry & Cardiac Rhythm                     */
+/* ========================================================================= */
+
+/* Natural dual-phase cardiac contraction (systole & diastole / lub-dub) */
+@keyframes cardiacPulse {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  14% {
+    transform: scale3d(1.13, 1.13, 1);
+  }
+  24% {
+    transform: scale3d(1.02, 1.02, 1);
+  }
+  38% {
+    transform: scale3d(1.22, 1.22, 1);
+  }
+  50% {
+    transform: scale3d(1.04, 1.04, 1);
+  }
+  64% {
+    transform: scale3d(1, 1, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Rhythmic radial backglow expanding in sync with heartbeat */
+@keyframes cardiacRadialGlow {
+  0%, 65%, 100% {
+    opacity: 0.18;
+    transform: scale3d(0.92, 0.92, 1);
+  }
+  14% {
+    opacity: 0.48;
+    transform: scale3d(1.16, 1.16, 1);
+  }
+  38% {
+    opacity: 0.75;
+    transform: scale3d(1.36, 1.36, 1);
+  }
+  52% {
+    opacity: 0.32;
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+/* Continuous infinite ECG waveform flow */
+@keyframes ecgTrackFlow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Smooth continuous beam scanner line */
+@keyframes ecgPulseTravel {
+  0% {
+    stroke-dashoffset: 2800;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Soft floating drift */
+@keyframes medicalGentleFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) rotate(1.2deg);
+  }
+}
+
+.animate-cardiac-pulse {
+  animation: cardiacPulse 1.45s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.animate-cardiac-glow {
+  animation: cardiacRadialGlow 1.45s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.animate-ecg-track {
+  display: flex;
+  width: 200%;
+  animation: ecgTrackFlow 16s linear infinite;
+  will-change: transform;
+}
+
+.animate-ecg-track-fast {
+  display: flex;
+  width: 200%;
+  animation: ecgTrackFlow 10s linear infinite;
+  will-change: transform;
+}
+
+.animate-ecg-line {
+  stroke-dasharray: 450 2400;
+  animation: ecgPulseTravel 5.5s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.animate-medical-float {
+  animation: medicalGentleFloat 8s ease-in-out infinite;
+  will-change: transform;
+}
 
 /* Print specific styles for digital prescriptions */
 @media print {

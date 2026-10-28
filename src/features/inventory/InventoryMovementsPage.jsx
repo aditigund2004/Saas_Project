@@ -30,7 +30,6 @@ export function InventoryMovementsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Stock Movement Audit Log</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Immutable log of all receipts, dispensary movements, damages, and count adjustments
           </p>
         </div>
@@ -39,21 +38,18 @@ export function InventoryMovementsPage() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by item, SKU, reason, or staff actor..."
             className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
           className="text-xs border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
         >
           <option value="All">All Movement Types</option>
           <option value="Receipt">Receipts (+)</option>
@@ -69,7 +65,6 @@ export function InventoryMovementsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                 <th className="px-4 py-3">Timestamp</th>
                 <th className="px-4 py-3">Item Details & SKU</th>
                 <th className="px-4 py-3">Type</th>
@@ -83,7 +78,6 @@ export function InventoryMovementsPage() {
               {filteredMovements.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No movements found matching the filters.
                   </td>
                 </tr>
@@ -99,7 +93,6 @@ export function InventoryMovementsPage() {
                       <div className="text-xs text-slate-400 dark:text-slate-500 font-mono mt-0.5">{mov.sku}</div>
                     </td>
                     <td className="px-4 py-3.5">
-
                       <Badge
                         variant={
                           mov.type === 'Receipt' ? 'success' :
@@ -122,7 +115,6 @@ export function InventoryMovementsPage() {
                       {mov.reason}
                     </td>
                     <td className="px-4 py-3.5 text-slate-600 dark:text-slate-400 font-medium whitespace-nowrap">
-
                       {mov.actor}
                     </td>
                   </tr>
@@ -135,4 +127,3 @@ export function InventoryMovementsPage() {
     </div>
   );
 }
-

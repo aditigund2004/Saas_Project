@@ -43,7 +43,6 @@ import {
   Sliders,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 
 export function PlatformRoleMatrixPage() {
@@ -51,7 +50,6 @@ export function PlatformRoleMatrixPage() {
 
   // Active Tab
   const [activeTab, setActiveTab] = useState('matrix');
-
 
   // RBAC Matrix State with LocalStorage persistence
   const [matrixData, setMatrixData] = useState(() => {
@@ -76,7 +74,6 @@ export function PlatformRoleMatrixPage() {
   const [podViewMode, setPodViewMode] = useState('table');
   const [personnelViewMode, setPersonnelViewMode] = useState('table');
 
-
   // Filter for RBAC Matrix
   const [matrixCategory, setMatrixCategory] = useState('All');
 
@@ -85,7 +82,6 @@ export function PlatformRoleMatrixPage() {
   const [selectedRbacRole, setSelectedRbacRole] = useState(null);
   const [exportModalOpen, setExportModalOpen] = useState(false);
   const [simulationRunning, setSimulationRunning] = useState(false);
-
 
   const departments = [
     'All',
@@ -96,7 +92,6 @@ export function PlatformRoleMatrixPage() {
     'Customer Support',
     'Executive / Superadmin'
   ];
-
 
   const filteredPersonnel = PLATFORM_PERSONNEL.filter((person) => {
     const matchesSearch =
@@ -111,12 +106,10 @@ export function PlatformRoleMatrixPage() {
     return matchesSearch && matchesDept && matchesEnv;
   });
 
-
   const filteredMatrix = matrixData.filter((row) => {
     if (matrixCategory === 'All') return true;
     return row.category === matrixCategory;
   });
-
 
   const handleOpenEditPolicy = (role) => {
     setEditingRole(role);
@@ -148,11 +141,9 @@ export function PlatformRoleMatrixPage() {
     setMatrixData(updatedMatrix);
     localStorage.setItem('clinicos_rbac_matrix', JSON.stringify(updatedMatrix));
 
-
     if (selectedRbacRole && selectedRbacRole.roleId === editingRole.roleId) {
       setSelectedRbacRole({ ...selectedRbacRole, ...editFormData });
     }
-
 
     const newAuditLog = {
       id: `aud-sec-${Date.now().toString().slice(-4)}`,
@@ -179,7 +170,6 @@ export function PlatformRoleMatrixPage() {
     showToast('RBAC policies restored to default Zero-Trust platform baseline.', 'info');
   };
 
-
   const handleRunSecurityAudit = () => {
     setSimulationRunning(true);
     setTimeout(() => {
@@ -188,49 +178,42 @@ export function PlatformRoleMatrixPage() {
     }, 1200);
   };
 
-
   const renderPermissionBadge = (val) => {
     switch (val) {
       case 'Full Access':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
             <Check className="w-3.5 h-3.5" /> Full
-
           </span>
         );
       case 'Read Only':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
             <Eye className="w-3.5 h-3.5" /> Read Only
-
           </span>
         );
       case 'Tenant Scoped':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
             <Layers className="w-3.5 h-3.5" /> Tenant Scoped
-
           </span>
         );
       case 'Verify Only':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
             <Shield className="w-3.5 h-3.5" /> Verify Only
-
           </span>
         );
       case 'Masked / Anonymized':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
             <Lock className="w-3.5 h-3.5" /> Masked PII
-
           </span>
         );
       case 'Audit Logged':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
             <Activity className="w-3.5 h-3.5" /> Audit Logged
-
           </span>
         );
       case 'No Access':
@@ -238,12 +221,10 @@ export function PlatformRoleMatrixPage() {
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
             <X className="w-3.5 h-3.5" /> None
-
           </span>
         );
     }
   };
-
 
   const engineeringPods = [
     {
@@ -319,7 +300,6 @@ export function PlatformRoleMatrixPage() {
             Workforce Headcount & Role Access Matrix
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
-
             Live visibility into the 48 platform professionals powering ClinicOS multi-tenant infrastructure—including
             Developers, QA Automation Testers, DevOps SRE, HIPAA Compliance, and Operational Staff.
           </p>
@@ -335,7 +315,6 @@ export function PlatformRoleMatrixPage() {
             className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
           >
             <RotateCcw className="w-4 h-4 mr-1.5 text-slate-400" />
-
             Reset Policies
           </Button>
 
@@ -347,7 +326,6 @@ export function PlatformRoleMatrixPage() {
           >
             <Download className="w-4 h-4 mr-1.5 text-slate-500" />
             Export Spec (.JSON)
-
           </Button>
 
           <Button
@@ -359,7 +337,6 @@ export function PlatformRoleMatrixPage() {
           >
             {simulationRunning ? (
               <span className="flex items-center gap-2">
-
                 <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 Auditing Roles...
               </span>
@@ -387,7 +364,6 @@ export function PlatformRoleMatrixPage() {
             {WORKFORCE_METRICS.totalWorkforce}
           </div>
           <div className="flex items-center gap-1.5 mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>{WORKFORCE_METRICS.activeNow} Active Now</span>
           </div>
@@ -405,7 +381,6 @@ export function PlatformRoleMatrixPage() {
             {WORKFORCE_METRICS.engineering}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
-
             Frontend, Backend, Architecture
           </p>
         </div>
@@ -422,7 +397,6 @@ export function PlatformRoleMatrixPage() {
             {WORKFORCE_METRICS.qaTesting}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
-
             SDET, Playwright, E2E Stress
           </p>
         </div>
@@ -439,7 +413,6 @@ export function PlatformRoleMatrixPage() {
             {WORKFORCE_METRICS.devopsSre}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
-
             K8s, Multi-AZ Cloud, CI/CD
           </p>
         </div>
@@ -456,7 +429,6 @@ export function PlatformRoleMatrixPage() {
             {WORKFORCE_METRICS.securityCompliance}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
-
             SOC 2 Type II, PII Masking
           </p>
         </div>
@@ -473,7 +445,6 @@ export function PlatformRoleMatrixPage() {
             {WORKFORCE_METRICS.supportSuccess}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
-
             Tier-1/2 Ops & Onboarding
           </p>
         </div>
@@ -493,7 +464,6 @@ export function PlatformRoleMatrixPage() {
             <ShieldCheck className="w-4.5 h-4.5" />
             <span>RBAC Permissions Matrix (11 Roles)</span>
             <span className="ml-1 text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-
               Editable
             </span>
           </button>
@@ -507,7 +477,6 @@ export function PlatformRoleMatrixPage() {
             }`}
           >
             <Layers className="w-4.5 h-4.5" />
-
             <span>Workforce Pods & Team Structure</span>
           </button>
 
@@ -521,7 +490,6 @@ export function PlatformRoleMatrixPage() {
           >
             <Users className="w-4.5 h-4.5" />
             <span>Personnel Directory ({filteredPersonnel.length})</span>
-
           </button>
 
           <button
@@ -534,7 +502,6 @@ export function PlatformRoleMatrixPage() {
           >
             <Terminal className="w-4.5 h-4.5" />
             <span>Security Audit Logs ({auditLogs.length})</span>
-
           </button>
         </nav>
       </div>
@@ -551,20 +518,17 @@ export function PlatformRoleMatrixPage() {
                     Platform Workforce Distribution by Discipline
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-
                     48 Total Personnel distributed across Engineering, Quality Engineering, SRE, and Clinical Operations.
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge variant="success">SOC 2 Type II</Badge>
-
                   <Badge variant="purple">Zero-Trust Network Access</Badge>
                 </div>
               </div>
 
               {/* Progress Distribution Bar */}
               <div className="h-4 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex shadow-inner">
-
                 <div style={{ width: '29.2%' }} className="bg-indigo-600" title="Developers (14)" />
                 <div style={{ width: '29.2%' }} className="bg-emerald-600" title="Clinical Operations (14)" />
                 <div style={{ width: '14.6%' }} className="bg-blue-500" title="Customer Support (7)" />
@@ -598,7 +562,6 @@ export function PlatformRoleMatrixPage() {
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-rose-500 shrink-0" />
                   <span className="text-slate-700 dark:text-slate-300">3 Security & HIPAA (6.2%)</span>
-
                 </div>
               </div>
             </div>
@@ -761,7 +724,6 @@ export function PlatformRoleMatrixPage() {
                 ))}
               </div>
             )}
-
           </div>
         </div>
       )}
@@ -776,7 +738,6 @@ export function PlatformRoleMatrixPage() {
                 Filter by Category:
               </span>
               <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-
                 {['All', 'Platform Staff', 'Clinic Tenant Staff', 'End User'].map((cat) => (
                   <button
                     key={cat}
@@ -785,7 +746,6 @@ export function PlatformRoleMatrixPage() {
                       matrixCategory === cat
                         ? 'bg-white dark:bg-slate-950 text-blue-600 dark:text-blue-400 shadow-xs'
                         : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-
                     }`}
                   >
                     {cat}
@@ -800,7 +760,6 @@ export function PlatformRoleMatrixPage() {
               </span>
               <div className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold">
                 Showing <strong className="text-slate-900 dark:text-white">{filteredMatrix.length}</strong> of 11 Roles
-
               </div>
             </div>
           </div>
@@ -839,7 +798,6 @@ export function PlatformRoleMatrixPage() {
                           {row.roleName}
                         </div>
                         <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 mt-0.5 block">
-
                           {row.category}
                         </span>
                       </td>
@@ -847,7 +805,6 @@ export function PlatformRoleMatrixPage() {
                       {/* Headcount */}
                       <td className="py-3.5 px-3">
                         <span className="font-mono font-bold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-md text-xs border border-slate-200 dark:border-slate-700">
-
                           {row.headcount}
                         </span>
                       </td>
@@ -871,14 +828,12 @@ export function PlatformRoleMatrixPage() {
                             title="Edit this role's RBAC access policy"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
-
                             <span>Edit Policy</span>
                           </button>
 
                           <button
                             onClick={() => setSelectedRbacRole(row)}
                             className="px-2.5 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer transition-colors"
-
                             title="Inspect complete role scope"
                           >
                             Inspect
@@ -901,7 +856,6 @@ export function PlatformRoleMatrixPage() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
             <div className="flex-1 relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-
               <input
                 type="text"
                 placeholder="Search staff by name, title, or work email..."
@@ -912,13 +866,11 @@ export function PlatformRoleMatrixPage() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-
               <select
                 value={selectedDept}
                 onChange={(e) => setSelectedDept(e.target.value)}
                 aria-label="Filter by department"
                 className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold py-2.5 px-3 rounded-xl focus:outline-none"
-
               >
                 {departments.map((d) => (
                   <option key={d} value={d}>
@@ -932,7 +884,6 @@ export function PlatformRoleMatrixPage() {
                 onChange={(e) => setSelectedEnv(e.target.value)}
                 aria-label="Filter by environment access"
                 className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold py-2.5 px-3 rounded-xl focus:outline-none"
-
               >
                 <option value="All">All Environments</option>
                 <option value="Production">Production Access</option>
@@ -1158,7 +1109,6 @@ export function PlatformRoleMatrixPage() {
               <Users className="w-8 h-8 text-slate-400 mx-auto mb-2" />
               <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">No personnel match your search filters</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Try clearing the search query or switching departments.</p>
-
               <Button
                 variant="outline"
                 size="sm"
@@ -1188,7 +1138,6 @@ export function PlatformRoleMatrixPage() {
             </div>
             <span className="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-
               Live Stream Active ({auditLogs.length} Records)
             </span>
           </div>
@@ -1244,7 +1193,6 @@ export function PlatformRoleMatrixPage() {
               </table>
             </div>
           </Card>
-
         </div>
       )}
 
@@ -1267,7 +1215,6 @@ export function PlatformRoleMatrixPage() {
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">{selectedPersonnel.name}</h3>
                 <div className="text-xs font-bold text-blue-700 dark:text-blue-400">{selectedPersonnel.title}</div>
                 <div className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">{selectedPersonnel.email}</div>
-
               </div>
             </div>
 
@@ -1297,7 +1244,6 @@ export function PlatformRoleMatrixPage() {
                   <span
                     key={i}
                     className="px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-white dark:bg-slate-900 border border-blue-300 dark:border-blue-800 text-blue-800 dark:text-blue-300 shadow-xs"
-
                   >
                     {env} Authorized
                   </span>
@@ -1307,7 +1253,6 @@ export function PlatformRoleMatrixPage() {
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <span className="text-xs text-slate-500 dark:text-slate-400">Security Hash: <strong className="font-mono text-slate-700 dark:text-slate-300">sha256:4f8e...902a</strong></span>
-
               <Button
                 variant="primary"
                 size="sm"
@@ -1336,7 +1281,6 @@ export function PlatformRoleMatrixPage() {
               <span className="text-slate-500 dark:text-slate-400 block mb-1 font-bold uppercase text-xs">Role Category</span>
               <span className="font-bold text-slate-900 dark:text-white text-base">{selectedRbacRole.category}</span>
               <span className="text-slate-600 dark:text-slate-300 block mt-1 text-xs">
-
                 Currently assigned to <strong>{selectedRbacRole.headcount}</strong> active users on this platform.
               </span>
             </div>
@@ -1374,14 +1318,12 @@ export function PlatformRoleMatrixPage() {
                 </div>
                 <div className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-300 text-xs">Audit Logs:</span>
-
                   {renderPermissionBadge(selectedRbacRole.auditCompliance)}
                 </div>
               </div>
             </div>
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-
               <Button
                 variant="outline"
                 size="sm"
@@ -1400,7 +1342,6 @@ export function PlatformRoleMatrixPage() {
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
               >
                 <Edit3 className="w-4 h-4 mr-1.5" />
-
                 Edit This Policy
               </Button>
             </div>
@@ -1431,7 +1372,6 @@ export function PlatformRoleMatrixPage() {
               </div>
               <div className="flex items-center gap-2 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                 <label className="text-xs font-semibold text-slate-600 dark:text-slate-300">Assigned Headcount:</label>
-
                 <input
                   type="number"
                   min="0"
@@ -1440,7 +1380,6 @@ export function PlatformRoleMatrixPage() {
                     setEditFormData({ ...editFormData, headcount: parseInt(e.target.value) || 0 })
                   }
                   className="w-16 px-2 py-0.5 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded text-xs font-bold text-slate-800 dark:text-white focus:outline-none"
-
                 />
               </div>
             </div>
@@ -1450,7 +1389,6 @@ export function PlatformRoleMatrixPage() {
               <div className="flex items-center justify-between mb-2">
                 <h5 className="font-bold text-slate-900 dark:text-white text-sm">Configure System Entitlements (8 Dimensions)</h5>
                 <span className="text-xs text-slate-400 dark:text-slate-500">Select privilege tier for each healthcare domain</span>
-
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1458,14 +1396,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Multi-Tenant Onboarding</label>
-
                     {renderPermissionBadge(editFormData.tenantOnboarding)}
                   </div>
                   <select
                     value={editFormData.tenantOnboarding}
                     onChange={(e) => setEditFormData({ ...editFormData, tenantOnboarding: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Create / Provision)</option>
                     <option value="Read Only">Read Only (Inspect Tenant Metadata)</option>
@@ -1478,14 +1414,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Subscription Billing & Finance</label>
-
                     {renderPermissionBadge(editFormData.billingFinance)}
                   </div>
                   <select
                     value={editFormData.billingFinance}
                     onChange={(e) => setEditFormData({ ...editFormData, billingFinance: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Invoices, Gateways, Payouts)</option>
                     <option value="Read Only">Read Only (View Statements)</option>
@@ -1498,14 +1432,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Cloud Infrastructure & Logs</label>
-
                     {renderPermissionBadge(editFormData.infrastructureLogs)}
                   </div>
                   <select
                     value={editFormData.infrastructureLogs}
                     onChange={(e) => setEditFormData({ ...editFormData, infrastructureLogs: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (K8s, Multi-AZ, SSH)</option>
                     <option value="Read Only">Read Only (Grafana, CloudWatch)</option>
@@ -1517,14 +1449,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Clinical EHR & Encounters</label>
-
                     {renderPermissionBadge(editFormData.clinicalEhr)}
                   </div>
                   <select
                     value={editFormData.clinicalEhr}
                     onChange={(e) => setEditFormData({ ...editFormData, clinicalEhr: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Create / Edit Encounters)</option>
                     <option value="Tenant Scoped">Tenant Scoped (Authorized Clinic)</option>
@@ -1538,14 +1468,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Digital Rx Signing & Dispense</label>
-
                     {renderPermissionBadge(editFormData.prescriptionSigning)}
                   </div>
                   <select
                     value={editFormData.prescriptionSigning}
                     onChange={(e) => setEditFormData({ ...editFormData, prescriptionSigning: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Doctor Digital Signature)</option>
                     <option value="Verify Only">Verify Only (QR Registry Verification)</option>
@@ -1558,14 +1486,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">PII & Patient Health Privacy</label>
-
                     {renderPermissionBadge(editFormData.piiAccess)}
                   </div>
                   <select
                     value={editFormData.piiAccess}
                     onChange={(e) => setEditFormData({ ...editFormData, piiAccess: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Unmasked Clinical Care)</option>
                     <option value="Masked / Anonymized">Masked / Anonymized (HIPAA Privacy)</option>
@@ -1578,14 +1504,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Canary Feature Flags & CI/CD</label>
-
                     {renderPermissionBadge(editFormData.featureFlags)}
                   </div>
                   <select
                     value={editFormData.featureFlags}
                     onChange={(e) => setEditFormData({ ...editFormData, featureFlags: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Toggle & Deploy Flags)</option>
                     <option value="Read Only">Read Only (Inspect Active Configs)</option>
@@ -1597,14 +1521,12 @@ export function PlatformRoleMatrixPage() {
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
                   <div className="flex items-center justify-between">
                     <label className="font-bold text-slate-700 dark:text-slate-300 text-xs">Compliance Audit Export</label>
-
                     {renderPermissionBadge(editFormData.auditCompliance)}
                   </div>
                   <select
                     value={editFormData.auditCompliance}
                     onChange={(e) => setEditFormData({ ...editFormData, auditCompliance: e.target.value })}
                     className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
-
                   >
                     <option value="Full Access">Full Access (Export Immutable Logs)</option>
                     <option value="Audit Logged">Audit Logged (Supervised Access)</option>
@@ -1618,7 +1540,6 @@ export function PlatformRoleMatrixPage() {
             {/* Audit Justification */}
             <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5">
               <label className="font-bold text-slate-700 dark:text-slate-300 text-xs block">
-
                 Policy Modification Justification (Recorded in Tamper-Proof Audit Log)
               </label>
               <input
@@ -1627,14 +1548,12 @@ export function PlatformRoleMatrixPage() {
                 onChange={(e) => setEditFormData({ ...editFormData, auditReason: e.target.value })}
                 placeholder="e.g. Periodic privilege review, canary test approval, or emergency escalation"
                 className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-xs text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
-
               />
             </div>
 
             {/* CTA Buttons */}
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <span className="text-xs text-slate-400 dark:text-slate-500">
-
                 Changes will take effect immediately across all active sessions.
               </span>
               <div className="flex items-center gap-2">
@@ -1656,7 +1575,6 @@ export function PlatformRoleMatrixPage() {
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
                 >
                   <Save className="w-4 h-4 mr-1.5" />
-
                   Save Policy Changes
                 </Button>
               </div>
@@ -1678,7 +1596,6 @@ export function PlatformRoleMatrixPage() {
               The following JSON specification represents the active role permissions and platform headcount matrix.
             </p>
             <pre className="p-4 bg-slate-950 text-emerald-400 font-mono text-xs rounded-2xl overflow-x-auto max-h-80 border border-slate-800">
-
               {JSON.stringify(
                 {
                   platform: 'ClinicOS Health Cloud',

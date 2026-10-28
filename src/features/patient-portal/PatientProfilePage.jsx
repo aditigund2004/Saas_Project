@@ -54,7 +54,6 @@ export function PatientProfilePage() {
         <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Account Settings</span>
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">My Patient Profile</h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
           Manage your personal details, emergency contact, and documented allergies.
         </p>
       </div>
@@ -69,80 +68,67 @@ export function PatientProfilePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Full Name</label>
-
                 <input
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 font-medium"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mobile / WhatsApp Number</label>
-
                 <input
                   type="tel"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 font-mono"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Email Address</label>
-
                 <input
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Blood Group</label>
-
                 <input
                   type="text"
                   value={form.bloodGroup}
                   onChange={(e) => setForm({ ...form, bloodGroup: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 font-bold"
-
                 />
               </div>
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Known Drug Allergies</label>
-
               <input
                 type="text"
                 value={form.allergies}
                 onChange={(e) => setForm({ ...form, allergies: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 text-sm focus:ring-2 focus:ring-blue-500 text-rose-700 dark:text-rose-400 font-semibold"
-
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Emergency Contact Person & Phone</label>
-
               <input
                 type="text"
                 value={form.emergencyContact}
                 onChange={(e) => setForm({ ...form, emergencyContact: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Residential Address</label>
-
               <input
                 type="text"
                 value={form.address}
@@ -154,7 +140,6 @@ export function PatientProfilePage() {
             <div className="pt-3 flex justify-end border-t border-slate-100 dark:border-slate-800">
               <Button variant="primary" size="md" type="submit" icon={Save} className="shadow-md shadow-blue-500/20 font-bold">
                 Save Profile Changes
-
               </Button>
             </div>
           </form>
@@ -163,4 +148,3 @@ export function PatientProfilePage() {
     </div>
   );
 }
-

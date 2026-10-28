@@ -51,7 +51,6 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={{ theme, isDark, toggleTheme, setTheme }}>
-
       {children}
     </ThemeContext.Provider>
   );
@@ -63,5 +62,4 @@ export function useTheme() {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
-
 }

@@ -53,7 +53,6 @@ export function SaaSReportsPage() {
     link.click();
     document.body.removeChild(link);
     showToast('SaaS retention & reports CSV exported.', 'success');
-
   };
 
   return (
@@ -64,7 +63,6 @@ export function SaaSReportsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Financial Intelligence</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Growth & Cohort Retention Reports</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Documented customer retention matrices, net revenue retention (NRR), and renewal performance indicators.
           </p>
         </div>
@@ -82,7 +80,6 @@ export function SaaSReportsPage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Net Revenue Retention</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-blue-700 dark:text-blue-400 mt-1">118.4% NRR</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Formula: (Starting MRR + Expansion - Churn - Contraction) / Starting MRR
           </p>
         </Card>
@@ -91,7 +88,6 @@ export function SaaSReportsPage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Customer Lifetime Value</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">₹1,94,400</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Formula: ARPU (₹4,860/mo) / Monthly Churn Rate (2.5%)
           </p>
         </Card>
@@ -100,7 +96,6 @@ export function SaaSReportsPage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Customer Acquisition Cost</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">₹18,200</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Formula: (Sales + Onboarding + Cloud trial costs) / New Clinics
           </p>
         </Card>
@@ -109,7 +104,6 @@ export function SaaSReportsPage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">LTV to CAC Ratio</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">10.6 : 1</div>
           <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-1">
-
             Healthy unit economics (&gt; 3.0 : 1 target)
           </p>
         </Card>
@@ -117,7 +111,6 @@ export function SaaSReportsPage() {
 
       {/* Cohort Retention Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title="Tenant Cohort Retention Matrix (2026)"
           subtitle="Percentage of clinic organizations retained at Month 1, Month 3, and Month 6 after signup"
@@ -148,7 +141,6 @@ export function SaaSReportsPage() {
                   <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold">{c.expansionRate}</td>
                   <td className="p-4 font-sans">
                     <span className="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-
                       Active Cohort
                     </span>
                   </td>
@@ -161,4 +153,3 @@ export function SaaSReportsPage() {
     </div>
   );
 }
-

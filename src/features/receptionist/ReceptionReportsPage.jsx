@@ -9,7 +9,6 @@ export function ReceptionReportsPage() {
   const { appointments, activeBranch, showToast } = useApp();
 
   const branchAppointments = appointments.filter((a) => !activeBranch || a.branchId === activeBranch.id);
-
   const walkInsCount = branchAppointments.filter((a) => a.isWalkIn).length;
   const onlineCount = branchAppointments.filter((a) => !a.isWalkIn).length;
   const completedCount = branchAppointments.filter((a) => a.status === 'Completed').length;
@@ -21,7 +20,6 @@ export function ReceptionReportsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Shift Summary</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Reception Operational Log</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Daily throughput report for walk-in arrivals, online confirmations, and wait time averages.
           </p>
         </div>
@@ -29,7 +27,6 @@ export function ReceptionReportsPage() {
         <Button
           variant="outline"
           size="md"
-
           icon={Download}
           onClick={() => showToast('Daily reception shift summary exported.')}
         >
@@ -68,7 +65,6 @@ export function ReceptionReportsPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
         <CardHeader
           title="Reception Shift Highlights"
           subtitle="Key front-desk performance observations"
@@ -85,7 +81,6 @@ export function ReceptionReportsPage() {
           <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <span className="font-medium text-slate-700 dark:text-slate-300">Duplicate Patients Detected & Prevented:</span>
             <span className="font-bold text-slate-900 dark:text-slate-100 font-mono text-base">4 Instances</span>
-
           </div>
         </CardContent>
       </Card>

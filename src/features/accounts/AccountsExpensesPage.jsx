@@ -54,21 +54,18 @@ export function AccountsExpensesPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinic Operational Expenses</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Track overhead costs, surgical materials, clinic rent, staff salaries, and vendor disbursements
           </p>
         </div>
 
         <Button variant="primary" size="sm" onClick={() => setModalOpen(true)} className="font-semibold shadow-sm">
           <Plus className="w-4 h-4 mr-1.5" />
-
           Record Clinic Expense
         </Button>
       </div>
 
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
         <input
           type="text"
           value={searchTerm}
@@ -84,7 +81,6 @@ export function AccountsExpensesPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Category</th>
                 <th className="px-4 py-3">Description</th>
@@ -113,7 +109,6 @@ export function AccountsExpensesPage() {
                     {exp.paymentMethod}
                   </td>
                   <td className="px-4 py-3.5 font-mono font-bold text-rose-700 dark:text-rose-400 text-right text-sm">
-
                     {formatCurrency(exp.amount)}
                   </td>
                 </tr>
@@ -146,7 +141,6 @@ export function AccountsExpensesPage() {
             <form onSubmit={handleCreate} className="space-y-3.5 text-xs">
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Expense Description *</label>
-
                 <input
                   required
                   type="text"
@@ -164,7 +158,6 @@ export function AccountsExpensesPage() {
                     value={newExp.category}
                     onChange={(e) => setNewExp({ ...newExp, category: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   >
                     {categories.map((c) => (
                       <option key={c} value={c}>{c}</option>
@@ -173,7 +166,6 @@ export function AccountsExpensesPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Amount (₹) *</label>
-
                   <input
                     required
                     type="number"
@@ -181,14 +173,12 @@ export function AccountsExpensesPage() {
                     value={newExp.amount}
                     onChange={(e) => setNewExp({ ...newExp, amount: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
 
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Vendor / Payee</label>
-
                 <input
                   type="text"
                   value={newExp.vendorName}
@@ -199,7 +189,6 @@ export function AccountsExpensesPage() {
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setModalOpen(false)}>
                   Cancel
                 </Button>
@@ -214,4 +203,3 @@ export function AccountsExpensesPage() {
     </div>
   );
 }
-

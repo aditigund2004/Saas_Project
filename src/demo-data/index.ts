@@ -34,7 +34,6 @@ import {
   ClinicPaymentRecord,
   ClinicRefundRecord,
   ReceiptRecord
-
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -1864,65 +1863,117 @@ export const DEMO_STAFF_MEMBERS: StaffMember[] = [
     clinicId: 'clinic-citycare',
     branchIds: ['branch-citycare-main'],
     name: 'Dr. Aarav Mehta, MBBS, MD',
-    email: 'dr.arvind@apexdentalcare.demo',
-    phone: '+91 98201 11223',
+    email: 'aarav.mehta@citycare.demo',
+    phone: '+91 98220 11223',
     role: 'doctor',
-    department: 'Prosthodontics & Implants',
+    department: 'General Medicine & Primary Care',
     status: 'Active',
     shift: '09:00 - 17:00',
-    joinedDate: '2026-03-01'
+    joinedDate: '2025-01-10'
   },
   {
     id: 'stf-2',
     clinicId: 'clinic-citycare',
     branchIds: ['branch-citycare-main'],
-    name: 'Shweta Kulkarni',
-    email: 'frontdesk@apexdentalcare.demo',
-    phone: '+91 98201 55667',
-    role: 'receptionist',
-    department: 'Front Desk & Patient Relations',
+    name: 'Dr. Neha Kulkarni, MBBS, DNB',
+    email: 'neha.kulkarni@citycare.demo',
+    phone: '+91 98220 22334',
+    role: 'doctor',
+    department: 'Pediatrics & Adolescent Medicine',
     status: 'Active',
-    shift: '08:30 - 16:30',
-    joinedDate: '2026-04-10'
+    shift: '10:00 - 18:00',
+    joinedDate: '2025-03-15'
   },
   {
     id: 'stf-3',
     clinicId: 'clinic-citycare',
-    branchIds: ['branch-citycare-main', 'branch-apex-westside'],
-    name: 'Ramesh Verma',
-    email: 'inventory@apexdentalcare.demo',
-    phone: '+91 98201 44556',
-    role: 'inventory',
-    department: 'Clinical Pharmacy & Procurement',
+    branchIds: ['branch-citycare-main'],
+    name: 'Dr. Priya Nair, BDS, MDS',
+    email: 'priya.nair@citycare.demo',
+    phone: '+91 98201 99887',
+    role: 'doctor',
+    department: 'Endodontics & Dental Surgery',
     status: 'Active',
-    shift: '10:00 - 18:00',
-    joinedDate: '2026-04-15'
+    shift: '12:00 - 20:00',
+    joinedDate: '2025-05-01'
   },
   {
     id: 'stf-4',
     clinicId: 'clinic-citycare',
     branchIds: ['branch-citycare-main'],
+    name: 'Shweta Kulkarni',
+    email: 'reception@citycare.demo',
+    phone: '+91 98220 55667',
+    role: 'receptionist',
+    department: 'Front Desk & Patient Relations',
+    status: 'Active',
+    shift: '08:30 - 16:30',
+    joinedDate: '2025-02-01'
+  },
+  {
+    id: 'stf-5',
+    clinicId: 'clinic-citycare',
+    branchIds: ['branch-citycare-main'],
+    name: 'Pooja Joshi',
+    email: 'pooja.reception@citycare.demo',
+    phone: '+91 98220 66778',
+    role: 'receptionist',
+    department: 'Front Desk & Walk-In Desk',
+    status: 'Active',
+    shift: '12:30 - 20:30',
+    joinedDate: '2025-07-20'
+  },
+  {
+    id: 'stf-6',
+    clinicId: 'clinic-citycare',
+    branchIds: ['branch-citycare-main'],
+    name: 'Sister Sunita Patil, B.Sc',
+    email: 'sunita.nursing@citycare.demo',
+    phone: '+91 98220 77889',
+    role: 'nurse',
+    department: 'Clinical Nursing & Triage',
+    status: 'Active',
+    shift: '08:00 - 16:00',
+    joinedDate: '2025-04-12'
+  },
+  {
+    id: 'stf-7',
+    clinicId: 'clinic-citycare',
+    branchIds: ['branch-citycare-main'],
+    name: 'Ramesh Verma, B.Pharm',
+    email: 'ramesh.pharmacy@citycare.demo',
+    phone: '+91 98201 44556',
+    role: 'inventory',
+    department: 'Clinical Pharmacy & Procurement',
+    status: 'Active',
+    shift: '10:00 - 18:00',
+    joinedDate: '2025-04-15'
+  },
+  {
+    id: 'stf-8',
+    clinicId: 'clinic-citycare',
+    branchIds: ['branch-citycare-main'],
     name: 'Sneha Iyer, CA (Inter)',
-    email: 'accounts@apexdentalcare.demo',
+    email: 'accounts@citycare.demo',
     phone: '+91 98201 77889',
     role: 'accountant',
     department: 'Billing & Financial Audit',
     status: 'Active',
     shift: '10:00 - 18:00',
-    joinedDate: '2026-03-20'
+    joinedDate: '2025-03-20'
   },
   {
-    id: 'stf-5',
+    id: 'stf-9',
     clinicId: 'clinic-citycare',
-    branchIds: ['branch-apex-westside'],
-    name: 'Dr. Priya Nair, BDS',
-    email: 'priya.nair@apexdentalcare.demo',
-    phone: '+91 98201 99887',
-    role: 'doctor',
-    department: 'Endodontics & Conservative Dentistry',
+    branchIds: ['branch-citycare-main'],
+    name: 'Vikram Malhotra',
+    email: 'operations@citycare.demo',
+    phone: '+91 98201 33445',
+    role: 'admin',
+    department: 'Facility & Operations Administration',
     status: 'Active',
-    shift: '12:00 - 20:00',
-    joinedDate: '2026-05-01'
+    shift: '09:00 - 18:00',
+    joinedDate: '2025-01-15'
   }
 ];
 
@@ -2202,7 +2253,6 @@ export const DEMO_USERS: Record<string, User> = {
     id: 'usr-superadmin',
     name: 'Super Administrator',
     email: 'superadmin@admin.com',
-
     phone: '+91 98000 00001',
     role: 'super_admin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -2590,7 +2640,6 @@ export const DEMO_RECEIPTS: ReceiptRecord[] = [
   }
 ];
 
-
 export const DEMO_CLINIC_REFUNDS: ClinicRefundRecord[] = [
   {
     id: 'cref-101',
@@ -2658,5 +2707,65 @@ export const DEMO_NOTIFICATIONS: SimulatedNotification[] = [
     createdAt: '2026-10-24T09:20:00.000Z',
     read: false,
     priority: 'normal'
+  }
+];
+
+export const DEMO_VIRTUAL_CONSULTATIONS = [
+  {
+    id: 'vc-101',
+    patientId: 'pt-1001',
+    patientName: 'Rahul Sharma',
+    patientPhone: '+91 98201 22334',
+    patientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Fever, cough and throat irritation for 2 days. Needs urgent clinical advice & Rx.',
+    status: 'In Call',
+    requestedAt: 'Today, 10:45 AM',
+    preferredTime: 'Immediate Live Connect',
+    meetingLink: 'https://clinicos.health/meet/vc-101-live',
+    notes: 'Patient reports mild seasonal allergy symptoms. Clear lungs, BP normal.',
+    duration: '08:24'
+  },
+  {
+    id: 'vc-102',
+    patientId: 'pt-1002',
+    patientName: 'Pooja Verma',
+    patientPhone: '+91 98450 11998',
+    patientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Review blood test report & routine diabetes management follow-up.',
+    status: 'Waiting',
+    requestedAt: 'Today, 11:05 AM',
+    preferredTime: 'Immediate Live Connect',
+    meetingLink: 'https://clinicos.health/meet/vc-102-live',
+    notes: '',
+    duration: '00:00'
+  },
+  {
+    id: 'vc-103',
+    patientId: 'usr-patient-aarav',
+    patientName: 'Aarav Patel',
+    patientPhone: '+91 98765 43210',
+    patientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Follow-up consultation for prescribed antibiotics and mild headache.',
+    status: 'Waiting',
+    requestedAt: 'Today, 11:15 AM',
+    preferredTime: 'Scheduled: Today at 02:00 PM',
+    meetingLink: 'https://clinicos.health/meet/vc-103-live',
+    notes: '',
+    duration: '00:00'
   }
 ];

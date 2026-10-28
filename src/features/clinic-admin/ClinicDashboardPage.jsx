@@ -6,7 +6,6 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
-
 import {
   Calendar,
   Users,
@@ -37,7 +36,6 @@ import {
   ShieldCheck,
   X
 } from 'lucide-react';
-
 
 export function ClinicDashboardPage() {
   const {
@@ -311,7 +309,6 @@ export function ClinicDashboardPage() {
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs flex items-center gap-1.5"
             >
               <span>👑 Activate Plan</span>
-
             </Button>
           </Link>
         </div>
@@ -658,7 +655,6 @@ export function ClinicDashboardPage() {
                 </span>
               </button>
             </div>
-
           </Card>
         </div>
       </div>
@@ -932,7 +928,6 @@ export function ClinicDashboardPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

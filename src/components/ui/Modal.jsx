@@ -60,7 +60,6 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }) {
                 type="button"
                 onClick={onClose}
                 className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
-
                 aria-label="Close dialog"
               >
                 <X className="w-5 h-5" />
@@ -68,7 +67,6 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }) {
             </div>
           )}
           <div className="p-5 sm:p-6 text-slate-800 dark:text-slate-200">{children}</div>
-
         </div>
       </div>
     </div>

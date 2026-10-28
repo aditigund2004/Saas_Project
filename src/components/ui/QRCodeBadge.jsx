@@ -68,13 +68,11 @@ export function QRCodeBadge({ verificationId, referenceNumber, size = 110, showL
       </div>
       <p className="text-[10px] text-slate-400 dark:text-slate-500 font-mono tracking-wider">{verificationId || 'v_88f91a'}</p>
 
-
       {showLink && (
         <Link
           to={`/verify-prescription/${verificationId}`}
           target="_blank"
           className="mt-1.5 inline-flex items-center gap-1 text-[10px] text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium underline"
-
         >
           Verify online <ExternalLink className="w-2.5 h-2.5" />
         </Link>
@@ -82,4 +80,3 @@ export function QRCodeBadge({ verificationId, referenceNumber, size = 110, showL
     </div>
   );
 }
-

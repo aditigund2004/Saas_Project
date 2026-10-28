@@ -22,7 +22,6 @@ export function ClinicRefundsPage() {
   const {
     clinicRefunds = [],
     invoices = [],
-
     requestClinicRefund,
     approveClinicRefund,
     showToast,
@@ -82,7 +81,6 @@ export function ClinicRefundsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Clinical Governance & Adjustments</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Patient Refund Approvals</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Strict clinical admin review queue for patient advance refunds, cancellations, and billing corrections.
           </p>
         </div>
@@ -94,7 +92,6 @@ export function ClinicRefundsPage() {
             onClick={() => showToast('Exporting refund audit logs...')}
           >
             <Download className="w-4 h-4 mr-1.5" />
-
             Export Log
           </Button>
           <Button
@@ -103,7 +100,6 @@ export function ClinicRefundsPage() {
             onClick={() => setIsNewRefundOpen(true)}
           >
             <PlusCircle className="w-4 h-4 mr-1.5" />
-
             Initiate Refund Request
           </Button>
         </div>
@@ -113,13 +109,11 @@ export function ClinicRefundsPage() {
       <div className="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-900 dark:text-amber-300 text-xs flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />
-
           <div>
             <strong>Restricted Clinical Action:</strong> Reception staff can submit refund requests, but only Doctor/Admin credentials can approve and process payouts to preserve fiscal integrity.
           </div>
         </div>
         <span className="hidden sm:inline-block px-2.5 py-1 rounded-md bg-amber-600 text-white font-mono text-xs font-bold">
-
           Dual Authorization
         </span>
       </div>
@@ -137,7 +131,6 @@ export function ClinicRefundsPage() {
             {formatCurrency(totalPendingAmount)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             {pendingRefunds.length} request(s) awaiting Doctor/Admin sign-off
           </div>
         </Card>
@@ -153,7 +146,6 @@ export function ClinicRefundsPage() {
             {formatCurrency(totalApprovedAmount)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Processed back to original patient payment instruments
           </div>
         </Card>
@@ -169,7 +161,6 @@ export function ClinicRefundsPage() {
             0.8%
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Well within industry benchmark (&lt; 2.5%)
           </div>
         </Card>
@@ -180,7 +171,6 @@ export function ClinicRefundsPage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search by request ref, patient or invoice #..."
@@ -191,7 +181,6 @@ export function ClinicRefundsPage() {
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-
             {['All', 'Pending Approval', 'Approved'].map((status) => (
               <button
                 key={status}
@@ -200,7 +189,6 @@ export function ClinicRefundsPage() {
                   statusFilter === status
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-
                 }`}
               >
                 {status}
@@ -214,7 +202,6 @@ export function ClinicRefundsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Refund Ref</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Original Invoice</th>
@@ -230,7 +217,6 @@ export function ClinicRefundsPage() {
               {filteredRefunds.length === 0 ? (
                 <tr>
                   <td colSpan={10} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
-
                     No refund requests found matching criteria.
                   </td>
                 </tr>
@@ -260,7 +246,6 @@ export function ClinicRefundsPage() {
                       <td className="p-3.5 text-slate-500 dark:text-slate-400 font-mono text-xs">{r.requestedAt}</td>
                       <td className="p-3.5">
                         <Badge variant={isPending ? 'warning' : 'success'} size="sm">
-
                           {r.approvalStatus}
                         </Badge>
                       </td>
@@ -276,7 +261,6 @@ export function ClinicRefundsPage() {
                           </Button>
                         ) : (
                           <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-
                             ✓ Authorized on {r.approvedAt || '2026-10-23'}
                           </span>
                         )}
@@ -303,7 +287,6 @@ export function ClinicRefundsPage() {
               value={selectedInvoiceNumber}
               onChange={(e) => setSelectedInvoiceNumber(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
             >
               {invoices.map((inv) => (
                 <option key={inv.id} value={inv.invoiceNumber}>
@@ -315,7 +298,6 @@ export function ClinicRefundsPage() {
 
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Refund Amount (₹)</label>
-
             <input
               type="number"
               required
@@ -323,20 +305,17 @@ export function ClinicRefundsPage() {
               value={refundAmount}
               onChange={(e) => setRefundAmount(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-
             />
           </div>
 
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Clinical / Administrative Reason</label>
-
             <textarea
               rows={2}
               required
               value={refundReason}
               onChange={(e) => setRefundReason(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-
               placeholder="e.g. Procedure cancelled due to patient elevated BP; rescheduled for observation..."
             />
           </div>
@@ -347,7 +326,6 @@ export function ClinicRefundsPage() {
               value={refundChannel}
               onChange={(e) => setRefundChannel(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
             >
               <option value="Original UPI Source">Original UPI Source (Automated reversed credit)</option>
               <option value="NEFT / Bank Transfer">NEFT / RTGS Bank Transfer</option>
@@ -368,4 +346,3 @@ export function ClinicRefundsPage() {
     </div>
   );
 }
-

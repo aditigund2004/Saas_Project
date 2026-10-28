@@ -18,7 +18,6 @@ import {
 
 export function PlatformActivityPage() {
   const { auditLogs = [], showToast } = useApp();
-
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
 
@@ -59,14 +58,12 @@ export function PlatformActivityPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Security & Governance</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Administrative Activity Log</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Immutable platform audit trail tracking administrative actions, role escalations, and tenant changes.
           </p>
         </div>
 
         <Button variant="outline" size="sm" onClick={handleExportCSV}>
           <Download className="w-4 h-4 mr-1.5" />
-
           Export Audit Trail (.CSV)
         </Button>
       </div>
@@ -95,13 +92,11 @@ export function PlatformActivityPage() {
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Retention Policy</span>
           <div className="text-2xl font-black text-slate-800 dark:text-slate-200 mt-1 tabular-nums">365 Days</div>
           <span className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 block">Immutable write-once log</span>
-
         </Card>
       </div>
 
       {/* Filters and Search */}
       <Card className="p-4 border-slate-200 dark:border-slate-800">
-
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -111,7 +106,6 @@ export function PlatformActivityPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search audit trail by action, admin email, or specific details..."
               className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
             />
           </div>
 
@@ -120,7 +114,6 @@ export function PlatformActivityPage() {
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-medium"
-
             >
               <option value="All">All Categories</option>
               <option value="Security">Security & Access</option>
@@ -134,7 +127,6 @@ export function PlatformActivityPage() {
 
       {/* Activity Table */}
       <Card className="border-slate-200 dark:border-slate-800 overflow-hidden">
-
         <CardHeader
           title={`Administrative Audit Entries (${filteredLogs.length})`}
           subtitle="Chronological trail of superadmin operations with source IP timestamps"
@@ -144,7 +136,6 @@ export function PlatformActivityPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Timestamp</th>
                 <th className="p-3.5">Action Event</th>
                 <th className="p-3.5">Administrator</th>
@@ -170,7 +161,6 @@ export function PlatformActivityPage() {
                           : log.category === 'Billing'
                           ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                           : 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800'
-
                       }`}
                     >
                       {log.category}
@@ -178,7 +168,6 @@ export function PlatformActivityPage() {
                   </td>
                   <td className="p-3.5 text-slate-500 dark:text-slate-400">{log.ip}</td>
                   <td className="p-3.5 font-sans text-slate-600 dark:text-slate-300 max-w-xs">{log.details}</td>
-
                 </tr>
               ))}
             </tbody>
@@ -188,4 +177,3 @@ export function PlatformActivityPage() {
     </div>
   );
 }
-

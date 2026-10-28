@@ -42,7 +42,6 @@ export function EmailSettingsTab({
           </span>
         </div>
         <p className="leading-relaxed text-amber-900 dark:text-amber-300 text-xs">
-
           This system is an interactive healthcare SaaS prototype. Real SMTP credentials, mailgun/sendgrid API keys, and third-party transport servers are deliberately not collected or stored in this frontend. All delivery events, delays, and responses are simulated for interface demonstration purposes.
         </p>
       </div>
@@ -55,7 +54,6 @@ export function EmailSettingsTab({
               Sender Identity & Header Defaults
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Configure the default "From" and "Reply-To" fields populated across automated clinical notifications.
             </p>
           </div>
@@ -63,7 +61,6 @@ export function EmailSettingsTab({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Sender Display Name
               </label>
               <input
@@ -72,13 +69,11 @@ export function EmailSettingsTab({
                 value={formData.senderDisplayName}
                 onChange={(e) => setFormData({ ...formData, senderDisplayName: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Sender Email Address
               </label>
               <input
@@ -87,13 +82,11 @@ export function EmailSettingsTab({
                 value={formData.senderEmail}
                 onChange={(e) => setFormData({ ...formData, senderEmail: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Reply-To Email Address
               </label>
               <input
@@ -102,13 +95,11 @@ export function EmailSettingsTab({
                 value={formData.replyToEmail}
                 onChange={(e) => setFormData({ ...formData, replyToEmail: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Test Simulation Recipient
               </label>
               <input
@@ -117,7 +108,6 @@ export function EmailSettingsTab({
                 value={formData.testRecipientEmail}
                 onChange={(e) => setFormData({ ...formData, testRecipientEmail: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
           </div>
@@ -130,7 +120,6 @@ export function EmailSettingsTab({
               Corporate Branding & Legal Footers
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Default metadata injected into template variables for compliance and clinical trust.
             </p>
           </div>
@@ -138,7 +127,6 @@ export function EmailSettingsTab({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Platform Company Name
               </label>
               <input
@@ -147,13 +135,11 @@ export function EmailSettingsTab({
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Customer Support Email
               </label>
               <input
@@ -162,14 +148,12 @@ export function EmailSettingsTab({
                 value={formData.supportEmail}
                 onChange={(e) => setFormData({ ...formData, supportEmail: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
               Default Email Compliance Footer
             </label>
             <textarea
@@ -177,7 +161,6 @@ export function EmailSettingsTab({
               value={formData.defaultFooter}
               onChange={(e) => setFormData({ ...formData, defaultFooter: e.target.value })}
               className="w-full p-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
             />
           </div>
         </Card>
@@ -189,14 +172,12 @@ export function EmailSettingsTab({
               Simulation Engine Controls
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Test failure cases and error recovery workflows in this prototype.
             </p>
           </div>
 
           <div className="space-y-3">
             <label className="flex items-start gap-3 cursor-pointer select-none">
-
               <input
                 type="checkbox"
                 checked={formData.enableSimulatedFailures}
@@ -208,7 +189,6 @@ export function EmailSettingsTab({
                   Enable Intermittent Simulated Delivery Failures (10-20% chance)
                 </span>
                 <span className="text-slate-500 dark:text-slate-400 text-xs">
-
                   Allows QA teams to test retry simulations, error badges, and failure alerts in the Activity Logs.
                 </span>
               </div>
@@ -225,7 +205,6 @@ export function EmailSettingsTab({
             icon={RotateCcw}
             onClick={handleReset}
             className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-
           >
             Reset All Email Demo Data
           </Button>
@@ -234,7 +213,6 @@ export function EmailSettingsTab({
             {savedSuccess && (
               <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-
                 Settings Saved!
               </span>
             )}

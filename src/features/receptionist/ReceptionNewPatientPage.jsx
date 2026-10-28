@@ -23,7 +23,6 @@ export function ReceptionNewPatientPage() {
 
   const savePatient = () => {
     return createPatient({
-
       name,
       phone,
       email: email || `${name.toLowerCase().replace(/\s+/g, '.')}@example.demo`,
@@ -39,7 +38,6 @@ export function ReceptionNewPatientPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPt = savePatient();
-
     showToast(`Patient ${newPt.name} (ID: ${newPt.patientIdNumber}) registered successfully!`);
     navigate('/reception/patients');
   };
@@ -73,7 +71,6 @@ export function ReceptionNewPatientPage() {
             <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />
             <span>
               <strong>Duplicate Warning:</strong> A patient with phone number <span className="font-mono font-bold">{phone}</span> is already registered in this clinic.
-
             </span>
           </div>
         )}
@@ -82,7 +79,6 @@ export function ReceptionNewPatientPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Patient Full Name *</label>
-
               <input
                 required
                 type="text"
@@ -90,13 +86,11 @@ export function ReceptionNewPatientPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Full name"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 font-medium"
-
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mobile / WhatsApp Number *</label>
-
               <input
                 required
                 type="tel"
@@ -104,32 +98,27 @@ export function ReceptionNewPatientPage() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+91 98000 00000"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Email Address</label>
-
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="patient@example.demo"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Date of Birth</label>
-
               <input
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
 
@@ -139,7 +128,6 @@ export function ReceptionNewPatientPage() {
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -153,7 +141,6 @@ export function ReceptionNewPatientPage() {
                 value={bloodGroup}
                 onChange={(e) => setBloodGroup(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
               >
                 <option value="A+">A+</option>
                 <option value="B+">B+</option>
@@ -165,14 +152,12 @@ export function ReceptionNewPatientPage() {
 
           <div>
             <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Known Drug Allergies</label>
-
             <input
               type="text"
               value={allergies}
               onChange={(e) => setAllergies(e.target.value)}
               placeholder="e.g. Penicillin, NSAIDs (leave blank if none)"
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
             />
           </div>
 
@@ -201,7 +186,6 @@ export function ReceptionNewPatientPage() {
               Save & Book Appointment →
             </Button>
             <Button variant="primary" size="md" type="submit" className="shadow-md shadow-blue-500/20">
-
               Save Patient Dossier
             </Button>
           </div>

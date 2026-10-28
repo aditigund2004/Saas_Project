@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Search, MapPin, Building2, Stethoscope } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-
 import { useApp } from '../../context/AppContext';
 
 export function ClinicDirectoryPage() {
@@ -51,14 +50,12 @@ export function ClinicDirectoryPage() {
           Find and Book Verified Specialty Practices
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-
           Browse published digital clinic profiles. Patients can schedule appointments directly online, explore available doctors, or request walk-in visits.
         </p>
       </div>
 
       {/* Search and Filters */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-xs space-y-4">
-
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search Box */}
           <div className="md:col-span-6 relative">
@@ -69,7 +66,6 @@ export function ClinicDirectoryPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by clinic name, specialty, or area..."
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
             />
           </div>
 
@@ -79,7 +75,6 @@ export function ClinicDirectoryPage() {
               value={selectedSpecialty}
               onChange={(e) => setSelectedSpecialty(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium"
-
             >
               {specialties.map((s) => (
                 <option key={s} value={s}>
@@ -95,7 +90,6 @@ export function ClinicDirectoryPage() {
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium"
-
             >
               {cities.map((city) => (
                 <option key={city} value={city}>
@@ -113,7 +107,6 @@ export function ClinicDirectoryPage() {
           <Building2 className="w-12 h-12 text-slate-300 dark:text-slate-600 mx-auto" />
           <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">No Clinics Found</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-
             No connected practices match your current search criteria. Try resetting your specialty or location filters.
           </p>
           <Button
@@ -137,7 +130,6 @@ export function ClinicDirectoryPage() {
             >
               <div>
                 <div className="h-44 w-full relative overflow-hidden bg-slate-100 dark:bg-slate-800">
-
                   <img
                     src={clinic.image}
                     alt={clinic.name}
@@ -145,7 +137,6 @@ export function ClinicDirectoryPage() {
                   />
                   <div className="absolute top-3 left-3">
                     <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs text-slate-800 dark:text-slate-200 shadow-xs">
-
                       {clinic.specialty}
                     </span>
                   </div>
@@ -174,7 +165,6 @@ export function ClinicDirectoryPage() {
                     </div>
                     <div className="flex items-center gap-1.5">
                       <Stethoscope className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-
                       <span>{clinic.services.length} Listed Clinical Services</span>
                     </div>
                   </div>
@@ -200,4 +190,3 @@ export function ClinicDirectoryPage() {
     </div>
   );
 }
-

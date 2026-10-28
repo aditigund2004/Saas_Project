@@ -21,7 +21,6 @@ import {
 import { emailService } from '../../../services/emailNotificationService';
 import { EMAIL_THEMES, DOCTOR_PRESETS } from './emailThemes';
 
-
 export function EmailEventSimulatorModal({
   isOpen,
   onClose,
@@ -32,7 +31,6 @@ export function EmailEventSimulatorModal({
 }) {
   const [selectedEventKey, setSelectedEventKey] = useState(
     initialEventKey || triggers[0]?.eventKey || 'doctor.invited'
-
   );
 
   const [selectedClinicId, setSelectedClinicId] = useState(
@@ -44,7 +42,6 @@ export function EmailEventSimulatorModal({
 
   const [customRecipientName, setCustomRecipientName] = useState('Dr. Rohan Deshmukh');
   const [customRecipientEmail, setCustomRecipientEmail] = useState('dr.rohan@citycare.demo');
-
   const [customPlanName, setCustomPlanName] = useState('Professional Multi-Specialty');
   const [customAmount, setCustomAmount] = useState('₹69,990');
   const [simulationResult, setSimulationResult] = useState(null);
@@ -76,7 +73,6 @@ export function EmailEventSimulatorModal({
   };
 
   // Execute Simulation
-
   const handleExecute = () => {
     const res = emailService.simulateEventTrigger(selectedEventKey, {
       clinicName: selectedClinic?.name || 'CityCare Family Clinic',
@@ -87,7 +83,6 @@ export function EmailEventSimulatorModal({
       amount: customAmount,
       themeId: selectedTheme.id,
       themeName: selectedTheme.name
-
     });
 
     setSimulationResult(res);
@@ -197,7 +192,6 @@ export function EmailEventSimulatorModal({
       clinicName: cName
     };
   }, [selectedEventKey, selectedClinic, customRecipientName, customRecipientEmail, customPlanName, customAmount, activeTrigger]);
-
 
   return (
     <Modal
@@ -732,10 +726,8 @@ export function EmailEventSimulatorModal({
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </Modal>
   );
 }
-

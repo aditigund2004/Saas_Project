@@ -37,13 +37,11 @@ export function PatientPrescriptionsPage() {
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">My Digital Prescriptions</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Official prescriptions signed by your consulting doctors, verified via tamper-evident QR codes.
-
           </p>
         </div>
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-
         <CardHeader
           title={`Issued Prescriptions (${displayPrescriptions.length})`}
           subtitle="Click to view full medication schedules, instructions, or print A4 copy"
@@ -86,7 +84,6 @@ export function PatientPrescriptionsPage() {
                   </td>
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-2">
-
                       <Button
                         variant="secondary"
                         size="sm"
@@ -103,7 +100,6 @@ export function PatientPrescriptionsPage() {
                         onClick={() => openPrescriptionModal(rx)}
                       >
                         <Printer className="w-3.5 h-3.5 mr-1" />
-
                         View / Print
                       </Button>
                     </div>
@@ -141,7 +137,6 @@ export function PatientPrescriptionsPage() {
             </div>
 
             <div className="p-3 bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 rounded-xl text-xs text-indigo-900 dark:text-indigo-200">
-
               💡 <strong>Plain English Translation:</strong> Here is how and when to safely take each medication as prescribed by <strong>{selectedRxForExplanation.doctorName}</strong>.
             </div>
 
@@ -160,7 +155,6 @@ export function PatientPrescriptionsPage() {
                   </div>
                   {med.instructions && (
                     <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
-
                       ⚠️ <strong>Special Instruction:</strong> {med.instructions}
                     </div>
                   )}
@@ -169,7 +163,6 @@ export function PatientPrescriptionsPage() {
             </div>
 
             <div className="flex justify-end pt-3 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="secondary" size="sm" onClick={() => setSelectedRxForExplanation(null)}>
                 Close Guide
               </Button>

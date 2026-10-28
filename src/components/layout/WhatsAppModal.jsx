@@ -47,7 +47,6 @@ export function WhatsAppModal() {
           <div>
             <p className="font-semibold">Integration Ready / Frontend Demonstration</p>
             <p className="mt-0.5 text-amber-700 dark:text-amber-400">
-
               This preview simulates notifications designed for the WhatsApp Business Platform. In production, templates and opt-in status are dispatched via backend webhook without exposing credentials to the browser.
             </p>
           </div>
@@ -56,7 +55,6 @@ export function WhatsAppModal() {
         {/* Template Chooser */}
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
-
             Select Message Template
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -69,7 +67,6 @@ export function WhatsAppModal() {
                   selectedTemplate === key
                     ? 'border-emerald-500 bg-emerald-50/80 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-200 font-semibold shadow-xs'
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
-
                 }`}
               >
                 {tpl.title}
@@ -81,7 +78,6 @@ export function WhatsAppModal() {
         {/* WhatsApp Chat Simulation Bubble */}
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-[#EFEAE2] dark:bg-slate-950 p-4 shadow-inner">
           <div className="flex items-center justify-between pb-3 border-b border-black/10 dark:border-white/10 text-xs text-slate-700 dark:text-slate-300">
-
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-full bg-[#128C7E] text-white flex items-center justify-center font-bold text-xs">
                 W
@@ -93,14 +89,12 @@ export function WhatsAppModal() {
             </div>
             <div className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
               <CheckCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-
               <span>Status: {simulatedStatus}</span>
             </div>
           </div>
 
           <div className="py-4 flex justify-end">
             <div className="max-w-md bg-white dark:bg-slate-850 rounded-2xl rounded-tr-xs p-3.5 shadow-sm border border-slate-200 dark:border-slate-700 text-xs leading-relaxed text-slate-800 dark:text-slate-100 space-y-2">
-
               <p className="whitespace-pre-line">{currentPreviewText}</p>
               <div className="flex items-center justify-end gap-1 text-[10px] text-slate-400 font-medium">
                 <span>10:30 AM</span>
@@ -121,7 +115,6 @@ export function WhatsAppModal() {
           <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
             <Shield className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>Encrypted endpoint: <code className="text-blue-700 dark:text-blue-400">POST /api/v1/whatsapp/dispatch</code></span>
-
           </div>
 
           <div className="flex items-center gap-2">
@@ -143,4 +136,3 @@ export function WhatsAppModal() {
     </Modal>
   );
 }
-

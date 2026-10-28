@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Activity, ShieldCheck, Stethoscope, Clock, CheckCircle2, Building2, HelpCircle } from 'lucide-react';
 import { MedicalMotionBackground } from '../../components/layout/MedicalMotionBackground';
 
-
 export function AuthLayout({
   title,
   subtitle,
@@ -22,7 +21,6 @@ export function AuthLayout({
       <div className="relative z-10 flex flex-col justify-between flex-1">
         <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12">
         <div className="w-full max-w-6xl bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[620px]">
-
           {/* Left Column: Branding, Value Prop & Live System Highlights (Desktop) */}
           <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
             {/* Background Accent Graphics */}
@@ -40,7 +38,6 @@ export function AuthLayout({
                     Clinic<span className="text-blue-400">OS</span>
                   </span>
                   <span className="block text-xs text-blue-300 font-semibold tracking-wider uppercase">
-
                     Healthcare SaaS
                   </span>
                 </div>
@@ -48,7 +45,6 @@ export function AuthLayout({
 
               <div className="space-y-2.5">
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30 uppercase tracking-wide">
-
                   {badgeText}
                 </span>
                 <h2 className="text-2xl lg:text-3xl font-extrabold text-white leading-tight">
@@ -75,7 +71,6 @@ export function AuthLayout({
               <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700/60 backdrop-blur-xs flex items-center justify-between text-xs">
                 <div>
                   <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-
                     Demonstration Network
                   </div>
                   <div className="font-bold text-white text-sm">5 Active Specialty Clinics</div>
@@ -83,7 +78,6 @@ export function AuthLayout({
                 <div className="text-right">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded-lg">
                     <span className="w-2 h-2 rounded-full bg-emerald-400" />
-
                     Simulated Ready
                   </span>
                 </div>
@@ -100,7 +94,6 @@ export function AuthLayout({
                   {title}
                 </h1>
                 {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400">{subtitle}</p>}
-
               </div>
 
               {/* Injected Form Body */}
@@ -125,14 +118,12 @@ export function AuthLayout({
               Terms of Service
             </Link>
             <Link to="/contact" className="hover:text-slate-800 dark:hover:text-white">
-
               Technical Support
             </Link>
           </div>
         </div>
       </footer>
       </div>
-
     </div>
   );
 }

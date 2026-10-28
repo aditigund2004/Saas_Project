@@ -237,7 +237,6 @@ export function ClinicDoctorsPage() {
     return appointments.filter((a) => a.doctorId === selectedDoctor.id);
   }, [selectedDoctor, appointments]);
 
-
   return (
     <div className="space-y-6">
       {/* Header & Controls */}
@@ -246,7 +245,6 @@ export function ClinicDoctorsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Clinical Operations</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Doctor & Specialist Management</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Manage practicing clinicians, medical registration council numbers, working days, and consultation fees for <strong>{activeClinic.name}</strong>.
           </p>
         </div>
@@ -273,7 +271,6 @@ export function ClinicDoctorsPage() {
 
       {/* Filter and Search Bar */}
       <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search */}
           <div className="lg:col-span-2 relative">
@@ -287,7 +284,6 @@ export function ClinicDoctorsPage() {
                 setCurrentPage(1);
               }}
               className="w-full pl-9 pr-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-blue-500 bg-slate-50/50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
             />
           </div>
 
@@ -300,7 +296,6 @@ export function ClinicDoctorsPage() {
                 setCurrentPage(1);
               }}
               className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800 focus:outline-blue-500 text-slate-700 dark:text-slate-200"
-
             >
               <option value="ALL">All Specialties</option>
               {specialties.map((spec) => (
@@ -320,7 +315,6 @@ export function ClinicDoctorsPage() {
                 setCurrentPage(1);
               }}
               className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800 focus:outline-blue-500 text-slate-700 dark:text-slate-200"
-
             >
               <option value="ALL">All Branches</option>
               {activeClinic.branches.map((b) => (
@@ -340,7 +334,6 @@ export function ClinicDoctorsPage() {
                 setCurrentPage(1);
               }}
               className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800 focus:outline-blue-500 text-slate-700 dark:text-slate-200"
-
             >
               <option value="ALL">All Statuses</option>
               <option value="Active">Active</option>
@@ -354,7 +347,6 @@ export function ClinicDoctorsPage() {
         {/* Secondary controls row */}
         <div className="flex flex-wrap items-center justify-between text-xs pt-1 border-t border-slate-100 dark:border-slate-800 gap-2">
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-
             <span>
               Showing <strong>{filteredDoctors.length}</strong> doctor{filteredDoctors.length === 1 ? '' : 's'}
             </span>
@@ -362,7 +354,6 @@ export function ClinicDoctorsPage() {
               <button
                 onClick={handleResetFilters}
                 className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium ml-2 cursor-pointer"
-
               >
                 <RotateCcw className="w-3 h-3" /> Clear filters
               </button>
@@ -375,7 +366,6 @@ export function ClinicDoctorsPage() {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-2.5 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-blue-500"
-
             >
               <option value="name_asc">Name (A-Z)</option>
               <option value="name_desc">Name (Z-A)</option>
@@ -395,7 +385,6 @@ export function ClinicDoctorsPage() {
           </div>
           <h3 className="text-base font-bold text-slate-800 dark:text-slate-100">No doctors match your criteria</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mt-1">
-
             Try adjusting your search keywords, clearing status filters, or onboard a new clinician to your practice.
           </p>
           <div className="mt-4 flex items-center justify-center gap-2">
@@ -415,7 +404,6 @@ export function ClinicDoctorsPage() {
               <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold text-[11px]">
                 <tr>
                   <th className="px-3.5 py-3.5 text-center w-12">#</th>
-
                   <th className="px-4 py-3.5">Doctor & Specialty</th>
                   <th className="px-4 py-3.5">Reg. Number</th>
                   <th className="px-4 py-3.5">Assigned Branches</th>
@@ -431,7 +419,6 @@ export function ClinicDoctorsPage() {
                     <td className="px-3.5 py-3.5 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
                       {(currentPage - 1) * pageSize + idx + 1}
                     </td>
-
                     {/* Doctor Info */}
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-3">
@@ -451,7 +438,6 @@ export function ClinicDoctorsPage() {
                           </div>
                           <p className="text-[11px] font-semibold text-blue-700 dark:text-blue-400">{doc.specialty}</p>
                           <p className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1">{doc.qualifications}</p>
-
                         </div>
                       </div>
                     </td>
@@ -460,7 +446,6 @@ export function ClinicDoctorsPage() {
                     <td className="px-4 py-3.5">
                       <span className="font-mono text-slate-700 dark:text-slate-300 text-xs">{doc.registrationNumber || 'N/A'}</span>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500">{doc.experienceYears || 5} yrs experience</p>
-
                     </td>
 
                     {/* Assigned Branches */}
@@ -471,7 +456,6 @@ export function ClinicDoctorsPage() {
                           return (
                             <span key={bId} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                               <Building2 className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400" />
-
                               {branch?.name || bId}
                             </span>
                           );
@@ -485,7 +469,6 @@ export function ClinicDoctorsPage() {
                         ₹{(doc.consultationFee || 0).toLocaleString('en-IN')}
                       </span>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500">{doc.appointmentDurationMinutes || 30} mins slot</p>
-
                     </td>
 
                     {/* Working Days */}
@@ -494,7 +477,6 @@ export function ClinicDoctorsPage() {
                         {(doc.availableDays || []).join(', ')}
                       </p>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1">{doc.workingHours}</p>
-
                     </td>
 
                     {/* Status */}
@@ -511,7 +493,6 @@ export function ClinicDoctorsPage() {
                           onClick={() => handleOpenViewEdit(doc, 'overview')}
                           title="View Profile & Roster"
                           className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
-
                         >
                           <Eye className="w-4 h-4" />
                         </button>
@@ -519,7 +500,6 @@ export function ClinicDoctorsPage() {
                           onClick={() => handleOpenViewEdit(doc, 'professional')}
                           title="Edit Details"
                           className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors"
-
                         >
                           <Edit className="w-4 h-4" />
                         </button>
@@ -527,7 +507,6 @@ export function ClinicDoctorsPage() {
                           onClick={() => handleDeleteClick(doc)}
                           title="Remove Doctor"
                           className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
-
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -543,7 +522,6 @@ export function ClinicDoctorsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-4">
             {paginatedDoctors.map((doc) => (
               <Card key={doc.id} className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
-
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <img
@@ -555,7 +533,6 @@ export function ClinicDoctorsPage() {
                       <h3 className="font-bold text-slate-900 dark:text-white text-sm">{doc.name}</h3>
                       <p className="text-xs font-semibold text-blue-700 dark:text-blue-400">{doc.specialty}</p>
                       <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{doc.doctorIdNumber || 'DOC'}</span>
-
                     </div>
                   </div>
                   <Badge variant={doc.status || 'Active'}>{doc.status || 'Active'}</Badge>
@@ -578,7 +555,6 @@ export function ClinicDoctorsPage() {
 
                 <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
                   <span className="text-[11px] text-slate-400 dark:text-slate-500">Branches: {doc.branchIds.length}</span>
-
                   <div className="flex items-center gap-1">
                     <Button variant="outline" size="xs" onClick={() => handleOpenViewEdit(doc, 'overview')}>
                       View / Edit
@@ -586,7 +562,6 @@ export function ClinicDoctorsPage() {
                     <button
                       onClick={() => handleDeleteClick(doc)}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -599,7 +574,6 @@ export function ClinicDoctorsPage() {
           {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between px-2 py-3 text-xs text-slate-500 dark:text-slate-400">
-
               <span>
                 Page {currentPage} of {totalPages}
               </span>
@@ -642,7 +616,6 @@ export function ClinicDoctorsPage() {
               <div>
                 <p className="font-semibold">Licensed Practitioner Onboarding</p>
                 <p className="text-[11px] text-blue-700 dark:text-blue-300">
-
                   Fill in clinical qualification credentials, medical council registration, roster days, and consulting fee.
                 </p>
               </div>
@@ -654,7 +627,6 @@ export function ClinicDoctorsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Doctor Full Name *</label>
-
                   <input
                     type="text"
                     required
@@ -666,7 +638,6 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address (Login ID) *</label>
-
                   <input
                     type="email"
                     required
@@ -678,7 +649,6 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
-
                   <input
                     type="text"
                     placeholder="+91 98201 00000"
@@ -689,14 +659,12 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Profile Photo URL</label>
-
                   <input
                     type="url"
                     placeholder="https://..."
                     value={newDoctorForm.avatar}
                     onChange={(e) => setNewDoctorForm({ ...newDoctorForm, avatar: e.target.value })}
                     className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                   />
                 </div>
               </div>
@@ -708,7 +676,6 @@ export function ClinicDoctorsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Clinical Specialty *</label>
-
                   <input
                     type="text"
                     required
@@ -720,7 +687,6 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Academic Qualifications</label>
-
                   <input
                     type="text"
                     placeholder="BDS, MDS, FICOI"
@@ -731,7 +697,6 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">State Medical/Dental Council Reg. No</label>
-
                   <input
                     type="text"
                     placeholder="e.g. MDC-2018-09121"
@@ -742,7 +707,6 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Years of Practice Experience</label>
-
                   <input
                     type="number"
                     min="0"
@@ -754,14 +718,12 @@ export function ClinicDoctorsPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Professional Biography</label>
-
                   <textarea
                     rows={2}
                     placeholder="Special interests, clinical achievements, patient care philosophy..."
                     value={newDoctorForm.bio}
                     onChange={(e) => setNewDoctorForm({ ...newDoctorForm, bio: e.target.value })}
                     className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                   />
                 </div>
               </div>
@@ -773,7 +735,6 @@ export function ClinicDoctorsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Consultation Fee (₹ INR) *</label>
-
                   <input
                     type="number"
                     required
@@ -790,7 +751,6 @@ export function ClinicDoctorsPage() {
                     value={newDoctorForm.appointmentDurationMinutes}
                     onChange={(e) => setNewDoctorForm({ ...newDoctorForm, appointmentDurationMinutes: Number(e.target.value) })}
                     className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                   >
                     <option value={15}>15 Minutes</option>
                     <option value={30}>30 Minutes</option>
@@ -804,7 +764,6 @@ export function ClinicDoctorsPage() {
                     value={newDoctorForm.status}
                     onChange={(e) => setNewDoctorForm({ ...newDoctorForm, status: e.target.value })}
                     className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                   >
                     <option value="Active">Active</option>
                     <option value="Invitation Pending">Invitation Pending</option>
@@ -819,7 +778,6 @@ export function ClinicDoctorsPage() {
                 <div className="flex flex-wrap gap-2">
                   {activeClinic.branches.map((b) => (
                     <label key={b.id} className="flex items-center gap-1.5 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
-
                       <input
                         type="checkbox"
                         checked={newDoctorForm.branchIds.includes(b.id)}
@@ -842,7 +800,6 @@ export function ClinicDoctorsPage() {
                 <div className="flex flex-wrap gap-2">
                   {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
                     <label key={day} className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
-
                       <input
                         type="checkbox"
                         checked={newDoctorForm.availableDays.includes(day)}
@@ -898,7 +855,6 @@ export function ClinicDoctorsPage() {
                 </div>
                 <p className="text-xs font-semibold text-blue-700 dark:text-blue-400">{selectedDoctor.specialty}</p>
                 <div className="flex items-center gap-3 text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
-
                   <span className="font-mono">ID: {selectedDoctor.doctorIdNumber || selectedDoctor.id}</span>
                   <span>•</span>
                   <span>Reg: {selectedDoctor.registrationNumber || 'Pending'}</span>
@@ -908,7 +864,6 @@ export function ClinicDoctorsPage() {
               {/* Quick Status Selector */}
               <div className="shrink-0 text-right">
                 <label className="block text-[10px] text-slate-400 dark:text-slate-500 uppercase font-semibold mb-1">Status</label>
-
                 <select
                   value={editDoctorForm.status}
                   onChange={(e) => {
@@ -916,7 +871,6 @@ export function ClinicDoctorsPage() {
                     setEditDoctorForm({ ...editDoctorForm, status: newStatus });
                   }}
                   className="px-2.5 py-1 text-xs border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-blue-500 font-medium"
-
                 >
                   <option value="Active">Active</option>
                   <option value="On Leave">On Leave</option>
@@ -928,7 +882,6 @@ export function ClinicDoctorsPage() {
 
             {/* Navigation Tabs */}
             <div className="flex border-b border-slate-200 dark:border-slate-800 text-xs font-medium space-x-1 overflow-x-auto">
-
               {[
                 { id: 'overview', label: 'Overview' },
                 { id: 'professional', label: 'Professional Details' },
@@ -944,7 +897,6 @@ export function ClinicDoctorsPage() {
                     activeTab === tab.id
                       ? 'border-blue-600 text-blue-700 dark:text-blue-400 font-bold'
                       : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-
                   }`}
                 >
                   {tab.label}
@@ -973,7 +925,6 @@ export function ClinicDoctorsPage() {
                     <div className="p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-xl">
                       <span className="text-[10px] text-slate-400 uppercase font-semibold">Active Bookings</span>
                       <p className="text-sm font-bold font-mono text-blue-700 dark:text-blue-400 mt-0.5">
-
                         {doctorAppointments.filter((a) => !['Cancelled', 'Completed', 'No-show'].includes(a.status)).length} slots
                       </p>
                     </div>
@@ -982,7 +933,6 @@ export function ClinicDoctorsPage() {
                   <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
                     <h4 className="font-bold text-slate-800 dark:text-white">Biography & Background</h4>
                     <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-xs">
-
                       {editDoctorForm.bio || 'No biography recorded for this practitioner yet.'}
                     </p>
                   </div>
@@ -1005,7 +955,6 @@ export function ClinicDoctorsPage() {
                       </p>
                       <p className="text-slate-600 dark:text-slate-300 flex items-center gap-2">
                         <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" /> Hours: {editDoctorForm.workingHours}
-
                       </p>
                     </div>
                   </div>
@@ -1017,7 +966,6 @@ export function ClinicDoctorsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
-
                     <input
                       type="text"
                       value={editDoctorForm.name}
@@ -1027,7 +975,6 @@ export function ClinicDoctorsPage() {
                   </div>
                   <div>
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Specialty</label>
-
                     <input
                       type="text"
                       value={editDoctorForm.specialty}
@@ -1037,7 +984,6 @@ export function ClinicDoctorsPage() {
                   </div>
                   <div>
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Degrees & Qualifications</label>
-
                     <input
                       type="text"
                       value={editDoctorForm.qualifications}
@@ -1047,7 +993,6 @@ export function ClinicDoctorsPage() {
                   </div>
                   <div>
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">State Council Reg. Number</label>
-
                     <input
                       type="text"
                       value={editDoctorForm.registrationNumber}
@@ -1057,7 +1002,6 @@ export function ClinicDoctorsPage() {
                   </div>
                   <div>
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Years of Practice Experience</label>
-
                     <input
                       type="number"
                       value={editDoctorForm.experienceYears}
@@ -1067,7 +1011,6 @@ export function ClinicDoctorsPage() {
                   </div>
                   <div>
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Consultation Fee (INR)</label>
-
                     <input
                       type="number"
                       value={editDoctorForm.consultationFee}
@@ -1077,13 +1020,11 @@ export function ClinicDoctorsPage() {
                   </div>
                   <div className="sm:col-span-2">
                     <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Biography</label>
-
                     <textarea
                       rows={3}
                       value={editDoctorForm.bio}
                       onChange={(e) => setEditDoctorForm({ ...editDoctorForm, bio: e.target.value })}
                       className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                     />
                   </div>
                 </div>
@@ -1095,25 +1036,21 @@ export function ClinicDoctorsPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Working Hours</label>
-
                       <input
                         type="text"
                         value={editDoctorForm.workingHours}
                         onChange={(e) => setEditDoctorForm({ ...editDoctorForm, workingHours: e.target.value })}
                         className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                         placeholder="e.g. 09:30 AM - 01:30 PM, 04:30 PM - 07:30 PM"
                       />
                     </div>
                     <div>
                       <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">Daily Breaks & Lunch</label>
-
                       <input
                         type="text"
                         value={editDoctorForm.breaks || ''}
                         onChange={(e) => setEditDoctorForm({ ...editDoctorForm, breaks: e.target.value })}
                         className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                         placeholder="e.g. 01:30 PM - 03:00 PM"
                       />
                     </div>
@@ -1123,7 +1060,6 @@ export function ClinicDoctorsPage() {
                         value={editDoctorForm.appointmentDurationMinutes}
                         onChange={(e) => setEditDoctorForm({ ...editDoctorForm, appointmentDurationMinutes: Number(e.target.value) })}
                         className="w-full px-3 py-2 border rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-blue-500"
-
                       >
                         <option value={15}>15 Minutes</option>
                         <option value={30}>30 Minutes</option>
@@ -1138,7 +1074,6 @@ export function ClinicDoctorsPage() {
                     <div className="flex flex-wrap gap-2">
                       {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
                         <label key={day} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800">
-
                           <input
                             type="checkbox"
                             checked={editDoctorForm.availableDays.includes(day)}
@@ -1162,13 +1097,11 @@ export function ClinicDoctorsPage() {
               {activeTab === 'branches' && (
                 <div className="space-y-3">
                   <p className="text-slate-600 dark:text-slate-300">
-
                     Assign which branches within <strong>{activeClinic.name}</strong> Dr. {selectedDoctor.name} accepts appointments at:
                   </p>
                   <div className="space-y-2">
                     {activeClinic.branches.map((b) => (
                       <label key={b.id} className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer">
-
                         <input
                           type="checkbox"
                           checked={editDoctorForm.branchIds.includes(b.id)}
@@ -1187,7 +1120,6 @@ export function ClinicDoctorsPage() {
                           </div>
                           <p className="text-[11px] text-slate-400 dark:text-slate-500">{b.address}, {b.city}</p>
                           <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Operating Hours: {b.operatingHours}</p>
-
                         </div>
                       </label>
                     ))}
@@ -1210,7 +1142,6 @@ export function ClinicDoctorsPage() {
                         <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-[11px]">
                           <tr>
                             <th className="p-2.5 text-center w-10 font-semibold">#</th>
-
                             <th className="p-2.5">Ref No</th>
                             <th className="p-2.5">Patient</th>
                             <th className="p-2.5">Service</th>
@@ -1226,7 +1157,6 @@ export function ClinicDoctorsPage() {
                               <td className="p-2.5 font-semibold text-slate-900 dark:text-white">{apt.patientName}</td>
                               <td className="p-2.5 text-slate-600 dark:text-slate-300">{apt.serviceName}</td>
                               <td className="p-2.5 text-slate-600 dark:text-slate-300">{apt.date} at {apt.time}</td>
-
                               <td className="p-2.5">
                                 <Badge variant={apt.status}>{apt.status}</Badge>
                               </td>
@@ -1250,7 +1180,6 @@ export function ClinicDoctorsPage() {
                       <div>
                         <p className="font-medium text-slate-800 dark:text-slate-200">{act.action}</p>
                         <p className="text-[10px] text-slate-400 dark:text-slate-500">By {act.actor} • {act.timestamp}</p>
-
                       </div>
                     </div>
                   ))}
@@ -1259,14 +1188,12 @@ export function ClinicDoctorsPage() {
 
               {/* Modal footer */}
               <div className="flex items-center justify-between pt-3 border-t border-slate-200 dark:border-slate-800">
-
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => handleDeleteClick(selectedDoctor)}
                   className="text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900/40 hover:bg-rose-50 dark:hover:bg-rose-950/20"
-
                 >
                   <Trash2 className="w-3.5 h-3.5 mr-1" /> Remove Doctor
                 </Button>
@@ -1304,7 +1231,6 @@ export function ClinicDoctorsPage() {
                   <div>
                     <h4 className="font-bold text-amber-900 dark:text-amber-200">Active Scheduled Appointments Detected</h4>
                     <p className="mt-0.5 text-amber-700 dark:text-amber-300">
-
                       Dr. <strong>{deleteTargetDoctor.name}</strong> currently has <strong>{deleteSafetyInfo.count}</strong> upcoming patient booking(s).
                     </p>
                   </div>
@@ -1317,7 +1243,6 @@ export function ClinicDoctorsPage() {
                       <div key={apt.id} className="flex items-center justify-between text-[11px] p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                         <span className="font-medium text-slate-800 dark:text-slate-200">{apt.patientName}</span>
                         <span className="text-slate-500 dark:text-slate-400 font-mono">{apt.date} • {apt.time}</span>
-
                         <Badge variant={apt.status}>{apt.status}</Badge>
                       </div>
                     ))}
@@ -1329,7 +1254,6 @@ export function ClinicDoctorsPage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-
                   <Button variant="outline" size="sm" onClick={() => setIsDeleteModalOpen(false)}>
                     Cancel
                   </Button>
@@ -1346,7 +1270,6 @@ export function ClinicDoctorsPage() {
                   <div>
                     <h4 className="font-bold text-rose-900 dark:text-rose-200">Confirm Doctor Removal</h4>
                     <p className="mt-0.5 text-rose-700 dark:text-rose-300">
-
                       Are you sure you want to permanently remove Dr. <strong>{deleteTargetDoctor.name}</strong> from <strong>{activeClinic.name}</strong>?
                     </p>
                   </div>
@@ -1357,7 +1280,6 @@ export function ClinicDoctorsPage() {
                 </p>
 
                 <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-
                   <Button variant="outline" size="sm" onClick={() => setIsDeleteModalOpen(false)}>
                     Cancel
                   </Button>

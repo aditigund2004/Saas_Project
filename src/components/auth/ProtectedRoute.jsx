@@ -20,7 +20,20 @@ export function ProtectedRoute({ allowedRoles, children }) {
   // Not signed in: redirect to login with return path
   if (!isAuthenticated || !user) {
     const returnUrl = encodeURIComponent(location.pathname + location.search);
+<<<<<<< HEAD
+    if (location.pathname.startsWith('/superadmin')) {
+      return <Navigate to={`/superadmin?redirect=${returnUrl}`} replace />;
+    }
+    if (location.pathname.startsWith('/clinic')) {
+      return <Navigate to={`/login/doctor?redirect=${returnUrl}`} replace />;
+    }
+    if (location.pathname.startsWith('/reception')) {
+      return <Navigate to={`/login/receptionist?redirect=${returnUrl}`} replace />;
+    }
+    return <Navigate to="/" replace />;
+=======
     return <Navigate to={`/login?redirect=${returnUrl}`} replace />;
+>>>>>>> origin/main
   }
 
   // Role validation
@@ -39,6 +52,20 @@ export function ProtectedRoute({ allowedRoles, children }) {
     });
 
     if (!isAllowed) {
+<<<<<<< HEAD
+      if (location.pathname.startsWith('/superadmin')) {
+        return (
+          <Navigate
+            to="/superadmin"
+            state={{
+              error: `Access restricted. Current session is signed in as ${user.role.replace('_', ' ').toUpperCase()}. Super Administrator credentials are required to access platform administration.`
+            }}
+            replace
+          />
+        );
+      }
+=======
+>>>>>>> origin/main
       return (
         <Navigate
           to={`/access-denied?attempted=${user.role}&required=${allowedRoles.join(',')}&from=${encodeURIComponent(location.pathname)}`}

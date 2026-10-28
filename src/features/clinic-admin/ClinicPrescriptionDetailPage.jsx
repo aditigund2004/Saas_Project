@@ -25,6 +25,15 @@ export function ClinicPrescriptionDetailPage() {
       {/* Actions header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
         <div>
+<<<<<<< HEAD
+          <Link to="/clinic/prescriptions" className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
+            ← Back to Prescriptions
+          </Link>
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">
+            Prescription #{rx.prescriptionNumber}
+          </h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Issued on {rx.date} for {rx.patientName}</p>
+=======
           <Link to="/clinic/prescriptions" className="text-xs text-blue-600 hover:underline">
             ← Back to Prescriptions
           </Link>
@@ -32,6 +41,7 @@ export function ClinicPrescriptionDetailPage() {
             Prescription #{rx.prescriptionNumber}
           </h1>
           <p className="text-xs text-slate-500">Issued on {rx.date} for {rx.patientName}</p>
+>>>>>>> origin/main
         </div>
 
         <div className="flex items-center gap-2">

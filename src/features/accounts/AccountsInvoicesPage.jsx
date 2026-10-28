@@ -123,6 +123,17 @@ export function AccountsInvoicesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
+<<<<<<< HEAD
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+        <div>
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800 uppercase tracking-wide">
+              Billing Ledger
+            </span>
+          </div>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Patient Invoices & Receipts</h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+=======
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -132,33 +143,53 @@ export function AccountsInvoicesPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">Patient Invoices & Receipts</h1>
           <p className="text-xs text-slate-500">
+>>>>>>> origin/main
             Generate OPD bills, simulate digital collections, and maintain audit trails
           </p>
         </div>
 
+<<<<<<< HEAD
+        <Button variant="primary" size="sm" onClick={() => setCreateModalOpen(true)} className="font-semibold shadow-sm">
+          <Plus className="w-4 h-4 mr-1.5" />
+=======
         <Button variant="primary" size="sm" onClick={() => setCreateModalOpen(true)}>
           <Plus className="w-3.5 h-3.5 mr-1" />
+>>>>>>> origin/main
           Create New Invoice
         </Button>
       </div>
 
       {/* Filter and Search */}
+<<<<<<< HEAD
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="relative flex-1 w-full">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+=======
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 rounded-xl border border-slate-200">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+>>>>>>> origin/main
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by invoice number (e.g. INV-2026-0391) or patient..."
+<<<<<<< HEAD
+            className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
             className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
+<<<<<<< HEAD
+          className="text-xs border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
           className="text-xs border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 font-medium"
+>>>>>>> origin/main
         >
           <option value="All">All Invoices</option>
           <option value="Paid">Fully Paid</option>
@@ -169,11 +200,20 @@ export function AccountsInvoicesPage() {
       </div>
 
       {/* Table */}
+<<<<<<< HEAD
+      <Card className="overflow-hidden border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs text-left border-collapse">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
+              <tr>
+                <th className="px-3 py-3 text-center w-12 font-bold">#</th>
+=======
       <Card className="overflow-hidden border-slate-200">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
               <tr>
+>>>>>>> origin/main
                 <th className="px-4 py-3">Invoice #</th>
                 <th className="px-4 py-3">Patient Name</th>
                 <th className="px-4 py-3">Date Billed</th>
@@ -184,14 +224,48 @@ export function AccountsInvoicesPage() {
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
+<<<<<<< HEAD
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {filteredInvoices.length === 0 ? (
+                <tr>
+                  <td colSpan={9} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
+=======
             <tbody className="divide-y divide-slate-100">
               {filteredInvoices.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-4 py-8 text-center text-slate-400">
+>>>>>>> origin/main
                     No matching invoices found.
                   </td>
                 </tr>
               ) : (
+<<<<<<< HEAD
+                filteredInvoices.map((inv, idx) => {
+                  const balance = inv.totalAmount - (inv.amountPaid || 0);
+                  return (
+                    <tr key={inv.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                      <td className="px-3 py-3.5 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
+                      <td className="px-4 py-3.5 font-mono font-bold text-blue-700 dark:text-blue-400">
+                        {inv.invoiceNumber}
+                      </td>
+                      <td className="px-4 py-3.5">
+                        <div className="font-bold text-slate-900 dark:text-white text-sm">{inv.patientName}</div>
+                        <div className="text-xs text-slate-400 dark:text-slate-500 font-mono mt-0.5">{inv.patientPhone}</div>
+                      </td>
+                      <td className="px-4 py-3.5 font-mono text-slate-600 dark:text-slate-400">
+                        {inv.date}
+                      </td>
+                      <td className="px-4 py-3.5 max-w-xs truncate text-slate-700 dark:text-slate-300">
+                        {inv.items.map((i) => i.description).join(', ')}
+                      </td>
+                      <td className="px-4 py-3.5 font-mono font-bold text-slate-900 dark:text-white text-sm">
+                        {formatCurrency(inv.totalAmount)}
+                      </td>
+                      <td className="px-4 py-3.5 font-mono text-emerald-700 dark:text-emerald-400 font-bold text-sm">
+                        {formatCurrency(inv.amountPaid || 0)}
+                      </td>
+                      <td className="px-4 py-3.5">
+=======
                 filteredInvoices.map((inv) => {
                   const balance = inv.totalAmount - (inv.amountPaid || 0);
                   return (
@@ -216,6 +290,7 @@ export function AccountsInvoicesPage() {
                         {formatCurrency(inv.amountPaid || 0)}
                       </td>
                       <td className="px-4 py-3">
+>>>>>>> origin/main
                         <Badge
                           variant={
                             inv.status === 'Paid' ? 'success' :
@@ -227,16 +302,26 @@ export function AccountsInvoicesPage() {
                           {inv.status}
                         </Badge>
                       </td>
+<<<<<<< HEAD
+                      <td className="px-4 py-3.5 text-right whitespace-nowrap">
+=======
                       <td className="px-4 py-3 text-right">
+>>>>>>> origin/main
                         <div className="flex items-center justify-end gap-1.5">
                           {inv.status !== 'Paid' && inv.status !== 'Refunded' && (
                             <Button
                               variant="secondary"
                               size="sm"
                               onClick={() => handleOpenPay(inv)}
+<<<<<<< HEAD
+                              className="h-8 text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100"
+                            >
+                              <CreditCard className="w-3.5 h-3.5 mr-1" />
+=======
                               className="h-7 text-xs bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-100"
                             >
                               <CreditCard className="w-3 h-3 mr-1" />
+>>>>>>> origin/main
                               Simulate Pay
                             </Button>
                           )}
@@ -244,9 +329,16 @@ export function AccountsInvoicesPage() {
                             variant="ghost"
                             size="sm"
                             onClick={() => setViewInvoice(inv)}
+<<<<<<< HEAD
+                            className="h-8 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400"
+                            title="View Invoice Receipt"
+                          >
+                            <Eye className="w-4 h-4" />
+=======
                             className="h-7 text-xs"
                           >
                             <Eye className="w-3.5 h-3.5" />
+>>>>>>> origin/main
                           </Button>
                         </div>
                       </td>
@@ -261,6 +353,29 @@ export function AccountsInvoicesPage() {
 
       {/* Create Invoice Modal */}
       {createModalOpen && (
+<<<<<<< HEAD
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
+          onClick={() => setCreateModalOpen(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 w-full max-w-lg p-6 space-y-4 cursor-default"
+          >
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                <Plus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                Generate Patient OPD Invoice
+              </h3>
+              <button onClick={() => setCreateModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreate} className="space-y-3.5 text-xs">
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Select Patient</label>
+=======
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-lg p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -276,6 +391,7 @@ export function AccountsInvoicesPage() {
             <form onSubmit={handleCreate} className="space-y-3 text-xs">
               <div>
                 <label className="font-semibold text-slate-700 mb-1 block">Select Patient</label>
+>>>>>>> origin/main
                 <select
                   value={newInv.patientId}
                   onChange={(e) => {
@@ -289,7 +405,11 @@ export function AccountsInvoicesPage() {
                       });
                     }
                   }}
+<<<<<<< HEAD
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white"
+>>>>>>> origin/main
                 >
                   {patients.map((p) => (
                     <option key={p.id} value={p.id}>{p.name} ({p.patientIdNumber})</option>
@@ -298,13 +418,26 @@ export function AccountsInvoicesPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
+                <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Line Item Description *</label>
+=======
                 <label className="font-semibold text-slate-700 mb-1 block">Line Item Description *</label>
+>>>>>>> origin/main
                 <input
                   required
                   type="text"
                   value={newInv.itemDescription}
                   onChange={(e) => setNewInv({ ...newInv, itemDescription: e.target.value })}
                   placeholder="e.g. Endodontic Root Canal Therapy"
+<<<<<<< HEAD
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3.5">
+                <div>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Quantity</label>
+=======
                   className="w-full px-3 py-2 rounded-lg border border-slate-200"
                 />
               </div>
@@ -312,57 +445,98 @@ export function AccountsInvoicesPage() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="font-semibold text-slate-700 mb-1 block">Quantity</label>
+>>>>>>> origin/main
                   <input
                     type="number"
                     min="1"
                     value={newInv.itemQuantity}
                     onChange={(e) => setNewInv({ ...newInv, itemQuantity: e.target.value })}
+<<<<<<< HEAD
+                    className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Unit Fee (₹)</label>
+=======
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono"
                   />
                 </div>
                 <div>
                   <label className="font-semibold text-slate-700 mb-1 block">Unit Fee (₹)</label>
+>>>>>>> origin/main
                   <input
                     type="number"
                     min="0"
                     value={newInv.unitPrice}
                     onChange={(e) => setNewInv({ ...newInv, unitPrice: e.target.value })}
+<<<<<<< HEAD
+                    className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono font-bold"
+>>>>>>> origin/main
                   />
                 </div>
               </div>
 
+<<<<<<< HEAD
+              <div className="grid grid-cols-2 gap-3.5">
+                <div>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Discount (₹)</label>
+=======
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="font-semibold text-slate-700 mb-1 block">Discount (₹)</label>
+>>>>>>> origin/main
                   <input
                     type="number"
                     min="0"
                     value={newInv.discount}
                     onChange={(e) => setNewInv({ ...newInv, discount: e.target.value })}
+<<<<<<< HEAD
+                    className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">GST Tax (₹)</label>
+=======
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono"
                   />
                 </div>
                 <div>
                   <label className="font-semibold text-slate-700 mb-1 block">GST Tax (₹)</label>
+>>>>>>> origin/main
                   <input
                     type="number"
                     min="0"
                     value={newInv.tax}
                     onChange={(e) => setNewInv({ ...newInv, tax: e.target.value })}
+<<<<<<< HEAD
+                    className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono"
+>>>>>>> origin/main
                   />
                 </div>
               </div>
 
+<<<<<<< HEAD
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex justify-between items-center font-bold">
+                <span className="text-slate-700 dark:text-slate-300">Net Total Amount:</span>
+                <span className="font-mono text-blue-800 dark:text-blue-300 text-sm">
+=======
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between font-bold">
                 <span>Net Total Amount:</span>
                 <span className="font-mono text-blue-800">
+>>>>>>> origin/main
                   {formatCurrency((Number(newInv.itemQuantity) * Number(newInv.unitPrice)) - Number(newInv.discount) + Number(newInv.tax))}
                 </span>
               </div>
 
+<<<<<<< HEAD
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+=======
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+>>>>>>> origin/main
                 <Button variant="secondary" size="sm" type="button" onClick={() => setCreateModalOpen(false)}>
                   Cancel
                 </Button>
@@ -377,6 +551,37 @@ export function AccountsInvoicesPage() {
 
       {/* Record Payment Simulation Modal */}
       {payModalOpen && selectedInvoice && (
+<<<<<<< HEAD
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
+          onClick={() => setPayModalOpen(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 w-full max-w-md p-6 space-y-4 cursor-default"
+          >
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  Simulate Patient Payment
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Invoice: {selectedInvoice.invoiceNumber}</p>
+              </div>
+              <button onClick={() => setPayModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-3.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 rounded-xl text-xs text-amber-900 dark:text-amber-300">
+              <strong>Simulated Transaction:</strong> This button simulates settlement in ClinicOS demo state. It does not initiate a real banking charge.
+            </div>
+
+            <form onSubmit={handleConfirmPay} className="space-y-3.5 text-xs">
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                <span className="text-slate-600 dark:text-slate-300">Patient Balance Due:</span>
+                <strong className="font-mono text-slate-900 dark:text-white text-sm">
+=======
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-md p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -400,16 +605,25 @@ export function AccountsInvoicesPage() {
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between">
                 <span>Patient Balance Due:</span>
                 <strong className="font-mono text-slate-900">
+>>>>>>> origin/main
                   {formatCurrency(selectedInvoice.totalAmount - (selectedInvoice.amountPaid || 0))}
                 </strong>
               </div>
 
               <div>
+<<<<<<< HEAD
+                <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Payment Settlement Method</label>
+                <select
+                  value={paymentData.method}
+                  onChange={(e) => setPaymentData({ ...paymentData, method: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                 <label className="font-semibold text-slate-700 mb-1 block">Payment Settlement Method</label>
                 <select
                   value={paymentData.method}
                   onChange={(e) => setPaymentData({ ...paymentData, method: e.target.value })}
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white font-medium"
+>>>>>>> origin/main
                 >
                   <option value="UPI / Dynamic QR">UPI / Dynamic QR Scan</option>
                   <option value="POS Card Swipe">POS Credit / Debit Card Terminal</option>
@@ -419,7 +633,11 @@ export function AccountsInvoicesPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
+                <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Amount to Record (₹)</label>
+=======
                 <label className="font-semibold text-slate-700 mb-1 block">Amount to Record (₹)</label>
+>>>>>>> origin/main
                 <input
                   required
                   type="number"
@@ -427,11 +645,19 @@ export function AccountsInvoicesPage() {
                   max={selectedInvoice.totalAmount}
                   value={paymentData.amount}
                   onChange={(e) => setPaymentData({ ...paymentData, amount: e.target.value })}
+<<<<<<< HEAD
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+=======
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono font-bold"
                 />
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+>>>>>>> origin/main
                 <Button variant="secondary" size="sm" type="button" onClick={() => setPayModalOpen(false)}>
                   Cancel
                 </Button>
@@ -446,6 +672,47 @@ export function AccountsInvoicesPage() {
 
       {/* Invoice Detail / Receipt Modal */}
       {viewInvoice && (
+<<<<<<< HEAD
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
+          onClick={() => setViewInvoice(null)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-lg p-6 space-y-4 cursor-default"
+          >
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Clinic Tax Invoice Preview</h3>
+                <span className="font-mono text-xs text-blue-700 dark:text-blue-400">{viewInvoice.invoiceNumber}</span>
+              </div>
+              <button onClick={() => setViewInvoice(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3.5 text-xs">
+              <div className="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+                <div>
+                  <div className="font-bold text-slate-900 dark:text-white text-sm">{activeClinic.name}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{activeClinic.address}</div>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold text-slate-500 dark:text-slate-400">Billed To:</div>
+                  <div className="font-bold text-slate-800 dark:text-slate-200">{viewInvoice.patientName}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">{viewInvoice.patientPhone}</div>
+                </div>
+              </div>
+
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                {viewInvoice.items.map((item, idx) => (
+                  <div key={idx} className="py-2.5 flex justify-between items-center">
+                    <div>
+                      <div className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{item.description}</div>
+                      <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Qty: {item.quantity} × {formatCurrency(item.unitPrice)}</div>
+                    </div>
+                    <div className="font-mono font-bold text-slate-900 dark:text-white text-sm">{formatCurrency(item.total)}</div>
+=======
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -479,10 +746,31 @@ export function AccountsInvoicesPage() {
                       <div className="text-[10px] text-slate-400">Qty: {item.quantity} × {formatCurrency(item.unitPrice)}</div>
                     </div>
                     <div className="font-mono font-bold text-slate-900">{formatCurrency(item.total)}</div>
+>>>>>>> origin/main
                   </div>
                 ))}
               </div>
 
+<<<<<<< HEAD
+              <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1.5 font-mono text-xs">
+                <div className="flex justify-between text-slate-500 dark:text-slate-400">
+                  <span>Subtotal:</span>
+                  <span>{formatCurrency(viewInvoice.subtotal)}</span>
+                </div>
+                <div className="flex justify-between text-slate-500 dark:text-slate-400">
+                  <span>Discount:</span>
+                  <span>-{formatCurrency(viewInvoice.discount)}</span>
+                </div>
+                <div className="flex justify-between text-slate-500 dark:text-slate-400">
+                  <span>GST:</span>
+                  <span>+{formatCurrency(viewInvoice.tax)}</span>
+                </div>
+                <div className="flex justify-between font-bold text-slate-900 dark:text-white pt-1.5 border-t border-slate-200 dark:border-slate-700 text-sm">
+                  <span>Grand Total:</span>
+                  <span>{formatCurrency(viewInvoice.totalAmount)}</span>
+                </div>
+                <div className="flex justify-between font-bold text-emerald-700 dark:text-emerald-400 text-sm">
+=======
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1 font-mono">
                 <div className="flex justify-between text-slate-500">
                   <span>Subtotal:</span>
@@ -501,13 +789,18 @@ export function AccountsInvoicesPage() {
                   <span>{formatCurrency(viewInvoice.totalAmount)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-emerald-700">
+>>>>>>> origin/main
                   <span>Amount Paid:</span>
                   <span>{formatCurrency(viewInvoice.amountPaid || 0)}</span>
                 </div>
               </div>
             </div>
 
+<<<<<<< HEAD
+            <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+=======
             <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+>>>>>>> origin/main
               <Button variant="secondary" size="sm" onClick={() => setViewInvoice(null)}>
                 Close
               </Button>
@@ -518,4 +811,7 @@ export function AccountsInvoicesPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main

@@ -31,10 +31,18 @@ import {
   DEMO_SAAS_EXPENSES,
   DEMO_CLINIC_PAYMENTS,
   DEMO_CLINIC_REFUNDS,
+<<<<<<< HEAD
+  DEMO_RECEIPTS,
+=======
+>>>>>>> origin/main
   DEMO_NOTIFICATIONS
 } from '../demo-data';
 import { ROLE_PERMISSIONS } from '../types';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
+<<<<<<< HEAD
+import { getDefaultWebsiteSettings } from '../features/website-builder/websiteBuilderDefaults';
+=======
+>>>>>>> origin/main
 
 const AppContext = createContext(null);
 
@@ -80,7 +88,15 @@ export function AppProvider({ children }) {
   // Domain Entity Collections with LocalStorage hydration for smooth demo edits
   const [clinics, setClinics] = useState(() => {
     const s = localStorage.getItem('clinipulse_clinics');
+<<<<<<< HEAD
+    const raw = s ? JSON.parse(s) : DEMO_CLINICS;
+    return raw.map((c) => ({
+      ...c,
+      websiteSettings: c.websiteSettings || getDefaultWebsiteSettings(c)
+    }));
+=======
     return s ? JSON.parse(s) : DEMO_CLINICS;
+>>>>>>> origin/main
   });
 
   const [doctors, setDoctors] = useState(() => {
@@ -219,6 +235,18 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_CLINIC_REFUNDS;
   });
 
+<<<<<<< HEAD
+  const [receipts, setReceipts] = useState(() => {
+    const s = localStorage.getItem('clinipulse_receipts');
+    return s ? JSON.parse(s) : DEMO_RECEIPTS;
+  });
+
+  const [activePatientId, setActivePatientId] = useState(() => {
+    return localStorage.getItem('clinipulse_active_patient_id') || 'pt-1041';
+  });
+
+=======
+>>>>>>> origin/main
   // Simulated Notifications Center
   const [notifications, setNotifications] = useState(() => {
     const s = localStorage.getItem('clinipulse_notifications');
@@ -360,6 +388,17 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_followups', JSON.stringify(followUps));
   }, [followUps]);
 
+<<<<<<< HEAD
+  useEffect(() => {
+    localStorage.setItem('clinipulse_receipts', JSON.stringify(receipts));
+  }, [receipts]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_active_patient_id', activePatientId);
+  }, [activePatientId]);
+
+=======
+>>>>>>> origin/main
   // Toast Notification Trigger
   const showToast = (message, type = 'success') => {
     setToast({ id: Date.now(), message, type });
@@ -419,13 +458,52 @@ export function AppProvider({ children }) {
       return null;
     }
 
+<<<<<<< HEAD
+    // Ensure patient exists in patients collection for seamless end-to-end lookup
+    let targetPatientId = appointmentData.patientId;
+    if (appointmentData.patientName) {
+      const existingPt = patients.find(
+        (p) =>
+          (p.phone && appointmentData.patientPhone && p.phone === appointmentData.patientPhone) ||
+          p.id === appointmentData.patientId ||
+          p.patientIdNumber === appointmentData.patientId
+      );
+      if (!existingPt) {
+        const seq = Math.floor(1050 + Math.random() * 800);
+        targetPatientId = `pt-${seq}`;
+        const autoPatient = {
+          id: targetPatientId,
+          patientIdNumber: `PT-${seq}`,
+          name: appointmentData.patientName,
+          phone: appointmentData.patientPhone || '',
+          email: appointmentData.patientEmail || `${appointmentData.patientName.toLowerCase().replace(/\s+/g, '.')}@example.demo`,
+          clinicId: appointmentData.clinicId || activeClinicId,
+          registeredAt: appointmentData.date || new Date().toISOString().slice(0, 10),
+          status: 'Active',
+          gender: 'Unspecified',
+          dob: '1995-01-01',
+          bloodGroup: 'B+'
+        };
+        setPatients((prev) => [autoPatient, ...prev]);
+      } else {
+        targetPatientId = existingPt.id;
+      }
+    }
+
+=======
+>>>>>>> origin/main
     const id = `apt-${Date.now().toString().slice(-5)}`;
     const referenceNumber = `APT-${Math.floor(2000 + Math.random() * 8000)}`;
     const newAppointment = {
       ...appointmentData,
       id,
+<<<<<<< HEAD
+      patientId: targetPatientId || appointmentData.patientId,
+      referenceNumber,
+=======
       referenceNumber,
       clinicId: appointmentData.clinicId || activeClinicId,
+>>>>>>> origin/main
       createdAt: new Date().toISOString()
     };
     setAppointments((prev) => [newAppointment, ...prev]);
@@ -455,6 +533,39 @@ export function AppProvider({ children }) {
     return newPatient;
   };
 
+<<<<<<< HEAD
+  const updatePatient = (patientId, updates) => {
+    setPatients((prev) =>
+      prev.map((p) => (p.id === patientId || p.patientIdNumber === patientId ? { ...p, ...updates } : p))
+    );
+    showToast(`Updated profile for ${updates.name || 'patient'}`);
+  };
+
+  const switchDemoPatient = (patientId) => {
+    const pt = patients.find((p) => p.id === patientId || p.patientIdNumber === patientId);
+    if (!pt) return;
+    setActivePatientId(pt.id);
+    localStorage.setItem('clinipulse_active_patient_id', pt.id);
+    if (currentRole === 'patient') {
+      setCurrentUser({
+        id: pt.id,
+        name: pt.name,
+        email: pt.email,
+        phone: pt.phone,
+        role: 'patient',
+        patientIdNumber: pt.patientIdNumber || pt.id,
+        bloodGroup: pt.bloodGroup,
+        allergies: pt.allergies,
+        dob: pt.dob,
+        gender: pt.gender,
+        address: pt.address
+      });
+    }
+    showToast(`Switched active patient: ${pt.name} (${pt.patientIdNumber || pt.id})`);
+  };
+
+=======
+>>>>>>> origin/main
   const createPrescription = (rxData) => {
     const seq = Math.floor(8820 + Math.random() * 900);
     const id = `rx-2026-${seq}`;
@@ -692,6 +803,13 @@ export function AppProvider({ children }) {
 
   // Patient Feedback Actions
   const submitPatientFeedback = (feedbackData) => {
+<<<<<<< HEAD
+    if (feedbackData.appointmentId && feedbacks.some((f) => f.appointmentId === feedbackData.appointmentId)) {
+      showToast('Feedback has already been recorded for this appointment.', 'warning');
+      return null;
+    }
+=======
+>>>>>>> origin/main
     const seq = Math.floor(2600 + Math.random() * 900);
     const newFb = {
       ...feedbackData,
@@ -1730,6 +1848,10 @@ export function AppProvider({ children }) {
   };
 
   // Billing & Payments
+<<<<<<< HEAD
+  const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
+    return recordClinicPayment(invoiceId, paymentMethod, amountPaid, transactionRef);
+=======
   const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan') => {
     setInvoices((prev) =>
       prev.map((inv) => {
@@ -1747,6 +1869,7 @@ export function AppProvider({ children }) {
       })
     );
     showToast(`Simulated Payment of ${formatCurrency(amountPaid)} received via ${paymentMethod}! (Demo Transaction - No real charge)`);
+>>>>>>> origin/main
   };
 
   const requestRefund = (invoiceId, reason) => {
@@ -1848,6 +1971,96 @@ export function AppProvider({ children }) {
     showToast(`Clinic subscription plan updated to ${newPlanId.toUpperCase()}`);
   };
 
+<<<<<<< HEAD
+  const updateClinic = (clinicId, updates) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => (c.id === clinicId ? { ...c, ...updates } : c));
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('Clinic profile updated successfully.', 'success');
+  };
+
+  const updateClinicWebsite = (clinicId, websiteUpdates) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            ...websiteUpdates,
+            status: websiteUpdates.status || (currentWebsite.status === 'published' ? 'changes_pending' : currentWebsite.status)
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const saveClinicWebsiteDraft = (clinicId, draftSettings) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            ...draftSettings,
+            status: 'draft'
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('Website changes saved as draft.', 'info');
+  };
+
+  const publishClinicWebsite = (clinicId) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            status: 'published',
+            publishedAt: new Date().toISOString()
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('🎉 Website published! Patients can now discover your services and book online.', 'success');
+  };
+
+  const unpublishClinicWebsite = (clinicId) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            status: 'draft'
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('Website unpublished and set to private draft mode.', 'info');
+  };
+
+=======
+>>>>>>> origin/main
   // Centralized Permission Checker
   const hasPermission = (permission) => {
     const perms = ROLE_PERMISSIONS[currentRole] || [];
@@ -1907,6 +2120,42 @@ export function AppProvider({ children }) {
   };
 
   // Clinic Finance Actions
+<<<<<<< HEAD
+  const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount, transactionRef = '') => {
+    const inv = invoices.find(
+      (i) => i.invoiceNumber === invoiceNumber || i.id === invoiceNumber
+    );
+    if (!inv) {
+      showToast(`Invoice ${invoiceNumber} not found`, 'error');
+      return null;
+    }
+    const currentPaid = Number(inv.amountPaid) || 0;
+    const remaining = Math.max(0, inv.totalAmount - currentPaid);
+    if (remaining <= 0) {
+      showToast(`Invoice ${inv.invoiceNumber} is already fully paid.`, 'info');
+      return null;
+    }
+    const numAmount = Number(amount);
+    if (!numAmount || numAmount <= 0) {
+      showToast('Payment amount must be greater than zero.', 'error');
+      return null;
+    }
+    const paidAmount = Math.min(numAmount, remaining);
+    const newAmountPaid = currentPaid + paidAmount;
+    const newOutstanding = Math.max(0, inv.totalAmount - newAmountPaid);
+    const newStatus = newOutstanding === 0 ? 'Paid' : 'Partially Paid';
+
+    setInvoices((prev) =>
+      prev.map((i) =>
+        i.invoiceNumber === inv.invoiceNumber || i.id === inv.id
+          ? {
+              ...i,
+              amountPaid: newAmountPaid,
+              outstandingBalance: newOutstanding,
+              status: newStatus,
+              paymentMethod
+            }
+=======
   const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount) => {
     const inv = invoices.find((i) => i.invoiceNumber === invoiceNumber);
     if (!inv) return;
@@ -1919,6 +2168,7 @@ export function AppProvider({ children }) {
       prev.map((i) =>
         i.invoiceNumber === invoiceNumber
           ? { ...i, amountPaid: newAmountPaid, status: newStatus, paymentMethod }
+>>>>>>> origin/main
           : i
       )
     );
@@ -1932,12 +2182,45 @@ export function AppProvider({ children }) {
       invoiceNumber: inv.invoiceNumber,
       amount: paidAmount,
       paymentMethod,
+<<<<<<< HEAD
+      transactionRef: transactionRef || '',
+=======
+>>>>>>> origin/main
       date: new Date().toISOString().slice(0, 10),
       status: 'Completed'
     };
     setClinicPayments((prev) => [newPayRecord, ...prev]);
+<<<<<<< HEAD
+
+    const rSeq = Math.floor(1000 + Math.random() * 9000);
+    const newReceipt = {
+      id: `rcp-${Date.now()}`,
+      receiptNumber: `RCP-2026-${rSeq}`,
+      paymentReference: paymentRef,
+      invoiceNumber: inv.invoiceNumber,
+      invoiceId: inv.id,
+      patientId: inv.patientId,
+      patientName: inv.patientName,
+      amount: paidAmount,
+      paymentMethod,
+      transactionRef: transactionRef || '',
+      date: new Date().toISOString().slice(0, 10),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      clinicId: inv.clinicId || activeClinicId,
+      clinicName: activeClinic?.name || 'CityCare Family Practice',
+      branchId: inv.branchId || activeBranchId,
+      issuedBy: currentUser?.name || 'Front Desk Cashier',
+      status: 'Issued',
+      notes: `Settlement for ${inv.items?.[0]?.description || 'OPD Consultation'}`
+    };
+    setReceipts((prev) => [newReceipt, ...prev]);
+
+    showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded! Receipt #${newReceipt.receiptNumber} generated.`);
+    return { payment: newPayRecord, receipt: newReceipt };
+=======
     showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded on ${invoiceNumber} (${paymentMethod})`);
     return newPayRecord;
+>>>>>>> origin/main
   };
 
   const requestClinicRefund = (refundData) => {
@@ -2118,6 +2401,15 @@ export function AppProvider({ children }) {
         addFeedbackInternalNote,
         patients,
         createPatient,
+<<<<<<< HEAD
+        updatePatient,
+        activePatientId,
+        setActivePatientId,
+        switchDemoPatient,
+        receipts,
+        setReceipts,
+=======
+>>>>>>> origin/main
         appointments,
         createAppointment,
         updateAppointmentStatus,
@@ -2193,6 +2485,14 @@ export function AppProvider({ children }) {
         requestClinicRefund,
         approveClinicRefund,
         createClinicExpense,
+<<<<<<< HEAD
+        updateClinic,
+        updateClinicWebsite,
+        saveClinicWebsiteDraft,
+        publishClinicWebsite,
+        unpublishClinicWebsite,
+=======
+>>>>>>> origin/main
         toast,
         showToast,
         whatsAppModal,

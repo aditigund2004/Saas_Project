@@ -38,7 +38,11 @@ export function EmailManagementPage() {
   const [settings, setSettings] = useState(() => emailService.getSettings());
 
   // Modal States
+<<<<<<< HEAD
+  const [editingTemplate, setEditingTemplate] = useState(null);
+=======
   const [editingTemplate, setEditingTemplate] = useState(null); // template obj or 'new'
+>>>>>>> origin/main
   const [previewTemplate, setPreviewTemplate] = useState(null);
   const [previewSampleData, setPreviewSampleData] = useState({});
   const [editingCampaign, setEditingCampaign] = useState(null);
@@ -154,14 +158,20 @@ export function EmailManagementPage() {
     showToast('Reset all email demo data back to default state.', 'info');
   };
 
+<<<<<<< HEAD
+=======
   // Simulator Completion
+>>>>>>> origin/main
   const handleSimulatorComplete = (res) => {
     setLogs(emailService.getActivityLogs());
     setTriggers(emailService.getTriggers());
     showToast(res.message, res.success ? 'success' : 'error');
   };
 
+<<<<<<< HEAD
+=======
   // Send Test Simulation from preview
+>>>>>>> origin/main
   const handleSendTestFromPreview = (tpl) => {
     const res = emailService.simulateEventTrigger(tpl.associatedTriggerKey || 'feature.published', {
       recipientName: 'Test Administrator',
@@ -185,6 +195,18 @@ export function EmailManagementPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
+<<<<<<< HEAD
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            Communications Engine
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+            <span>Email Template & Notification Hub</span>
+            <span className="text-xs uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-mono">
+              Prototype Simulator
+            </span>
+          </h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+=======
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
             Communications Engine
           </span>
@@ -195,6 +217,7 @@ export function EmailManagementPage() {
             </span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
             Manage automated event triggers, custom HTML/text templates, audience broadcast campaigns, and simulation logs.
           </p>
         </div>
@@ -206,16 +229,26 @@ export function EmailManagementPage() {
               setSimulatorInitialKey('subscription.activated');
               setSimulatorOpen(true);
             }}
+<<<<<<< HEAD
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm cursor-pointer"
+          >
+            <Play className="w-4 h-4" />
+=======
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-2xs cursor-pointer"
           >
             <Play className="w-3.5 h-3.5" />
+>>>>>>> origin/main
             <span>Event Simulator</span>
           </button>
         </div>
       </div>
 
       {/* Navigation Tabs Bar */}
+<<<<<<< HEAD
+      <div className="border-b border-slate-200 dark:border-slate-800">
+=======
       <div className="border-b border-slate-200">
+>>>>>>> origin/main
         <nav className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto pb-px" aria-label="Tabs">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -226,6 +259,20 @@ export function EmailManagementPage() {
                 key={tab.id}
                 type="button"
                 onClick={() => handleTabChange(tab.id)}
+<<<<<<< HEAD
+                className={`flex items-center gap-2 py-3.5 px-3.5 sm:px-4 text-xs sm:text-sm font-bold border-b-2 transition-all whitespace-nowrap cursor-pointer ${
+                  isActive
+                    ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/40 rounded-t-xl'
+                    : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700'
+                }`}
+              >
+                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'}`} />
+                <span>{tab.label}</span>
+                {tab.count !== undefined && (
+                  <span
+                    className={`ml-1 px-2 py-0.5 rounded-full text-xs font-mono font-bold ${
+                      isActive ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+=======
                 className={`flex items-center gap-2 py-3 px-3 sm:px-4 text-xs font-semibold border-b-2 transition-all whitespace-nowrap cursor-pointer ${
                   isActive
                     ? 'border-blue-600 text-blue-600 bg-blue-50/50 rounded-t-lg'
@@ -238,6 +285,7 @@ export function EmailManagementPage() {
                   <span
                     className={`ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
                       isActive ? 'bg-blue-600 text-white font-bold' : 'bg-slate-100 text-slate-500'
+>>>>>>> origin/main
                     }`}
                   >
                     {tab.count}

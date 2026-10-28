@@ -540,11 +540,38 @@ export interface ClinicPaymentRecord {
   patientName: string;
   invoiceNumber: string;
   amount: number;
+<<<<<<< HEAD
+  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking' | string;
+=======
   paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking';
+>>>>>>> origin/main
   date: string;
   status: 'Completed' | 'Pending';
 }
 
+<<<<<<< HEAD
+export interface ReceiptRecord {
+  id: string;
+  receiptNumber: string;
+  paymentReference: string;
+  invoiceNumber: string;
+  invoiceId?: string;
+  patientId: string;
+  patientName: string;
+  amount: number;
+  paymentMethod: string;
+  date: string;
+  time?: string;
+  clinicId?: string;
+  clinicName?: string;
+  branchId?: string;
+  issuedBy?: string;
+  status: 'Issued' | 'Void';
+  notes?: string;
+}
+
+=======
+>>>>>>> origin/main
 export interface ClinicRefundRecord {
   id: string;
   requestReference: string;

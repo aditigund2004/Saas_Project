@@ -8,12 +8,19 @@ import { Receipt, PlusCircle, Printer, Download, CreditCard, CheckCircle } from 
 
 export function ClinicBillingPage() {
   const { invoices, createInvoice, patients, activeClinic, activeBranch, showToast } = useApp();
+<<<<<<< HEAD
+=======
   const clinicPatients = patients.filter((p) => p.clinicId === activeClinic?.id);
+>>>>>>> origin/main
   const [isNewInvoiceOpen, setIsNewInvoiceOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
   // New Invoice Form
+<<<<<<< HEAD
+  const [selectedPatientId, setSelectedPatientId] = useState(patients[0]?.id || '');
+=======
   const [selectedPatientId, setSelectedPatientId] = useState(clinicPatients[0]?.id || '');
+>>>>>>> origin/main
   const [lineItemDesc, setLineItemDesc] = useState('Root Canal Treatment');
   const [lineItemPrice, setLineItemPrice] = useState(4500);
   const [discount, setDiscount] = useState(0);
@@ -21,7 +28,11 @@ export function ClinicBillingPage() {
 
   const handleCreateInvoice = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
+    const patient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+=======
     const patient = clinicPatients.find((p) => p.id === selectedPatientId) || clinicPatients[0];
+>>>>>>> origin/main
     const total = Math.max(0, lineItemPrice - discount);
 
     createInvoice({
@@ -49,9 +60,15 @@ export function ClinicBillingPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
+<<<<<<< HEAD
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Financial Management</span>
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Patient Invoices & Billing</h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+=======
           <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Financial Management</span>
           <h1 className="text-2xl font-extrabold text-slate-900">Patient Invoices & Billing</h1>
           <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
             Issue procedure bills, record payments (Cash, UPI, Card), and manage outstanding balances.
           </p>
         </div>
@@ -66,15 +83,25 @@ export function ClinicBillingPage() {
         </Button>
       </div>
 
+<<<<<<< HEAD
+      <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+=======
       <Card>
+>>>>>>> origin/main
         <CardHeader
           title={`Invoices Ledger (${invoices.length})`}
           subtitle="All patient billing transactions for current practice"
         />
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
+<<<<<<< HEAD
+            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th className="p-3.5 text-center w-12">#</th>
+=======
             <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
               <tr>
+>>>>>>> origin/main
                 <th className="p-3.5">Invoice #</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Date</th>
@@ -85,6 +112,25 @@ export function ClinicBillingPage() {
                 <th className="p-3.5 text-right">Actions</th>
               </tr>
             </thead>
+<<<<<<< HEAD
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {invoices.map((inv, idx) => (
+                <tr key={inv.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+                  <td className="p-3.5 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
+                  <td className="p-3.5 font-mono font-bold text-slate-900 dark:text-white">{inv.invoiceNumber}</td>
+                  <td className="p-3.5">
+                    <div className="font-bold text-slate-900 dark:text-white">{inv.patientName}</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500 font-mono">{inv.patientId}</div>
+                  </td>
+                  <td className="p-3.5 text-slate-600 dark:text-slate-300 font-mono">{inv.date}</td>
+                  <td className="p-3.5 font-bold font-mono text-slate-900 dark:text-white">
+                    ₹{inv.totalAmount.toLocaleString('en-IN')}
+                  </td>
+                  <td className="p-3.5 font-bold font-mono text-blue-700 dark:text-blue-400">
+                    ₹{inv.amountPaid.toLocaleString('en-IN')}
+                  </td>
+                  <td className="p-3.5 text-slate-600 dark:text-slate-300">{inv.paymentMethod || 'Cash'}</td>
+=======
             <tbody className="divide-y divide-slate-100">
               {invoices.map((inv) => (
                 <tr key={inv.id} className="hover:bg-slate-50/50">
@@ -101,6 +147,7 @@ export function ClinicBillingPage() {
                     ₹{inv.amountPaid.toLocaleString('en-IN')}
                   </td>
                   <td className="p-3.5 text-slate-600">{inv.paymentMethod || 'Cash'}</td>
+>>>>>>> origin/main
                   <td className="p-3.5">
                     <Badge variant={inv.status}>{inv.status}</Badge>
                   </td>
@@ -129,6 +176,17 @@ export function ClinicBillingPage() {
           title={`Invoice Receipt: ${selectedInvoice.invoiceNumber}`}
           size="md"
         >
+<<<<<<< HEAD
+          <div className="space-y-4 text-xs bg-white text-slate-900 p-2 rounded-xl">
+            <div className="flex justify-between pb-3 border-b border-slate-200">
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm">{activeClinic.name}</h3>
+                <p className="text-xs text-slate-500">{activeBranch?.name}</p>
+              </div>
+              <div className="text-right">
+                <p className="font-mono font-bold text-slate-900">{selectedInvoice.invoiceNumber}</p>
+                <p className="text-xs text-slate-500">{selectedInvoice.date}</p>
+=======
           <div className="space-y-4 text-xs">
             <div className="flex justify-between pb-3 border-b border-slate-200">
               <div>
@@ -138,18 +196,29 @@ export function ClinicBillingPage() {
               <div className="text-right">
                 <p className="font-mono font-bold">{selectedInvoice.invoiceNumber}</p>
                 <p className="text-[11px] text-slate-500">{selectedInvoice.date}</p>
+>>>>>>> origin/main
               </div>
             </div>
 
             <div className="p-3 bg-slate-50 rounded-xl space-y-1">
               <p className="font-semibold text-slate-800">Billed To: {selectedInvoice.patientName}</p>
+<<<<<<< HEAD
+              <p className="text-slate-600">Phone: {selectedInvoice.patientPhone} · Patient ID: {selectedInvoice.patientId}</p>
+=======
               <p className="text-slate-500">Phone: {selectedInvoice.patientPhone} · Patient ID: {selectedInvoice.patientId}</p>
+>>>>>>> origin/main
             </div>
 
             {/* Line items table */}
             <table className="w-full text-left text-xs border border-slate-200 rounded-lg">
+<<<<<<< HEAD
+              <thead className="bg-slate-50 border-b border-slate-200 uppercase text-xs font-bold text-slate-600">
+                <tr>
+                  <th className="p-2 text-center w-10">#</th>
+=======
               <thead className="bg-slate-50 border-b border-slate-200 uppercase text-[10px] font-bold">
                 <tr>
+>>>>>>> origin/main
                   <th className="p-2">Description</th>
                   <th className="p-2 text-right">Amount</th>
                 </tr>
@@ -157,23 +226,39 @@ export function ClinicBillingPage() {
               <tbody className="divide-y divide-slate-100">
                 {selectedInvoice.items?.map((item, idx) => (
                   <tr key={idx}>
+<<<<<<< HEAD
+                    <td className="p-2 text-center font-mono font-medium text-slate-500 text-xs">{idx + 1}</td>
+                    <td className="p-2 font-medium text-slate-800">{item.description}</td>
+                    <td className="p-2 text-right font-mono font-bold text-slate-900">₹{item.total.toLocaleString('en-IN')}</td>
+=======
                     <td className="p-2 font-medium">{item.description}</td>
                     <td className="p-2 text-right font-mono">₹{item.total.toLocaleString('en-IN')}</td>
+>>>>>>> origin/main
                   </tr>
                 ))}
               </tbody>
             </table>
 
             <div className="space-y-1 pt-2 border-t border-slate-200 text-right">
+<<<<<<< HEAD
+              <p className="text-slate-600">Subtotal: ₹{selectedInvoice.subtotal.toLocaleString('en-IN')}</p>
+              {selectedInvoice.discount > 0 && (
+                <p className="text-blue-700 font-semibold">Discount: -₹{selectedInvoice.discount.toLocaleString('en-IN')}</p>
+=======
               <p className="text-slate-500">Subtotal: ₹{selectedInvoice.subtotal.toLocaleString('en-IN')}</p>
               {selectedInvoice.discount > 0 && (
                 <p className="text-blue-700">Discount: -₹{selectedInvoice.discount.toLocaleString('en-IN')}</p>
+>>>>>>> origin/main
               )}
               <p className="text-sm font-bold text-slate-900">Total Billed: ₹{selectedInvoice.totalAmount.toLocaleString('en-IN')}</p>
               <p className="text-xs font-semibold text-emerald-700">Amount Paid: ₹{selectedInvoice.amountPaid.toLocaleString('en-IN')} ({selectedInvoice.paymentMethod})</p>
             </div>
 
+<<<<<<< HEAD
+            <div className="pt-3 flex justify-between border-t border-slate-200">
+=======
             <div className="pt-3 flex justify-between border-t border-slate-100">
+>>>>>>> origin/main
               <Button variant="outline" size="sm" onClick={() => window.print()}>
                 Print Receipt
               </Button>
@@ -195,6 +280,15 @@ export function ClinicBillingPage() {
         >
           <form onSubmit={handleCreateInvoice} className="space-y-4 text-xs">
             <div>
+<<<<<<< HEAD
+              <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Select Patient *</label>
+              <select
+                value={selectedPatientId}
+                onChange={(e) => setSelectedPatientId(e.target.value)}
+                className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+              >
+                {patients.map((p) => (
+=======
               <label className="block font-semibold mb-1">Select Patient *</label>
               <select
                 value={selectedPatientId}
@@ -202,6 +296,7 @@ export function ClinicBillingPage() {
                 className="w-full px-3 py-2 border rounded-xl bg-white"
               >
                 {clinicPatients.map((p) => (
+>>>>>>> origin/main
                   <option key={p.id} value={p.id}>{p.name} ({p.patientIdNumber})</option>
                 ))}
               </select>
@@ -209,34 +304,65 @@ export function ClinicBillingPage() {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
+<<<<<<< HEAD
+                <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Procedure Description *</label>
+=======
                 <label className="block font-semibold mb-1">Procedure Description *</label>
+>>>>>>> origin/main
                 <input
                   required
                   type="text"
                   value={lineItemDesc}
                   onChange={(e) => setLineItemDesc(e.target.value)}
+<<<<<<< HEAD
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Standard Fee (INR) *</label>
+=======
                   className="w-full px-3 py-2 border rounded-xl"
                 />
               </div>
               <div>
                 <label className="block font-semibold mb-1">Standard Fee (INR) *</label>
+>>>>>>> origin/main
                 <input
                   required
                   type="number"
                   value={lineItemPrice}
                   onChange={(e) => setLineItemPrice(Number(e.target.value))}
+<<<<<<< HEAD
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl font-mono bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+=======
                   className="w-full px-3 py-2 border rounded-xl font-mono"
+>>>>>>> origin/main
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
+<<<<<<< HEAD
+                <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Discount (INR)</label>
+=======
                 <label className="block font-semibold mb-1">Discount (INR)</label>
+>>>>>>> origin/main
                 <input
                   type="number"
                   value={discount}
                   onChange={(e) => setDiscount(Number(e.target.value))}
+<<<<<<< HEAD
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl font-mono bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Payment Method</label>
+                <select
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+=======
                   className="w-full px-3 py-2 border rounded-xl font-mono"
                 />
               </div>
@@ -246,6 +372,7 @@ export function ClinicBillingPage() {
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
                   className="w-full px-3 py-2 border rounded-xl bg-white"
+>>>>>>> origin/main
                 >
                   <option value="UPI / QR">UPI / QR Code</option>
                   <option value="Cash">Cash</option>
@@ -255,12 +382,21 @@ export function ClinicBillingPage() {
               </div>
             </div>
 
+<<<<<<< HEAD
+            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl flex justify-between font-bold text-sm">
+              <span className="text-slate-700 dark:text-slate-300">Total Payable:</span>
+              <span className="font-mono text-blue-800 dark:text-blue-400">₹{Math.max(0, lineItemPrice - discount).toLocaleString('en-IN')}</span>
+            </div>
+
+            <div className="pt-2 flex justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
+=======
             <div className="p-3 bg-slate-50 rounded-xl flex justify-between font-bold text-sm">
               <span>Total Payable:</span>
               <span className="font-mono text-blue-800">₹{Math.max(0, lineItemPrice - discount).toLocaleString('en-IN')}</span>
             </div>
 
             <div className="pt-2 flex justify-end gap-2 border-t border-slate-100">
+>>>>>>> origin/main
               <Button variant="outline" size="sm" onClick={() => setIsNewInvoiceOpen(false)}>Cancel</Button>
               <Button variant="primary" size="sm" type="submit">Issue Invoice</Button>
             </div>
@@ -270,4 +406,7 @@ export function ClinicBillingPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main

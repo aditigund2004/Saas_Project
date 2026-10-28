@@ -32,7 +32,12 @@ import {
   SaaSRefund,
   SaaSExpense,
   ClinicPaymentRecord,
+<<<<<<< HEAD
+  ClinicRefundRecord,
+  ReceiptRecord
+=======
   ClinicRefundRecord
+>>>>>>> origin/main
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -2198,8 +2203,13 @@ export const DEMO_PLATFORM_METRICS: PlatformMetric = {
 export const DEMO_USERS: Record<string, User> = {
   super_admin: {
     id: 'usr-superadmin',
+<<<<<<< HEAD
+    name: 'Super Administrator',
+    email: 'superadmin@admin.com',
+=======
     name: 'Vikramaditya Singhania',
     email: 'admin@clinicos.health',
+>>>>>>> origin/main
     phone: '+91 98000 00001',
     role: 'super_admin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -2516,6 +2526,80 @@ export const DEMO_CLINIC_PAYMENTS: ClinicPaymentRecord[] = [
   }
 ];
 
+<<<<<<< HEAD
+export const DEMO_RECEIPTS: ReceiptRecord[] = [
+  {
+    id: 'rcp-101',
+    receiptNumber: 'RCP-2026-001',
+    paymentReference: 'PAY-2026-001',
+    invoiceNumber: 'INV-2026-0391',
+    patientId: 'pt-1041',
+    patientName: 'Aarav Patel',
+    amount: 5000,
+    paymentMethod: 'UPI QR',
+    date: '2026-10-23',
+    time: '10:30 AM',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Practice',
+    issuedBy: 'Shweta Kulkarni (Front Desk Cashier)',
+    status: 'Issued',
+    notes: 'Consultation & Root Canal Therapy first installment payment'
+  },
+  {
+    id: 'rcp-102',
+    receiptNumber: 'RCP-2026-002',
+    paymentReference: 'PAY-2026-002',
+    invoiceNumber: 'INV-2026-0392',
+    patientId: 'pt-1042',
+    patientName: 'Meera Deshmukh',
+    amount: 800,
+    paymentMethod: 'Credit/Debit Card',
+    date: '2026-10-23',
+    time: '11:45 AM',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Practice',
+    issuedBy: 'Shweta Kulkarni (Front Desk Cashier)',
+    status: 'Issued',
+    notes: 'Dental scaling & hygiene consultation settlement'
+  },
+  {
+    id: 'rcp-103',
+    receiptNumber: 'RCP-2026-003',
+    paymentReference: 'PAY-2026-003',
+    invoiceNumber: 'INV-2026-0388',
+    patientId: 'pt-1044',
+    patientName: 'Tanvi Nair',
+    amount: 15000,
+    paymentMethod: 'UPI QR',
+    date: '2026-10-14',
+    time: '04:15 PM',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Practice',
+    issuedBy: 'Shweta Kulkarni (Front Desk Cashier)',
+    status: 'Issued',
+    notes: 'Full arch ceramic crown placement payment'
+  },
+  {
+    id: 'rcp-104',
+    receiptNumber: 'RCP-2026-004',
+    paymentReference: 'PAY-2026-004',
+    invoiceNumber: 'INV-2026-0389',
+    patientId: 'pt-1043',
+    patientName: 'Rohan Kulkarni',
+    amount: 3500,
+    paymentMethod: 'Cash',
+    date: '2026-10-22',
+    time: '02:00 PM',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Practice',
+    issuedBy: 'Shweta Kulkarni (Front Desk Cashier)',
+    status: 'Issued',
+    notes: 'Cardiology routine consult and ECG recording'
+  }
+];
+
+=======
+>>>>>>> origin/main
 export const DEMO_CLINIC_REFUNDS: ClinicRefundRecord[] = [
   {
     id: 'cref-101',

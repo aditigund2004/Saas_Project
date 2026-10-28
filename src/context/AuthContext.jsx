@@ -24,6 +24,9 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   // Session initialization
   const [user, setUser] = useState(() => {
+<<<<<<< HEAD
+    return MockAuthService.getSession();
+=======
     const existing = MockAuthService.getSession();
     if (existing) return existing;
     const defaultPatient = SEEDED_DEMO_USERS.find((u) => u.id === 'usr-patient-aarav');
@@ -32,6 +35,7 @@ export function AuthProvider({ children }) {
       return defaultPatient;
     }
     return null;
+>>>>>>> origin/main
   });
 
   const [isLoading, setIsLoading] = useState(false);

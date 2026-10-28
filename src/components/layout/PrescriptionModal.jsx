@@ -25,12 +25,21 @@ export function PrescriptionModal() {
     <Modal isOpen={prescriptionModal.isOpen} onClose={closePrescriptionModal} title="Digital Prescription Document" size="xl">
       <div className="space-y-4">
         {/* Actions bar */}
+<<<<<<< HEAD
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800 no-print">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+              Ref: {rx.prescriptionNumber}
+            </span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">ID: {rx.verificationId}</span>
+=======
         <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 no-print">
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
               Ref: {rx.prescriptionNumber}
             </span>
             <span className="text-xs text-slate-500 font-mono">ID: {rx.verificationId}</span>
+>>>>>>> origin/main
           </div>
 
           <div className="flex items-center gap-2">
@@ -43,15 +52,26 @@ export function PrescriptionModal() {
           </div>
         </div>
 
+<<<<<<< HEAD
+        {/* Printable Prescription Document Area - White authentic sheet */}
+=======
         {/* Printable Prescription Document Area */}
+>>>>>>> origin/main
         <div className="prescription-paper bg-white p-6 sm:p-8 rounded-2xl border border-slate-300 shadow-sm text-slate-900 font-sans">
           {/* Header */}
           <div className="flex items-start justify-between pb-6 border-b-2 border-blue-700">
             <div>
+<<<<<<< HEAD
+              <h2 className="text-xl font-bold tracking-tight text-slate-900">{activeClinic?.name}</h2>
+              <p className="text-xs font-medium text-blue-700">{activeClinic?.tagline}</p>
+              <p className="text-xs text-slate-500 mt-1 max-w-md">{activeClinic?.address}, {activeClinic?.city}</p>
+              <p className="text-xs text-slate-500">Phone: {activeClinic?.phone} · Reg. No: CLN-2024-MH-9912</p>
+=======
               <h2 className="text-xl font-bold tracking-tight text-slate-900">{activeClinic.name}</h2>
               <p className="text-xs font-medium text-blue-700">{activeClinic.tagline}</p>
               <p className="text-xs text-slate-500 mt-1 max-w-md">{activeClinic.address}, {activeClinic.city}</p>
               <p className="text-xs text-slate-500">Phone: {activeClinic.phone} · Reg. No: CLN-2024-MH-9912</p>
+>>>>>>> origin/main
             </div>
             <div className="text-right">
               <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wider rounded border border-blue-200">
@@ -68,7 +88,11 @@ export function PrescriptionModal() {
               <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Consulting Practitioner</p>
               <p className="text-sm font-bold text-slate-900">{rx.doctorName}</p>
               <p className="text-slate-600">Reg. Council No: <span className="font-mono">{rx.doctorRegistration || 'MDC-2012-08819'}</span></p>
+<<<<<<< HEAD
+              <p className="text-slate-500">{activeClinic?.specialty} Department</p>
+=======
               <p className="text-slate-500">{activeClinic.specialty} Department</p>
+>>>>>>> origin/main
             </div>
             <div className="space-y-1 md:border-l md:border-slate-200 md:pl-4">
               <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Patient Identification</p>
@@ -168,11 +192,18 @@ export function PrescriptionModal() {
         </div>
 
         {/* Footer info note */}
+<<<<<<< HEAD
+        <div className="text-center text-xs text-slate-400 dark:text-slate-500 no-print">
+=======
         <div className="text-center text-xs text-slate-400 no-print">
+>>>>>>> origin/main
           Prescription document rendered in accordance with digital healthcare standards. No patient credentials or confidential notes are exposed in public verification QR hashes.
         </div>
       </div>
     </Modal>
   );
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main

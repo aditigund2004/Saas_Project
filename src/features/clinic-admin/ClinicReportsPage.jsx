@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+<<<<<<< HEAD
+import { useTheme } from '../../context/ThemeContext';
+=======
+>>>>>>> origin/main
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
 import { StatCard } from '../../components/ui/StatCard';
 import { Button } from '../../components/ui/Button';
@@ -21,6 +25,10 @@ import { Download, Calendar, BarChart3, TrendingUp, Users, CheckCircle2 } from '
 
 export function ClinicReportsPage() {
   const { activeClinic, activeBranch, showToast } = useApp();
+<<<<<<< HEAD
+  const { isDark } = useTheme();
+=======
+>>>>>>> origin/main
   const [timeRange, setTimeRange] = useState('Month'); // 'Day', 'Week', 'Month'
 
   const procedureBreakdown = [
@@ -43,23 +51,39 @@ export function ClinicReportsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
+<<<<<<< HEAD
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            Practice Performance Analytics
+          </span>
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Operational & Financial Reports</h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+=======
           <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
             Practice Performance Analytics
           </span>
           <h1 className="text-2xl font-extrabold text-slate-900">Operational & Financial Reports</h1>
           <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
             Real-time consultation completion rates, procedure revenue breakdowns, and patient attendance metrics.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
+<<<<<<< HEAD
+          <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-1 text-xs">
+=======
           <div className="flex items-center rounded-xl border border-slate-200 bg-white p-1 text-xs">
+>>>>>>> origin/main
             {['Day', 'Week', 'Month'].map((t) => (
               <button
                 key={t}
                 onClick={() => setTimeRange(t)}
                 className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${
+<<<<<<< HEAD
+                  timeRange === t ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+=======
                   timeRange === t ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600'
+>>>>>>> origin/main
                 }`}
               >
                 {t}
@@ -121,7 +145,11 @@ export function ClinicReportsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Attendance Breakdown Bar Chart */}
         <div className="lg:col-span-7">
+<<<<<<< HEAD
+          <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+=======
           <Card>
+>>>>>>> origin/main
             <CardHeader
               title="Daily Attendance & Visit Outcomes"
               subtitle="Completed visits vs cancellations and no-shows"
@@ -130,10 +158,25 @@ export function ClinicReportsPage() {
               <div className="h-72 w-full pt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={dailyAttendance}>
+<<<<<<< HEAD
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? '#1f2937' : '#f1f5f9'} />
+                    <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: isDark ? '#94a3b8' : '#64748b', fontSize: 11 }} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fill: isDark ? '#94a3b8' : '#64748b', fontSize: 11 }} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: isDark ? '#111827' : '#ffffff',
+                        borderColor: isDark ? '#1f2937' : '#e2e8f0',
+                        color: isDark ? '#f8fafc' : '#0f172a',
+                        borderRadius: '12px',
+                        fontSize: '12px'
+                      }}
+                    />
+=======
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                     <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
                     <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
                     <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '12px' }} />
+>>>>>>> origin/main
                     <Bar dataKey="completed" name="Completed Visits" fill="#0d9488" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="cancelled" name="Cancelled" fill="#94a3b8" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="noShow" name="No-Show" fill="#f43f5e" radius={[4, 4, 0, 0]} />
@@ -146,24 +189,41 @@ export function ClinicReportsPage() {
 
         {/* Procedure Revenue Distribution */}
         <div className="lg:col-span-5">
+<<<<<<< HEAD
+          <Card className="h-full flex flex-col justify-between border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+=======
           <Card className="h-full flex flex-col justify-between">
+>>>>>>> origin/main
             <CardHeader
               title="Revenue by Procedure Group"
               subtitle="Clinical department contributions"
             />
             <CardContent className="space-y-3">
               {procedureBreakdown.map((p, idx) => (
+<<<<<<< HEAD
+                <div key={idx} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-slate-900 dark:text-white">{p.name}</span>
+                    <span className="block text-[11px] text-slate-500 dark:text-slate-400">{p.count} Patients treated</span>
+                  </div>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">
+=======
                 <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between text-xs">
                   <div>
                     <span className="font-bold text-slate-900">{p.name}</span>
                     <span className="block text-[11px] text-slate-500">{p.count} Patients treated</span>
                   </div>
                   <span className="font-mono font-bold text-slate-900">
+>>>>>>> origin/main
                     ₹{p.revenue.toLocaleString('en-IN')}
                   </span>
                 </div>
               ))}
+<<<<<<< HEAD
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center pt-2">
+=======
               <p className="text-[11px] text-slate-400 text-center pt-2">
+>>>>>>> origin/main
                 Reports update automatically as appointments and invoices are marked completed.
               </p>
             </CardContent>

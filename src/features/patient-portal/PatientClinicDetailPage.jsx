@@ -54,13 +54,45 @@ export function PatientClinicDetailPage() {
       </div>
 
       {/* Hero Banner Card */}
+<<<<<<< HEAD
+      <Card padding="none" className="overflow-hidden border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="relative h-56 md:h-72 w-full bg-slate-900 overflow-hidden">
+=======
       <Card padding="none" className="overflow-hidden border-slate-200 shadow-xs">
         <div className="relative h-48 md:h-64 w-full bg-slate-900 overflow-hidden">
+>>>>>>> origin/main
           <img
             src={clinic.image}
             alt={clinic.name}
             className="w-full h-full object-cover opacity-80"
           />
+<<<<<<< HEAD
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
+
+          <div className="absolute bottom-5 left-5 right-5 text-white flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
+                <span className="text-2xl">{clinic.logo || '🏥'}</span>
+                <span className="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white font-mono text-xs font-bold uppercase tracking-wider">
+                  {clinic.specialty}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-lg bg-white/20 backdrop-blur-xs text-white text-xs font-medium">
+                  Accredited Healthcare Provider
+                </span>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">{clinic.name}</h1>
+              <p className="text-sm text-slate-300 mt-1 max-w-2xl">{clinic.tagline}</p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="text-right bg-slate-900/80 backdrop-blur-xs p-3 rounded-xl border border-white/10">
+                <div className="flex items-center gap-1.5 text-amber-400 font-bold text-base justify-end">
+                  <Star className="w-4 h-4 fill-amber-400" />
+                  <span>{clinic.rating || 4.9}</span>
+                </div>
+                <div className="text-xs text-slate-400 font-medium">
+                  {clinic.reviewsCount || 150}+ Verified Reviews
+=======
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 
           <div className="absolute bottom-5 left-5 right-5 text-white flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -86,11 +118,16 @@ export function PatientClinicDetailPage() {
                 </div>
                 <div className="text-[10px] text-slate-400 font-medium">
                   {clinic.reviewsCount || 150}+ Verified Patient Reviews
+>>>>>>> origin/main
                 </div>
               </div>
 
               <Link to={`/patient/appointments/book?clinicId=${clinic.id}`}>
+<<<<<<< HEAD
+                <Button variant="primary" size="md" icon={Calendar} className="shadow-lg shadow-blue-600/30 font-bold">
+=======
                 <Button variant="primary" size="md" icon={Calendar} className="shadow-md">
+>>>>>>> origin/main
                   Request Appointment
                 </Button>
               </Link>
@@ -99,36 +136,66 @@ export function PatientClinicDetailPage() {
         </div>
 
         {/* Quick Info Bar */}
+<<<<<<< HEAD
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-5 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 text-sm">
+          <div className="flex items-start gap-2.5 text-slate-600 dark:text-slate-400">
+            <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-slate-900 dark:text-slate-100 block">Location</span>
+=======
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-white border-t border-slate-100 text-xs">
           <div className="flex items-start gap-2 text-slate-600">
             <MapPin className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-slate-900 block">Location</span>
+>>>>>>> origin/main
               <span>{clinic.address}, {clinic.city}</span>
             </div>
           </div>
 
+<<<<<<< HEAD
+          <div className="flex items-start gap-2.5 text-slate-600 dark:text-slate-400">
+            <Clock className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-slate-900 dark:text-slate-100 block">Clinical Working Hours</span>
+=======
           <div className="flex items-start gap-2 text-slate-600">
             <Clock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-slate-900 block">Clinical Working Hours</span>
+>>>>>>> origin/main
               <span className="font-mono">{clinic.operatingHours}</span>
             </div>
           </div>
 
+<<<<<<< HEAD
+          <div className="flex items-start gap-2.5 text-slate-600 dark:text-slate-400">
+            <Phone className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-slate-900 dark:text-slate-100 block">Clinic Reception</span>
+=======
           <div className="flex items-start gap-2 text-slate-600">
             <Phone className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-slate-900 block">Clinic Reception</span>
+>>>>>>> origin/main
               <span className="font-mono">{clinic.phone}</span>
             </div>
           </div>
 
+<<<<<<< HEAD
+          <div className="flex items-start gap-2.5 text-slate-600 dark:text-slate-400">
+            <DollarSign className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-slate-900 dark:text-slate-100 block">Tariff Range</span>
+              <span className="font-mono font-bold text-slate-900 dark:text-slate-100">{clinic.consultationFeeRange || '₹500 - ₹1,200'}</span>
+=======
           <div className="flex items-start gap-2 text-slate-600">
             <DollarSign className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-slate-900 block">Tariff Range</span>
               <span className="font-mono font-bold text-slate-900">{clinic.consultationFeeRange || '₹500 - ₹1,200'}</span>
+>>>>>>> origin/main
             </div>
           </div>
         </div>
@@ -139,11 +206,30 @@ export function PatientClinicDetailPage() {
         {/* Left Column (2 Cols): Description, Services, Policies, Reviews */}
         <div className="lg:col-span-2 space-y-6">
           {/* About Clinic */}
+<<<<<<< HEAD
+          <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
+=======
           <Card>
+>>>>>>> origin/main
             <CardHeader
               title="About the Practice"
               subtitle="Clinical expertise, standards, and patient care philosophies"
             />
+<<<<<<< HEAD
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+              {clinic.description}
+            </p>
+
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
+                Primary Medical Specialties
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {(clinic.specialties || [clinic.specialty]).map((s) => (
+                  <span
+                    key={s}
+                    className="px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border border-blue-200/50 dark:border-blue-900/50 text-xs font-bold"
+=======
             <p className="text-xs text-slate-600 leading-relaxed mb-4">
               {clinic.description}
             </p>
@@ -157,6 +243,7 @@ export function PatientClinicDetailPage() {
                   <span
                     key={s}
                     className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold"
+>>>>>>> origin/main
                   >
                     {s}
                   </span>
@@ -165,16 +252,33 @@ export function PatientClinicDetailPage() {
             </div>
 
             {/* Booking Policy Callout */}
+<<<<<<< HEAD
+            <div className="mt-5 p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 text-blue-950 dark:text-blue-200 text-sm flex items-start gap-3">
+              <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <div>
+                <strong className="block text-slate-900 dark:text-slate-100">Clinic Appointment Policy:</strong>
+                <span className="text-slate-600 dark:text-slate-300 text-xs">{clinic.bookingPolicy}</span>
+=======
             <div className="mt-4 p-3 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-950 text-xs flex items-start gap-2.5">
               <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
               <div>
                 <strong className="block text-slate-900">Clinic Appointment Policy:</strong>
                 <span className="text-slate-600 text-[11px]">{clinic.bookingPolicy}</span>
+>>>>>>> origin/main
               </div>
             </div>
           </Card>
 
           {/* Clinical Services & Consultation Tariffs */}
+<<<<<<< HEAD
+          <Card padding="none" className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
+            <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">Clinical Services & Tariffs</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Available consultation and procedure packages</p>
+              </div>
+              <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
+=======
           <Card padding="none">
             <div className="p-4 border-b border-slate-200 flex items-center justify-between">
               <div>
@@ -182,10 +286,27 @@ export function PatientClinicDetailPage() {
                 <p className="text-xs text-slate-500">Available consultation and procedure packages</p>
               </div>
               <span className="text-xs font-mono font-semibold text-slate-500">
+>>>>>>> origin/main
                 {clinic.services?.length || 0} Listed Services
               </span>
             </div>
 
+<<<<<<< HEAD
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {clinic.services?.map((srv) => (
+                <div key={srv.id} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
+                  <div className="space-y-1 flex-1">
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{srv.name}</h4>
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-mono">
+                        {srv.durationMinutes} mins
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 text-xs font-semibold">
+                        {srv.category}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{srv.description}</p>
+=======
             <div className="divide-y divide-slate-100">
               {clinic.services?.map((srv) => (
                 <div key={srv.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/60 transition-colors">
@@ -200,18 +321,28 @@ export function PatientClinicDetailPage() {
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-500">{srv.description}</p>
+>>>>>>> origin/main
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0 justify-between sm:justify-end">
                     <div className="text-right">
+<<<<<<< HEAD
+                      <span className="text-xs text-slate-400 dark:text-slate-500 block font-semibold uppercase">Consultation Fee</span>
+                      <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
+=======
                       <span className="text-[10px] text-slate-400 block font-semibold">Consultation Fee</span>
                       <span className="text-sm font-bold font-mono text-slate-900">
+>>>>>>> origin/main
                         ₹{srv.fee.toLocaleString('en-IN')}
                       </span>
                     </div>
 
                     <Link to={`/patient/appointments/book?clinicId=${clinic.id}&serviceId=${srv.id}`}>
+<<<<<<< HEAD
+                      <Button variant="outline" size="sm" icon={Calendar}>
+=======
                       <Button variant="outline" size="xs" icon={Calendar}>
+>>>>>>> origin/main
                         Select & Book
                       </Button>
                     </Link>
@@ -222,7 +353,11 @@ export function PatientClinicDetailPage() {
           </Card>
 
           {/* Patient Reviews */}
+<<<<<<< HEAD
+          <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
+=======
           <Card>
+>>>>>>> origin/main
             <CardHeader
               title={`Patient Reviews & Feedback (${clinic.reviewsCount || 100}+)`}
               subtitle="Verified patient testimonials from recent clinic visits"
@@ -232,6 +367,19 @@ export function PatientClinicDetailPage() {
                 { patientName: 'Aarav Patel', rating: 5, comment: 'Very professional reception staff and doctors who listen patiently.', date: '2026-10-18' },
                 { patientName: 'Meera Deshmukh', rating: 5, comment: 'Clean modern facility with minimal waiting times.', date: '2026-10-12' }
               ]).map((rev, idx) => (
+<<<<<<< HEAD
+                <div key={idx} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 space-y-1.5 text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-900 dark:text-slate-100">{rev.patientName}</span>
+                    <div className="flex items-center gap-1 text-amber-500">
+                      {[...Array(rev.rating || 5)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      ))}
+                      <span className="text-slate-400 dark:text-slate-500 font-mono text-xs ml-1.5">{rev.date}</span>
+                    </div>
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">{rev.comment}</p>
+=======
                 <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900">{rev.patientName}</span>
@@ -243,6 +391,7 @@ export function PatientClinicDetailPage() {
                     </div>
                   </div>
                   <p className="text-slate-600 text-[11px]">{rev.comment}</p>
+>>>>>>> origin/main
                 </div>
               ))}
             </div>
@@ -251,6 +400,17 @@ export function PatientClinicDetailPage() {
 
         {/* Right Column (1 Col): Doctors Practicing Here */}
         <div className="space-y-6">
+<<<<<<< HEAD
+          <Card padding="none" className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
+            <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">Consulting Physicians</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Authorized medical practitioners at this clinic</p>
+            </div>
+
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {clinicDoctors.map((doc) => (
+                <div key={doc.id} className="p-4 sm:p-5 space-y-3.5 hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors text-sm">
+=======
           <Card padding="none">
             <div className="p-4 border-b border-slate-200">
               <h3 className="text-sm font-bold text-slate-900">Consulting Physicians</h3>
@@ -260,10 +420,35 @@ export function PatientClinicDetailPage() {
             <div className="divide-y divide-slate-100">
               {clinicDoctors.map((doc) => (
                 <div key={doc.id} className="p-4 space-y-3 hover:bg-slate-50/60 transition-colors text-xs">
+>>>>>>> origin/main
                   <div className="flex items-start gap-3">
                     <img
                       src={doc.avatar}
                       alt={doc.name}
+<<<<<<< HEAD
+                      className="w-12 h-12 rounded-xl object-cover shrink-0 border border-slate-200 dark:border-slate-700"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-bold text-slate-900 dark:text-slate-100 truncate text-base">{doc.name}</h4>
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold truncate">{doc.specialty}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 truncate">{doc.qualifications}</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div>
+                      <span className="text-xs text-slate-400 dark:text-slate-500 block uppercase font-bold">Experience</span>
+                      <span className="font-semibold text-slate-900 dark:text-slate-100">{doc.experienceYears} Years</span>
+                    </div>
+                    <div>
+                      <span className="text-xs text-slate-400 dark:text-slate-500 block uppercase font-bold">Consultation Fee</span>
+                      <span className="font-bold font-mono text-blue-600 dark:text-blue-400">₹{doc.consultationFee}</span>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">Available Days: </span>
+=======
                       className="w-12 h-12 rounded-xl object-cover shrink-0 border border-slate-200"
                     />
                     <div className="min-w-0 flex-1">
@@ -286,17 +471,26 @@ export function PatientClinicDetailPage() {
 
                   <div className="text-[10px] text-slate-500">
                     <span className="font-semibold text-slate-700">Available Days: </span>
+>>>>>>> origin/main
                     <span>{doc.availableDays?.join(', ') || 'Mon - Sat'}</span>
                   </div>
 
                   <div className="flex items-center gap-2 pt-1">
                     <Link to={`/patient/doctors/${doc.id}`} className="flex-1">
+<<<<<<< HEAD
+                      <Button variant="ghost" size="sm" className="w-full text-xs">
+=======
                       <Button variant="ghost" size="xs" className="w-full text-xs">
+>>>>>>> origin/main
                         Profile
                       </Button>
                     </Link>
                     <Link to={`/patient/appointments/book?clinicId=${clinic.id}&doctorId=${doc.id}`} className="flex-1">
+<<<<<<< HEAD
+                      <Button variant="primary" size="sm" className="w-full text-xs font-bold shadow-sm" icon={Calendar}>
+=======
                       <Button variant="primary" size="xs" className="w-full text-xs" icon={Calendar}>
+>>>>>>> origin/main
                         Book Slot
                       </Button>
                     </Link>
@@ -307,12 +501,21 @@ export function PatientClinicDetailPage() {
           </Card>
 
           {/* Quick Help Box */}
+<<<<<<< HEAD
+          <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 space-y-2">
+            <span className="font-bold text-slate-900 dark:text-slate-100 block flex items-center gap-1.5 text-sm">
+              <Info className="w-4 h-4 text-blue-600 dark:text-blue-400" /> Need Help Choosing?
+            </span>
+            <p className="leading-relaxed">
+              You can contact the front desk at <strong className="text-slate-900 dark:text-slate-100 font-mono">{clinic.phone}</strong> for urgent enquiries, or submit a flexible booking request online.
+=======
           <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600 space-y-2">
             <span className="font-bold text-slate-900 block flex items-center gap-1.5">
               <Info className="w-4 h-4 text-blue-600" /> Need Help Choosing?
             </span>
             <p className="text-[11px]">
               You can contact the front desk at <strong className="text-slate-900 font-mono">{clinic.phone}</strong> for urgent enquiries, or submit a flexible booking request online.
+>>>>>>> origin/main
             </p>
           </div>
         </div>

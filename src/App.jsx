@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+<<<<<<< HEAD
+import { ThemeProvider } from './context/ThemeContext';
+=======
+>>>>>>> origin/main
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
@@ -18,11 +22,16 @@ import { AboutPage } from './features/public-website/AboutPage';
 import { ContactPage } from './features/public-website/ContactPage';
 import { PrivacyPage } from './features/public-website/PrivacyPage';
 import { TermsPage } from './features/public-website/TermsPage';
+<<<<<<< HEAD
+
+// Clinic Directory & Booking
+=======
 import { FindDoctorPage } from './features/public-website/FindDoctorPage';
 import { BookDoctorPage } from './features/public-website/BookDoctorPage';
 
 // Clinic Directory & Booking
 
+>>>>>>> origin/main
 import { ClinicDirectoryPage } from './features/clinic-directory/ClinicDirectoryPage';
 import { ClinicDetailPage } from './features/clinic-directory/ClinicDetailPage';
 import { GuestBookingPage } from './features/clinic-directory/GuestBookingPage';
@@ -30,6 +39,23 @@ import { GuestBookingPage } from './features/clinic-directory/GuestBookingPage';
 // Verification
 import { PrescriptionVerificationPage } from './features/qr-verification/PrescriptionVerificationPage';
 
+<<<<<<< HEAD
+// Clinic Website Builder & Public Clinic Site
+import { WebsiteBuilderPage } from './features/website-builder/WebsiteBuilderPage';
+import { PublicClinicLayout } from './features/public-clinic/PublicClinicLayout';
+import { ClinicPublicHomePage } from './features/public-clinic/ClinicPublicHomePage';
+import { ClinicPublicAboutPage } from './features/public-clinic/ClinicPublicAboutPage';
+import { ClinicPublicDoctorsPage } from './features/public-clinic/ClinicPublicDoctorsPage';
+import { ClinicPublicServicesPage } from './features/public-clinic/ClinicPublicServicesPage';
+import { ClinicPublicBookingPage } from './features/public-clinic/ClinicPublicBookingPage';
+import { ClinicPublicContactPage } from './features/public-clinic/ClinicPublicContactPage';
+
+// Onboarding & Checkout
+import { ClinicOnboardingWizard } from './features/onboarding/ClinicOnboardingWizard';
+import { SubscriptionCheckoutPage } from './features/checkout/SubscriptionCheckoutPage';
+
+=======
+>>>>>>> origin/main
 // Authentication & Onboarding Suite (Section 3)
 import { MainLoginPage } from './features/auth/MainLoginPage';
 import { DoctorLoginPage } from './features/auth/DoctorLoginPage';
@@ -44,6 +70,11 @@ import { AccessDeniedPage } from './features/auth/AccessDeniedPage';
 import { RegisterPage } from './features/authentication/RegisterPage';
 
 // Role 1: SaaS Superadmin
+<<<<<<< HEAD
+import { SuperAdminLoginPage } from './features/super-admin/SuperAdminLoginPage';
+import { SuperAdminLayout } from './layouts/SuperAdminLayout';
+=======
+>>>>>>> origin/main
 import { PlatformDashboardPage } from './features/super-admin/PlatformDashboardPage';
 import { PlatformClinicsPage } from './features/super-admin/PlatformClinicsPage';
 import { PlatformSubscriptionsPage } from './features/super-admin/PlatformSubscriptionsPage';
@@ -89,6 +120,12 @@ import { ClinicReportsPage } from './features/clinic-admin/ClinicReportsPage';
 import { ClinicSubscriptionPage } from './features/clinic-admin/ClinicSubscriptionPage';
 import { ClinicSupportPage } from './features/clinic-admin/ClinicSupportPage';
 import { ClinicSettingsPage } from './features/clinic-admin/ClinicSettingsPage';
+<<<<<<< HEAD
+import { MyWebsiteHubPage } from './features/clinic-admin/MyWebsiteHubPage';
+import { CertificatesPage } from './features/clinic-admin/CertificatesPage';
+import { TelemedicinePage } from './features/clinic-admin/TelemedicinePage';
+=======
+>>>>>>> origin/main
 import { DoctorConsultationPage } from './features/doctor/DoctorConsultationPage';
 import { DoctorSchedulePage } from './features/doctor/DoctorSchedulePage';
 
@@ -141,6 +178,10 @@ import { PatientBookPage } from './features/patient-portal/PatientBookPage';
 import { PatientRecordsPage } from './features/patient-portal/PatientRecordsPage';
 import { PatientPrescriptionsPage } from './features/patient-portal/PatientPrescriptionsPage';
 import { PatientBillingPage } from './features/patient-portal/PatientBillingPage';
+<<<<<<< HEAD
+import { PatientReceiptsPage } from './features/patient-portal/PatientReceiptsPage';
+=======
+>>>>>>> origin/main
 import { PatientNotificationsPage } from './features/patient-portal/PatientNotificationsPage';
 import { PatientFeedbackPage } from './features/patient-portal/PatientFeedbackPage';
 import { PatientProfilePage } from './features/patient-portal/PatientProfilePage';
@@ -173,10 +214,18 @@ function NotFoundPage() {
 
 export default function App() {
   return (
+<<<<<<< HEAD
+    <ThemeProvider>
+      <AuthProvider>
+        <AppProvider>
+          <BrowserRouter>
+            <Routes>
+=======
     <AuthProvider>
       <AppProvider>
         <BrowserRouter>
           <Routes>
+>>>>>>> origin/main
             {/* Public Marketing & Guest Routes */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePage />} />
@@ -186,6 +235,35 @@ export default function App() {
               <Route path="/clinics/:clinicSlug" element={<ClinicDetailPage />} />
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/faq" element={<FAQPage />} />
+<<<<<<< HEAD
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/book-appointment" element={<GuestBookingPage />} />
+              <Route path="/verify-prescription/:verificationId" element={<PrescriptionVerificationPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/register" element={<Navigate to="/onboarding" replace />} />
+              <Route path="/register/clinic" element={<RegisterPage />} />
+            </Route>
+
+            {/* Public Clinic Multi-Page Website */}
+            <Route path="/clinic/:clinicSlug" element={<PublicClinicLayout />}>
+              <Route index element={<ClinicPublicHomePage />} />
+              <Route path="about" element={<ClinicPublicAboutPage />} />
+              <Route path="doctors" element={<ClinicPublicDoctorsPage />} />
+              <Route path="services" element={<ClinicPublicServicesPage />} />
+              <Route path="book-appointment" element={<ClinicPublicBookingPage />} />
+              <Route path="contact" element={<ClinicPublicContactPage />} />
+            </Route>
+
+            {/* Authentication & Onboarding Routes */}
+            <Route path="/login" element={<Navigate to="/" replace />} />
+            <Route path="/login/doctor" element={<DoctorLoginPage />} />
+            <Route path="/login/receptionist" element={<ReceptionistLoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/onboarding" element={<ClinicOnboardingWizard />} />
+            <Route path="/checkout" element={<SubscriptionCheckoutPage />} />
+=======
                             <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/doctors" element={<FindDoctorPage />} />
@@ -204,6 +282,7 @@ export default function App() {
             <Route path="/login/doctor" element={<DoctorLoginPage />} />
             <Route path="/login/receptionist" element={<ReceptionistLoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+>>>>>>> origin/main
             <Route path="/register/patient" element={<PatientRegisterPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/onboarding/patient" element={<PatientOnboardingPage />} />
@@ -211,6 +290,45 @@ export default function App() {
             <Route path="/access-denied" element={<AccessDeniedPage />} />
             <Route path="/demo-access" element={<DemoAccessPage />} />
 
+<<<<<<< HEAD
+            {/* Role 1: SaaS Superadmin Login Route */}
+            <Route path="/superadmin" element={<SuperAdminLoginPage />} />
+
+            {/* Role 1: SaaS Superadmin Workspace Routes (Protected by ProtectedRoute using SuperAdminLayout) */}
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={['superadmin', 'super_admin']}>
+                  <SuperAdminLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="/superadmin/dashboard" element={<PlatformDashboardPage />} />
+              <Route path="/superadmin/clinics" element={<PlatformClinicsPage />} />
+              <Route path="/superadmin/clinics/:clinicId" element={<PlatformClinicsPage />} />
+              <Route path="/superadmin/subscriptions" element={<PlatformSubscriptionsPage />} />
+              <Route path="/superadmin/plans" element={<PlatformPlansPage />} />
+              <Route path="/superadmin/users" element={<PlatformRoleMatrixPage />} />
+              <Route path="/superadmin/analytics" element={<PlatformReportsPage />} />
+              <Route path="/superadmin/settings" element={<PlatformSettingsPage />} />
+              <Route path="/superadmin/billing" element={<PlatformBillingPage />} />
+              <Route path="/superadmin/revenue" element={<PlatformReportsPage />} />
+              {/* SaaS Corporate Finance Suite */}
+              <Route path="/superadmin/finance" element={<Navigate to="/superadmin/finance/overview" replace />} />
+              <Route path="/superadmin/finance/overview" element={<SaaSFinanceOverviewPage />} />
+              <Route path="/superadmin/finance/revenue" element={<SaaSRevenuePage />} />
+              <Route path="/superadmin/finance/invoices" element={<SaaSInvoicesPage />} />
+              <Route path="/superadmin/finance/payments" element={<SaaSPaymentsPage />} />
+              <Route path="/superadmin/finance/refunds" element={<SaaSRefundsPage />} />
+              <Route path="/superadmin/finance/expenses" element={<SaaSExpensesPage />} />
+              <Route path="/superadmin/finance/reports" element={<SaaSReportsPage />} />
+              <Route path="/superadmin/support" element={<PlatformSupportPage />} />
+              <Route path="/superadmin/payments" element={<SaaSPaymentsPage />} />
+              <Route path="/superadmin/role-matrix" element={<PlatformRoleMatrixPage />} />
+              <Route path="/superadmin/email" element={<EmailManagementPage />} />
+              <Route path="/superadmin/email/:tab" element={<EmailManagementPage />} />
+              <Route path="/superadmin/platform" element={<PlatformMonitoringPage />} />
+              <Route path="/superadmin/activity" element={<PlatformActivityPage />} />
+=======
             {/* Role 1: SaaS Superadmin Workspace Routes (Protected) */}
             <Route
               path="/superadmin"
@@ -244,6 +362,7 @@ export default function App() {
               <Route path="platform" element={<PlatformMonitoringPage />} />
               <Route path="activity" element={<PlatformActivityPage />} />
               <Route path="settings" element={<PlatformSettingsPage />} />
+>>>>>>> origin/main
             </Route>
 
             {/* Backward compatibility redirects for /platform/* */}
@@ -298,6 +417,23 @@ export default function App() {
               <Route path="feedback" element={<ClinicFeedbackPage />} />
               <Route path="reports" element={<ClinicReportsPage />} />
               <Route path="subscription" element={<ClinicSubscriptionPage />} />
+<<<<<<< HEAD
+              <Route path="certificates" element={<CertificatesPage />} />
+              <Route path="telemedicine" element={<TelemedicinePage />} />
+              <Route path="my-website" element={<MyWebsiteHubPage />} />
+              <Route path="website" element={<MyWebsiteHubPage />} />
+              <Route path="whatsapp" element={<TelemedicinePage />} />
+              <Route path="prescriptions" element={<ClinicPrescriptionsPage />} />
+              <Route path="certificates" element={<CertificatesPage />} />
+              <Route path="telemedicine" element={<TelemedicinePage />} />
+              <Route path="my-website" element={<MyWebsiteHubPage />} />
+              <Route path="website" element={<MyWebsiteHubPage />} />
+              <Route path="feedback" element={<ClinicFeedbackPage />} />
+              <Route path="website-builder" element={<WebsiteBuilderPage />} />
+              <Route path="website-preview" element={<WebsiteBuilderPage />} />
+              <Route path="website-settings" element={<ClinicSettingsPage />} />
+=======
+>>>>>>> origin/main
               <Route path="support" element={<ClinicSupportPage />} />
               <Route path="settings" element={<ClinicSettingsPage />} />
             </Route>
@@ -337,6 +473,70 @@ export default function App() {
               <Route path="reports" element={<ReceptionReportsPage />} />
             </Route>
 
+<<<<<<< HEAD
+            {/* Role 2 & 3: Standard /app Unified Workspace Routes */}
+            <Route
+              path="/app/frontdesk"
+              element={
+                <ProtectedRoute allowedRoles={['receptionist_manager', 'receptionist', 'clinic_admin', 'doctor_admin']}>
+                  <WorkspaceLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="/app/frontdesk/dashboard" replace />} />
+              <Route path="dashboard" element={<ReceptionDashboardPage />} />
+              <Route path="registration" element={<ReceptionNewPatientPage />} />
+              <Route path="appointments" element={<ReceptionAppointmentsPage />} />
+              <Route path="patients" element={<ReceptionPatientsPage />} />
+              <Route path="calendar" element={<DoctorSchedulePage />} />
+              <Route path="check-in" element={<ReceptionQueuePage />} />
+              <Route path="invoices" element={<AccountsInvoicesPage />} />
+              <Route path="payments" element={<AccountsInvoicesPage />} />
+              <Route path="billing" element={<AccountsInvoicesPage />} />
+            </Route>
+
+            <Route
+              path="/app"
+              element={
+                <ProtectedRoute allowedRoles={['doctor_admin', 'clinic_admin']}>
+                  <WorkspaceLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="/app/dashboard" replace />} />
+              <Route path="dashboard" element={<ClinicDashboardPage />} />
+              <Route path="appointments" element={<ClinicAppointmentsPage />} />
+              <Route path="patients" element={<ClinicPatientsPage />} />
+              <Route path="patients/:patientId" element={<ClinicPatientDetailPage />} />
+              <Route path="consultations" element={<DoctorConsultationPage />} />
+              <Route path="consultations/:appointmentId" element={<DoctorConsultationPage />} />
+              <Route path="doctors" element={<ClinicDoctorsPage />} />
+              <Route path="services" element={<ClinicServicesPage />} />
+              <Route path="schedule" element={<DoctorSchedulePage />} />
+              <Route path="schedules" element={<DoctorSchedulePage />} />
+              <Route path="prescriptions" element={<ClinicPrescriptionsPage />} />
+              <Route path="prescriptions/new" element={<ClinicPrescriptionNewPage />} />
+              <Route path="prescriptions/:prescriptionId" element={<ClinicPrescriptionDetailPage />} />
+              <Route path="invoices" element={<ClinicFinanceInvoicesPage />} />
+              <Route path="invoices/:invoiceId" element={<ClinicFinanceInvoicesPage />} />
+              <Route path="receipts" element={<ClinicFinanceInvoicesPage />} />
+              <Route path="certificates" element={<CertificatesPage />} />
+              <Route path="telemedicine" element={<TelemedicinePage />} />
+              <Route path="my-website" element={<MyWebsiteHubPage />} />
+              <Route path="website" element={<MyWebsiteHubPage />} />
+              <Route path="feedback" element={<ClinicFeedbackPage />} />
+              <Route path="website-builder" element={<WebsiteBuilderPage />} />
+              <Route path="website-preview" element={<WebsiteBuilderPage />} />
+              <Route path="website-settings" element={<ClinicSettingsPage />} />
+              <Route path="staff" element={<ClinicStaffPage />} />
+              <Route path="billing" element={<ClinicFinanceInvoicesPage />} />
+              <Route path="subscription" element={<ClinicSubscriptionPage />} />
+              <Route path="reports" element={<ClinicReportsPage />} />
+              <Route path="settings" element={<ClinicSettingsPage />} />
+            </Route>
+
+=======
+>>>>>>> origin/main
             {/* Backward compatibility redirects for /inventory/* and /accounts/* */}
             <Route path="/inventory" element={<Navigate to="/clinic/inventory" replace />} />
             <Route path="/inventory/*" element={<Navigate to="/clinic/inventory" replace />} />
@@ -353,6 +553,10 @@ export default function App() {
               }
             >
               <Route index element={<Navigate to="/patient/dashboard" replace />} />
+<<<<<<< HEAD
+              <Route path="overview" element={<Navigate to="/patient/dashboard" replace />} />
+=======
+>>>>>>> origin/main
               <Route path="dashboard" element={<PatientDashboardPage />} />
               <Route path="clinics" element={<PatientClinicsPage />} />
               <Route path="clinics/:clinicId" element={<PatientClinicDetailPage />} />
@@ -364,6 +568,11 @@ export default function App() {
               <Route path="appointments/:appointmentId" element={<PatientAppointmentDetailPage />} />
               <Route path="records" element={<PatientRecordsPage />} />
               <Route path="prescriptions" element={<PatientPrescriptionsPage />} />
+<<<<<<< HEAD
+              <Route path="invoices" element={<PatientBillingPage />} />
+              <Route path="receipts" element={<PatientReceiptsPage />} />
+=======
+>>>>>>> origin/main
               <Route path="bills" element={<PatientBillingPage />} />
               <Route path="billing" element={<PatientBillingPage />} />
               <Route path="notifications" element={<PatientNotificationsPage />} />
@@ -375,10 +584,18 @@ export default function App() {
             <Route element={<PublicLayout />}>
               <Route path="*" element={<NotFoundPage />} />
             </Route>
+<<<<<<< HEAD
+          </Routes>
+        </BrowserRouter>
+      </AppProvider>
+    </AuthProvider>
+    </ThemeProvider>
+=======
             </Routes>
           </BrowserRouter>
         </AppProvider>
       </AuthProvider>
+>>>>>>> origin/main
   );
 }
  

@@ -8,8 +8,13 @@ export function PlatformSettingsPage() {
   const { showToast } = useApp();
 
   const [platformConfig, setPlatformConfig] = useState({
+<<<<<<< HEAD
+    platformName: 'ClinicOS SaaS Cloud',
+    supportEmail: 'support@clinicos.health',
+=======
     platformName: 'CliniPulse Technologies',
     supportEmail: 'support@clinipulse.demo',
+>>>>>>> origin/main
     trialDurationDays: 14,
     currencySymbol: '₹',
     enableWhatsAppPreview: true,
@@ -19,6 +24,17 @@ export function PlatformSettingsPage() {
 
   const handleSave = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
+    showToast('Platform master configuration updated in demo memory.', 'success');
+  };
+
+  return (
+    <div className="max-w-4xl space-y-6">
+      <div>
+        <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">System Configuration</span>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Platform Settings</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+=======
     showToast('Platform master configuration updated in demo memory.');
   };
 
@@ -28,94 +44,165 @@ export function PlatformSettingsPage() {
         <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">System Configuration</span>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Platform Settings</h1>
         <p className="text-xs text-slate-500 mt-0.5">
+>>>>>>> origin/main
           Configure global platform parameters, default 14-day trial duration, and communication gateways.
         </p>
       </div>
 
+<<<<<<< HEAD
+      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+=======
       <Card>
+>>>>>>> origin/main
         <CardHeader
           title="Global Parameters"
           subtitle="Settings applied across all multi-tenant organizations"
         />
         <CardContent>
+<<<<<<< HEAD
+          <form onSubmit={handleSave} className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Platform Brand Name</label>
+=======
           <form onSubmit={handleSave} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Platform Brand Name</label>
+>>>>>>> origin/main
                 <input
                   type="text"
                   value={platformConfig.platformName}
                   onChange={(e) => setPlatformConfig({ ...platformConfig, platformName: e.target.value })}
+<<<<<<< HEAD
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Global Support Email</label>
+=======
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Global Support Email</label>
+>>>>>>> origin/main
                 <input
                   type="email"
                   value={platformConfig.supportEmail}
                   onChange={(e) => setPlatformConfig({ ...platformConfig, supportEmail: e.target.value })}
+<<<<<<< HEAD
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Default Free Trial Duration (Days)</label>
+=======
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Default Free Trial Duration (Days)</label>
+>>>>>>> origin/main
                 <input
                   type="number"
                   value={platformConfig.trialDurationDays}
                   onChange={(e) => setPlatformConfig({ ...platformConfig, trialDurationDays: Number(e.target.value) })}
+<<<<<<< HEAD
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
+=======
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+>>>>>>> origin/main
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Billing Currency</label>
+=======
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Billing Currency</label>
+>>>>>>> origin/main
                 <input
                   type="text"
                   value="INR (₹)"
                   disabled
+<<<<<<< HEAD
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-bold"
+=======
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 text-slate-500"
+>>>>>>> origin/main
                 />
               </div>
             </div>
 
+<<<<<<< HEAD
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+              <span className="block text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Features & Gateways</span>
+
+              <label className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+=======
             <div className="pt-2 border-t border-slate-100 space-y-2">
               <span className="block text-xs font-bold text-slate-900 uppercase tracking-wider">Features & Gateways</span>
 
               <label className="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+>>>>>>> origin/main
                 <input
                   type="checkbox"
                   checked={platformConfig.enableWhatsAppPreview}
                   onChange={(e) => setPlatformConfig({ ...platformConfig, enableWhatsAppPreview: e.target.checked })}
+<<<<<<< HEAD
+                  className="rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500 h-4 w-4"
+=======
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+>>>>>>> origin/main
                 />
                 <span>Enable WhatsApp Business Platform simulation drawer on all clinic accounts</span>
               </label>
 
+<<<<<<< HEAD
+              <label className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+=======
               <label className="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+>>>>>>> origin/main
                 <input
                   type="checkbox"
                   checked={platformConfig.enableQrVerification}
                   onChange={(e) => setPlatformConfig({ ...platformConfig, enableQrVerification: e.target.checked })}
+<<<<<<< HEAD
+                  className="rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500 h-4 w-4"
+=======
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+>>>>>>> origin/main
                 />
                 <span>Generate public QR verification hashes on digital PDF prescriptions</span>
               </label>
 
+<<<<<<< HEAD
+              <label className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+=======
               <label className="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+>>>>>>> origin/main
                 <input
                   type="checkbox"
                   checked={platformConfig.allowGuestBookingByDefault}
                   onChange={(e) => setPlatformConfig({ ...platformConfig, allowGuestBookingByDefault: e.target.checked })}
+<<<<<<< HEAD
+                  className="rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500 h-4 w-4"
+=======
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+>>>>>>> origin/main
                 />
                 <span>Allow public patient discovery and guest booking without registration</span>
               </label>
             </div>
 
+<<<<<<< HEAD
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+=======
             <div className="pt-4 border-t border-slate-100">
+>>>>>>> origin/main
               <Button variant="primary" size="md" type="submit" icon={Save}>
                 Save Platform Settings
               </Button>
@@ -126,4 +213,7 @@ export function PlatformSettingsPage() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main

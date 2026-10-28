@@ -43,16 +43,27 @@ export function EmailPreviewModal({
     >
       <div className="space-y-4 text-xs">
         {/* Controls Bar */}
+<<<<<<< HEAD
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl">
+          {/* Desktop vs Mobile Toggle */}
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+=======
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-200/90 rounded-xl">
           {/* Desktop vs Mobile Toggle */}
           <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-slate-200">
+>>>>>>> origin/main
             <button
               type="button"
               onClick={() => setViewMode('desktop')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
                 viewMode === 'desktop'
+<<<<<<< HEAD
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+=======
                   ? 'bg-blue-600 text-white shadow-2xs'
                   : 'text-slate-600 hover:text-slate-900'
+>>>>>>> origin/main
               }`}
             >
               <Monitor className="w-3.5 h-3.5" />
@@ -63,8 +74,13 @@ export function EmailPreviewModal({
               onClick={() => setViewMode('mobile')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
                 viewMode === 'mobile'
+<<<<<<< HEAD
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+=======
                   ? 'bg-blue-600 text-white shadow-2xs'
                   : 'text-slate-600 hover:text-slate-900'
+>>>>>>> origin/main
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
@@ -74,6 +90,19 @@ export function EmailPreviewModal({
 
           {/* HTML vs Plain Text Toggle */}
           <div className="flex items-center gap-2">
+<<<<<<< HEAD
+            <div className="flex items-center gap-1 bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                type="button"
+                onClick={() => setFormatMode('html')}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                  formatMode === 'html'
+                    ? 'bg-slate-800 dark:bg-slate-700 text-white'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <Code className="w-3.5 h-3.5" />
+=======
             <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-slate-200">
               <button
                 type="button"
@@ -85,11 +114,21 @@ export function EmailPreviewModal({
                 }`}
               >
                 <Code className="w-3 h-3" />
+>>>>>>> origin/main
                 <span>HTML Layout</span>
               </button>
               <button
                 type="button"
                 onClick={() => setFormatMode('text')}
+<<<<<<< HEAD
+                className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                  formatMode === 'text'
+                    ? 'bg-slate-800 dark:bg-slate-700 text-white'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5" />
+=======
                 className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
                   formatMode === 'text'
                     ? 'bg-slate-800 text-white'
@@ -97,6 +136,7 @@ export function EmailPreviewModal({
                 }`}
               >
                 <FileText className="w-3 h-3" />
+>>>>>>> origin/main
                 <span>Plain Text</span>
               </button>
             </div>
@@ -104,45 +144,77 @@ export function EmailPreviewModal({
             <button
               type="button"
               onClick={handleCopy}
+<<<<<<< HEAD
+              className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 cursor-pointer"
+              title="Copy email content"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-4 h-4" />}
+=======
               className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 cursor-pointer"
               title="Copy email content"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+>>>>>>> origin/main
             </button>
           </div>
         </div>
 
         {/* Email Header Metadata Box */}
+<<<<<<< HEAD
+        <div className="p-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-400 uppercase w-16">From:</span>
+            <span className="text-slate-800 dark:text-slate-200 font-medium">
+=======
         <div className="p-3.5 bg-white border border-slate-200/90 rounded-xl space-y-1.5 text-[11px]">
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-400 uppercase w-16">From:</span>
             <span className="text-slate-800 font-medium">
+>>>>>>> origin/main
               {settings.senderDisplayName} &lt;{settings.senderEmail}&gt;
             </span>
           </div>
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-400 uppercase w-16">To:</span>
+<<<<<<< HEAD
+            <span className="text-slate-800 dark:text-slate-200 font-medium">
+=======
             <span className="text-slate-800 font-medium">
+>>>>>>> origin/main
               {sampleData.admin_name || sampleData.recipientName || 'Dr. Aarav Mehta'} &lt;
               {sampleData.recipientEmail || 'care@citycare.demo'}&gt;
             </span>
           </div>
           <div className="flex items-start gap-2">
             <span className="font-bold text-slate-400 uppercase w-16 mt-0.5">Subject:</span>
+<<<<<<< HEAD
+            <span className="text-slate-900 dark:text-white font-bold text-xs">{rendered.subject}</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-400 pt-1.5 border-t border-slate-100 dark:border-slate-800">
+            <span className="font-bold uppercase w-16">Template:</span>
+            <span className="font-mono text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded text-xs border border-blue-200 dark:border-blue-900/60">
+=======
             <span className="text-slate-900 font-bold text-xs">{rendered.subject}</span>
           </div>
           <div className="flex items-center gap-2 text-slate-400 pt-1 border-t border-slate-100">
             <span className="font-bold uppercase w-16">Template:</span>
             <span className="font-mono text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded text-[10px]">
+>>>>>>> origin/main
               {template.key}
             </span>
           </div>
         </div>
 
         {/* Render Container */}
+<<<<<<< HEAD
+        <div className="flex justify-center bg-slate-100/70 dark:bg-slate-950/60 p-4 rounded-xl border border-slate-200 dark:border-slate-800 min-h-[360px] max-h-[500px] overflow-y-auto">
+          <div
+            className={`transition-all bg-white text-slate-900 shadow-sm rounded-xl overflow-hidden ${
+=======
         <div className="flex justify-center bg-slate-100/70 p-4 rounded-xl border border-slate-200 min-h-[360px] max-h-[500px] overflow-y-auto">
           <div
             className={`transition-all bg-white shadow-sm rounded-xl overflow-hidden ${
+>>>>>>> origin/main
               viewMode === 'mobile'
                 ? 'w-[375px] border-4 border-slate-800 rounded-2xl shadow-xl'
                 : 'w-full max-w-2xl border border-slate-200'
@@ -150,17 +222,28 @@ export function EmailPreviewModal({
           >
             {/* Mobile Status Bar Simulation */}
             {viewMode === 'mobile' && (
+<<<<<<< HEAD
+              <div className="bg-slate-800 text-white text-xs px-4 py-1.5 flex justify-between font-mono">
+=======
               <div className="bg-slate-800 text-white text-[10px] px-4 py-1.5 flex justify-between font-mono">
+>>>>>>> origin/main
                 <span>09:41</span>
                 <span>5G • 100%</span>
               </div>
             )}
 
             {/* Email Body Content */}
+<<<<<<< HEAD
+            <div className="p-4 sm:p-6 text-slate-900">
+              {formatMode === 'html' ? (
+                <div
+                  className="prose prose-sm max-w-none text-slate-900"
+=======
             <div className="p-4 sm:p-6">
               {formatMode === 'html' ? (
                 <div
                   className="prose prose-sm max-w-none"
+>>>>>>> origin/main
                   dangerouslySetInnerHTML={{ __html: rendered.html }}
                 />
               ) : (
@@ -171,15 +254,24 @@ export function EmailPreviewModal({
             </div>
 
             {/* Simulated Email Footer */}
+<<<<<<< HEAD
+            <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 text-xs text-slate-400 text-center leading-relaxed">
+=======
             <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 text-[10px] text-slate-400 text-center leading-relaxed">
+>>>>>>> origin/main
               {settings.defaultFooter}
             </div>
           </div>
         </div>
 
         {/* Modal Actions */}
+<<<<<<< HEAD
+        <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
+          <span className="text-xs text-slate-400 dark:text-slate-500 italic">
+=======
         <div className="flex items-center justify-between pt-3 border-t border-slate-100">
           <span className="text-[11px] text-slate-400 italic">
+>>>>>>> origin/main
             Variables populated using active demonstration practice data.
           </span>
 
@@ -205,4 +297,7 @@ export function EmailPreviewModal({
     </Modal>
   );
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main

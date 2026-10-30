@@ -11,8 +11,11 @@ import {
   CheckCircle,
   Menu,
   Sun,
-  Moon
+  Moon,
+  Search,
+  Languages
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export function WorkspaceHeader({ onToggleSidebar }) {
   const {
@@ -26,6 +29,7 @@ export function WorkspaceHeader({ onToggleSidebar }) {
   } = useApp();
   const { logout, user: authUser } = useAuth();
   const { isDark, toggleTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
 
   const [branchDropdownOpen, setBranchDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -163,6 +167,66 @@ export function WorkspaceHeader({ onToggleSidebar }) {
 
         {/* Center / Right: Global Search & Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Quick Command Palette Button */}
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
+            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200/70 dark:hover:bg-slate-700/60 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+            title="Open Global Command Palette (Ctrl+K / Cmd+K)"
+          >
+            <Search className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <span className="hidden lg:inline">Search actions, patients...</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 text-[10px] font-mono border border-slate-200 dark:border-slate-700 shadow-2xs">Ctrl K</kbd>
+          </button>
+
+          {/* Real-time Cross-Tab Live Sync Indicator */}
+          <div
+            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300"
+            title="Real-Time Cross-Tab BroadcastChannel Active"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Live Sync</span>
+          </div>
+
+          {/* Multilingual Selector for Patient Role */}
+          {currentRole === 'patient' && (
+            <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-0.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={`px-2 py-0.5 rounded-lg text-[11px] transition-all ${
+                  language === 'en'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 font-bold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('hi')}
+                className={`px-2 py-0.5 rounded-lg text-[11px] transition-all ${
+                  language === 'hi'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 font-bold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                हिंदी
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('mr')}
+                className={`px-2 py-0.5 rounded-lg text-[11px] transition-all ${
+                  language === 'mr'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 font-bold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                मराठी
+              </button>
+            </div>
+          )}
+
           {/* Light/Dark Mode Theme Switcher */}
           <button
             onClick={toggleTheme}

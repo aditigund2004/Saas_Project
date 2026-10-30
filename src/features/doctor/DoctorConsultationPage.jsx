@@ -32,6 +32,9 @@ import {
   DURATION_CHIPS,
   ROUTE_TIMING_CHIPS
 } from './clinicalPrescriptionData';
+import { VoiceDictationButton } from '../../components/medical/VoiceDictationButton';
+import { PrescriptionSafetyAlerts } from '../../components/medical/PrescriptionSafetyAlerts';
+import { checkPrescriptionSafety } from '../../services/prescriptionSafetyService';
 
 export function DoctorConsultationPage() {
   const { appointmentId } = useParams();
@@ -137,6 +140,11 @@ export function DoctorConsultationPage() {
 
   // Finalize confirmation modal
   const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
+  const [clinicalOverride, setClinicalOverride] = useState(false);
+  const [overrideReason, setOverrideReason] = useState('');
+
+  const patientAllergiesText = (targetPatient?.allergies || []).join(', ');
+  const safetyAnalysis = checkPrescriptionSafety(medications, patientAllergiesText);
 
   // Add a blank medication row
   const handleAddMedication = () => {
@@ -261,6 +269,10 @@ export function DoctorConsultationPage() {
     e.preventDefault();
     if (!diagnosis.trim()) {
       showToast('Please enter an assessment / diagnosis before finalization.', 'error');
+      return;
+    }
+    if (safetyAnalysis.hasCritical && !clinicalOverride) {
+      showToast('Critical prescription safety alerts flagged. Please review alerts or log an override reason.', 'warning');
       return;
     }
     setIsFinalizeModalOpen(true);
@@ -539,19 +551,31 @@ export function DoctorConsultationPage() {
         {/* Complaints & Clinical Examination */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
-            <label className="text-xs font-bold text-slate-800 dark:text-white">Presenting Chief Complaints *</label>
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-800 dark:text-white">Presenting Chief Complaints *</label>
+              <VoiceDictationButton
+                fieldName="Chief Complaints"
+                onTranscript={(text) => setPresentingComplaint((prev) => (prev ? `${prev} ${text}` : text))}
+              />
+            </div>
             <textarea
               required
               rows={3}
               value={presentingComplaint}
               onChange={(e) => setPresentingComplaint(e.target.value)}
-              placeholder="Record chief complaints in patient's words..."
+              placeholder="Record chief complaints in patient's words (or use voice dictation)..."
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </Card>
 
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
-            <label className="text-xs font-bold text-slate-800 dark:text-white">Clinical Examination & Findings</label>
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-800 dark:text-white">Clinical Examination & Findings</label>
+              <VoiceDictationButton
+                fieldName="Clinical Findings"
+                onTranscript={(text) => setClinicalFindings((prev) => (prev ? `${prev} ${text}` : text))}
+              />
+            </div>
             <textarea
               rows={3}
               value={clinicalFindings}
@@ -578,7 +602,13 @@ export function DoctorConsultationPage() {
           </Card>
 
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
-            <label className="text-xs font-bold text-slate-800 dark:text-white">Treatment Plan & Procedures</label>
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-800 dark:text-white">Treatment Plan & Procedures</label>
+              <VoiceDictationButton
+                fieldName="Treatment Plan"
+                onTranscript={(text) => setTreatmentPlan((prev) => (prev ? `${prev} ${text}` : text))}
+              />
+            </div>
             <input
               type="text"
               value={treatmentPlan}
@@ -589,6 +619,19 @@ export function DoctorConsultationPage() {
             <span className="text-[10px] text-slate-400 dark:text-slate-500">Summarizes clinical procedures performed</span>
           </Card>
         </div>
+
+        {/* Prescription Safety Alerts (Clinical Decision Support) */}
+        <PrescriptionSafetyAlerts
+          warnings={safetyAnalysis.warnings}
+          patientName={targetPatient?.name}
+          onOverride={(reason) => {
+            setClinicalOverride(true);
+            setOverrideReason(reason);
+            showToast('Clinical override authorized and logged.', 'info');
+          }}
+          isOverridden={clinicalOverride}
+          overrideReason={overrideReason}
+        />
 
         {/* Prescription Composer Section */}
         <Card className="p-5 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4">

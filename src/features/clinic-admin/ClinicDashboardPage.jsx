@@ -6,6 +6,8 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
+import { useDashboardLayout } from '../../hooks/useDashboardLayout';
+import { CustomizableDashboardHeader } from '../../components/dashboard/CustomizableDashboardHeader';
 import {
   Calendar,
   Users,
@@ -52,6 +54,9 @@ export function ClinicDashboardPage() {
   } = useApp();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+
+  const { widgets, toggleWidget, moveWidget, resetToDefault, isWidgetVisible } =
+    useDashboardLayout('doctor_admin');
 
   // Tab & Filter States
   const [activeTab, setActiveTab] = useState('today'); // 'today' | 'upcoming' | 'all'
@@ -197,6 +202,14 @@ export function ClinicDashboardPage() {
 
         {/* Right: Support, Ask AI, Search, Theme & Live Website Pill */}
         <div className="flex flex-wrap items-center gap-2.5">
+          {/* Customizable Dashboard Layout Manager */}
+          <CustomizableDashboardHeader
+            widgets={widgets}
+            onToggleWidget={toggleWidget}
+            onMoveWidget={moveWidget}
+            onResetLayout={resetToDefault}
+          />
+
           {/* Support Button */}
           <Link to="/clinic/support">
             <button className="px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 transition-colors cursor-pointer">

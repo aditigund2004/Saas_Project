@@ -38,6 +38,7 @@ import {
 import { ROLE_PERMISSIONS } from '../types';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
 import { getDefaultWebsiteSettings } from '../features/website-builder/websiteBuilderDefaults';
+import { broadcastSync, subscribeSync } from '../services/crossTabSync';
 
 const AppContext = createContext(null);
 
@@ -488,12 +489,65 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_active_patient_id', activePatientId);
   }, [activePatientId]);
 
+  // Real-Time Cross-Tab Event Bus Listener (BroadcastChannel + LocalStorage)
+  useEffect(() => {
+    const unsubscribe = subscribeSync((msg) => {
+      if (msg.type === 'APPOINTMENT_UPDATED') {
+        const { appointmentId, status, newDate, newTime, newDoctorId } = msg.payload || {};
+        setAppointments((prev) =>
+          prev.map((apt) =>
+            apt.id === appointmentId
+              ? {
+                  ...apt,
+                  ...(status ? { status } : {}),
+                  ...(newDate ? { date: newDate } : {}),
+                  ...(newTime ? { time: newTime } : {}),
+                  ...(newDoctorId ? { doctorId: newDoctorId } : {})
+                }
+              : apt
+          )
+        );
+        showToast('Live Sync: Appointment updated across tabs.', 'info');
+      } else if (msg.type === 'PATIENT_CHECKED_IN') {
+        const { appointmentId, queueNumber, patientName, doctorName } = msg.payload || {};
+        setAppointments((prev) =>
+          prev.map((apt) =>
+            apt.id === appointmentId
+              ? {
+                  ...apt,
+                  status: 'Patient Checked In',
+                  queueNumber: queueNumber || apt.queueNumber
+                }
+              : apt
+          )
+        );
+        showToast(
+          `Live Sync: ${patientName || 'Patient'} arrived & checked in (${queueNumber || 'Token assigned'}). Queue updated!`,
+          'success'
+        );
+      } else if (msg.type === 'APPOINTMENT_CANCELLED') {
+        const { appointmentId } = msg.payload || {};
+        setAppointments((prev) =>
+          prev.map((apt) => (apt.id === appointmentId ? { ...apt, status: 'Cancelled' } : apt))
+        );
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   // Toast Notification Trigger
-  const showToast = (message, type = 'success') => {
-    setToast({ id: Date.now(), message, type });
+  const showToast = (message, type = 'success', options = {}) => {
+    setToast({
+      id: Date.now(),
+      message,
+      type,
+      actionLabel: options.actionLabel,
+      onAction: options.onAction
+    });
     setTimeout(() => {
       setToast(null);
-    }, 4000);
+    }, options.durationMs || 4500);
   };
 
   // Active Clinic & Branch helpers
@@ -596,6 +650,7 @@ export function AppProvider({ children }) {
     setAppointments((prev) =>
       prev.map((apt) => (apt.id === appointmentId ? { ...apt, status } : apt))
     );
+    broadcastSync('APPOINTMENT_UPDATED', { appointmentId, status });
     showToast(`Appointment status updated to ${status}`);
   };
 
@@ -1748,6 +1803,14 @@ export function AppProvider({ children }) {
       )
     );
 
+    // Broadcast check-in to doctor / reception tabs
+    broadcastSync('PATIENT_CHECKED_IN', {
+      appointmentId,
+      queueNumber: queueSeq,
+      patientName: apt.patientName,
+      doctorName: apt.doctorName
+    });
+
     // Notify doctor
     const notif = {
       id: `notif-${Date.now()}`,
@@ -1842,6 +1905,8 @@ export function AppProvider({ children }) {
     const apt = appointments.find((a) => a.id === appointmentId);
     if (!apt) return;
 
+    const previousStatus = apt.status;
+
     const audit = {
       id: `aud-${Date.now()}`,
       action: 'Appointment cancelled',
@@ -1863,7 +1928,20 @@ export function AppProvider({ children }) {
           : a
       )
     );
-    showToast('Appointment cancelled.');
+
+    broadcastSync('APPOINTMENT_CANCELLED', { appointmentId, reason });
+
+    showToast(`Appointment ${apt.referenceNumber || ''} cancelled.`, 'warning', {
+      actionLabel: 'Undo',
+      durationMs: 5000,
+      onAction: () => {
+        setAppointments((prev) =>
+          prev.map((a) => (a.id === appointmentId ? { ...a, status: previousStatus } : a))
+        );
+        broadcastSync('APPOINTMENT_UPDATED', { appointmentId, status: previousStatus });
+        showToast('Cancellation undone successfully!', 'success');
+      }
+    });
   };
 
   const rescheduleAppointment = (appointmentId, newDate, newTime) => {

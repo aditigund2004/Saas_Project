@@ -5,6 +5,12 @@ import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ReferralProvider } from './context/ReferralContext';
+import { ToastProvider } from './context/ToastContext';
+import { LanguageProvider } from './context/LanguageContext';
+import { CommandPalette, useCommandPalette } from './components/ui/CommandPalette';
+import { OfflineBanner } from './components/ui/OfflineBanner';
+import { RoleProductTour } from './components/ui/RoleProductTour';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import {
   ReferralDashboardPage,
   AffiliatePartnersPage,
@@ -208,14 +214,25 @@ function NotFoundPage() {
   );
 }
 
+function GlobalCommandPalette() {
+  const { isOpen, close } = useCommandPalette();
+  return <CommandPalette isOpen={isOpen} onClose={close} />;
+}
+
 export default function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <AppProvider>
-        <ReferralProvider>
-          <BrowserRouter>
-            <Routes>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppProvider>
+            <ReferralProvider>
+              <ToastProvider>
+                <LanguageProvider>
+                  <BrowserRouter>
+                    <OfflineBanner />
+                    <GlobalCommandPalette />
+                    <RoleProductTour />
+                    <Routes>
             {/* Public Marketing & Guest Routes */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePage />} />
@@ -522,10 +539,13 @@ export default function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </ReferralProvider>
-      </AppProvider>
-    </AuthProvider>
+              </LanguageProvider>
+            </ToastProvider>
+          </ReferralProvider>
+        </AppProvider>
+      </AuthProvider>
     </ThemeProvider>
-      );
+  </ErrorBoundary>
+  );
 }
  

@@ -20,6 +20,7 @@ import {
   Eye
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { PatientVitalsAnalyticsChart } from '../../components/medical/PatientVitalsAnalyticsChart';
 
 export function PatientRecordsPage() {
   const { encounters, appointments, currentUser, activeClinic, showToast } = useApp();
@@ -96,6 +97,9 @@ export function PatientRecordsPage() {
           </p>
         </div>
       </div>
+
+      {/* Patient Health Telemetry & Vitals Analytics Chart */}
+      <PatientVitalsAnalyticsChart patientName={currentUser?.name} />
 
       {/* Clinical Encounters: Table Structure (Default) */}
       {patientEncounters.length === 0 ? (

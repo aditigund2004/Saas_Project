@@ -3,15 +3,16 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const ThemeContext = createContext({
   theme: 'light',
   isDark: false,
+  isHighContrast: false,
   toggleTheme: () => {},
-  setTheme: () => {}
+  setTheme: (t) => {}
 });
 
 export function ThemeProvider({ children }) {
   const [theme, setThemeState] = useState(() => {
     try {
       const saved = localStorage.getItem('clinicos_theme');
-      if (saved === 'dark' || saved === 'light') return saved;
+      if (saved === 'dark' || saved === 'light' || saved === 'high-contrast') return saved;
       return 'light';
     } catch {
       return 'light';
@@ -19,38 +20,48 @@ export function ThemeProvider({ children }) {
   });
 
   const isDark = theme === 'dark';
+  const isHighContrast = theme === 'high-contrast';
 
   useEffect(() => {
     const root = document.documentElement;
-    if (isDark) {
+    root.classList.remove('dark', 'high-contrast');
+
+    if (theme === 'dark') {
       root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+    } else if (theme === 'high-contrast') {
+      root.classList.add('high-contrast');
     }
 
     try {
       localStorage.setItem('clinicos_theme', theme);
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
       if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', isDark ? '#0b0f19' : '#2563eb');
+        metaThemeColor.setAttribute(
+          'content',
+          theme === 'dark' ? '#0b0f19' : theme === 'high-contrast' ? '#000000' : '#2563eb'
+        );
       }
     } catch {
-      // Storage access fail-safe
+      // Storage fail-safe
     }
-  }, [theme, isDark]);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setThemeState((prev) => {
+      if (prev === 'light') return 'dark';
+      if (prev === 'dark') return 'high-contrast';
+      return 'light';
+    });
   };
 
   const setTheme = (newTheme) => {
-    if (newTheme === 'dark' || newTheme === 'light') {
+    if (newTheme === 'dark' || newTheme === 'light' || newTheme === 'high-contrast') {
       setThemeState(newTheme);
     }
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, isDark, isHighContrast, toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

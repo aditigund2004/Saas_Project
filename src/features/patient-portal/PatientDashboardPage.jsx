@@ -21,10 +21,13 @@ import {
   AlertCircle,
   ArrowRight,
   ShieldCheck,
-  Video
+  Video,
+  Languages
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export function PatientDashboardPage() {
+  const { language, setLanguage, t } = useLanguage();
   const {
     currentUser,
     activePatientId,
@@ -127,7 +130,45 @@ export function PatientDashboardPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Multilingual Selector (English / Hindi / Marathi) */}
+          <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+            <Languages className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ml-1.5 mr-0.5" />
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                language === 'en'
+                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-bold'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('hi')}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                language === 'hi'
+                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-bold'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+              }`}
+            >
+              हिंदी
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('mr')}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                language === 'mr'
+                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-bold'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+              }`}
+            >
+              मराठी
+            </button>
+          </div>
+
           <Link to="/patient/virtual-consulting">
             <Button variant="outline" size="md" className="font-bold flex items-center gap-1.5 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
               <Video className="w-4 h-4" />
@@ -136,7 +177,7 @@ export function PatientDashboardPage() {
           </Link>
           <Link to="/patient/appointments/book">
             <Button variant="primary" size="md" icon={PlusCircle} className="shadow-md shadow-blue-500/20 font-bold">
-              Book Appointment
+              {t('nav.book', 'Book Appointment')}
             </Button>
           </Link>
         </div>

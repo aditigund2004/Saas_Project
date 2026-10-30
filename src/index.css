@@ -40,6 +40,40 @@
     --warning: #f59e0b;
     --error: #ef4444;
   }
+
+  .high-contrast {
+    --primary: #facc15;
+    --primary-dark: #eab308;
+    --primary-light: #422006;
+    --deep-navy: #000000;
+    --accent: #facc15;
+    --accent-light: #422006;
+    --surface: #000000;
+    --surface-pale: #0a0a0a;
+    --background: #000000;
+    --card: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #facc15;
+    --border: #ffffff;
+    --success: #4ade80;
+    --warning: #facc15;
+    --error: #ff4d4d;
+  }
+}
+
+.high-contrast button,
+.high-contrast a,
+.high-contrast input,
+.high-contrast select {
+  outline: 2px solid transparent;
+}
+
+.high-contrast button:focus-visible,
+.high-contrast a:focus-visible,
+.high-contrast input:focus-visible,
+.high-contrast select:focus-visible {
+  outline: 3px solid #facc15 !important;
+  outline-offset: 2px !important;
 }
 
 html {

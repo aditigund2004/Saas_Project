@@ -5,8 +5,6 @@ export * from './StatCard';
 export * from './Modal';
 export * from './QRCodeBadge';
 export * from './DemoNotice';
-<<<<<<< HEAD
 export * from './FontSizeSwitcher';
-=======
->>>>>>> origin/main
-
+export * from './ThemeSwitcher';
+export * from './LanguageSwitcher';

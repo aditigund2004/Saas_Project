@@ -27,26 +27,12 @@ import {
   Eye,
   Send,
   HelpCircle,
-<<<<<<< HEAD
   FileText,
   List,
   LayoutGrid
 } from 'lucide-react';
 
-=======
-  FileText
-} from 'lucide-react';
 
-const CATEGORY_COLORS = {
-  'Doctor Care': 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/50',
-  'Waiting Time': 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50',
-  'Clinic Cleanliness': 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50',
-  'Reception & Staff': 'bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-900/50',
-  'Billing & Value': 'bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-900/50',
-  'General Experience': 'bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-900/50'
-};
-
->>>>>>> origin/main
 export function ClinicFeedbackPage() {
   const {
     feedbacks,
@@ -64,10 +50,8 @@ export function ClinicFeedbackPage() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedRating, setSelectedRating] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
-<<<<<<< HEAD
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-=======
->>>>>>> origin/main
+
 
   // Modal / Drawer State
   const [selectedFeedback, setSelectedFeedback] = useState(null);
@@ -295,7 +279,6 @@ export function ClinicFeedbackPage() {
             )}
           </div>
 
-<<<<<<< HEAD
           <div className="flex items-center gap-3">
             {/* View Mode Toggle */}
             <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
@@ -342,61 +325,22 @@ export function ClinicFeedbackPage() {
                 </button>
               ))}
             </div>
-=======
-          {/* Status Filter Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto">
-            {[
-              { id: 'ALL', label: 'All Reviews', count: clinicFeedbacks.length },
-              { id: 'New', label: 'New / Unread', count: metrics.newCount },
-              { id: 'Reviewed', label: 'In Review', count: metrics.reviewedCount },
-              { id: 'Resolved', label: 'Resolved', count: metrics.resolvedCount }
-            ].map((st) => (
-              <button
-                key={st.id}
-                type="button"
-                onClick={() => setSelectedStatus(st.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                  selectedStatus === st.id
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/60 dark:border-slate-700/60'
-                }`}
-              >
-                <span>{st.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                    selectedStatus === st.id
-                      ? 'bg-white/20 text-white'
-                      : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
-                  }`}
-                >
-                  {st.count}
-                </span>
-              </button>
-            ))}
->>>>>>> origin/main
+
           </div>
         </div>
       </Card>
 
-<<<<<<< HEAD
       {/* Inbox List / Table Structure */}
       {filteredFeedbacks.length === 0 ? (
         <Card className="p-12 text-center border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-=======
-      {/* Structured Patient Feedback Table */}
-      {filteredFeedbacks.length === 0 ? (
-        <Card className="p-12 text-center border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-2xl">
->>>>>>> origin/main
+
           <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-3">
             <MessageSquareHeart className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-slate-800 dark:text-white">No feedback entries found</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mt-1">
-<<<<<<< HEAD
             No submissions matched your search query or filter selections.
-=======
-            No patient reviews matched your search query or filter selections.
->>>>>>> origin/main
+
           </p>
           <div className="mt-4">
             <Button variant="outline" size="sm" onClick={handleResetFilters}>
@@ -404,7 +348,6 @@ export function ClinicFeedbackPage() {
             </Button>
           </div>
         </Card>
-<<<<<<< HEAD
       ) : viewMode === 'table' ? (
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
@@ -602,175 +545,7 @@ export function ClinicFeedbackPage() {
             </Card>
           ))}
         </div>
-=======
-      ) : (
-        <Card className="overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-2xl">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
-              <thead className="bg-slate-50/90 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                <tr>
-                  <th className="py-3.5 px-3 text-center w-12 font-semibold">#</th>
-                  <th className="py-3.5 px-4 font-semibold">Patient & Reference</th>
-                  <th className="py-3.5 px-3 font-semibold">Rating</th>
-                  <th className="py-3.5 px-3 font-semibold">Category</th>
-                  <th className="py-3.5 px-3 font-semibold">Branch Location</th>
-                  <th className="py-3.5 px-4 font-semibold">Patient Review Message</th>
-                  <th className="py-3.5 px-3 font-semibold">Submitted</th>
-                  <th className="py-3.5 px-3 font-semibold">Status</th>
-                  <th className="py-3.5 px-4 text-right font-semibold">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {filteredFeedbacks.map((fb, idx) => {
-                  const branchName =
-                    activeClinic.branches?.find((b) => b.id === fb.branchId)?.name ||
-                    fb.branchName ||
-                    'Main Clinic Hub';
-                  const catClass =
-                    CATEGORY_COLORS[fb.category] ||
-                    'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700';
 
-                  return (
-                    <tr
-                      key={fb.id}
-                      onClick={() => handleOpenDetails(fb)}
-                      className="hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-colors group cursor-pointer"
-                    >
-                      {/* Index */}
-                      <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
-                        {idx + 1}
-                      </td>
-
-                      {/* Patient & Ref */}
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
-                            {fb.patientName?.charAt(0) || 'P'}
-                          </div>
-                          <div>
-                            <div className="font-bold text-slate-900 dark:text-white text-xs group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                              {fb.patientName}
-                            </div>
-                            <div className="flex items-center gap-1.5 mt-0.5">
-                              <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200/80 dark:border-slate-700/80">
-                                {fb.referenceNumber}
-                              </span>
-                              {fb.appointmentRef && (
-                                <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1.5 py-0.5 rounded font-mono font-medium">
-                                  {fb.appointmentRef}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Rating */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <div className="space-y-0.5">
-                          <div className="flex items-center gap-0.5 text-amber-400">
-                            {[1, 2, 3, 4, 5].map((s) => (
-                              <Star
-                                key={s}
-                                className={`w-3.5 h-3.5 ${
-                                  s <= fb.rating
-                                    ? 'fill-amber-400 text-amber-400'
-                                    : 'text-slate-200 dark:text-slate-700'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                          <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                            {fb.rating}.0 / 5.0
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Category */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <span
-                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold border uppercase tracking-wide ${catClass}`}
-                        >
-                          {fb.category}
-                        </span>
-                      </td>
-
-                      {/* Branch Location */}
-                      <td className="py-3.5 px-3 text-xs text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
-                          <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span>{branchName}</span>
-                        </div>
-                      </td>
-
-                      {/* Patient Feedback */}
-                      <td className="py-3.5 px-4 max-w-xs sm:max-w-sm">
-                        <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-2 italic leading-relaxed">
-                          "{fb.message}"
-                        </p>
-                        {fb.suggestions && (
-                          <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 flex items-center gap-1 mt-0.5">
-                            <span className="text-amber-500 font-bold">💡</span>
-                            <span className="truncate">{fb.suggestions}</span>
-                          </p>
-                        )}
-                      </td>
-
-                      {/* Date Submitted */}
-                      <td className="py-3.5 px-3 text-xs text-slate-500 dark:text-slate-400 font-mono whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span>
-                            {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric'
-                            })}
-                          </span>
-                        </div>
-                      </td>
-
-                      {/* Status */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <Badge variant={fb.status}>
-                          {fb.status === 'Reviewed' ? 'In Review' : fb.status}
-                        </Badge>
-                      </td>
-
-                      {/* Action */}
-                      <td
-                        className="py-3.5 px-4 text-right whitespace-nowrap"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Button
-                          variant="outline"
-                          size="xs"
-                          onClick={() => handleOpenDetails(fb)}
-                          className="font-semibold text-xs flex items-center gap-1 text-blue-600 dark:text-blue-400 border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-700 shadow-2xs cursor-pointer"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Inspect</span>
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Table Summary Footer */}
-          <div className="p-3.5 bg-slate-50/80 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2">
-            <span className="font-medium">
-              Showing <strong>{filteredFeedbacks.length}</strong> patient feedback submissions
-            </span>
-            <span className="text-[11px] text-slate-400 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-              Click any row or &quot;Inspect&quot; to view internal notes, patient contact info, and resolve reviews
-            </span>
-          </div>
-        </Card>
->>>>>>> origin/main
       )}
 
       {/* ========================================================================= */}

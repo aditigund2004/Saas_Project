@@ -1,12 +1,7 @@
 import React, { useState, useMemo } from 'react';
-<<<<<<< HEAD
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-=======
-import { useNavigate, useLocation, useSearchParams, Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import { useApp } from '../../context/AppContext';
->>>>>>> origin/main
+
 import { AuthLayout } from './AuthLayout';
 import { Button } from '../../components/ui/Button';
 import {
@@ -23,20 +18,12 @@ import {
   AlertCircle,
   ArrowRight,
   ShieldCheck,
-<<<<<<< HEAD
   Sparkles
-=======
-  Sparkles,
-  MapPin,
-  HeartPulse,
-  Droplet,
-  Users
->>>>>>> origin/main
+
 } from 'lucide-react';
 
 export function PatientRegisterPage() {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const { registerPatient, isLoading } = useAuth();
 
   // Form State
@@ -44,28 +31,7 @@ export function PatientRegisterPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [dob, setDob] = useState('');
-=======
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const { registerPatient, isLoading } = useAuth();
-  const { createPatient, activeClinic, showToast } = useApp();
 
-  const initName = searchParams.get('name') || location.state?.name || '';
-  const initPhone = searchParams.get('phone') || location.state?.phone || '';
-  const initEmail = searchParams.get('email') || location.state?.email || '';
-
-  // Form State - Standardized Patient Dossier Schema
-  const [fullName, setFullName] = useState(initName);
-  const [email, setEmail] = useState(initEmail);
-  const [phone, setPhone] = useState(initPhone);
-  const [gender, setGender] = useState('Male');
-  const [dob, setDob] = useState('1995-05-15');
-  const [bloodGroup, setBloodGroup] = useState('B+');
-  const [allergies, setAllergies] = useState('None');
-  const [emergencyContact, setEmergencyContact] = useState('');
-  const [address, setAddress] = useState('FC Road, Pune, Maharashtra');
-  const [medicalHistory, setMedicalHistory] = useState('No known chronic conditions.');
->>>>>>> origin/main
   const [preferredCommunication, setPreferredCommunication] = useState('whatsapp');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -145,80 +111,31 @@ export function PatientRegisterPage() {
       return;
     }
 
-<<<<<<< HEAD
     const res = await registerPatient({
       fullName: fullName.trim(),
       email: email.trim(),
       phone: phone.trim(),
       dob,
-=======
-    const patientPayload = {
-      fullName: fullName.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      gender,
-      dob: dob || '1995-05-15',
-      bloodGroup,
-      allergies,
-      address: address.trim(),
-      emergencyContact: emergencyContact.trim(),
-      medicalHistory: medicalHistory.trim(),
->>>>>>> origin/main
+
       preferredCommunication,
       password,
       confirmPassword,
       agreeTerms
-<<<<<<< HEAD
     });
 
     if (res.success && res.user) {
       navigate(`/verify-email?email=${encodeURIComponent(res.user.email)}&token=${res.user.verificationToken || 'demo'}`);
     } else {
       setError(res.error || 'Registration failed. An account with this email may already exist.');
-=======
-    };
 
-    // 1. Register with Auth Service
-    const authRes = await registerPatient(patientPayload);
-
-    // 2. Synchronize into AppContext clinical patient roster & activePatientId
-    const newPt = createPatient({
-      name: fullName.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      gender,
-      dob: dob || '1995-05-15',
-      bloodGroup: bloodGroup || 'B+',
-      allergies: allergies && allergies.toLowerCase() !== 'none'
-        ? allergies.split(',').map((a) => a.trim()).filter(Boolean)
-        : [],
-      emergencyContact: emergencyContact.trim() || `${fullName.trim()} Family (+91 98765 00000)`,
-      address: address.trim() || `${activeClinic?.city || 'Pune'}, Maharashtra`,
-      medicalHistory: medicalHistory.trim() || 'No chronic medical history noted.',
-      preferredCommunication,
-      status: 'Active'
-    });
-
-    localStorage.setItem('clinipulse_role', 'patient');
-    showToast(`Patient profile created for ${newPt.name} (ID: ${newPt.patientIdNumber})`);
-
-    if (authRes.success && authRes.user) {
-      navigate(`/verify-email?email=${encodeURIComponent(authRes.user.email)}&token=${authRes.user.verificationToken || 'demo'}`);
-    } else {
-      // If mockAuth encountered email duplicate, still give access since patient record is synchronized
-      navigate('/patient');
->>>>>>> origin/main
     }
   };
 
   return (
     <AuthLayout
       title="Create Patient Account"
-<<<<<<< HEAD
       subtitle="Register to book appointments, track requests, and access prescriptions."
-=======
-      subtitle="Complete your healthcare registration to book doctor consultations, track requests, and access digital prescriptions."
->>>>>>> origin/main
+
       badgeText="Patient Self-Service Registration"
     >
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -239,7 +156,6 @@ export function PatientRegisterPage() {
           </div>
         )}
 
-<<<<<<< HEAD
         {/* Full Name */}
         <div className="space-y-1">
           <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
@@ -325,187 +241,11 @@ export function PatientRegisterPage() {
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-=======
-        {/* Section 1: Personal & Contact Dossier */}
-        <div className="p-3.5 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3.5">
-          <div className="flex items-center gap-2 pb-1 border-b border-slate-200/60 dark:border-slate-800">
-            <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-              Personal & Contact Information
-            </span>
-          </div>
 
-          {/* Full Name */}
-          <div className="space-y-1">
-            <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-              Full Name <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <User className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                onBlur={() => markTouched('fullName')}
-                placeholder="e.g. Aarav Patel"
-                className={`w-full pl-10 pr-4 py-2 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  touched.fullName && errors.fullName ? 'border-red-300 dark:border-red-700 bg-red-50/20' : 'border-[#E2E8F0] dark:border-slate-700'
-                }`}
-              />
-            </div>
-            {touched.fullName && errors.fullName && (
-              <p className="text-xs text-red-600 dark:text-red-400 font-medium">{errors.fullName}</p>
-            )}
-          </div>
-
-          {/* Email & Mobile Number Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {/* Email */}
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Email Address <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => markTouched('email')}
-                  placeholder="name@domain.com"
-                  className={`w-full pl-10 pr-4 py-2 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    touched.email && errors.email ? 'border-red-300 dark:border-red-700 bg-red-50/20' : 'border-[#E2E8F0] dark:border-slate-700'
-                  }`}
-                />
-              </div>
-              {touched.email && errors.email && (
-                <p className="text-xs text-red-600 dark:text-red-400 font-medium">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Mobile Number */}
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Mobile Number <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <Phone className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  onBlur={() => markTouched('phone')}
-                  placeholder="+91 98765 43210"
-                  className={`w-full pl-10 pr-4 py-2 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    touched.phone && errors.phone ? 'border-red-300 dark:border-red-700 bg-red-50/20' : 'border-[#E2E8F0] dark:border-slate-700'
-                  }`}
-                />
-              </div>
-              {touched.phone && errors.phone && (
-                <p className="text-xs text-red-600 dark:text-red-400 font-medium">{errors.phone}</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Section 2: Clinical Demographics (Gender, DOB, Blood Group, Allergies) */}
-        <div className="p-3.5 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3.5">
-          <div className="flex items-center gap-2 pb-1 border-b border-slate-200/60 dark:border-slate-800">
-            <HeartPulse className="w-4 h-4 text-rose-600 dark:text-rose-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-              Clinical & Medical Profile
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {/* Gender */}
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Gender
-              </label>
-              <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            {/* Date of Birth */}
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Date of Birth
-              </label>
-              <div className="relative">
-                <Calendar className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="date"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            </div>
-
-            {/* Blood Group */}
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Blood Group
-              </label>
-              <div className="relative">
-                <Droplet className="w-4 h-4 text-rose-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <select
-                  value={bloodGroup}
-                  onChange={(e) => setBloodGroup(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold"
-                >
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Allergies & Emergency Contact */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Known Drug Allergies
-              </label>
-              <input
-                type="text"
-                value={allergies}
-                onChange={(e) => setAllergies(e.target.value)}
-                placeholder="e.g. Penicillin, Sulfa drugs, None"
-                className="w-full px-3.5 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Emergency Contact (Name & Phone)
-              </label>
-              <input
-                type="text"
-                value={emergencyContact}
-                onChange={(e) => setEmergencyContact(e.target.value)}
-                placeholder="e.g. Sunita Patel (Spouse) - +91 98765 43219"
-                className="w-full px-3.5 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
->>>>>>> origin/main
               />
             </div>
           </div>
 
-<<<<<<< HEAD
           <div className="space-y-1">
             <label className="text-xs font-medium text-[#1E293B] dark:text-slate-200 block">
               Reminders Method <span className="text-xs text-slate-400 dark:text-slate-500 font-normal">(Optional)</span>
@@ -523,44 +263,7 @@ export function PatientRegisterPage() {
         </div>
 
         {/* Passwords Grid */}
-=======
-          {/* Address & Communication */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Residential Address
-              </label>
-              <div className="relative">
-                <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="e.g. 402 Sunrise Heights, Bandra West, Mumbai"
-                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#1E293B] dark:text-slate-200 block">
-                Reminders & Notification Channel
-              </label>
-              <select
-                value={preferredCommunication}
-                onChange={(e) => setPreferredCommunication(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-[#E2E8F0] dark:border-slate-700 text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-              >
-                <option value="whatsapp">WhatsApp (Instant Doctor Updates)</option>
-                <option value="sms">SMS Text Dispatch</option>
-                <option value="email">Email Communications</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 3: Passwords Grid */}
->>>>>>> origin/main
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
           {/* Password */}
           <div className="space-y-1">
@@ -575,11 +278,8 @@ export function PatientRegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={() => markTouched('password')}
                 placeholder="••••••••"
-<<<<<<< HEAD
                 className={`w-full pl-10 pr-10 py-2.5 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-=======
-                className={`w-full pl-10 pr-10 py-2 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
->>>>>>> origin/main
+
                   touched.password && errors.password ? 'border-red-300 dark:border-red-700 bg-red-50/20' : 'border-[#E2E8F0] dark:border-slate-700'
                 }`}
               />
@@ -609,11 +309,8 @@ export function PatientRegisterPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 onBlur={() => markTouched('confirmPassword')}
                 placeholder="••••••••"
-<<<<<<< HEAD
                 className={`w-full pl-10 pr-10 py-2.5 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-=======
-                className={`w-full pl-10 pr-10 py-2 rounded-xl border text-sm text-[#1E293B] dark:text-white bg-white dark:bg-slate-900 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
->>>>>>> origin/main
+
                   touched.confirmPassword && errors.confirmPassword ? 'border-red-300 dark:border-red-700 bg-red-50/20' : 'border-[#E2E8F0] dark:border-slate-700'
                 }`}
               />
@@ -683,11 +380,8 @@ export function PatientRegisterPage() {
           {isLoading ? (
             <span className="flex items-center gap-2">
               <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-<<<<<<< HEAD
               Creating Demo Profile...
-=======
-              Registering Patient Profile...
->>>>>>> origin/main
+
             </span>
           ) : (
             <span className="flex items-center gap-1.5">

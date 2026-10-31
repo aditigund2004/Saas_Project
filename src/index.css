@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
-<<<<<<< HEAD
 @theme {
   --color-main-bg: var(--bg-main);
   --color-secondary-bg: var(--bg-secondary);
@@ -20,6 +19,12 @@
   --color-cyan-accent: var(--cyan-accent);
   --color-theme-border: var(--border-theme);
   --color-theme-divider: var(--divider-theme);
+
+  --color-card-bg: var(--card-bg);
+  --color-card-text: var(--card-text);
+  --color-border-color: var(--border-color);
+  --color-surface-hover: var(--surface-hover);
+  --color-accent-primary: var(--accent-primary);
 
   --color-slate-850: #111E33;
 }
@@ -66,6 +71,11 @@
     --surface-pale: #F8FAFF;
     --background: #F4F7FC;
     --card: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-text: #172033;
+    --border-color: #E2E8F0;
+    --surface-hover: #EFF6FF;
+    --accent-primary: #2563EB;
     --border: #E2E8F0;
     --success: #059669;
     --warning: #D97706;
@@ -91,7 +101,7 @@
     --letter-spacing-widest: 0.1em;
   }
 
-  .dark {
+  .dark, [data-theme="dark"] {
     /* Bluish Dark Theme Design Tokens (Midnight Navy / Electric Blue Theme) */
     --bg-main: #080F1E;
     --bg-secondary: #0D1729;
@@ -115,6 +125,11 @@
 
     --border-theme: #263B59;
     --divider-theme: #263B59;
+    --card-bg: #111E33;
+    --card-text: #F1F5F9;
+    --border-color: #263B59;
+    --surface-hover: #172640;
+    --accent-primary: #3B82F6;
     --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 
     --primary: #3B82F6;
@@ -190,87 +205,12 @@ input::placeholder, textarea::placeholder {
   min-height: 2.5rem;
   box-sizing: border-box;
   width: 100%;
-=======
-@layer base {
-  :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --primary-light: #eff6ff;
-    --deep-navy: #172554;
-    --accent: #2563eb;
-    --accent-light: #eff6ff;
-    --surface: #ffffff;
-    --surface-pale: #f8faff;
-    --background: #f7f9fc;
-    --card: #ffffff;
-    --text-primary: #172033;
-    --text-secondary: #64748b;
-    --border: #e2e8f0;
-    --success: #16a34a;
-    --warning: #d97706;
-    --error: #dc2626;
-  }
-
-  .dark {
-    --primary: #3b82f6;
-    --primary-dark: #2563eb;
-    --primary-light: #1e293b;
-    --deep-navy: #0f172a;
-    --accent: #3b82f6;
-    --accent-light: #1e293b;
-    --surface: #111827;
-    --surface-pale: #1e293b;
-    --background: #0b0f19;
-    --card: #111827;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --border: #1f2937;
-    --success: #22c55e;
-    --warning: #f59e0b;
-    --error: #ef4444;
-  }
-
-  .high-contrast {
-    --primary: #facc15;
-    --primary-dark: #eab308;
-    --primary-light: #422006;
-    --deep-navy: #000000;
-    --accent: #facc15;
-    --accent-light: #422006;
-    --surface: #000000;
-    --surface-pale: #0a0a0a;
-    --background: #000000;
-    --card: #000000;
-    --text-primary: #ffffff;
-    --text-secondary: #facc15;
-    --border: #ffffff;
-    --success: #4ade80;
-    --warning: #facc15;
-    --error: #ff4d4d;
-  }
-}
-
-.high-contrast button,
-.high-contrast a,
-.high-contrast input,
-.high-contrast select {
-  outline: 2px solid transparent;
-}
-
-.high-contrast button:focus-visible,
-.high-contrast a:focus-visible,
-.high-contrast input:focus-visible,
-.high-contrast select:focus-visible {
-  outline: 3px solid #facc15 !important;
-  outline-offset: 2px !important;
->>>>>>> origin/main
 }
 
 html {
   font-size: 17px;
   color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
-<<<<<<< HEAD
   transition: font-size 150ms ease;
 }
 
@@ -287,13 +227,44 @@ html[data-font-size="medium"] {
 html.font-size-large,
 html[data-font-size="large"] {
   font-size: 19.5px !important;
-=======
->>>>>>> origin/main
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+  html.font-size-small,
+  html[data-font-size="small"] {
+    font-size: 13.5px !important;
+  }
+  html.font-size-medium,
+  html[data-font-size="medium"] {
+    font-size: 15px !important;
+  }
+  html.font-size-large,
+  html[data-font-size="large"] {
+    font-size: 17px !important;
+  }
+}
+
+/* Prevent auto-zoom on mobile inputs */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Hide scrollbars on touch-scrollable horizontal rows */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 body {
   margin: 0;
-<<<<<<< HEAD
   font-family: var(--font-family-base);
   background-color: var(--background);
   color: var(--text-primary);
@@ -318,16 +289,6 @@ body {
                 color 200ms cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
-=======
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: var(--background);
-  color: var(--text-primary);
-  font-size: 1rem;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 150ms ease, color 150ms ease;
->>>>>>> origin/main
 }
 
 /* ========================================================================= */
@@ -677,38 +638,18 @@ table td,
   z-index: -1;
 }
 
-<<<<<<< HEAD
-=======
-/* ========================================================================= */
-/* MEDICAL MOTION SYSTEM: ECG Telemetry & Cardiac Rhythm                     */
-/* ========================================================================= */
-
-/* Natural dual-phase cardiac contraction (systole & diastole / lub-dub) */
-@keyframes cardiacPulse {
-  0% {
-    transform: scale3d(1, 1, 1);
+/* Print specific styles for digital prescriptions */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
   }
-  14% {
-    transform: scale3d(1.13, 1.13, 1);
-  }
-  24% {
-    transform: scale3d(1.02, 1.02, 1);
-  }
-  38% {
-    transform: scale3d(1.22, 1.22, 1);
-  }
-  50% {
-    transform: scale3d(1.04, 1.04, 1);
-  }
-  64% {
-    transform: scale3d(1, 1, 1);
-  }
-  100% {
-    transform: scale3d(1, 1, 1);
+  .no-print, nav, header, aside, .demo-bar, .role-badge, button {
+    display: none !important;
   }
 }
 
-/* Rhythmic radial backglow expanding in sync with heartbeat */
+
 @keyframes cardiacRadialGlow {
   0%, 65%, 100% {
     opacity: 0.18;
@@ -795,7 +736,6 @@ table td,
   will-change: transform;
 }
 
->>>>>>> origin/main
 /* Print specific styles for digital prescriptions */
 @media print {
   body {
@@ -805,4 +745,23 @@ table td,
   .no-print, nav, header, aside, .demo-bar, .role-badge, button {
     display: none !important;
   }
+}
+
+
+/* Indian Regional Scripts & Urdu RTL Layout Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] input[type="text"],
+[dir="rtl"] textarea {
+  text-align: right;
+}
+
+/* Preserve LTR for phone numbers, timestamps & currency */
+[dir="rtl"] .ltr-preserve,
+[dir="rtl"] input[type="tel"],
+[dir="rtl"] input[type="number"] {
+  direction: ltr;
+  text-align: left;
 }

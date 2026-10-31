@@ -15,7 +15,6 @@ import {
   Clock,
   Activity,
   AlertCircle,
-<<<<<<< HEAD
   Users
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -27,19 +26,7 @@ export function PatientRecordsPage() {
   const myFamily = familyMembers.filter(
     (m) => m.primaryPatientId === 'pt-1041' || m.primaryPatientId === currentUser?.id
   );
-=======
-  List,
-  LayoutGrid,
-  Eye
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { PatientVitalsAnalyticsChart } from '../../components/medical/PatientVitalsAnalyticsChart';
 
-export function PatientRecordsPage() {
-  const { encounters, appointments, currentUser, activeClinic, showToast } = useApp();
-  const [selectedEncounter, setSelectedEncounter] = useState(null);
-  const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
->>>>>>> origin/main
 
   // Filter records strictly for current patient
   const patientAppointments = appointments.filter(
@@ -62,51 +49,12 @@ export function PatientRecordsPage() {
           </p>
         </div>
 
-<<<<<<< HEAD
         <Link to="/patient/appointments/book">
           <Button variant="primary" size="md" className="shadow-md shadow-blue-500/20 font-bold">
             + Schedule New Consultation
           </Button>
         </Link>
-=======
-        <div className="flex items-center gap-2.5">
-          {/* View Mode Toggle */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
-            <button
-              type="button"
-              onClick={() => setViewMode('table')}
-              className={`p-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'table'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-              }`}
-              title="Table View"
-            >
-              <List className="w-4 h-4" />
-              <span className="hidden sm:inline">Table</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode('cards')}
-              className={`p-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'cards'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-              }`}
-              title="Card View"
-            >
-              <LayoutGrid className="w-4 h-4" />
-              <span className="hidden sm:inline">Cards</span>
-            </button>
-          </div>
 
-          <Link to="/patient/appointments/book">
-            <Button variant="primary" size="md" className="shadow-md shadow-blue-500/20 font-bold">
-              + Schedule New Consultation
-            </Button>
-          </Link>
-        </div>
->>>>>>> origin/main
       </div>
 
       {/* Security Privacy Notice */}
@@ -120,7 +68,6 @@ export function PatientRecordsPage() {
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* Dependent Family Health Link */}
       <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-3">
@@ -156,116 +103,7 @@ export function PatientRecordsPage() {
           </Card>
         ) : (
           patientEncounters.map((enc) => (
-=======
-      {/* Patient Health Telemetry & Vitals Analytics Chart */}
-      <PatientVitalsAnalyticsChart patientName={currentUser?.name} />
 
-      {/* Clinical Encounters: Table Structure (Default) */}
-      {patientEncounters.length === 0 ? (
-        <Card className="p-12 text-center border-slate-200 dark:border-slate-800 dark:bg-slate-900/60">
-          <FileText className="w-12 h-12 text-slate-300 dark:text-slate-600 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">No Finalized Visit Summaries</h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
-            Your attending doctor will publish your clinical visit summary upon completing your scheduled consultation.
-          </p>
-        </Card>
-      ) : viewMode === 'table' ? (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                  <th className="py-3.5 px-3 text-center w-12">#</th>
-                  <th className="py-3.5 px-4">Visit Date & Ref</th>
-                  <th className="py-3.5 px-4">Attending Doctor</th>
-                  <th className="py-3.5 px-4">Chief Complaint</th>
-                  <th className="py-3.5 px-4">Diagnosis / Assessment</th>
-                  <th className="py-3.5 px-3">Vitals</th>
-                  <th className="py-3.5 px-3">Status</th>
-                  <th className="py-3.5 px-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {patientEncounters.map((enc, idx) => (
-                  <tr
-                    key={enc.id}
-                    className="hover:bg-blue-50/40 dark:hover:bg-slate-800/40 transition-colors group cursor-pointer"
-                    onClick={() => setSelectedEncounter(enc)}
-                  >
-                    <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
-                      {idx + 1}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <div className="font-mono font-bold text-xs text-slate-900 dark:text-slate-100">
-                        {enc.createdAt ? new Date(enc.createdAt).toISOString().slice(0, 10) : '2026-10-23'}
-                      </div>
-                      <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
-                        {enc.id}
-                      </span>
-                    </td>
-
-                    <td className="py-3.5 px-4">
-                      <div className="font-bold text-slate-900 dark:text-slate-100 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {enc.doctorName}
-                      </div>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">
-                        {activeClinic.name}
-                      </span>
-                    </td>
-
-                    <td className="py-3.5 px-4 text-xs text-slate-700 dark:text-slate-300 font-medium max-w-xs">
-                      {enc.chiefComplaint}
-                    </td>
-
-                    <td className="py-3.5 px-4">
-                      <span className="text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded-md border border-blue-200/50 dark:border-blue-900/50">
-                        {enc.diagnosis}
-                      </span>
-                    </td>
-
-                    <td className="py-3.5 px-3 text-xs font-mono text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                      BP: {enc.vitals?.bp || '120/80'}<br />
-                      Pulse: {enc.vitals?.pulse || '72 bpm'}
-                    </td>
-
-                    <td className="py-3.5 px-3">
-                      <Badge variant="Completed">Signed & Finalized</Badge>
-                    </td>
-
-                    <td className="py-3.5 px-4 text-right" onClick={(e) => e.stopPropagation()}>
-                      <div className="flex items-center justify-end gap-1.5">
-                        <Button
-                          variant="outline"
-                          size="xs"
-                          onClick={() => setSelectedEncounter(enc)}
-                          className="text-xs"
-                        >
-                          View Summary
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="xs"
-                          icon={Download}
-                          onClick={() => showToast('Simulated summary PDF downloaded.')}
-                          title="Download PDF"
-                          className="text-slate-500 hover:text-blue-600"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
-            <span>Verified Patient Clinical Visits ({patientEncounters.length} finalized records)</span>
-            <span>Click any row to inspect complete visit history</span>
-          </div>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {patientEncounters.map((enc) => (
->>>>>>> origin/main
             <Card key={enc.id} className="p-5 sm:p-6 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 hover:border-blue-300 dark:hover:border-blue-500/50 transition-all shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex items-center gap-3">
@@ -331,15 +169,10 @@ export function PatientRecordsPage() {
                 </div>
               </div>
             </Card>
-<<<<<<< HEAD
           ))
         )}
       </div>
-=======
-          ))}
-        </div>
-      )}
->>>>>>> origin/main
+
 
       {/* Clinical Summary Detail Modal */}
       {selectedEncounter && (

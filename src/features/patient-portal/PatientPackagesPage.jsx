@@ -285,33 +285,33 @@ export function PatientPackagesPage() {
                     {pkg.category}
                   </span>
                   {pkg.badge && (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 flex items-center gap-1">
-                      <Flame className="w-3 h-3 text-amber-500 fill-amber-400" />
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500 text-white border border-amber-600 flex items-center gap-1 shadow-xs">
+                      <Flame className="w-3 h-3 text-white fill-white" />
                       {pkg.badge}
                     </span>
                   )}
                 </div>
 
                 {/* Package Name & Tagline */}
-                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <h3 className="text-base sm:text-lg font-black text-[#172033] dark:text-[#F1F5F9] tracking-tight leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {pkg.name}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-1 line-clamp-2 leading-relaxed">
                   {pkg.tagline}
                 </p>
 
                 {/* Pricing Block */}
-                <div className="mt-4 p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-baseline justify-between">
+                <div className="mt-4 p-3 rounded-2xl bg-[#F8FAFF] dark:bg-slate-800/50 border border-[#E2E8F0] dark:border-slate-800 flex items-baseline justify-between">
                   <div>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-black text-blue-700 dark:text-blue-400 font-mono">
+                      <span className="text-2xl font-black text-[#172033] dark:text-[#F1F5F9] font-mono">
                         {formatCurrency(pkg.price)}
                       </span>
-                      <span className="text-xs text-slate-400 dark:text-slate-500 line-through font-mono">
+                      <span className="text-xs text-[#94A3B8] line-through font-mono">
                         {formatCurrency(pkg.originalPrice)}
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 block mt-0.5">
+                    <span className="text-[10px] font-bold text-[#059669] dark:text-emerald-400 block mt-0.5">
                       Save {formatCurrency(pkg.savingsAmount)} ({pkg.savingsPercentage}% Off)
                     </span>
                   </div>
@@ -333,7 +333,7 @@ export function PatientPackagesPage() {
                     {pkg.inclusions.slice(0, 4).map((inc, i) => (
                       <span
                         key={i}
-                        className="text-[11px] px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60 font-medium"
+                        className="text-[11px] px-2 py-0.5 rounded-lg bg-[#F1F5F9] dark:bg-slate-800 text-[#334155] dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/60 font-medium"
                       >
                         {inc.category.split('(')[0].trim()}
                       </span>
@@ -482,7 +482,7 @@ export function PatientPackagesPage() {
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-2.5">
               <Button variant="outline" size="sm" onClick={() => setDetailModalPackage(null)}>
                 Close
               </Button>
@@ -698,7 +698,7 @@ export function PatientPackagesPage() {
                 ⚠️ <strong>Fasting Reminder:</strong> Please remember to maintain 10-12 hours overnight fasting before your {confirmedBooking.time} checkup. Water is allowed.
               </div>
 
-              <div className="pt-2 flex justify-center gap-2">
+              <div className="pt-2 flex flex-col sm:flex-row justify-center gap-2">
                 <Button
                   variant="whatsapp"
                   size="sm"

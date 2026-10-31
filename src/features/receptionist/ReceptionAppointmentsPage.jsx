@@ -92,10 +92,7 @@ export function ReceptionAppointmentsPage() {
                 <th className="p-3.5">Patient Name</th>
                 <th className="p-3.5">Doctor & Service</th>
                 <th className="p-3.5">Date & Time</th>
-<<<<<<< HEAD
-=======
-                <th className="p-3.5">Fee & Payment</th>
->>>>>>> origin/main
+
                 <th className="p-3.5">Status</th>
                 <th className="p-3.5 text-right">Actions</th>
               </tr>
@@ -103,11 +100,8 @@ export function ReceptionAppointmentsPage() {
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filtered.length === 0 ? (
                 <tr>
-<<<<<<< HEAD
                   <td colSpan={7} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
-=======
-                  <td colSpan={8} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
->>>>>>> origin/main
+
                     No appointments match your search or filter.
                   </td>
                 </tr>
@@ -136,23 +130,7 @@ export function ReceptionAppointmentsPage() {
                       <div className="text-xs text-blue-700 dark:text-blue-400 font-medium">🕒 {apt.time}</div>
                     </td>
                     <td className="p-3.5">
-<<<<<<< HEAD
-=======
-                      <div className="font-mono font-bold text-slate-900 dark:text-white">
-                        ₹{(Number(apt.consultationFee) || 600).toLocaleString('en-IN')}
-                      </div>
-                      {apt.paymentStatus === 'Paid' ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
-                          <CheckCircle className="w-3 h-3" /> Paid
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600 dark:text-amber-400">
-                          <Clock className="w-3 h-3" /> Due
-                        </span>
-                      )}
-                    </td>
-                    <td className="p-3.5">
->>>>>>> origin/main
+
                       <Badge variant={apt.status} size="sm">{apt.status}</Badge>
                     </td>
                     <td className="p-3.5 text-right">

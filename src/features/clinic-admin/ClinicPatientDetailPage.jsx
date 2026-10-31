@@ -18,20 +18,8 @@ import {
   ExternalLink,
   ShieldAlert,
   Edit,
-<<<<<<< HEAD
   Save
-=======
-  Save,
-  FileUp,
-  Download,
-  Eye,
-  Trash2,
-  Filter,
-  CheckCircle2,
-  Image as ImageIcon,
-  FlaskConical,
-  X
->>>>>>> origin/main
+
 } from 'lucide-react';
 
 export function ClinicPatientDetailPage() {
@@ -43,12 +31,8 @@ export function ClinicPatientDetailPage() {
     prescriptions,
     invoices,
     openPrescriptionModal,
-<<<<<<< HEAD
     activeClinic
-=======
-    activeClinic,
-    showToast
->>>>>>> origin/main
+
   } = useApp();
 
   const patient = patients.find((p) => p.id === patientId || p.patientIdNumber === patientId) || patients[0];
@@ -69,62 +53,7 @@ export function ClinicPatientDetailPage() {
     address: ''
   });
 
-<<<<<<< HEAD
-=======
-  // Diagnostic Lab Scans & Document Vault State
-  const defaultDocs = [
-    {
-      id: 'doc-1',
-      title: 'Complete Blood Count (CBC) & ESR Profile',
-      category: 'Pathology',
-      date: '2026-10-18',
-      lab: 'Metropolis Healthcare Diagnostic Lab',
-      fileSize: '1.4 MB PDF',
-      status: 'Normal',
-      notes: 'Hb: 14.2 g/dL, WBC: 7,400 /mcL, Platelets: 2.8 Lakh, ESR: 12 mm/hr. All values within normal biological ranges.'
-    },
-    {
-      id: 'doc-2',
-      title: 'Full Mouth Digital OPG Panoramic X-Ray',
-      category: 'Radiology',
-      date: '2026-10-21',
-      lab: 'CityCare In-House Digital Radiography',
-      fileSize: '3.8 MB DICOM/JPG',
-      status: 'Abnormal',
-      notes: 'Deep periapical radiolucency noted around apex of root #46 with symptomatic pulpitis. Canal curvature: 18 deg.'
-    },
-    {
-      id: 'doc-3',
-      title: 'Fasting Blood Glucose & Glycated HbA1c',
-      category: 'Pathology',
-      date: '2026-10-10',
-      lab: 'Dr. Lal PathLabs',
-      fileSize: '820 KB PDF',
-      status: 'Borderline',
-      notes: 'HbA1c: 6.8% (Borderline pre-diabetic). Fasting blood glucose: 114 mg/dL. Advised dietary control and carbohydrate reduction.'
-    }
-  ];
 
-  const [labDocs, setLabDocs] = useState(() => {
-    try {
-      const saved = localStorage.getItem(`clinicos_docs_${patient?.id || 'demo'}`);
-      return saved ? JSON.parse(saved) : defaultDocs;
-    } catch {
-      return defaultDocs;
-    }
-  });
-
-  const [docCategoryFilter, setDocCategoryFilter] = useState('All');
-  const [isUploadDocOpen, setIsUploadDocOpen] = useState(false);
-  const [viewingDoc, setViewingDoc] = useState(null);
-
-  const [uploadTitle, setUploadTitle] = useState('');
-  const [uploadCategory, setUploadCategory] = useState('Pathology');
-  const [uploadLab, setUploadLab] = useState('Metropolis Healthcare');
-  const [uploadNotes, setUploadNotes] = useState('');
-  const [uploadDate, setUploadDate] = useState(new Date().toISOString().slice(0, 10));
-
->>>>>>> origin/main
   useEffect(() => {
     if (patient) {
       setEditForm({
@@ -148,51 +77,9 @@ export function ClinicPatientDetailPage() {
       allergies: editForm.allergies ? editForm.allergies.split(',').map((a) => a.trim()) : []
     });
     setIsEditModalOpen(false);
-<<<<<<< HEAD
   };
 
-=======
-    showToast('Patient profile updated successfully.');
-  };
 
-  const handleUploadDoc = (e) => {
-    e.preventDefault();
-    const newDoc = {
-      id: `doc-${Date.now()}`,
-      title: uploadTitle,
-      category: uploadCategory,
-      date: uploadDate,
-      lab: uploadLab,
-      fileSize: '2.1 MB PDF',
-      status: 'Uploaded',
-      notes: uploadNotes || 'Uploaded by clinician during outpatient consultation.'
-    };
-    const updated = [newDoc, ...labDocs];
-    setLabDocs(updated);
-    try {
-      localStorage.setItem(`clinicos_docs_${patient?.id || 'demo'}`, JSON.stringify(updated));
-    } catch {}
-    setIsUploadDocOpen(false);
-    setUploadTitle('');
-    setUploadNotes('');
-    showToast(`Diagnostic scan "${uploadTitle}" added to patient vault.`);
-  };
-
-  const handleDeleteDoc = (docId) => {
-    const updated = labDocs.filter((d) => d.id !== docId);
-    setLabDocs(updated);
-    try {
-      localStorage.setItem(`clinicos_docs_${patient?.id || 'demo'}`, JSON.stringify(updated));
-    } catch {}
-    showToast('Report removed from patient records.');
-  };
-
-  const filteredDocs = labDocs.filter((d) => {
-    if (docCategoryFilter === 'All') return true;
-    return d.category === docCategoryFilter;
-  });
-
->>>>>>> origin/main
   return (
     <div className="space-y-6">
       {/* Top Header */}
@@ -213,11 +100,8 @@ export function ClinicPatientDetailPage() {
           </p>
         </div>
 
-<<<<<<< HEAD
         <div className="flex items-center gap-2">
-=======
-        <div className="flex flex-wrap items-center gap-2">
->>>>>>> origin/main
+
           <Button
             variant="outline"
             size="sm"
@@ -226,17 +110,7 @@ export function ClinicPatientDetailPage() {
           >
             Edit Profile
           </Button>
-<<<<<<< HEAD
-=======
-          <Button
-            variant="outline"
-            size="sm"
-            icon={FileUp}
-            onClick={() => setIsUploadDocOpen(true)}
-          >
-            Upload Lab Scan
-          </Button>
->>>>>>> origin/main
+
           <Link to={`/clinic/prescriptions/new?patient=${patient.id}`}>
             <Button variant="primary" size="sm" icon={PlusCircle}>
               Write Prescription
@@ -309,11 +183,8 @@ export function ClinicPatientDetailPage() {
           </Card>
         </div>
 
-<<<<<<< HEAD
         {/* Right Columns: Past Consultations, Prescriptions, Invoices */}
-=======
-        {/* Right Columns: Consultations, Prescriptions, Lab Scans & Invoices */}
->>>>>>> origin/main
+
         <div className="lg:col-span-8 space-y-6">
           {/* Consultations History */}
           <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
@@ -357,119 +228,7 @@ export function ClinicPatientDetailPage() {
             </div>
           </Card>
 
-<<<<<<< HEAD
-=======
-          {/* Dedicated Lab Reports, Scans & Diagnostics Vault */}
-          <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
-            <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <FlaskConical className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  Diagnostic Reports, Scans & Pathology Vault ({filteredDocs.length})
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Digital X-rays, blood profiles, MRI/CT scans, and external investigations
-                </p>
-              </div>
 
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg text-[11px] font-semibold">
-                  {['All', 'Pathology', 'Radiology'].map((cat) => (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => setDocCategoryFilter(cat)}
-                      className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                        docCategoryFilter === cat
-                          ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-300 shadow-xs'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-
-                <Button
-                  variant="primary"
-                  size="sm"
-                  icon={FileUp}
-                  onClick={() => setIsUploadDocOpen(true)}
-                  className="text-xs h-7 px-2.5 bg-purple-600 hover:bg-purple-700"
-                >
-                  Upload Scan
-                </Button>
-              </div>
-            </div>
-
-            <div className="p-4 space-y-3">
-              {filteredDocs.length === 0 ? (
-                <div className="p-6 text-center text-slate-400 dark:text-slate-500 text-xs">
-                  No diagnostic records found in this category. Click "Upload Scan" to attach patient tests.
-                </div>
-              ) : (
-                filteredDocs.map((doc) => (
-                  <div
-                    key={doc.id}
-                    className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
-                  >
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 dark:text-white text-xs">{doc.title}</span>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          doc.category === 'Radiology'
-                            ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800'
-                            : 'bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800'
-                        }`}>
-                          {doc.category}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
-                          {doc.fileSize}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Lab: <span className="font-semibold text-slate-700 dark:text-slate-300">{doc.lab}</span> · Sample Date: {doc.date}
-                      </p>
-                      <p className="text-[11px] text-slate-600 dark:text-slate-300 italic truncate max-w-lg">
-                        {doc.notes}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 shrink-0">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        icon={Eye}
-                        onClick={() => setViewingDoc(doc)}
-                        className="text-xs h-7 px-2.5"
-                      >
-                        Inspect
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        icon={Download}
-                        onClick={() => showToast(`Downloading diagnostic document: ${doc.title}.pdf`)}
-                        className="text-xs h-7 px-2"
-                      >
-                        PDF
-                      </Button>
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteDoc(doc.id)}
-                        className="p-1 rounded-md text-slate-400 hover:text-rose-600 cursor-pointer"
-                        title="Remove Document"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </Card>
-
->>>>>>> origin/main
           {/* Digital Prescriptions Archive */}
           <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
             <CardHeader
@@ -555,169 +314,7 @@ export function ClinicPatientDetailPage() {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
-      {/* Upload Diagnostic Report Modal */}
-      {isUploadDocOpen && (
-        <Modal
-          isOpen={isUploadDocOpen}
-          onClose={() => setIsUploadDocOpen(false)}
-          title={`Upload Diagnostic Lab Scan: ${patient.name}`}
-          size="md"
-        >
-          <form onSubmit={handleUploadDoc} className="space-y-4 text-xs">
-            <div>
-              <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                Investigation / Scan Name *
-              </label>
-              <input
-                required
-                type="text"
-                value={uploadTitle}
-                onChange={(e) => setUploadTitle(e.target.value)}
-                placeholder="e.g. Dental IOPA Radiograph #46 / Ultrasound Pelvis"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-purple-500"
-              />
-            </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                  Category *
-                </label>
-                <select
-                  value={uploadCategory}
-                  onChange={(e) => setUploadCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-purple-500"
-                >
-                  <option value="Pathology">Blood / Pathology</option>
-                  <option value="Radiology">Digital X-Ray / OPG</option>
-                  <option value="Imaging">USG / CT / MRI</option>
-                  <option value="Prescription">External Rx Scan</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                  Sample / Test Date
-                </label>
-                <input
-                  type="date"
-                  value={uploadDate}
-                  onChange={(e) => setUploadDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                Diagnostic Center / Laboratory
-              </label>
-              <input
-                type="text"
-                value={uploadLab}
-                onChange={(e) => setUploadLab(e.target.value)}
-                placeholder="e.g. Metropolis Healthcare / Dr. Lal PathLabs"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
-              />
-            </div>
-
-            {/* Simulated Drag & Drop Zone */}
-            <div className="p-6 border-2 border-dashed border-purple-300 dark:border-purple-800 rounded-xl bg-purple-50/30 dark:bg-purple-950/20 text-center space-y-2">
-              <FileUp className="w-8 h-8 text-purple-600 dark:text-purple-400 mx-auto" />
-              <p className="font-semibold text-slate-800 dark:text-slate-200">
-                Drag and drop PDF reports or DICOM/JPEG scans here
-              </p>
-              <p className="text-[10px] text-slate-400">
-                Supports PDF, DICOM, PNG, JPEG up to 25MB per file
-              </p>
-            </div>
-
-            <div>
-              <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                Clinician Observations & Impression
-              </label>
-              <textarea
-                rows={2}
-                value={uploadNotes}
-                onChange={(e) => setUploadNotes(e.target.value)}
-                placeholder="Key diagnostic findings for medical history..."
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2">
-              <Button variant="outline" type="button" onClick={() => setIsUploadDocOpen(false)}>
-                Cancel
-              </Button>
-              <Button variant="primary" type="submit" className="bg-purple-600 hover:bg-purple-700 font-bold">
-                Save to Patient Vault
-              </Button>
-            </div>
-          </form>
-        </Modal>
-      )}
-
-      {/* Inspect Diagnostic Document Viewer Modal */}
-      {viewingDoc && (
-        <Modal
-          isOpen={!!viewingDoc}
-          onClose={() => setViewingDoc(null)}
-          title={`Diagnostic Document: ${viewingDoc.title}`}
-          size="lg"
-        >
-          <div className="space-y-4 text-xs text-slate-800 dark:text-slate-200">
-            <div className="p-4 bg-slate-100 dark:bg-slate-800/80 rounded-xl flex items-center justify-between">
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white text-sm block">{viewingDoc.title}</span>
-                <span className="text-slate-500 dark:text-slate-400">
-                  {viewingDoc.lab} · {viewingDoc.date} · {viewingDoc.fileSize}
-                </span>
-              </div>
-              <Badge variant={viewingDoc.status === 'Normal' ? 'success' : 'warning'} size="sm">
-                {viewingDoc.status}
-              </Badge>
-            </div>
-
-            {/* Document Preview Sheet */}
-            <div className="p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 space-y-4 min-h-60 flex flex-col justify-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto">
-                <FlaskConical className="w-8 h-8" />
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-sm">
-                  Official Medical Laboratory Report Preview
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-1">
-                  Verified pathology findings for patient {patient.name} ({patient.patientIdNumber})
-                </p>
-              </div>
-
-              <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg text-left text-xs font-mono border border-slate-200 dark:border-slate-800 space-y-1">
-                <span className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Clinician Summary Findings:</span>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-sans">{viewingDoc.notes}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between pt-2">
-              <Button
-                variant="outline"
-                size="sm"
-                icon={Download}
-                onClick={() => showToast(`Downloading ${viewingDoc.title}.pdf`)}
-              >
-                Download Original PDF
-              </Button>
-              <Button variant="secondary" size="sm" onClick={() => setViewingDoc(null)}>
-                Close Preview
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )}
-
->>>>>>> origin/main
       {/* Edit Profile Modal */}
       {isEditModalOpen && (
         <Modal
@@ -790,35 +387,21 @@ export function ClinicPatientDetailPage() {
                   onChange={(e) => setEditForm({ ...editForm, bloodGroup: e.target.value })}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs font-bold"
                 >
-<<<<<<< HEAD
                   {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map((bg) => (
                     <option key={bg} value={bg}>{bg}</option>
                   ))}
-=======
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
->>>>>>> origin/main
+
                 </select>
               </div>
             </div>
 
             <div>
-<<<<<<< HEAD
               <label className="block text-xs font-semibold mb-1">Documented Drug Allergies</label>
-=======
-              <label className="block text-xs font-semibold mb-1">Known Drug Allergies (comma-separated)</label>
->>>>>>> origin/main
+
               <input
                 type="text"
                 value={editForm.allergies}
                 onChange={(e) => setEditForm({ ...editForm, allergies: e.target.value })}
-<<<<<<< HEAD
                 placeholder="Comma separated: Penicillin, Sulfa, Aspirin..."
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs text-rose-700 dark:text-rose-400 font-semibold"
               />
@@ -831,42 +414,28 @@ export function ClinicPatientDetailPage() {
                 value={editForm.emergencyContact}
                 onChange={(e) => setEditForm({ ...editForm, emergencyContact: e.target.value })}
                 placeholder="e.g. Ramesh Patel (Brother) - +91 98000 12345"
-=======
-                placeholder="e.g. Penicillin, Sulfa, Aspirin"
->>>>>>> origin/main
+
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs"
               />
             </div>
 
             <div>
-<<<<<<< HEAD
               <label className="block text-xs font-semibold mb-1">Address</label>
               <input
                 type="text"
-=======
-              <label className="block text-xs font-semibold mb-1">Residential Address</label>
-              <textarea
-                rows={2}
->>>>>>> origin/main
+
                 value={editForm.address}
                 onChange={(e) => setEditForm({ ...editForm, address: e.target.value })}
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs"
               />
             </div>
 
-<<<<<<< HEAD
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
               <Button variant="outline" size="sm" type="button" onClick={() => setIsEditModalOpen(false)}>
                 Cancel
               </Button>
               <Button variant="primary" size="sm" type="submit" icon={Save}>
-=======
-            <div className="flex justify-end gap-2 pt-2">
-              <Button variant="outline" type="button" onClick={() => setIsEditModalOpen(false)}>
-                Cancel
-              </Button>
-              <Button variant="primary" type="submit">
->>>>>>> origin/main
+
                 Save Changes
               </Button>
             </div>
@@ -876,7 +445,5 @@ export function ClinicPatientDetailPage() {
     </div>
   );
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
+

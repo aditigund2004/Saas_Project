@@ -789,8 +789,8 @@ export function PatientPharmacyPage() {
               </div>
 
               {/* Price Breakdown */}
-              <div className="p-4 rounded-xl bg-[#0D1729] border border-[#263B59] space-y-2 text-xs">
-                <div className="flex justify-between text-[#CBD5E1]">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0D1729] border border-slate-200 dark:border-[#263B59] space-y-2 text-xs">
+                <div className="flex justify-between text-slate-600 dark:text-[#CBD5E1]">
                   <span>Items Subtotal:</span>
                   <span className="font-mono font-semibold">₹{cartSubtotal}</span>
                 </div>
@@ -800,13 +800,13 @@ export function PatientPharmacyPage() {
                     <span className="font-mono font-bold">-₹{cartSavings}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-[#CBD5E1]">
+                <div className="flex justify-between text-slate-600 dark:text-[#CBD5E1]">
                   <span>Estimated Delivery Fee:</span>
                   <span className="font-mono font-semibold">
                     {deliveryFee === 0 ? 'FREE (Clinic Pickup)' : `₹${deliveryFee}`}
                   </span>
                 </div>
-                <div className="pt-2 border-t border-[#263B59] flex justify-between text-sm font-extrabold text-[#F1F5F9]">
+                <div className="pt-2 border-t border-slate-200 dark:border-[#263B59] flex justify-between text-sm font-extrabold text-slate-900 dark:text-[#F1F5F9]">
                   <span>Total Payable:</span>
                   <span className="font-mono text-teal-400">₹{cartTotal}</span>
                 </div>
@@ -858,12 +858,12 @@ export function PatientPharmacyPage() {
                   className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                     deliveryMethod === opt.id
                       ? 'border-teal-400 bg-teal-950/70 ring-1 ring-teal-400'
-                      : 'border-[#263B59] bg-[#172640] hover:bg-[#1C2D4B]'
+                      : 'border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#172640] hover:bg-slate-100 dark:hover:bg-[#1C2D4B]'
                   }`}
                 >
-                  <span className="font-bold text-[#F1F5F9] block text-xs">{opt.id}</span>
+                  <span className="font-bold text-slate-900 dark:text-[#F1F5F9] block text-xs">{opt.id}</span>
                   <span className="text-[10px] text-teal-400 font-bold block">{opt.fee}</span>
-                  <span className="text-[10px] text-[#94A3B8] block">{opt.time}</span>
+                  <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] block">{opt.time}</span>
                 </button>
               ))}
             </div>
@@ -872,7 +872,7 @@ export function PatientPharmacyPage() {
           {/* Delivery Address */}
           {deliveryMethod !== 'Clinic Pickup' && (
             <div className="space-y-1.5">
-              <label className="block font-bold text-[#CBD5E1] uppercase tracking-wider text-[11px]">
+              <label className="block font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider text-[11px]">
                 Delivery Street Address
               </label>
               <textarea
@@ -880,14 +880,14 @@ export function PatientPharmacyPage() {
                 value={deliveryAddress}
                 onChange={(e) => setDeliveryAddress(e.target.value)}
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#263B59] bg-[#0B1628] text-[#F1F5F9] text-xs font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none placeholder-[#94A3B8]"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] text-xs font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none placeholder-slate-400 dark:placeholder-[#94A3B8]"
               />
             </div>
           )}
 
           {/* Payment Method */}
           <div className="space-y-1.5">
-            <label className="block font-bold text-[#CBD5E1] uppercase tracking-wider text-[11px]">
+            <label className="block font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider text-[11px]">
               Payment Options
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -899,7 +899,7 @@ export function PatientPharmacyPage() {
                   className={`p-2.5 rounded-xl border text-left font-semibold transition-all cursor-pointer ${
                     paymentMethod === m
                       ? 'border-blue-400 bg-blue-950/70 text-blue-300'
-                      : 'border-[#263B59] bg-[#172640] text-[#CBD5E1]'
+                      : 'border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#172640] text-slate-700 dark:text-[#CBD5E1]'
                   }`}
                 >
                   {m}
@@ -909,12 +909,12 @@ export function PatientPharmacyPage() {
           </div>
 
           {/* Order Total Review */}
-          <div className="p-3.5 rounded-xl bg-[#0D1729] border border-[#263B59] space-y-1">
-            <div className="flex justify-between font-bold text-[#F1F5F9] text-xs">
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0D1729] border border-slate-200 dark:border-[#263B59] space-y-1">
+            <div className="flex justify-between font-bold text-slate-900 dark:text-[#F1F5F9] text-xs">
               <span>Final Amount to Pay:</span>
               <span className="font-mono text-base text-teal-400">₹{cartTotal}</span>
             </div>
-            <span className="text-[10px] text-[#94A3B8] block">
+            <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] block">
               Includes 5% Goods & Services Tax (GST) and licensed batch certification.
             </span>
           </div>
@@ -981,35 +981,35 @@ export function PatientPharmacyPage() {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#172640] border border-[#263B59] space-y-1.5">
-              <span className="font-bold text-[#CBD5E1] uppercase tracking-wider text-[10px] block">
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#172640] border border-slate-200 dark:border-[#263B59] space-y-1.5">
+              <span className="font-bold text-slate-500 dark:text-[#CBD5E1] uppercase tracking-wider text-[10px] block">
                 Active Composition & Strength
               </span>
-              <p className="font-mono text-[#F1F5F9] font-semibold">
+              <p className="font-mono text-slate-900 dark:text-[#F1F5F9] font-semibold">
                 {selectedMedicineForDetail.activeComposition}
               </p>
             </div>
 
             <div className="space-y-1">
-              <span className="font-bold text-[#CBD5E1] uppercase tracking-wider text-[10px] block">
+              <span className="font-bold text-slate-500 dark:text-[#CBD5E1] uppercase tracking-wider text-[10px] block">
                 Clinical Indication & Uses
               </span>
-              <p className="text-[#CBD5E1] leading-relaxed">
+              <p className="text-slate-700 dark:text-[#CBD5E1] leading-relaxed">
                 {selectedMedicineForDetail.description}
               </p>
             </div>
 
             <div className="space-y-1">
-              <span className="font-bold text-[#CBD5E1] uppercase tracking-wider text-[10px] block">
+              <span className="font-bold text-slate-500 dark:text-[#CBD5E1] uppercase tracking-wider text-[10px] block">
                 Dosage & Administration Protocol
               </span>
-              <p className="text-[#CBD5E1] leading-relaxed bg-[#172640] p-3 rounded-xl border border-[#263B59]">
+              <p className="text-slate-700 dark:text-[#CBD5E1] leading-relaxed bg-slate-50 dark:bg-[#172640] p-3 rounded-xl border border-slate-200 dark:border-[#263B59]">
                 {selectedMedicineForDetail.dosageInstructions}
               </p>
             </div>
 
             <div className="pt-2 flex items-center justify-between">
-              <span className="text-[#94A3B8] font-mono text-[11px]">
+              <span className="text-slate-500 dark:text-[#94A3B8] font-mono text-[11px]">
                 Manufactured by {selectedMedicineForDetail.manufacturer}
               </span>
               <Button

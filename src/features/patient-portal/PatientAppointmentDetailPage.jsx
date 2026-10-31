@@ -21,17 +21,11 @@ import {
   ShieldCheck,
   User,
   History,
-<<<<<<< HEAD
   Sparkles
 } from 'lucide-react';
 import { AIDurationBadge } from '../../components/ui/AIDurationBadge';
 import { calculateEndTime } from '../../utils/aiAppointmentDuration';
-=======
-  CreditCard,
-  Receipt
-} from 'lucide-react';
-import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
->>>>>>> origin/main
+
 
 export function PatientAppointmentDetailPage() {
   const { appointmentId } = useParams();
@@ -44,10 +38,7 @@ export function PatientAppointmentDetailPage() {
     showToast
   } = useApp();
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
->>>>>>> origin/main
+
 
   const apt = appointments.find((a) => a.id === appointmentId) || appointments[0];
 
@@ -198,7 +189,6 @@ export function PatientAppointmentDetailPage() {
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
-<<<<<<< HEAD
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Patient</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 text-base block">
                   {apt.patientName} {apt.relationship && apt.relationship !== 'Self' ? `(${apt.relationship})` : ''}
@@ -209,8 +199,7 @@ export function PatientAppointmentDetailPage() {
               </div>
 
               <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
-=======
->>>>>>> origin/main
+
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consulting Doctor</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 text-base block">{apt.doctorName}</span>
                 <span className="text-blue-600 dark:text-blue-400 font-semibold text-xs">{doctor?.specialty}</span>
@@ -221,7 +210,6 @@ export function PatientAppointmentDetailPage() {
                 <span className="font-bold font-mono text-slate-900 dark:text-slate-100 text-base block">
                   {apt.confirmedDate || apt.date} at {apt.confirmedTime || apt.time}
                 </span>
-<<<<<<< HEAD
                 <div className="flex items-center gap-1.5 pt-0.5">
                   <span className="text-slate-500 dark:text-slate-400 text-xs">
                     {apt.time || apt.requestedTime} → {calculateEndTime(apt.time || apt.requestedTime, apt.durationMinutes || 30)}
@@ -239,50 +227,7 @@ export function PatientAppointmentDetailPage() {
                   {formatCurrency(apt.consultationFee || doctor?.consultationFee || 600)}
                 </span>
                 <span className="text-slate-500 dark:text-slate-400 text-xs">Payable at clinic reception</span>
-=======
-                <span className="text-slate-500 dark:text-slate-400 text-xs">Duration: {apt.durationMinutes || 30} mins</span>
-              </div>
 
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Fee</span>
-                  {apt.paymentStatus === 'Paid' ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                      <CheckCircle2 className="w-3 h-3" /> Paid
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
-                      <Clock className="w-3 h-3" /> Due
-                    </span>
-                  )}
-                </div>
-                <span className="font-bold font-mono text-blue-600 dark:text-blue-400 text-lg block">
-                  {formatCurrency(apt.consultationFee || doctor?.consultationFee || 600)}
-                </span>
-                {apt.paymentStatus === 'Paid' ? (
-                  <div className="pt-1">
-                    <Link to="/patient/receipts">
-                      <Button variant="outline" size="sm" icon={Receipt} className="w-full text-xs text-emerald-700 dark:text-emerald-400 border-emerald-300">
-                        View Official Receipt
-                      </Button>
-                    </Link>
-                  </div>
-                ) : apt.status !== 'Cancelled' && apt.status !== 'Rejected' ? (
-                  <div className="pt-1">
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      icon={CreditCard}
-                      onClick={() => setIsPaymentModalOpen(true)}
-                      className="w-full text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
-                    >
-                      Pay Doctor Fee Now
-                    </Button>
-                  </div>
-                ) : (
-                  <span className="text-slate-500 dark:text-slate-400 text-xs">Appointment Cancelled</span>
-                )}
->>>>>>> origin/main
               </div>
 
               <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
@@ -296,7 +241,6 @@ export function PatientAppointmentDetailPage() {
               </div>
             </div>
 
-<<<<<<< HEAD
             {/* AI Dynamic Duration Factor Breakdown if available */}
             {apt.durationDetails && (
               <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
@@ -306,10 +250,7 @@ export function PatientAppointmentDetailPage() {
 
             {apt.notes && (
               <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300">
-=======
-            {apt.notes && (
-              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300">
->>>>>>> origin/main
+
                 <strong className="block text-slate-900 dark:text-slate-100 mb-1">Clinical / Booking Notes:</strong>
                 <span>{apt.notes}</span>
               </div>
@@ -393,16 +334,7 @@ export function PatientAppointmentDetailPage() {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-=======
 
-      {/* Doctor Consultation Fee Payment Gateway Modal */}
-      <DoctorPaymentModal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        appointment={apt}
-      />
->>>>>>> origin/main
     </div>
   );
 }

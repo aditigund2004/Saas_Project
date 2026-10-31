@@ -7,15 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-<<<<<<< HEAD
-    "preview": "vite preview"
-=======
     "preview": "vite preview",
     "test": "vitest run"
->>>>>>> origin/main
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "framer-motion": "^14.9.0",
     "lucide-react": "^1.61.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -28,11 +25,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "oxlint": "^1.88.0",
-<<<<<<< HEAD
-    "vite": "^8.3.4"
-=======
     "vite": "^8.3.4",
     "vitest": "^5.0.5"
->>>>>>> origin/main
   }
 }

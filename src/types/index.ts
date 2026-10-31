@@ -318,63 +318,7 @@ export interface PatientFeedback {
   updatedAt: string;
 }
 
-<<<<<<< HEAD
-export interface EmergencyContact {
-  name: string;
-  relationship: string;
-  phone: string;
-  alternatePhone?: string;
-  email?: string;
-  address?: string;
-  isAuthorizedToMakeDecisions?: boolean;
-}
 
-export interface EmergencyMedicalDetails {
-  bloodGroup: string;
-  allergies: string[];
-  chronicConditions?: string[];
-  currentMedications?: string[];
-  organDonor?: boolean;
-  primaryHospital?: string;
-  insuranceProvider?: string;
-  policyNumber?: string;
-  specialInstructions?: string;
-}
-
-export type FamilyRelationship = 'Mother' | 'Father' | 'Son' | 'Daughter' | 'Wife';
-
-export interface FamilyMemberRecord {
-  id: string;
-  type: 'Consultation' | 'Prescription' | 'Lab Report' | 'Vaccination';
-  title: string;
-  doctorName: string;
-  clinicName: string;
-  date: string;
-  summary: string;
-  diagnosis?: string;
-  status: string;
-}
-
-export interface FamilyMember {
-  id: string;
-  primaryPatientId: string;
-  name: string;
-  relationship: FamilyRelationship;
-  gender: 'Male' | 'Female' | 'Other';
-  dob: string;
-  bloodGroup: string;
-  phone?: string;
-  allergies?: string[];
-  chronicConditions?: string[];
-  currentMedications?: string[];
-  medicalNotes?: string;
-  recordsCount?: number;
-  records?: FamilyMemberRecord[];
-  registeredAt: string;
-}
-
-=======
->>>>>>> origin/main
 export interface Patient {
   id: string;
   clinicId: string;
@@ -389,12 +333,7 @@ export interface Patient {
   medicalHistory?: string;
   address?: string;
   emergencyContact?: string;
-<<<<<<< HEAD
-  emergencyContactDetails?: EmergencyContact;
-  emergencyMedicalDetails?: EmergencyMedicalDetails;
-  familyMembers?: FamilyMember[];
-=======
->>>>>>> origin/main
+
   registeredAt: string;
   status: 'Active' | 'Inactive';
 }
@@ -501,123 +440,7 @@ export interface PrescriptionVerification {
   verificationNotice: string;
 }
 
-<<<<<<< HEAD
-export type DoseStatus = 'pending' | 'taken' | 'missed';
-export type TimeOfDay = 'Morning' | 'Afternoon' | 'Evening' | 'Bedtime';
 
-export interface MedicationReminderConfig {
-  id: string;
-  patientId: string;
-  prescriptionId: string;
-  prescriptionNumber: string;
-  medicationId: string;
-  medicationName: string;
-  prescribedDosage: string; // Immutable, set by doctor
-  prescribedFrequency: string; // Immutable, set by doctor
-  duration: string;
-  route: string;
-  instructions: string;
-  doctorName: string;
-  clinicName: string;
-  enabled: boolean;
-  reminderTimes: {
-    morning?: string;
-    afternoon?: string;
-    evening?: string;
-    bedtime?: string;
-  };
-  channels: {
-    whatsapp: boolean;
-    inApp: boolean;
-  };
-  whatsappPhone?: string;
-  startDate: string;
-  endDate?: string;
-  dosageLocked: boolean; // Clinical safety: true to guarantee dose cannot be modified
-}
-
-export interface MedicationDoseLog {
-  id: string;
-  patientId: string;
-  reminderId: string;
-  prescriptionId: string;
-  prescriptionNumber: string;
-  medicationName: string;
-  dosage: string; // Prescribed immutable dose
-  scheduledTime: string; // e.g. "08:30 AM"
-  timeOfDay: TimeOfDay;
-  instructions: string;
-  doctorName: string;
-  clinicName: string;
-  date: string; // YYYY-MM-DD
-  status: DoseStatus;
-  takenAt?: string;
-  missedAt?: string;
-  notes?: string;
-}
-
-export interface MedicineInformation {
-  id: string;
-  name: string;
-  genericName: string;
-  brandName?: string;
-  drugClass: string;
-  purpose: string;
-  howToTake: string;
-  foodInstructions: string;
-  missedDoseGuidance: string;
-  commonSideEffects: string[];
-  seriousSideEffects: string[];
-  warnings: string[];
-  storage: string;
-  pregnancyLactation?: string;
-}
-
-export type PatientQueryCategory =
-  | 'Bill Clarification'
-  | 'Prescription Clarification'
-  | 'General Clinical Query'
-  | 'Appointment & Scheduling';
-
-export type PatientQueryStatus = 'Awaiting Staff Reply' | 'Staff Replied' | 'Resolved';
-
-export interface PatientQueryMessage {
-  id: string;
-  senderId: string;
-  senderName: string;
-  senderRole: 'patient' | 'doctor' | 'receptionist' | 'billing' | 'clinic_admin';
-  senderBadge: string;
-  message: string;
-  timestamp: string;
-  isStaff: boolean;
-  avatar?: string;
-}
-
-export interface PatientQuery {
-  id: string;
-  queryNumber: string; // e.g. QRY-2026-081
-  patientId: string;
-  patientName: string;
-  patientPhone: string;
-  clinicId: string;
-  clinicName: string;
-  category: PatientQueryCategory;
-  relatedEntityId?: string; // invoiceId, prescriptionId, appointmentId
-  relatedEntityLabel?: string; // e.g. "Invoice #INV-2026-0391"
-  subject: string;
-  status: PatientQueryStatus;
-  urgency: 'Routine Non-Emergency' | 'Prompt Clinical Review';
-  expectedResponseHours: number;
-  expectedResponseText: string;
-  assignedStaffName?: string;
-  assignedStaffRole?: string;
-  createdAt: string;
-  updatedAt: string;
-  messages: PatientQueryMessage[];
-}
-
-=======
->>>>>>> origin/main
 export interface InvoiceLineItem {
   id: string;
   description: string;
@@ -720,38 +543,12 @@ export interface ClinicPaymentRecord {
   patientName: string;
   invoiceNumber: string;
   amount: number;
-<<<<<<< HEAD
-  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking';
-=======
-  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking' | string;
->>>>>>> origin/main
+
   date: string;
   status: 'Completed' | 'Pending';
 }
 
-<<<<<<< HEAD
-=======
-export interface ReceiptRecord {
-  id: string;
-  receiptNumber: string;
-  paymentReference: string;
-  invoiceNumber: string;
-  invoiceId?: string;
-  patientId: string;
-  patientName: string;
-  amount: number;
-  paymentMethod: string;
-  date: string;
-  time?: string;
-  clinicId?: string;
-  clinicName?: string;
-  branchId?: string;
-  issuedBy?: string;
-  status: 'Issued' | 'Void';
-  notes?: string;
-}
 
->>>>>>> origin/main
 export interface ClinicRefundRecord {
   id: string;
   requestReference: string;
@@ -1006,26 +803,4 @@ export interface PlatformMetric {
   registeredUsers: number;
 }
 
-<<<<<<< HEAD
-=======
-export interface VirtualConsultation {
-  id: string;
-  patientId: string;
-  patientName: string;
-  patientPhone: string;
-  patientAvatar?: string;
-  doctorId: string;
-  doctorName: string;
-  doctorSpecialty: string;
-  clinicId: string;
-  clinicName: string;
-  reason: string;
-  status: 'Waiting' | 'Connecting' | 'In Call' | 'Completed' | 'Declined';
-  requestedAt: string;
-  preferredTime: string;
-  meetingLink: string;
-  notes?: string;
-  duration?: string;
-}
 
->>>>>>> origin/main

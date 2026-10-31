@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useTheme } from '../../context/ThemeContext';
-<<<<<<< HEAD
 import { FontSizeSwitcher } from '../../components/ui/FontSizeSwitcher';
-=======
->>>>>>> origin/main
+
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
-<<<<<<< HEAD
-=======
-import { useDashboardLayout } from '../../hooks/useDashboardLayout';
-import { CustomizableDashboardHeader } from '../../components/dashboard/CustomizableDashboardHeader';
->>>>>>> origin/main
+
 import {
   Calendar,
   Users,
@@ -62,12 +56,7 @@ export function ClinicDashboardPage() {
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-=======
-  const { widgets, toggleWidget, moveWidget, resetToDefault, isWidgetVisible } =
-    useDashboardLayout('doctor_admin');
 
->>>>>>> origin/main
   // Tab & Filter States
   const [activeTab, setActiveTab] = useState('today'); // 'today' | 'upcoming' | 'all'
   const [searchQuery, setSearchQuery] = useState('');
@@ -212,17 +201,7 @@ export function ClinicDashboardPage() {
 
         {/* Right: Support, Ask AI, Search, Theme & Live Website Pill */}
         <div className="flex flex-wrap items-center gap-2.5">
-<<<<<<< HEAD
-=======
-          {/* Customizable Dashboard Layout Manager */}
-          <CustomizableDashboardHeader
-            widgets={widgets}
-            onToggleWidget={toggleWidget}
-            onMoveWidget={moveWidget}
-            onResetLayout={resetToDefault}
-          />
 
->>>>>>> origin/main
           {/* Support Button */}
           <Link to="/clinic/support">
             <button className="px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 transition-colors cursor-pointer">
@@ -260,12 +239,10 @@ export function ClinicDashboardPage() {
             </button>
           </Link>
 
-<<<<<<< HEAD
           {/* Font Size Selector */}
           <FontSizeSwitcher variant="dropdown" />
 
-=======
->>>>>>> origin/main
+
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}

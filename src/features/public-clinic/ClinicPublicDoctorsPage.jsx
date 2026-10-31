@@ -2,13 +2,9 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import {
-  Stethoscope,
   Calendar,
   Clock,
   Award,
-  Phone,
-  Mail,
-  CheckCircle2,
   ArrowRight
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
@@ -28,7 +24,6 @@ export function ClinicPublicDoctorsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       {/* Title */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-<<<<<<< HEAD
         <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-[#22D3EE]">
           Medical Roster
         </span>
@@ -36,15 +31,6 @@ export function ClinicPublicDoctorsPage() {
           Consulting Specialists at {clinic.name}
         </h1>
         <p className="text-sm text-slate-600 dark:text-[#94A3B8]">
-=======
-        <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
-          Medical Roster
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-          Consulting Specialists at {clinic.name}
-        </h1>
-        <p className="text-sm text-slate-600 dark:text-slate-300">
->>>>>>> origin/main
           Board-certified medical practitioners dedicated to empathetic, evidence-backed patient outcomes.
         </p>
       </div>
@@ -54,7 +40,6 @@ export function ClinicPublicDoctorsPage() {
         {clinicDoctors.map((doc) => (
           <Card
             key={doc.id}
-<<<<<<< HEAD
             className="overflow-hidden border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] flex flex-col justify-between hover:shadow-lg transition-all"
           >
             <div>
@@ -73,26 +58,6 @@ export function ClinicPublicDoctorsPage() {
                     {doc.name}
                   </h3>
                   <p className="text-xs text-slate-600 dark:text-[#94A3B8] font-mono truncate">
-=======
-            className="overflow-hidden border-slate-200 dark:border-slate-800 flex flex-col justify-between hover:shadow-lg transition-all"
-          >
-            <div>
-              {/* Doctor Headshot Header */}
-              <div className="p-6 bg-slate-50 dark:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800 flex items-center gap-4">
-                <img
-                  src={doc.avatar}
-                  alt={doc.name}
-                  className="w-20 h-20 rounded-2xl object-cover border-2 border-white dark:border-slate-700 shadow-sm shrink-0"
-                />
-                <div className="min-w-0">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 inline-block mb-1">
-                    {doc.specialty}
-                  </span>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white truncate">
-                    {doc.name}
-                  </h3>
-                  <p className="text-xs text-slate-500 font-mono truncate">
->>>>>>> origin/main
                     {doc.qualifications}
                   </p>
                   <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
@@ -104,73 +69,40 @@ export function ClinicPublicDoctorsPage() {
               {/* Doctor Details */}
               <div className="p-6 space-y-4 text-xs">
                 <div className="space-y-2">
-<<<<<<< HEAD
                   <div className="flex items-center justify-between text-slate-600 dark:text-[#CBD5E1]">
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-[#94A3B8]" />
                       Consultation Hours:
                     </span>
                     <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">
-=======
-                  <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-slate-400" />
-                      Consultation Hours:
-                    </span>
-                    <span className="font-semibold text-slate-900 dark:text-white">
->>>>>>> origin/main
                       {doc.workingHours}
                     </span>
                   </div>
 
-<<<<<<< HEAD
                   <div className="flex items-center justify-between text-slate-600 dark:text-[#CBD5E1]">
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-[#94A3B8]" />
                       Available Days:
                     </span>
                     <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">
-=======
-                  <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                      Available Days:
-                    </span>
-                    <span className="font-semibold text-slate-900 dark:text-white">
->>>>>>> origin/main
                       {doc.availableDays ? doc.availableDays.join(', ') : 'Mon - Sat'}
                     </span>
                   </div>
 
-<<<<<<< HEAD
                   <div className="flex items-center justify-between text-slate-600 dark:text-[#CBD5E1]">
                     <span className="flex items-center gap-1.5">
                       <Award className="w-3.5 h-3.5 text-slate-400 dark:text-[#94A3B8]" />
                       Medical Reg No:
                     </span>
                     <span className="font-mono text-slate-900 dark:text-[#F1F5F9] font-medium">
-=======
-                  <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <Award className="w-3.5 h-3.5 text-slate-400" />
-                      Medical Reg No:
-                    </span>
-                    <span className="font-mono text-slate-900 dark:text-white font-medium">
->>>>>>> origin/main
                       {doc.registrationNumber || 'MCI-88492'}
                     </span>
                   </div>
                 </div>
 
-<<<<<<< HEAD
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#0D1729] border border-slate-200 dark:border-[#263B59] flex items-center justify-between">
                   <span className="text-xs text-slate-500 dark:text-[#94A3B8]">First Consultation Fee</span>
                   <span className="text-base font-extrabold text-blue-600 dark:text-[#22D3EE]">
-=======
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between">
-                  <span className="text-xs text-slate-500">First Consultation Fee</span>
-                  <span className="text-base font-extrabold text-blue-600 dark:text-blue-400">
->>>>>>> origin/main
                     ₹{doc.consultationFee}
                   </span>
                 </div>
@@ -199,3 +131,4 @@ export function ClinicPublicDoctorsPage() {
   );
 }
 
+export default ClinicPublicDoctorsPage;

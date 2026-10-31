@@ -18,14 +18,8 @@ import {
   Info,
   RefreshCw,
   PlusCircle,
-<<<<<<< HEAD
   HelpCircle
-=======
-  HelpCircle,
-  List,
-  LayoutGrid,
-  Eye
->>>>>>> origin/main
+
 } from 'lucide-react';
 
 export function PatientRequestsPage() {
@@ -33,20 +27,15 @@ export function PatientRequestsPage() {
     appointments,
     respondToAlternativeSlot,
     currentUser,
-<<<<<<< HEAD
     familyMembers = [],
-=======
->>>>>>> origin/main
+
     formatCurrency,
     showToast
   } = useApp();
 
   const [simulateConflictMode, setSimulateConflictMode] = useState(false);
   const [selectedRequestForDetail, setSelectedRequestForDetail] = useState(null);
-<<<<<<< HEAD
-=======
-  const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
->>>>>>> origin/main
+
 
   // Filter requests for patient: Pending Clinic Confirmation, Alternative Slot Proposed, Awaiting Patient Response, Rejected
   const requestStatuses = [
@@ -60,13 +49,10 @@ export function PatientRequestsPage() {
     const isPatientMatch =
       a.patientName === currentUser?.name ||
       a.patientId === 'pt-1041' ||
-<<<<<<< HEAD
       a.patientId === currentUser?.id ||
       !a.patientId ||
       familyMembers.some((fm) => fm.name === a.patientName);
-=======
-      !a.patientId;
->>>>>>> origin/main
+
 
     const isRequestStatus =
       requestStatuses.includes(a.status) ||
@@ -134,7 +120,6 @@ export function PatientRequestsPage() {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-<<<<<<< HEAD
           <button
             type="button"
             onClick={() => {
@@ -157,62 +142,7 @@ export function PatientRequestsPage() {
       </div>
 
       {/* Requests List */}
-=======
-          <div className="flex items-center gap-2">
-            {/* View Mode Toggle */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
-              <button
-                type="button"
-                onClick={() => setViewMode('table')}
-                className={`p-1.5 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'table'
-                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-                }`}
-                title="Table View"
-              >
-                <List className="w-3.5 h-3.5" />
-                <span>Table</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('cards')}
-                className={`p-1.5 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'cards'
-                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-                }`}
-                title="Card View"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>Cards</span>
-              </button>
-            </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                setSimulateConflictMode(!simulateConflictMode);
-                showToast(
-                  !simulateConflictMode
-                    ? 'Simulated Conflict Mode ENABLED: Accepting alternative will trigger concurrency conflict!'
-                    : 'Simulated Conflict Mode DISABLED: Normal availability check active.'
-                );
-              }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all border cursor-pointer ${
-                simulateConflictMode
-                  ? 'bg-red-600 text-white border-red-700 shadow-sm ring-2 ring-red-400/30'
-                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
-              }`}
-            >
-              {simulateConflictMode ? '⚠️ Concurrency Conflict Active' : 'Normal Slot Validation'}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Requests: Table Structure (Default) */}
->>>>>>> origin/main
       {myRequests.length === 0 ? (
         <Card className="p-12 text-center space-y-3.5 border-dashed border-2 border-slate-200 dark:border-slate-800 dark:bg-slate-900/60">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 mx-auto flex items-center justify-center font-bold text-xl">
@@ -230,140 +160,7 @@ export function PatientRequestsPage() {
             </Link>
           </div>
         </Card>
-<<<<<<< HEAD
-=======
-      ) : viewMode === 'table' ? (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                  <th className="py-3.5 px-3 text-center w-12">#</th>
-                  <th className="py-3.5 px-4">Request Ref & Clinic</th>
-                  <th className="py-3.5 px-4">Doctor & Specialty</th>
-                  <th className="py-3.5 px-3">Service</th>
-                  <th className="py-3.5 px-3">Requested Slot</th>
-                  <th className="py-3.5 px-4">Alternative Offered</th>
-                  <th className="py-3.5 px-3">Status</th>
-                  <th className="py-3.5 px-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {myRequests.map((req, idx) => {
-                  const hasAlternative =
-                    req.status === 'Alternative Slot Proposed' ||
-                    req.status === 'Awaiting Patient Response';
-                  const latestAlt = req.proposedAlternatives?.[0];
 
-                  return (
-                    <tr
-                      key={req.id}
-                      className={`hover:bg-blue-50/40 dark:hover:bg-slate-800/40 transition-colors group ${
-                        hasAlternative ? 'bg-blue-50/30 dark:bg-blue-950/20' : ''
-                      }`}
-                    >
-                      <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
-                        {idx + 1}
-                      </td>
-                      <td className="py-3.5 px-4">
-                        <div className="font-bold text-slate-900 dark:text-slate-100 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                          {req.clinicName}
-                        </div>
-                        <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
-                          {req.requestId || req.referenceNumber || req.id}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <div className="font-semibold text-slate-800 dark:text-slate-200 text-sm">
-                          Dr. {req.doctorName}
-                        </div>
-                        <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
-                          Consulting Physician
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-3 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                        {req.serviceName}
-                      </td>
-
-                      <td className="py-3.5 px-3">
-                        <div className="font-mono text-xs font-bold text-slate-800 dark:text-slate-200">
-                          {req.requestedDate}
-                        </div>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
-                          {req.requestedTime}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        {hasAlternative && latestAlt ? (
-                          <div className="p-2 rounded-lg bg-blue-100/70 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 text-xs text-blue-950 dark:text-blue-200 space-y-1">
-                            <div className="font-bold">
-                              {latestAlt.date} at {latestAlt.time}
-                            </div>
-                            <div className="flex items-center gap-1.5 pt-0.5">
-                              <Button
-                                variant="primary"
-                                size="xs"
-                                onClick={() => handleAcceptAlternative(req.id)}
-                                className="text-[11px] font-bold"
-                              >
-                                Accept Slot
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="xs"
-                                onClick={() => handleDeclineAlternative(req.id)}
-                                className="text-[11px]"
-                              >
-                                Decline
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <span className="text-xs text-slate-400 dark:text-slate-500 italic">
-                            None pending
-                          </span>
-                        )}
-                      </td>
-
-                      <td className="py-3.5 px-3">
-                        <span
-                          className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold whitespace-nowrap ${
-                            hasAlternative
-                              ? 'bg-blue-600 text-white shadow-xs'
-                              : req.status === 'Pending Clinic Confirmation' || req.status === 'Requested'
-                              ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
-                              : 'bg-red-100 dark:bg-red-950/60 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800'
-                          }`}
-                        >
-                          {req.status}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4 text-right">
-                        <Button
-                          variant="outline"
-                          size="xs"
-                          onClick={() => setSelectedRequestForDetail(req)}
-                          className="text-xs"
-                        >
-                          Details
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
-            <span>Displaying {myRequests.length} appointment booking requests</span>
-            <span>All responses sync with clinic front desk in real-time</span>
-          </div>
-        </div>
->>>>>>> origin/main
       ) : (
         <div className="space-y-4">
           {myRequests.map((req) => {
@@ -393,7 +190,6 @@ export function PatientRequestsPage() {
                         <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">{req.clinicName}</h3>
                         <span className="font-mono text-xs text-slate-400 dark:text-slate-500">{req.requestId || req.referenceNumber}</span>
                       </div>
-<<<<<<< HEAD
                       <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
                         <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
                           Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
@@ -404,11 +200,7 @@ export function PatientRequestsPage() {
                           </span>
                         )}
                       </div>
-=======
-                      <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
-                        Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
-                      </p>
->>>>>>> origin/main
+
                     </div>
                   </div>
 

@@ -4,12 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
-<<<<<<< HEAD
-=======
-import { StatCard } from '../../components/ui/StatCard';
-import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
-import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
->>>>>>> origin/main
+
 import {
   Calendar,
   FileText,
@@ -17,7 +12,6 @@ import {
   PlusCircle,
   Clock,
   Printer,
-<<<<<<< HEAD
   ShieldAlert,
   Users,
   Plus,
@@ -61,30 +55,11 @@ function calculateAge(dob) {
 export function PatientDashboardPage() {
   const {
     currentUser,
-=======
-  CreditCard,
-  MessageSquareHeart,
-  Star,
-  CheckCircle2,
-  AlertCircle,
-  ArrowRight,
-  ShieldCheck,
-  Video,
-  Languages
-} from 'lucide-react';
-import { useLanguage } from '../../context/LanguageContext';
 
-export function PatientDashboardPage() {
-  const { language, setLanguage, t } = useLanguage();
-  const {
-    currentUser,
-    activePatientId,
->>>>>>> origin/main
     patients = [],
     appointments = [],
     prescriptions = [],
     invoices = [],
-<<<<<<< HEAD
     encounters = [],
     familyMembers = [],
     doseLogs = [],
@@ -151,105 +126,11 @@ export function PatientDashboardPage() {
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Discover specialized clinic networks, manage booking requests, and access tamper-evident digital prescriptions.
-=======
-    receipts = [],
-    feedbacks = [],
-    openPrescriptionModal,
-    formatCurrency
-  } = useApp();
 
-  const [paymentModalApt, setPaymentModalApt] = useState(null);
-
-  const activePatient =
-    patients.find((p) => p.id === activePatientId || p.patientIdNumber === activePatientId) ||
-    patients.find((p) => p.name === currentUser?.name) ||
-    patients[0];
-
-  // Strictly filter for the active demo patient
-  const myAppointments = appointments.filter(
-    (a) =>
-      a.patientId === activePatient?.id ||
-      a.patientId === activePatient?.patientIdNumber ||
-      a.patientName === activePatient?.name
-  );
-
-  const myPrescriptions = prescriptions.filter(
-    (p) =>
-      p.patientId === activePatient?.id ||
-      p.patientId === activePatient?.patientIdNumber ||
-      p.patientName === activePatient?.name
-  );
-
-  const myInvoices = invoices.filter(
-    (i) =>
-      i.patientId === activePatient?.id ||
-      i.patientId === activePatient?.patientIdNumber ||
-      i.patientName === activePatient?.name
-  );
-
-  const myReceipts = receipts.filter(
-    (r) =>
-      r.patientId === activePatient?.id ||
-      r.patientId === activePatient?.patientIdNumber ||
-      r.patientName === activePatient?.name
-  );
-
-  const myFeedbacks = feedbacks.filter(
-    (f) =>
-      f.patientId === activePatient?.id ||
-      f.patientName === activePatient?.name
-  );
-
-  // Completed appointments that need feedback
-  const completedAppointments = myAppointments.filter((a) => a.status === 'Completed');
-  const appointmentsAwaitingFeedback = completedAppointments.filter(
-    (a) => !myFeedbacks.some((f) => f.appointmentId === a.id)
-  );
-
-  // Outstanding balance across invoices + unpaid consultation fees
-  const totalInvoiceDues = myInvoices.reduce((sum, inv) => {
-    const paid = Number(inv.amountPaid) || 0;
-    const balance = Math.max(0, (Number(inv.totalAmount) || 0) - paid);
-    return sum + balance;
-  }, 0);
-
-  const totalUnpaidAppointmentFees = myAppointments
-    .filter((a) => a.paymentStatus !== 'Paid' && a.status !== 'Cancelled' && a.status !== 'Rejected')
-    .reduce((sum, a) => {
-      const hasInvoice = myInvoices.some((i) => i.appointmentId === a.id || i.referenceNumber === a.referenceNumber);
-      return hasInvoice ? sum : sum + (Number(a.consultationFee) || 600);
-    }, 0);
-
-  const totalOutstandingBalance = totalInvoiceDues + totalUnpaidAppointmentFees;
-
-  const upcoming = myAppointments.filter((a) =>
-    ['Confirmed', 'Patient Checked In', 'Checked In', 'In Consultation', 'In Progress'].includes(a.status)
-  );
-
-  const nextAppointment = upcoming[0] || null;
-
-  return (
-    <div className="space-y-6">
-      {/* 1. Patient Identity Simulation Switcher */}
-      <DemoPatientSwitcher />
-
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-            Patient Care Hub
-          </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">
-            Welcome, {activePatient?.name || 'Aarav'} 👋
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Access your consultation timeline, digital prescriptions, invoices, and verified settlement receipts.
->>>>>>> origin/main
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-<<<<<<< HEAD
           <button
             type="button"
             onClick={() => setIsEmergencyModalOpen(true)}
@@ -272,61 +153,12 @@ export function PatientDashboardPage() {
           <Link to="/patient/appointments/book">
             <Button variant="primary" size="md" icon={PlusCircle} className="shadow-md shadow-blue-500/20">
               Book Consultation
-=======
-          {/* Multilingual Selector (English / Hindi / Marathi) */}
-          <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold">
-            <Languages className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ml-1.5 mr-0.5" />
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
-                language === 'en'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('hi')}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
-                language === 'hi'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-              }`}
-            >
-              हिंदी
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('mr')}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
-                language === 'mr'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-              }`}
-            >
-              मराठी
-            </button>
-          </div>
 
-          <Link to="/patient/virtual-consulting">
-            <Button variant="outline" size="md" className="font-bold flex items-center gap-1.5 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
-              <Video className="w-4 h-4" />
-              <span>Connect Virtually</span>
-            </Button>
-          </Link>
-          <Link to="/patient/appointments/book">
-            <Button variant="primary" size="md" icon={PlusCircle} className="shadow-md shadow-blue-500/20 font-bold">
-              {t('nav.book', 'Book Appointment')}
->>>>>>> origin/main
             </Button>
           </Link>
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* Action Required Banner for Alternative Proposals */}
       {actionRequiredProposals.length > 0 && (
         <div className="p-4 sm:p-5 bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
@@ -354,42 +186,12 @@ export function PatientDashboardPage() {
           <Link to="/patient/appointments/requests">
             <Button variant="primary" size="md" className="bg-amber-600 hover:bg-amber-700 text-white font-semibold whitespace-nowrap shadow-sm">
               Review Proposal ({actionRequiredProposals.length}) &rarr;
-=======
-      {/* 2. Feedback Request Banner for Completed Visits */}
-      {appointmentsAwaitingFeedback.length > 0 && (
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 border border-amber-300 dark:border-amber-800 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
-          <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/30">
-              <Star className="w-5 h-5 text-amber-600 dark:text-amber-400 fill-amber-500" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-extrabold text-amber-900 dark:text-amber-200 bg-amber-200 dark:bg-amber-900/60 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  Patient Experience Feedback
-                </span>
-                <span className="text-xs text-amber-700 dark:text-amber-400 font-mono">
-                  Ref: {appointmentsAwaitingFeedback[0].referenceNumber}
-                </span>
-              </div>
-              <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                How was your visit with Dr. {appointmentsAwaitingFeedback[0].doctorName}?
-              </h2>
-              <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
-                Your consultation on {appointmentsAwaitingFeedback[0].date} was completed. Share your ratings and comments to help our clinic maintain high clinical standards.
-              </p>
-            </div>
-          </div>
-          <Link to={`/patient/feedback?appointment=${appointmentsAwaitingFeedback[0].id}`}>
-            <Button variant="primary" size="sm" className="bg-amber-600 hover:bg-amber-700 text-white font-bold whitespace-nowrap shadow-sm">
-              <Star className="w-3.5 h-3.5 mr-1.5 fill-white" />
-              Rate Visit (1–5 Stars) &rarr;
->>>>>>> origin/main
+
             </Button>
           </Link>
         </div>
       )}
 
-<<<<<<< HEAD
       {/* Pending Review Notice if any pending without proposal */}
       {actionRequiredProposals.length === 0 && pendingRequests.length > 0 && (
         <div className="p-4 bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 rounded-2xl flex items-center justify-between text-sm text-blue-950 dark:text-blue-200">
@@ -482,7 +284,7 @@ export function PatientDashboardPage() {
       />
 
       {/* Featured Preventive Health Packages (3 col per row grid) */}
-      <Card className="rounded-3xl border-[#263B59] bg-[#111E33] shadow-lg shadow-black/20 overflow-hidden">
+      <Card className="rounded-3xl border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden">
         <CardHeader
           title={
             <div className="flex items-center gap-2">
@@ -511,7 +313,7 @@ export function PatientDashboardPage() {
               return (
                 <div
                   key={pkg.id}
-                  className="relative overflow-hidden p-5 rounded-3xl border border-[#263B59] bg-[#172640] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                  className="relative overflow-hidden p-5 rounded-3xl border border-[#E2E8F0] dark:border-[#263B59] bg-white dark:bg-[#172640] shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent pointer-events-none" />
                   <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/50 dark:ring-white/10 pointer-events-none" />
@@ -529,24 +331,24 @@ export function PatientDashboardPage() {
                     </div>
 
                     <div>
-                      <h4 className="font-extrabold text-base text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <h4 className="font-extrabold text-base text-[#172033] dark:text-[#F1F5F9] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {pkg.name}
                       </h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">
+                      <p className="text-xs text-[#64748B] dark:text-[#94A3B8] line-clamp-2 mt-1">
                         {pkg.shortDescription || pkg.tagline}
                       </p>
                     </div>
 
                     {/* Tests & Fasting Chips */}
                     <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                      <span className="font-bold text-slate-800 dark:text-slate-200 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                      <span className="font-bold text-[#334155] dark:text-slate-200 px-2 py-0.5 rounded-md bg-[#F1F5F9] dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                         {pkg.parametersCount || 50} Lab Tests
                       </span>
-                      <span className="text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                      <span className="text-[#475569] dark:text-slate-300 px-2 py-0.5 rounded-md bg-[#F1F5F9] dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                         {pkg.fastingHours > 0 ? `${pkg.fastingHours}h Fasting` : 'No Fasting'}
                       </span>
                       {pkg.doctorSpecialtyConsult && (
-                        <span className="text-emerald-700 dark:text-emerald-400 font-semibold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+                        <span className="text-[#047857] dark:text-emerald-400 font-semibold px-2 py-0.5 rounded-md bg-[#D1FAE5] dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
                           + Physician Review
                         </span>
                       )}
@@ -561,7 +363,7 @@ export function PatientDashboardPage() {
                         {inclusionsList.slice(0, 3).map((inc, i) => (
                           <span
                             key={i}
-                            className="text-[11px] text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-slate-800"
+                            className="text-[11px] text-[#334155] dark:text-slate-300 bg-[#F1F5F9] dark:bg-slate-800/60 px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-slate-800"
                           >
                             {inc.category ? inc.category.split('(')[0].trim() : 'Lab Panel'} ({inc.tests?.length || 0})
                           </span>
@@ -579,20 +381,20 @@ export function PatientDashboardPage() {
                   <div className="relative z-10 pt-4 mt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
                     <div>
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-xl font-black text-slate-900 dark:text-white">
+                        <span className="text-xl font-black text-[#172033] dark:text-[#F1F5F9]">
                           ₹{pkg.price.toLocaleString('en-IN')}
                         </span>
-                        <span className="text-xs text-slate-400 line-through">
+                        <span className="text-xs text-[#94A3B8] line-through">
                           ₹{pkg.originalPrice.toLocaleString('en-IN')}
                         </span>
                       </div>
-                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                      <span className="text-[10px] font-bold text-[#059669] dark:text-emerald-400">
                         Save {discountPercent}% today
                       </span>
                     </div>
 
                     <Link to={`/patient/packages?pkg=${pkg.id}`}>
-                      <Button variant="primary" size="sm" className="shadow-xs text-xs">
+                      <Button variant="primary" size="sm" className="bg-[#2563EB] hover:bg-blue-700 text-white shadow-xs text-xs">
                         Book Checkup
                       </Button>
                     </Link>
@@ -620,7 +422,7 @@ export function PatientDashboardPage() {
       </Card>
 
       {/* Family Health Circle & Dependent Records Widget */}
-      <Card className="rounded-3xl border-[#263B59] bg-[#111E33] shadow-lg shadow-black/20 overflow-hidden">
+      <Card className="rounded-3xl border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden">
         <CardHeader
           title={
             <div className="flex items-center gap-2">
@@ -680,7 +482,7 @@ export function PatientDashboardPage() {
               return (
                 <div
                   key={member.id}
-                  className="relative overflow-hidden p-4 rounded-3xl border border-[#263B59] bg-[#172640] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between space-y-3 group"
+                  className="relative overflow-hidden p-4 rounded-3xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#172640] shadow-sm hover:shadow-md dark:shadow-md dark:hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between space-y-3 group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent pointer-events-none" />
                   <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/50 dark:ring-white/10 pointer-events-none" />
@@ -769,7 +571,7 @@ export function PatientDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Next Scheduled Visit Card */}
         <div className="lg:col-span-7 space-y-4">
-          <Card className="rounded-3xl border-[#263B59] bg-[#111E33] shadow-lg shadow-black/20 overflow-hidden">
+          <Card className="rounded-3xl border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden">
             <CardHeader
               title="Upcoming Consultations"
               subtitle="Visits scheduled with your healthcare practitioners"
@@ -793,7 +595,7 @@ export function PatientDashboardPage() {
                 upcoming.map((apt) => (
                   <div
                     key={apt.id}
-                    className="relative overflow-hidden p-4 rounded-2xl border border-[#263B59] bg-[#172640] shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-2 text-sm group"
+                    className="relative overflow-hidden p-4 rounded-2xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#172640] shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-2 text-sm group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/8 to-transparent pointer-events-none" />
                     <div className="relative z-10 flex items-center justify-between">
@@ -804,184 +606,19 @@ export function PatientDashboardPage() {
                       <p>👨‍⚕️ <strong>{apt.doctorName}</strong></p>
                       <p>🕒 <strong className="tabular-nums font-semibold">{apt.date} at {apt.time}</strong></p>
                       <p className="text-xs text-slate-400 dark:text-slate-500 font-mono">Ref: {apt.referenceNumber}</p>
-=======
-      {/* 3. Top 4 Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Upcoming Visits"
-          value={upcoming.length.toString()}
-          change={upcoming.length > 0 ? `${upcoming[0].date}` : 'No active visits'}
-          trend="up"
-          icon={Calendar}
-          color="blue"
-          subtitle="Confirmed consults"
-        />
-        <StatCard
-          title="Prescriptions"
-          value={myPrescriptions.length.toString()}
-          change="Tamper-evident QR"
-          trend="up"
-          icon={FileText}
-          color="emerald"
-          subtitle="Medical vault records"
-        />
-        <StatCard
-          title="Outstanding Due"
-          value={formatCurrency(totalOutstandingBalance)}
-          change={totalOutstandingBalance > 0 ? 'Payable at clinic' : 'Fully settled'}
-          trend={totalOutstandingBalance > 0 ? 'down' : 'up'}
-          icon={CreditCard}
-          color={totalOutstandingBalance > 0 ? 'amber' : 'green'}
-          subtitle="Pending invoice dues"
-        />
-        <StatCard
-          title="Settled Receipts"
-          value={myReceipts.length.toString()}
-          change="Available to print"
-          trend="up"
-          icon={Receipt}
-          color="indigo"
-          subtitle="Official OPD receipts"
-        />
-      </div>
 
-      {/* 4. Next Appointment Spotlight Card */}
-      {nextAppointment && (
-        <Card className="p-5 border-blue-200 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/60 dark:from-blue-950/30 dark:via-slate-900 dark:to-indigo-950/20 shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-blue-500/20 shrink-0">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/50 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                    Next Consultation
-                  </span>
-                  <Badge variant={nextAppointment.status}>{nextAppointment.status}</Badge>
-                </div>
-                <h3 className="text-lg font-black text-slate-900 dark:text-white mt-1">
-                  {nextAppointment.serviceName || 'Consultation'} with Dr. {nextAppointment.doctorName}
-                </h3>
-                <div className="flex items-center gap-4 text-xs text-slate-600 dark:text-slate-300 mt-1 flex-wrap">
-                  <span className="font-semibold text-slate-900 dark:text-white">
-                    📅 {nextAppointment.date}
-                  </span>
-                  <span className="font-semibold text-slate-900 dark:text-white">
-                    ⏰ {nextAppointment.time}
-                  </span>
-                  <span className="font-mono text-slate-400">
-                    Ref: {nextAppointment.referenceNumber}
-                  </span>
-                  <span className="font-bold text-blue-600 dark:text-blue-400 font-mono">
-                    Fee: ₹{(Number(nextAppointment.consultationFee) || 600).toLocaleString('en-IN')}
-                  </span>
-                  {nextAppointment.paymentStatus === 'Paid' ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                      <CheckCircle2 className="w-3 h-3" /> Fee Paid
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
-                      <Clock className="w-3 h-3" /> Fee Due
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2.5">
-              {nextAppointment.paymentStatus !== 'Paid' && (
-                <Button
-                  variant="primary"
-                  size="sm"
-                  icon={CreditCard}
-                  onClick={() => setPaymentModalApt(nextAppointment)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-sm"
-                >
-                  Pay Fee (₹{(Number(nextAppointment.consultationFee) || 600).toLocaleString('en-IN')})
-                </Button>
-              )}
-              <Link to="/patient/appointments">
-                <Button variant="outline" size="sm">
-                  Manage Visit
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {/* 5. Main 2-Column Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Recent Appointments & Outstanding Invoices */}
-        <div className="lg:col-span-7 space-y-6">
-          {/* Recent Appointments */}
-          <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden">
-            <CardHeader
-              title={`Recent Appointments (${myAppointments.length})`}
-              subtitle="Full appointment lifecycle history"
-              action={
-                <Link to="/patient/appointments" className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
-                  View All &rarr;
-                </Link>
-              }
-            />
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
-              {myAppointments.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-400">
-                  No appointments found for this patient.
-                </div>
-              ) : (
-                myAppointments.slice(0, 4).map((apt) => (
-                  <div key={apt.id} className="p-4 flex items-center justify-between gap-3 text-xs hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 dark:text-white">{apt.serviceName}</span>
-                        <Badge variant={apt.status} size="sm">{apt.status}</Badge>
-                      </div>
-                      <div className="text-slate-500 dark:text-slate-400">
-                        Dr. {apt.doctorName} · <span className="font-mono">{apt.date} at {apt.time}</span>
-                      </div>
-                    </div>
-                    <div className="text-right flex items-center justify-end gap-2">
-                      <div className="text-right">
-                        <div className="font-mono font-bold text-slate-800 dark:text-slate-200">
-                          ₹{(Number(apt.consultationFee) || 600).toLocaleString('en-IN')}
-                        </div>
-                        {apt.paymentStatus === 'Paid' ? (
-                          <span className="text-[10px] font-bold text-emerald-600 block">✓ Paid</span>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => setPaymentModalApt(apt)}
-                            className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer block"
-                          >
-                            Pay Fee &rarr;
-                          </button>
-                        )}
-                      </div>
-                      {apt.status === 'Completed' && (
-                        <Link to={`/patient/feedback?appointment=${apt.id}`}>
-                          <Button variant="outline" size="sm" className="text-[11px] font-semibold text-amber-700 border-amber-300 dark:border-amber-800 bg-amber-50/50 hover:bg-amber-100">
-                            <Star className="w-3 h-3 mr-1 fill-amber-500" />
-                            Feedback
-                          </Button>
-                        </Link>
-                      )}
->>>>>>> origin/main
                     </div>
                   </div>
                 ))
               )}
             </div>
           </Card>
-<<<<<<< HEAD
         </div>
 
         {/* Right Column: Medication Adherence & Latest Digital Prescription */}
         <div className="lg:col-span-5 space-y-4">
           {/* Today's Medication Dosing Widget */}
-          <Card className="rounded-3xl border-[#263B59] bg-[#111E33] shadow-lg shadow-black/20 overflow-hidden">
+          <Card className="rounded-3xl border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden">
             <CardHeader
               title={
                 <div className="flex items-center gap-2">
@@ -1018,7 +655,7 @@ export function PatientDashboardPage() {
                           ? 'border-emerald-200/80 dark:border-emerald-900/40 bg-emerald-50/40 dark:bg-emerald-950/20 shadow-xs'
                           : isMissed
                           ? 'border-rose-200/80 dark:border-rose-900/40 bg-rose-50/40 dark:bg-rose-950/20 shadow-xs'
-                          : 'border-[#263B59] bg-[#172640] shadow-xs'
+                          : 'border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#172640] shadow-xs'
                       }`}
                     >
                       <div className="space-y-0.5 min-w-0">
@@ -1066,53 +703,7 @@ export function PatientDashboardPage() {
                         {isMissed && (
                           <span className="px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/50 text-rose-800 dark:text-rose-300 font-bold text-[10px] border border-rose-200 dark:border-rose-900/50">
                             ✕ Missed
-=======
 
-          {/* Invoices & Dues */}
-          <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden">
-            <CardHeader
-              title="Recent Clinical Invoices"
-              subtitle="Itemized billing breakdown and dues"
-              action={
-                <Link to="/patient/invoices" className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
-                  View Invoices &rarr;
-                </Link>
-              }
-            />
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
-              {myInvoices.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-400">
-                  No billing invoices issued yet.
-                </div>
-              ) : (
-                myInvoices.slice(0, 3).map((inv) => {
-                  const paid = Number(inv.amountPaid) || 0;
-                  const balance = Math.max(0, (Number(inv.totalAmount) || 0) - paid);
-                  return (
-                    <div key={inv.id} className="p-4 flex items-center justify-between gap-3 text-xs hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-blue-600 dark:text-blue-400">{inv.invoiceNumber}</span>
-                          <Badge variant={inv.status === 'Paid' ? 'success' : inv.status === 'Partially Paid' ? 'warning' : 'default'} size="sm">
-                            {inv.status}
-                          </Badge>
-                        </div>
-                        <div className="text-slate-500 text-[11px] mt-0.5">
-                          {inv.items?.[0]?.description || 'Consultation'} · {inv.date}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-mono font-bold text-slate-900 dark:text-white">
-                          {formatCurrency(inv.totalAmount)}
-                        </div>
-                        {balance > 0 ? (
-                          <span className="text-[11px] font-mono text-amber-600 font-semibold">
-                            Due: {formatCurrency(balance)}
-                          </span>
-                        ) : (
-                          <span className="text-[11px] font-mono text-emerald-600 font-semibold">
-                            Paid in Full
->>>>>>> origin/main
                           </span>
                         )}
                       </div>
@@ -1120,7 +711,6 @@ export function PatientDashboardPage() {
                   );
                 })
               )}
-<<<<<<< HEAD
 
               <div className="pt-2 text-center border-t border-slate-100 dark:border-slate-800">
                 <Link
@@ -1134,7 +724,7 @@ export function PatientDashboardPage() {
           </Card>
 
           {/* Latest Digital Prescription Card */}
-          <Card className="rounded-3xl border-[#263B59] bg-[#111E33] shadow-lg shadow-black/20 overflow-hidden">
+          <Card className="rounded-3xl border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden">
             <CardHeader
               title="Latest Digital Prescription"
               subtitle="Tamper-evident medical document"
@@ -1142,35 +732,11 @@ export function PatientDashboardPage() {
             <div className="p-4 sm:p-5 space-y-3">
               {myPrescriptions.length === 0 ? (
                 <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-8">No prescriptions on record.</p>
-=======
-            </div>
-          </Card>
-        </div>
 
-        {/* Right Column: Recent Prescriptions & Receipts */}
-        <div className="lg:col-span-5 space-y-6">
-          {/* Recent Prescriptions */}
-          <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden">
-            <CardHeader
-              title="Recent Prescriptions"
-              subtitle="Tamper-evident medical regimens"
-              action={
-                <Link to="/patient/prescriptions" className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
-                  View Prescriptions &rarr;
-                </Link>
-              }
-            />
-            <div className="p-4 space-y-3">
-              {myPrescriptions.length === 0 ? (
-                <div className="text-center py-8 text-xs text-slate-400">
-                  No active prescriptions on record.
-                </div>
->>>>>>> origin/main
               ) : (
                 myPrescriptions.slice(0, 2).map((rx) => (
                   <div
                     key={rx.id}
-<<<<<<< HEAD
                     className="p-4 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20 text-sm space-y-2.5"
                   >
                     <div className="flex items-center justify-between">
@@ -1197,33 +763,7 @@ export function PatientDashboardPage() {
                         onClick={() => openPrescriptionModal(rx)}
                       >
                         View & Print
-=======
-                    className="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20 text-xs space-y-2"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono font-bold text-blue-900 dark:text-blue-300">
-                        {rx.prescriptionNumber}
-                      </span>
-                      <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 dark:bg-blue-900/60 px-2 py-0.5 rounded">
-                        QR Verified
-                      </span>
-                    </div>
-                    <p className="font-bold text-slate-800 dark:text-slate-200">
-                      Diagnosis: {rx.diagnosis}
-                    </p>
-                    <p className="text-[11px] text-slate-500">
-                      Dr. {rx.doctorName} · {rx.date}
-                    </p>
-                    <div className="pt-2 flex justify-end">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => openPrescriptionModal(rx)}
-                        className="text-[11px]"
-                      >
-                        <Printer className="w-3 h-3 mr-1" />
-                        View / Print
->>>>>>> origin/main
+
                       </Button>
                     </div>
                   </div>
@@ -1231,7 +771,6 @@ export function PatientDashboardPage() {
               )}
             </div>
           </Card>
-<<<<<<< HEAD
         </div>
       </div>
 
@@ -1240,58 +779,7 @@ export function PatientDashboardPage() {
         isOpen={isEmergencyModalOpen}
         onClose={() => setIsEmergencyModalOpen(false)}
         patient={currentPatient}
-=======
 
-          {/* Recent Receipts */}
-          <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden">
-            <CardHeader
-              title="Settlement Receipts"
-              subtitle="Authorized proof of payments"
-              action={
-                <Link to="/patient/receipts" className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
-                  View Receipts &rarr;
-                </Link>
-              }
-            />
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
-              {myReceipts.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-400">
-                  No receipts recorded for this patient.
-                </div>
-              ) : (
-                myReceipts.slice(0, 3).map((rcp) => (
-                  <div key={rcp.id} className="p-3.5 flex items-center justify-between gap-2 text-xs">
-                    <div>
-                      <div className="font-mono font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <Receipt className="w-3.5 h-3.5 text-blue-600" />
-                        <span>{rcp.receiptNumber}</span>
-                      </div>
-                      <div className="text-[11px] text-slate-500 font-mono mt-0.5">
-                        {rcp.date} · {rcp.paymentMethod}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-mono font-bold text-emerald-600">
-                        {formatCurrency(rcp.amount)}
-                      </div>
-                      <Badge variant="success" size="sm">
-                        {rcp.status}
-                      </Badge>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </Card>
-        </div>
-      </div>
-
-      {/* Doctor Consultation Fee Payment Gateway Modal */}
-      <DoctorPaymentModal
-        isOpen={!!paymentModalApt}
-        onClose={() => setPaymentModalApt(null)}
-        appointment={paymentModalApt}
->>>>>>> origin/main
       />
     </div>
   );

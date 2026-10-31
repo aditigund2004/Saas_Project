@@ -29,12 +29,7 @@ export function ProtectedRoute({ allowedRoles, children }) {
     if (location.pathname.startsWith('/reception')) {
       return <Navigate to={`/login/receptionist?redirect=${returnUrl}`} replace />;
     }
-<<<<<<< HEAD
-=======
-    if (location.pathname.startsWith('/patient')) {
-      return <Navigate to={`/login/patient?redirect=${returnUrl}`} replace />;
-    }
->>>>>>> origin/main
+
     return <Navigate to="/" replace />;
   }
 

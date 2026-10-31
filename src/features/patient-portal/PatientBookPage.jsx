@@ -21,7 +21,6 @@ import {
   User,
   Phone,
   Mail,
-<<<<<<< HEAD
   Check,
   Users,
   Heart,
@@ -29,10 +28,7 @@ import {
 } from 'lucide-react';
 import { AIDurationBadge } from '../../components/ui/AIDurationBadge';
 import { calculateDynamicDuration, calculateEndTime } from '../../utils/aiAppointmentDuration';
-=======
-  Check
-} from 'lucide-react';
->>>>>>> origin/main
+
 
 export function PatientBookPage() {
   const navigate = useNavigate();
@@ -41,17 +37,14 @@ export function PatientBookPage() {
     clinics,
     doctors,
     currentUser,
-<<<<<<< HEAD
     familyMembers = [],
-=======
->>>>>>> origin/main
+
     submitBookingRequest,
     getAvailableSlotsForDoctor,
     showToast,
     formatCurrency
   } = useApp();
 
-<<<<<<< HEAD
   // Family members list
   const myFamily = familyMembers.filter(
     (m) => m.primaryPatientId === 'pt-1041' || m.primaryPatientId === currentUser?.id
@@ -69,8 +62,7 @@ export function PatientBookPage() {
       )
     : null;
 
-=======
->>>>>>> origin/main
+
   // Wizard Step State (1 to 6)
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -92,7 +84,6 @@ export function PatientBookPage() {
   // Alternative Preferences (Section E)
   const [secondPreferredDate, setSecondPreferredDate] = useState('');
   const [preferredTimeOfDay, setPreferredTimeOfDay] = useState('Morning');
-<<<<<<< HEAD
   const [patientNote, setPatientNote] = useState(
     matchedFamilyMember
       ? `Booking consultation on behalf of ${matchedFamilyMember.relationship}: ${matchedFamilyMember.name}`
@@ -109,18 +100,11 @@ export function PatientBookPage() {
   const [patientPhone, setPatientPhone] = useState(
     matchedFamilyMember?.phone || currentUser?.phone || '+91 98765 43210'
   );
-=======
-  const [patientNote, setPatientNote] = useState('');
 
-  // Patient Synthetic Details
-  const [patientName, setPatientName] = useState(currentUser?.name || 'Aarav Patel');
-  const [patientPhone, setPatientPhone] = useState(currentUser?.phone || '+91 98765 43210');
->>>>>>> origin/main
   const [patientEmail, setPatientEmail] = useState(currentUser?.email || 'aarav.patel@example.demo');
   const [isNewPatient, setIsNewPatient] = useState(false);
   const [agreedToPolicy, setAgreedToPolicy] = useState(true);
 
-<<<<<<< HEAD
   // Active family member if booked for family
   const selectedFamilyMember =
     bookingTarget !== 'self' ? myFamily.find((m) => m.id === bookingTarget) : null;
@@ -145,8 +129,7 @@ export function PatientBookPage() {
     }
   };
 
-=======
->>>>>>> origin/main
+
   // Submission Result Modal
   const [submittedRequest, setSubmittedRequest] = useState(null);
 
@@ -177,7 +160,6 @@ export function PatientBookPage() {
     setSelectedServiceId(cln?.services?.[0]?.id || '');
   };
 
-<<<<<<< HEAD
   // AI Dynamic Duration Engine Computation
   const [customDuration, setCustomDuration] = useState(null);
 
@@ -196,11 +178,7 @@ export function PatientBookPage() {
   // Available slots for selected doctor & date using dynamically tailored duration
   const availableSlots = selectedDoctor
     ? getAvailableSlotsForDoctor(selectedClinicId, selectedDoctor.id, preferredDate, effectiveDuration)
-=======
-  // Available slots for selected doctor & date
-  const availableSlots = selectedDoctor
-    ? getAvailableSlotsForDoctor(selectedClinicId, selectedDoctor.id, preferredDate)
->>>>>>> origin/main
+
     : [];
 
   const handleNext = () => {
@@ -251,11 +229,9 @@ export function PatientBookPage() {
       serviceName: selectedService?.name || 'General Consultation',
       consultationFee: selectedService?.fee || selectedDoctor.consultationFee,
       consultationType,
-<<<<<<< HEAD
       durationMinutes: effectiveDuration,
       durationDetails: dynamicDuration,
-=======
->>>>>>> origin/main
+
       preferredDate,
       preferredTime,
       patientId: 'pt-1041',
@@ -263,13 +239,11 @@ export function PatientBookPage() {
       patientPhone,
       patientEmail,
       isNewPatient,
-<<<<<<< HEAD
       bookingFor: bookingTarget === 'self' ? 'Self' : 'Family Member',
       relationship: selectedFamilyMember ? selectedFamilyMember.relationship : (memberRelParam || 'Self'),
       familyMemberId: selectedFamilyMember?.id || null,
       bookedBy: currentUser?.name || 'Aarav Patel',
-=======
->>>>>>> origin/main
+
       notes: patientNote,
       patientAlternativePreferences: {
         secondPreferredDate,
@@ -317,7 +291,6 @@ export function PatientBookPage() {
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* Preventive Package Banner */}
       <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-purple-50/70 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-purple-950/30 border border-blue-200/80 dark:border-blue-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-xs">
         <div className="flex items-center gap-2.5">
@@ -341,8 +314,7 @@ export function PatientBookPage() {
         </Link>
       </div>
 
-=======
->>>>>>> origin/main
+
       {/* Step Progress Tracker */}
       <div className="bg-white dark:bg-slate-900/90 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center justify-between overflow-x-auto gap-3">
@@ -564,11 +536,8 @@ export function PatientBookPage() {
                         <div className="flex items-center gap-2">
                           <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{srv.name}</h4>
                           <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono text-xs">
-<<<<<<< HEAD
                             {srv.durationMinutes} mins base
-=======
-                            {srv.durationMinutes} mins
->>>>>>> origin/main
+
                           </span>
                         </div>
                         <p className="text-xs text-slate-500 dark:text-slate-400">{srv.description}</p>
@@ -584,7 +553,6 @@ export function PatientBookPage() {
                 })}
               </div>
             </div>
-<<<<<<< HEAD
 
             {/* AI Dynamic Duration Live Assistant Card in Step 3 */}
             <div className="pt-2">
@@ -596,8 +564,7 @@ export function PatientBookPage() {
                 variant="card"
               />
             </div>
-=======
->>>>>>> origin/main
+
           </div>
         )}
 
@@ -645,7 +612,6 @@ export function PatientBookPage() {
               </div>
             </div>
 
-<<<<<<< HEAD
             {/* AI Dynamic Duration Card */}
             <AIDurationBadge
               durationDetails={dynamicDuration}
@@ -669,16 +635,7 @@ export function PatientBookPage() {
                 {availableSlots.map((slot) => {
                   const isSelected = preferredTime === slot.time;
                   const slotEndTime = slot.endTime || calculateEndTime(slot.time, effectiveDuration);
-=======
-            {/* Time Slot Picker */}
-            <div className="space-y-2">
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
-                Select Preferred Slot (30 mins duration) *
-              </label>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                {availableSlots.map((slot) => {
-                  const isSelected = preferredTime === slot.time;
->>>>>>> origin/main
+
 
                   return (
                     <button
@@ -690,7 +647,6 @@ export function PatientBookPage() {
                         !slot.available
                           ? 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/40 text-slate-400 dark:text-slate-600 cursor-not-allowed line-through'
                           : isSelected
-<<<<<<< HEAD
                           ? 'border-blue-600 bg-blue-600 text-white shadow-sm ring-2 ring-blue-500/20'
                           : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200'
                       }`}
@@ -700,14 +656,7 @@ export function PatientBookPage() {
                       <div className={`text-[10px] font-medium mt-0.5 ${isSelected ? 'text-blue-100' : 'text-slate-400 dark:text-slate-500'}`}>
                         → {slotEndTime}
                       </div>
-=======
-                          ? 'border-blue-600 bg-blue-600 text-white shadow-sm'
-                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200'
-                      }`}
-                      title={slot.reason || 'Slot available'}
-                    >
-                      {slot.time}
->>>>>>> origin/main
+
                     </button>
                   );
                 })}
@@ -754,7 +703,6 @@ export function PatientBookPage() {
             <div>
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 5: Patient Details & Verification</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-<<<<<<< HEAD
                 Select whether this consultation is for yourself or one of your registered family members.
               </p>
             </div>
@@ -853,15 +801,7 @@ export function PatientBookPage() {
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                   {selectedFamilyMember ? `${selectedFamilyMember.relationship}'s Full Name *` : 'Patient Full Name *'}
                 </label>
-=======
-                Synthetic demonstration details for appointment coordination.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Patient Full Name *</label>
->>>>>>> origin/main
                 <input
                   type="text"
                   required
@@ -953,7 +893,6 @@ export function PatientBookPage() {
               </div>
 
               <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
-<<<<<<< HEAD
                 <span className="text-slate-500 dark:text-slate-400 font-medium">Preferred Slot & AI Duration:</span>
                 <div className="text-right">
                   <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-base block">
@@ -964,12 +903,7 @@ export function PatientBookPage() {
                     {effectiveDuration} mins dynamic session ({dynamicDuration.complexityTier} Complexity)
                   </span>
                 </div>
-=======
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Preferred Slot:</span>
-                <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-base">
-                  {preferredDate} at {preferredTime}
-                </span>
->>>>>>> origin/main
+
               </div>
 
               {secondPreferredDate && (
@@ -981,7 +915,6 @@ export function PatientBookPage() {
 
               <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400 font-medium">Patient Details:</span>
-<<<<<<< HEAD
                 <div className="text-right">
                   <span className="font-bold text-slate-900 dark:text-slate-100 block">
                     {patientName} {selectedFamilyMember ? `(${selectedFamilyMember.relationship})` : '(Myself)'}
@@ -990,9 +923,7 @@ export function PatientBookPage() {
                     {patientPhone} {selectedFamilyMember && `· Booked by ${currentUser?.name || 'Aarav Patel'}`}
                   </span>
                 </div>
-=======
-                <span className="text-slate-800 dark:text-slate-200">{patientName} ({patientPhone})</span>
->>>>>>> origin/main
+
               </div>
 
               <div className="flex justify-between items-center pt-1 font-mono">
@@ -1069,15 +1000,13 @@ export function PatientBookPage() {
                 <span className="font-bold text-slate-900 dark:text-slate-100">{submittedRequest.requestId}</span>
               </div>
               <div className="flex justify-between items-center">
-<<<<<<< HEAD
                 <span className="text-slate-500 dark:text-slate-400 font-sans">Patient:</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 font-sans">
                   {submittedRequest.patientName} {submittedRequest.relationship && submittedRequest.relationship !== 'Self' ? `(${submittedRequest.relationship})` : '(Self)'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-=======
->>>>>>> origin/main
+
                 <span className="text-slate-500 dark:text-slate-400 font-sans">Doctor:</span>
                 <span className="text-blue-600 dark:text-blue-400 font-semibold">{submittedRequest.doctorName}</span>
               </div>

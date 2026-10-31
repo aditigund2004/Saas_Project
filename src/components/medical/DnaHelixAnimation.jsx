@@ -189,10 +189,7 @@ export function DnaHelixAnimation({ videoSrc = null, className = '', style = {} 
           preload="none"
           className="w-full h-full object-contain opacity-70"
         >
-<<<<<<< HEAD
-=======
-          <source src={videoSrc} type="video/mp4" />
->>>>>>> origin/main
+
           <source src={videoSrc} type="video/webm" />
         </video>
       ) : prefersReducedMotion ? (

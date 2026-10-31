@@ -488,7 +488,7 @@ export function ClinicPrescriptionNewPage() {
               <span className="text-xs font-bold text-slate-600 uppercase">Medications</span>
             </div>
 
-            <table className="w-full text-left text-xs border border-slate-200 rounded-lg">
+            <div className="w-full overflow-x-auto rounded-lg border border-slate-200"><table className="w-full min-w-[480px] text-left text-xs">
               <thead className="bg-slate-50 text-slate-600 uppercase text-[10px] font-bold border-b border-slate-200">
                 <tr>
                   <th className="p-2">#</th>
@@ -510,6 +510,7 @@ export function ClinicPrescriptionNewPage() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
 
           {additionalAdvice && (
@@ -519,7 +520,7 @@ export function ClinicPrescriptionNewPage() {
           )}
 
           {/* Footer with QR Code and Signature */}
-          <div className="pt-6 border-t-2 border-slate-200 flex items-end justify-between">
+          <div className="pt-6 border-t-2 border-slate-200 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="flex items-center gap-4">
               <QRCodeBadge verificationId="v_sample_preview" referenceNumber="RX-PREVIEW" size={85} />
               <div className="text-[11px] text-slate-500 max-w-xs">

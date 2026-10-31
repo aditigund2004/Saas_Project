@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../../../context/AppContext';
 import {
   Mail,
-=======
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useApp } from '../../../context/AppContext';
-import {
->>>>>>> origin/main
+
   LayoutDashboard,
   FileText,
   Zap,
@@ -35,11 +29,8 @@ export function EmailManagementPage() {
   const navigate = useNavigate();
   const { clinics = [], plans = [], showToast } = useApp();
 
-<<<<<<< HEAD
   const [activeTab, setActiveTab] = useState(urlTab || 'dashboard');
-=======
-  const activeTab = urlTab || 'dashboard';
->>>>>>> origin/main
+
 
   // Module State
   const [templates, setTemplates] = useState(() => emailService.getTemplates());
@@ -56,7 +47,6 @@ export function EmailManagementPage() {
   const [simulatorOpen, setSimulatorOpen] = useState(false);
   const [simulatorInitialKey, setSimulatorInitialKey] = useState('');
 
-<<<<<<< HEAD
   // Keep URL in sync
   useEffect(() => {
     if (urlTab && urlTab !== activeTab) {
@@ -66,9 +56,7 @@ export function EmailManagementPage() {
 
   const handleTabChange = (newTab) => {
     setActiveTab(newTab);
-=======
-  const handleTabChange = (newTab) => {
->>>>>>> origin/main
+
     navigate(`/superadmin/email/${newTab}`);
   };
 
@@ -176,11 +164,8 @@ export function EmailManagementPage() {
   };
 
   const handleSendTestFromPreview = (tpl) => {
-<<<<<<< HEAD
     const res = emailService.simulateEventTrigger(tpl.associatedTriggerKey || 'feature.published', {
-=======
-    emailService.simulateEventTrigger(tpl.associatedTriggerKey || 'feature.published', {
->>>>>>> origin/main
+
       recipientName: 'Test Administrator',
       recipientEmail: settings.testRecipientEmail
     });
@@ -312,10 +297,7 @@ export function EmailManagementPage() {
             onToggleStatus={handleToggleTemplateStatus}
             onDelete={handleDeleteTemplate}
             onSendTest={(tpl) => handleSendTestFromPreview(tpl)}
-<<<<<<< HEAD
-=======
-            onSaveTemplate={handleSaveTemplate}
->>>>>>> origin/main
+
           />
         )}
 

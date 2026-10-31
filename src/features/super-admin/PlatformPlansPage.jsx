@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 // Comprehensive catalog of all features provided across the ClinicOS platform
-export const ALL_AVAILABLE_FEATURES = [
+const ALL_AVAILABLE_FEATURES = [
   // Scheduling & Reception Desk
   '14-Day Full Access Free Trial',
   'Up to 2 Doctor Schedules',
@@ -77,7 +77,7 @@ export const ALL_AVAILABLE_FEATURES = [
 /**
  * Calculates annual pricing discounts and savings comparison
  */
-export function calculateAnnualDiscount(monthlyPrice, annualPrice) {
+function calculateAnnualDiscount(monthlyPrice, annualPrice) {
   const safeMonthly = Math.max(0, Number(monthlyPrice) || 0);
   const safeAnnual = Math.max(0, Number(annualPrice) || 0);
   const standardAnnualCost = safeMonthly * 12;

@@ -40,6 +40,7 @@ import {
   DEMO_CLINIC_REFUNDS,
   DEMO_RECEIPTS,
   DEMO_NOTIFICATIONS,
+  DEMO_VIRTUAL_CONSULTATIONS,
   DEMO_FAMILY_MEMBERS,
   DEMO_MEDICATION_REMINDERS,
   DEMO_DOSE_LOGS,
@@ -284,8 +285,13 @@ export function AppProvider({ children }) {
 
   // Virtual Consulting State
   const [virtualConsultations, setVirtualConsultations] = useState(() => {
-    const s = localStorage.getItem('clinipulse_virtual_consultations');
-    return s ? JSON.parse(s) : DEMO_VIRTUAL_CONSULTATIONS;
+    try {
+      const s = localStorage.getItem('clinipulse_virtual_consultations');
+      if (s) return JSON.parse(s);
+    } catch {}
+    return typeof DEMO_VIRTUAL_CONSULTATIONS !== 'undefined' && Array.isArray(DEMO_VIRTUAL_CONSULTATIONS)
+      ? DEMO_VIRTUAL_CONSULTATIONS
+      : [];
   });
 
   const requestVirtualConsultation = (reqData) => {
@@ -2700,6 +2706,7 @@ export function AppProvider({ children }) {
     localStorage.removeItem('clinipulse_medication_reminders');
     localStorage.removeItem('clinipulse_dose_logs');
     localStorage.removeItem('clinipulse_patient_queries');
+    localStorage.removeItem('clinipulse_virtual_consultations');
     setClinics(DEMO_CLINICS);
     setPlans(DEMO_PLANS);
     setDoctors(DEMO_DOCTORS);
@@ -2714,6 +2721,7 @@ export function AppProvider({ children }) {
     setMedicationReminders(DEMO_MEDICATION_REMINDERS);
     setDoseLogs(DEMO_DOSE_LOGS);
     setPatientQueries(DEMO_PATIENT_QUERIES);
+    setVirtualConsultations(DEMO_VIRTUAL_CONSULTATIONS);
     setPrescriptions(DEMO_PRESCRIPTIONS);
     setInvoices(DEMO_INVOICES);
     setExpenses(DEMO_EXPENSES);
@@ -2929,6 +2937,11 @@ export function AppProvider({ children }) {
         prescriptionModal,
         openPrescriptionModal,
         closePrescriptionModal,
+        virtualConsultations,
+        requestVirtualConsultation,
+        acceptVirtualConsultation,
+        endVirtualConsultation,
+        declineVirtualConsultation,
         resetDemoData,
         // AI Dynamic Duration Engine
         calculateDynamicDuration,

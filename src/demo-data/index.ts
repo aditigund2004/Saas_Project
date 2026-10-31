@@ -33,7 +33,8 @@ import {
   SaaSRefund,
   SaaSExpense,
   ClinicPaymentRecord,
-  ClinicRefundRecord
+  ClinicRefundRecord,
+  VirtualConsultation
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -2833,6 +2834,66 @@ export const DEMO_NOTIFICATIONS: SimulatedNotification[] = [
     createdAt: '2026-10-24T09:20:00.000Z',
     read: false,
     priority: 'normal'
+  }
+];
+
+export const DEMO_VIRTUAL_CONSULTATIONS: VirtualConsultation[] = [
+  {
+    id: 'vc-101',
+    patientId: 'pt-1001',
+    patientName: 'Rahul Sharma',
+    patientPhone: '+91 98201 22334',
+    patientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Fever, cough and throat irritation for 2 days. Needs urgent clinical advice & Rx.',
+    status: 'In Call',
+    requestedAt: 'Today, 10:45 AM',
+    preferredTime: 'Immediate Live Connect',
+    meetingLink: 'https://clinicos.health/meet/vc-101-live',
+    notes: 'Patient reports mild seasonal allergy symptoms. Clear lungs, BP normal.',
+    duration: '08:24'
+  },
+  {
+    id: 'vc-102',
+    patientId: 'pt-1002',
+    patientName: 'Pooja Verma',
+    patientPhone: '+91 98450 11998',
+    patientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Review blood test report & routine diabetes management follow-up.',
+    status: 'Waiting',
+    requestedAt: 'Today, 11:05 AM',
+    preferredTime: 'Immediate Live Connect',
+    meetingLink: 'https://clinicos.health/meet/vc-102-live',
+    notes: '',
+    duration: '00:00'
+  },
+  {
+    id: 'vc-103',
+    patientId: 'usr-patient-aarav',
+    patientName: 'Aarav Patel',
+    patientPhone: '+91 98765 43210',
+    patientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Follow-up consultation for prescribed antibiotics and mild headache.',
+    status: 'Waiting',
+    requestedAt: 'Today, 11:15 AM',
+    preferredTime: 'Scheduled: Today at 02:00 PM',
+    meetingLink: 'https://clinicos.health/meet/vc-103-live',
+    notes: '',
+    duration: '00:00'
   }
 ];
 

@@ -81,12 +81,21 @@ export function BookDoctorPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
       {/* Breadcrumbs */}
+<<<<<<< HEAD
       <nav className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-[#94A3B8]">
         <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400">Home</Link>
         <ArrowRight className="w-3 h-3" />
         <Link to="/clinics" className="hover:text-blue-600 dark:hover:text-blue-400">Find Doctor</Link>
         <ArrowRight className="w-3 h-3" />
         <span className="text-slate-900 dark:text-[#F1F5F9]">Book {doctor.name}</span>
+=======
+      <nav className="flex items-center gap-2 text-xs font-medium text-slate-500">
+        <Link to="/" className="hover:text-blue-600">Home</Link>
+        <ArrowRight className="w-3 h-3" />
+        <Link to="/clinics" className="hover:text-blue-600">Find Doctor</Link>
+        <ArrowRight className="w-3 h-3" />
+        <span className="text-slate-900">Book {doctor.name}</span>
+>>>>>>> origin/main
       </nav>
 
       {/* Progress Steps */}
@@ -98,6 +107,7 @@ export function BookDoctorPage() {
         ].map((s) => (
           <div key={s.n} className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
+<<<<<<< HEAD
               step >= s.n ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-[#172640] text-slate-500 dark:text-[#94A3B8]'
             }`}>
               {s.n}
@@ -106,6 +116,16 @@ export function BookDoctorPage() {
               {s.l}
             </span>
             {s.n < 3 && <div className="w-8 h-px bg-slate-200 dark:bg-[#263B59]" />}
+=======
+              step >= s.n ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-500'
+            }`}>
+              {s.n}
+            </div>
+            <span className={`text-xs font-bold ${step >= s.n ? 'text-slate-900' : 'text-slate-400'}`}>
+              {s.l}
+            </span>
+            {s.n < 3 && <div className="w-8 h-px bg-slate-200" />}
+>>>>>>> origin/main
           </div>
         ))}
       </div>
@@ -113,6 +133,7 @@ export function BookDoctorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Doctor Summary (Right on Desktop, Top on Mobile) */}
         <div className="lg:col-span-1 order-1 lg:order-2">
+<<<<<<< HEAD
           <Card className="p-5 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] sticky top-24 space-y-4 shadow-xs">
             <div className="flex gap-4">
               <img src={doctor.avatar} alt={doctor.name} className="w-16 h-16 rounded-xl object-cover ring-2 ring-slate-200 dark:ring-[#263B59]" />
@@ -120,12 +141,22 @@ export function BookDoctorPage() {
                 <h3 className="text-sm font-bold text-slate-900 dark:text-[#F1F5F9]">{doctor.name}</h3>
                 <p className="text-xs text-blue-600 dark:text-[#22D3EE] font-semibold">{doctor.specialty}</p>
                 <div className="flex items-center gap-1 text-[10px] text-amber-500 dark:text-amber-400 font-bold mt-1">
+=======
+          <Card className="p-5 border-slate-200 sticky top-24 space-y-4">
+            <div className="flex gap-4">
+              <img src={doctor.avatar} alt={doctor.name} className="w-16 h-16 rounded-xl object-cover" />
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">{doctor.name}</h3>
+                <p className="text-xs text-blue-600 font-semibold">{doctor.specialty}</p>
+                <div className="flex items-center gap-1 text-[10px] text-amber-500 font-bold mt-1">
+>>>>>>> origin/main
                   <Star className="w-3 h-3 fill-current" />
                   <span>{doctor.rating}</span>
                 </div>
               </div>
             </div>
             
+<<<<<<< HEAD
             <div className="pt-4 border-t border-slate-100 dark:border-[#263B59] space-y-3">
               <div className="flex items-center gap-2 text-xs">
                 <Building2 className="w-4 h-4 text-slate-400 dark:text-[#94A3B8]" />
@@ -141,6 +172,23 @@ export function BookDoctorPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs text-slate-500 dark:text-[#94A3B8] font-medium">Consultation Fee</span>
                 <span className="text-sm font-bold text-slate-900 dark:text-[#F1F5F9]">₹{doctor.consultationFee}</span>
+=======
+            <div className="pt-4 border-t border-slate-100 space-y-3">
+              <div className="flex items-center gap-2 text-xs">
+                <Building2 className="w-4 h-4 text-slate-400" />
+                <span className="text-slate-700 font-medium">{clinic.name}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <MapPin className="w-4 h-4 text-slate-400" />
+                <span className="text-slate-600">{clinic.locality}, {clinic.city}</span>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-100">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-500 font-medium">Consultation Fee</span>
+                <span className="text-sm font-bold text-slate-900">₹{doctor.consultationFee}</span>
+>>>>>>> origin/main
               </div>
             </div>
           </Card>
@@ -149,44 +197,77 @@ export function BookDoctorPage() {
         {/* Booking Steps (Left on Desktop) */}
         <div className="lg:col-span-2 order-2 lg:order-1">
           {step === 1 && (
+<<<<<<< HEAD
             <Card className="p-6 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-6 shadow-xs animate-in fade-in slide-in-from-bottom-4">
               <div className="space-y-1">
                 <h2 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9]">How would you like to consult?</h2>
                 <p className="text-sm text-slate-500 dark:text-[#94A3B8]">Choose the most convenient format for you.</p>
+=======
+            <Card className="p-6 border-slate-200 space-y-6 animate-in fade-in slide-in-from-bottom-4">
+              <div className="space-y-1">
+                <h2 className="text-xl font-bold text-slate-900">How would you like to consult?</h2>
+                <p className="text-sm text-slate-500">Choose the most convenient format for you.</p>
+>>>>>>> origin/main
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div 
                   onClick={() => setConsultationType('In-Person')}
                   className={`p-5 rounded-2xl border-2 transition-all cursor-pointer space-y-3 ${
+<<<<<<< HEAD
                     consultationType === 'In-Person' ? 'border-blue-600 bg-blue-50/50 dark:bg-[#172640]' : 'border-slate-200 dark:border-[#263B59] hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                     consultationType === 'In-Person' ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-[#0D1729] text-slate-500 dark:text-[#94A3B8]'
+=======
+                    consultationType === 'In-Person' ? 'border-blue-600 bg-blue-50/30' : 'border-slate-100 hover:border-slate-200'
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    consultationType === 'In-Person' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
+>>>>>>> origin/main
                   }`}>
                     <Building2 className="w-5 h-5" />
                   </div>
                   <div>
+<<<<<<< HEAD
                     <h4 className="font-bold text-slate-900 dark:text-[#F1F5F9]">In-Clinic Visit</h4>
                     <p className="text-[11px] text-slate-500 dark:text-[#94A3B8] mt-1">Visit the doctor at {clinic.name}</p>
+=======
+                    <h4 className="font-bold text-slate-900">In-Clinic Visit</h4>
+                    <p className="text-[11px] text-slate-500 mt-1">Visit the doctor at {clinic.name}</p>
+>>>>>>> origin/main
                   </div>
                 </div>
 
                 <div 
                   onClick={() => setConsultationType('Video')}
                   className={`p-5 rounded-2xl border-2 transition-all cursor-pointer space-y-3 ${
+<<<<<<< HEAD
                     consultationType === 'Video' ? 'border-blue-600 bg-blue-50/50 dark:bg-[#172640]' : 'border-slate-200 dark:border-[#263B59] hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                     consultationType === 'Video' ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-[#0D1729] text-slate-500 dark:text-[#94A3B8]'
+=======
+                    consultationType === 'Video' ? 'border-blue-600 bg-blue-50/30' : 'border-slate-100 hover:border-slate-200'
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    consultationType === 'Video' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
+>>>>>>> origin/main
                   }`}>
                     <Video className="w-5 h-5" />
                   </div>
                   <div>
+<<<<<<< HEAD
                     <h4 className="font-bold text-slate-900 dark:text-[#F1F5F9]">Video Consultation</h4>
                     <p className="text-[11px] text-slate-500 dark:text-[#94A3B8] mt-1">Connect remotely via high-quality video call</p>
+=======
+                    <h4 className="font-bold text-slate-900">Video Consultation</h4>
+                    <p className="text-[11px] text-slate-500 mt-1">Connect remotely via high-quality video call</p>
+>>>>>>> origin/main
                   </div>
                 </div>
               </div>
@@ -201,11 +282,19 @@ export function BookDoctorPage() {
           )}
 
           {step === 2 && (
+<<<<<<< HEAD
             <Card className="p-6 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-6 shadow-xs animate-in fade-in slide-in-from-bottom-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <h2 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9]">Select Date & Time</h2>
                   <p className="text-sm text-slate-500 dark:text-[#94A3B8]">Pick a slot that works for you.</p>
+=======
+            <Card className="p-6 border-slate-200 space-y-6 animate-in fade-in slide-in-from-bottom-4">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h2 className="text-xl font-bold text-slate-900">Select Date & Time</h2>
+                  <p className="text-sm text-slate-500">Pick a slot that works for you.</p>
+>>>>>>> origin/main
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setStep(1)} className="text-slate-400">
                   <ChevronLeft className="w-4 h-4 mr-1" /> Back
@@ -214,7 +303,11 @@ export function BookDoctorPage() {
 
               <div className="space-y-6">
                 <div>
+<<<<<<< HEAD
                   <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-3">
+=======
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">
+>>>>>>> origin/main
                     Available Dates
                   </label>
                   <input 
@@ -225,11 +318,16 @@ export function BookDoctorPage() {
                       setSelectedDate(e.target.value);
                       setSelectedTime('');
                     }}
+<<<<<<< HEAD
                     className="w-full sm:w-64 px-4 py-3 rounded-xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+=======
+                    className="w-full sm:w-64 px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+>>>>>>> origin/main
                   />
                 </div>
 
                 <div>
+<<<<<<< HEAD
                   <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] uppercase tracking-wider mb-3">
                     Select Time Slot
                   </label>
@@ -237,6 +335,15 @@ export function BookDoctorPage() {
                     <div className="p-8 text-center bg-slate-50 dark:bg-[#0D1729] rounded-2xl border border-dashed border-slate-200 dark:border-[#263B59]">
                       <Clock className="w-8 h-8 text-slate-300 dark:text-[#94A3B8] mx-auto mb-2" />
                       <p className="text-sm text-slate-500 dark:text-[#94A3B8]">No slots available for this date.</p>
+=======
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">
+                    Select Time Slot
+                  </label>
+                  {availableSlots.length === 0 ? (
+                    <div className="p-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                      <Clock className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                      <p className="text-sm text-slate-500">No slots available for this date.</p>
+>>>>>>> origin/main
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -245,12 +352,21 @@ export function BookDoctorPage() {
                           key={slot.time}
                           disabled={!slot.available}
                           onClick={() => setSelectedTime(slot.time)}
+<<<<<<< HEAD
                           className={`py-3 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                             !slot.available 
                               ? 'bg-slate-50 dark:bg-[#0D1729] text-slate-300 dark:text-slate-600 border-slate-100 dark:border-[#263B59] cursor-not-allowed'
                               : selectedTime === slot.time
                                 ? 'bg-blue-600 text-white border-blue-600 shadow-md scale-[1.02]'
                                 : 'bg-white dark:bg-[#0B1628] text-slate-700 dark:text-[#CBD5E1] border-slate-200 dark:border-[#263B59] hover:border-blue-400 hover:text-blue-600'
+=======
+                          className={`py-3 px-2 rounded-xl text-xs font-bold border transition-all ${
+                            !slot.available 
+                              ? 'bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed'
+                              : selectedTime === slot.time
+                                ? 'bg-blue-600 text-white border-blue-600 shadow-md scale-[1.02]'
+                                : 'bg-white text-slate-700 border-slate-200 hover:border-blue-400 hover:text-blue-600'
+>>>>>>> origin/main
                           }`}
                         >
                           {slot.time}
@@ -276,11 +392,19 @@ export function BookDoctorPage() {
           )}
 
           {step === 3 && (
+<<<<<<< HEAD
             <Card className="p-6 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-6 shadow-xs animate-in fade-in slide-in-from-bottom-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <h2 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9]">Patient Details</h2>
                   <p className="text-sm text-slate-500 dark:text-[#94A3B8]">Provide contact information for the appointment.</p>
+=======
+            <Card className="p-6 border-slate-200 space-y-6 animate-in fade-in slide-in-from-bottom-4">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h2 className="text-xl font-bold text-slate-900">Patient Details</h2>
+                  <p className="text-sm text-slate-500">Provide contact information for the appointment.</p>
+>>>>>>> origin/main
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setStep(2)} className="text-slate-400">
                   <ChevronLeft className="w-4 h-4 mr-1" /> Back
@@ -290,46 +414,79 @@ export function BookDoctorPage() {
               <form onSubmit={handleBooking} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
+<<<<<<< HEAD
                     <label className="text-xs font-bold text-slate-700 dark:text-[#CBD5E1]">Full Name *</label>
+=======
+                    <label className="text-xs font-bold text-slate-700">Full Name *</label>
+>>>>>>> origin/main
                     <input 
                       required
                       type="text" 
                       value={patientName}
                       onChange={(e) => setPatientName(e.target.value)}
+<<<<<<< HEAD
                       className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-slate-700 dark:text-[#CBD5E1]">Mobile Number *</label>
+=======
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-slate-700">Mobile Number *</label>
+>>>>>>> origin/main
                     <input 
                       required
                       type="tel" 
                       value={patientPhone}
                       onChange={(e) => setPatientPhone(e.target.value)}
+<<<<<<< HEAD
                       className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                     />
                   </div>
                   <div className="sm:col-span-2 space-y-1.5">
                     <label className="text-xs font-bold text-slate-700 dark:text-[#CBD5E1]">Email Address</label>
+=======
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                  </div>
+                  <div className="sm:col-span-2 space-y-1.5">
+                    <label className="text-xs font-bold text-slate-700">Email Address</label>
+>>>>>>> origin/main
                     <input 
                       type="email" 
                       value={patientEmail}
                       onChange={(e) => setPatientEmail(e.target.value)}
+<<<<<<< HEAD
                       className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                     />
                   </div>
                   <div className="sm:col-span-2 space-y-1.5">
                     <label className="text-xs font-bold text-slate-700 dark:text-[#CBD5E1]">Symptoms / Message for Doctor</label>
+=======
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                  </div>
+                  <div className="sm:col-span-2 space-y-1.5">
+                    <label className="text-xs font-bold text-slate-700">Symptoms / Message for Doctor</label>
+>>>>>>> origin/main
                     <textarea 
                       rows={3}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Optional: Briefly describe your concern..."
+<<<<<<< HEAD
                       className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+=======
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+>>>>>>> origin/main
                     />
                   </div>
                 </div>
 
+<<<<<<< HEAD
                 <div className="pt-6 border-t border-slate-100 dark:border-[#263B59]">
                   <div className="bg-slate-50 dark:bg-[#0D1729] rounded-2xl p-4 space-y-2 mb-6 border border-slate-200 dark:border-[#263B59]">
                     <div className="flex justify-between text-xs">
@@ -339,6 +496,17 @@ export function BookDoctorPage() {
                     <div className="flex justify-between text-xs">
                       <span className="text-slate-500 dark:text-[#94A3B8]">Date & Time:</span>
                       <span className="font-bold text-blue-600 dark:text-[#22D3EE]">{selectedDate} at {selectedTime}</span>
+=======
+                <div className="pt-6 border-t border-slate-100">
+                  <div className="bg-slate-50 rounded-2xl p-4 space-y-2 mb-6">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-slate-500">Consultation:</span>
+                      <span className="font-bold text-slate-900">{consultationType}</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-slate-500">Date & Time:</span>
+                      <span className="font-bold text-blue-600">{selectedDate} at {selectedTime}</span>
+>>>>>>> origin/main
                     </div>
                   </div>
                   
@@ -352,18 +520,29 @@ export function BookDoctorPage() {
           )}
 
           {step === 4 && bookedAppointment && (
+<<<<<<< HEAD
             <Card className="p-8 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] text-center space-y-6 shadow-xs animate-in zoom-in-95 duration-300">
               <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
+=======
+            <Card className="p-8 border-slate-200 text-center space-y-6 animate-in zoom-in-95 duration-300">
+              <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+>>>>>>> origin/main
                 <CheckCircle2 className="w-12 h-12" />
               </div>
 
               <div className="space-y-2">
+<<<<<<< HEAD
                 <h2 className="text-2xl font-black text-slate-900 dark:text-[#F1F5F9]">Booking Requested!</h2>
                 <p className="text-sm text-slate-500 dark:text-[#94A3B8] max-w-sm mx-auto leading-relaxed">
+=======
+                <h2 className="text-2xl font-black text-slate-900">Booking Requested!</h2>
+                <p className="text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
+>>>>>>> origin/main
                   Your request has been sent to <strong>{clinic.name}</strong>. You will receive a confirmation message once they verify the slot.
                 </p>
               </div>
 
+<<<<<<< HEAD
               <div className="bg-slate-50 dark:bg-[#0D1729] rounded-3xl p-6 max-w-sm mx-auto space-y-4 border border-slate-200 dark:border-[#263B59]">
                 <div className="text-xs space-y-2">
                   <div className="flex justify-between">
@@ -377,6 +556,21 @@ export function BookDoctorPage() {
                   <div className="flex justify-between">
                     <span className="text-slate-500 dark:text-[#94A3B8]">Scheduled:</span>
                     <span className="font-bold text-blue-600 dark:text-[#22D3EE]">{selectedDate} at {selectedTime}</span>
+=======
+              <div className="bg-slate-50 rounded-3xl p-6 max-w-sm mx-auto space-y-4">
+                <div className="text-xs space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Ref Number:</span>
+                    <span className="font-mono font-bold text-slate-900">{bookedAppointment.referenceNumber}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Doctor:</span>
+                    <span className="font-bold text-slate-900">{doctor.name}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Scheduled:</span>
+                    <span className="font-bold text-blue-600">{selectedDate} at {selectedTime}</span>
+>>>>>>> origin/main
                   </div>
                 </div>
 

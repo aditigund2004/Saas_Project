@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { User, ChevronDown, Check, ShieldAlert, Sparkles, UserPlus } from 'lucide-react';
@@ -275,3 +276,11 @@ export function DemoPatientSwitcher() {
   );
 }
 
+=======
+import React from 'react';
+
+// DemoPatientSwitcher banner removed per user request to provide a clean, production-grade patient portal
+export function DemoPatientSwitcher() {
+  return null;
+}
+>>>>>>> origin/main

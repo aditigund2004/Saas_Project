@@ -68,7 +68,11 @@ export function HomePage() {
       name: 'Azeezunnisa I',
       specialty: 'Homeopathy / BHMS - ...',
       url: 'clinicos.in/drazmeera',
+<<<<<<< HEAD
       image: 'https://images.unsplash.com/photo-1594824813629-450f612d4d8c?auto=format&fit=crop&w=400&q=80'
+=======
+      image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80'
+>>>>>>> origin/main
     },
     {
       name: 'Aparna Yashaswi',
@@ -222,10 +226,23 @@ export function HomePage() {
           {/* Right Column: Floating Live Doctor Preview Cards */}
           <div className="lg:col-span-5 relative">
             <div className="relative p-4 sm:p-6 rounded-3xl bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-slate-100 dark:from-slate-900 dark:via-blue-950/20 dark:to-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+<<<<<<< HEAD
               {/* WhatsApp Notification Floating Badge */}
               <div className="mb-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-xs text-slate-700 dark:text-slate-300">
                 <Smartphone className="w-3.5 h-3.5 text-emerald-500" />
                 <span className="font-medium text-[11px]">Automated WhatsApp Reminder Sent</span>
+=======
+              {/* Telemetry and WhatsApp Notification Floating Badges */}
+              <div className="mb-4 flex items-center justify-between gap-2 flex-wrap">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-xs text-slate-700 dark:text-slate-300">
+                  <Smartphone className="w-3.5 h-3.5 text-emerald-500" />
+                  <span className="font-medium text-[11px]">Automated WhatsApp Reminder Sent</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-blue-50/90 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold shadow-2xs">
+                  <Activity className="w-3.5 h-3.5 text-cyan-500 animate-pulse" />
+                  <span>72 BPM · Live Telemetry</span>
+                </div>
+>>>>>>> origin/main
               </div>
 
               {/* 2x2 Floating Doctor Cards Grid */}
@@ -236,10 +253,22 @@ export function HomePage() {
                     className="p-3 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700 shadow-sm flex flex-col justify-between space-y-2 relative group hover:shadow-md transition-all duration-300 hover:-translate-y-1"
                   >
                     {/* Image with Live Pill */}
+<<<<<<< HEAD
                     <div className="relative rounded-xl overflow-hidden aspect-square bg-slate-100">
                       <img
                         src={doc.image}
                         alt={doc.name}
+=======
+                    <div className="relative rounded-xl overflow-hidden aspect-square bg-slate-100 dark:bg-slate-700">
+                      <img
+                        src={doc.image}
+                        alt={doc.name}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src =
+                            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80';
+                        }}
+>>>>>>> origin/main
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-white/95 dark:bg-slate-900/95 text-[9px] font-bold text-emerald-600 flex items-center gap-1 shadow-xs">
@@ -693,6 +722,7 @@ export function HomePage() {
               </button>
             </Link>
             <Link to="/pricing">
+<<<<<<< HEAD
               <Button
                 variant="outline"
                 size="lg"
@@ -700,6 +730,12 @@ export function HomePage() {
               >
                 View Plans & Pricing
               </Button>
+=======
+              <button className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/25 hover:border-white/40 font-bold text-sm backdrop-blur-xs transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-sm">
+                <span>View Plans & Pricing</span>
+                <ArrowRight className="w-4 h-4 text-slate-300" />
+              </button>
+>>>>>>> origin/main
             </Link>
           </div>
         </div>
@@ -722,6 +758,7 @@ export function HomePage() {
               </button>
             </div>
 
+<<<<<<< HEAD
             <div className="aspect-video rounded-2xl bg-slate-950 flex flex-col items-center justify-center p-6 text-center space-y-3 border border-slate-800">
               <div className="w-16 h-16 rounded-full bg-blue-600/30 text-blue-400 flex items-center justify-center">
                 <Play className="w-8 h-8 fill-current ml-1" />
@@ -732,6 +769,19 @@ export function HomePage() {
                   Demonstrating how a patient books an appointment at 10 PM, the front desk confirms via WhatsApp at 9 AM, and the doctor issues a digital prescription in 45 seconds.
                 </p>
               </div>
+=======
+            <div className="aspect-video rounded-2xl bg-slate-950 flex items-center justify-center border border-slate-800 overflow-hidden relative shadow-inner">
+              <video
+                src="/clinicos-walkthrough.mp4"
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain bg-black rounded-2xl"
+              >
+                <source src="/clinicos-walkthrough.mp4" type="video/mp4" />
+                Your browser does not support HTML5 video playback.
+              </video>
+>>>>>>> origin/main
             </div>
 
             <div className="flex justify-end pt-2">

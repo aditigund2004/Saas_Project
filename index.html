@@ -1,4 +1,5 @@
 <!doctype html>
+<<<<<<< HEAD
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -6,10 +7,23 @@
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#080F1E" />
     <meta name="description" content="ClinicOS — The Operating System for Modern Healthcare Practices and Multi-Branch Clinics." />
+=======
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="ClinicOS — The Operating System for Modern Healthcare Practices and Multi-Branch Clinics." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+>>>>>>> origin/main
     <title>ClinicOS | Healthcare Clinic SaaS Platform</title>
     <script>
       (function() {
         try {
+<<<<<<< HEAD
           var pref = localStorage.getItem('clinicos_theme_preference') || localStorage.getItem('clinicos_theme') || 'dark';
           var isDark = true;
           if (pref === 'system') {
@@ -23,10 +37,26 @@
           } else {
             document.documentElement.classList.remove('dark');
             document.documentElement.setAttribute('data-theme', 'light');
+=======
+          var saved = localStorage.getItem('clinicos_theme');
+          var isDark = saved === 'dark';
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+>>>>>>> origin/main
           }
         } catch (e) {}
       })();
     </script>
+<<<<<<< HEAD
+=======
+    <meta name="theme-color" content="#f5f8fb" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <title>ClinicOS | Healthcare Clinic SaaS Platform</title>
+>>>>>>> origin/main
   </head>
   <body>
     <div id="root"></div>

@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import React, { useState, useMemo } from 'react';
+=======
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+>>>>>>> origin/main
 import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+<<<<<<< HEAD
+=======
+import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
+>>>>>>> origin/main
 import {
   MessageSquareHeart,
   Star,
@@ -14,7 +23,13 @@ import {
   Sparkles,
   Building2,
   Lock,
+<<<<<<< HEAD
   HeartHandshake
+=======
+  HeartHandshake,
+  List,
+  LayoutGrid
+>>>>>>> origin/main
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -35,30 +50,66 @@ const RATING_DESCRIPTIONS = {
 };
 
 export function PatientFeedbackPage() {
+<<<<<<< HEAD
+=======
+  const [searchParams] = useSearchParams();
+  const urlAptId = searchParams.get('appointment') || '';
+
+>>>>>>> origin/main
   const {
     feedbacks,
     appointments,
     activeClinic,
     currentUser,
+<<<<<<< HEAD
+=======
+    activePatientId,
+    patients = [],
+>>>>>>> origin/main
     submitPatientFeedback,
     showToast
   } = useApp();
 
+<<<<<<< HEAD
   const [activeTab, setActiveTab] = useState('new'); // 'new' | 'history'
+=======
+  const activePatient =
+    patients.find((p) => p.id === activePatientId || p.patientIdNumber === activePatientId) ||
+    patients.find((p) => p.name === currentUser?.name) ||
+    patients[0];
+
+  const [activeTab, setActiveTab] = useState('new'); // 'new' | 'history'
+  const [historyViewMode, setHistoryViewMode] = useState('table');
+>>>>>>> origin/main
 
   // Form State
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [category, setCategory] = useState('Doctor Care');
+<<<<<<< HEAD
   const [selectedAppointmentId, setSelectedAppointmentId] = useState('');
+=======
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(urlAptId);
+>>>>>>> origin/main
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    if (urlAptId) {
+      setSelectedAppointmentId(urlAptId);
+      setActiveTab('new');
+    }
+  }, [urlAptId]);
+
+>>>>>>> origin/main
   // Patient's own appointments at this clinic
   const patientAppointments = useMemo(() => {
     return appointments.filter(
       (a) =>
+<<<<<<< HEAD
         (a.patientId === currentUser.id || a.patientName === currentUser.name) &&
         a.clinicId === activeClinic.id
     );
@@ -74,6 +125,26 @@ export function PatientFeedbackPage() {
         f.clinicId === activeClinic.id
     );
   }, [feedbacks, currentUser, activeClinic.id]);
+=======
+        (a.patientId === activePatient?.id ||
+          a.patientId === activePatient?.patientIdNumber ||
+          a.patientName === activePatient?.name) &&
+        a.clinicId === activeClinic.id
+    );
+  }, [appointments, activePatient, activeClinic.id]);
+
+  // STRICT PRIVACY FILTER: Only feedbacks submitted by the active patient!
+  const myFeedbacks = useMemo(() => {
+    return feedbacks.filter(
+      (f) =>
+        (f.patientId === activePatient?.id ||
+          f.patientId === activePatient?.patientIdNumber ||
+          f.patientEmail === activePatient?.email ||
+          f.patientName === activePatient?.name) &&
+        f.clinicId === activeClinic.id
+    );
+  }, [feedbacks, activePatient, activeClinic.id]);
+>>>>>>> origin/main
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,6 +188,11 @@ export function PatientFeedbackPage() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
+<<<<<<< HEAD
+=======
+      <DemoPatientSwitcher />
+
+>>>>>>> origin/main
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div>
@@ -325,6 +401,7 @@ export function PatientFeedbackPage() {
             </Card>
           ) : (
             <div className="space-y-3">
+<<<<<<< HEAD
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-1">
                 <span>Displaying your past submitted reviews ({myFeedbacks.length})</span>
                 <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold">Confidential Patient Records</span>
@@ -399,6 +476,182 @@ export function PatientFeedbackPage() {
                   )}
                 </Card>
               ))}
+=======
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-1">
+                <span>Displaying your past submitted reviews ({myFeedbacks.length})</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <button
+                      type="button"
+                      onClick={() => setHistoryViewMode('table')}
+                      className={`p-1 px-2 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                        historyViewMode === 'table'
+                          ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
+                          : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                      }`}
+                    >
+                      <List className="w-3.5 h-3.5" />
+                      <span>Table</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHistoryViewMode('cards')}
+                      className={`p-1 px-2 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                        historyViewMode === 'cards'
+                          ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
+                          : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                      }`}
+                    >
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                      <span>Cards</span>
+                    </button>
+                  </div>
+                  <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold hidden sm:inline">Confidential Patient Records</span>
+                </div>
+              </div>
+
+              {historyViewMode === 'table' ? (
+                <Card className="overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs text-left border-collapse">
+                      <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
+                        <tr>
+                          <th className="px-3.5 py-3 text-center w-12 font-semibold">#</th>
+                          <th className="px-4 py-3">Reference #</th>
+                          <th className="px-4 py-3">Category</th>
+                          <th className="px-4 py-3">Rating</th>
+                          <th className="px-4 py-3">Appointment</th>
+                          <th className="px-4 py-3">Feedback Summary</th>
+                          <th className="px-4 py-3">Date</th>
+                          <th className="px-4 py-3 text-right">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {myFeedbacks.map((fb, idx) => (
+                          <tr key={fb.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
+                            <td className="px-3.5 py-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
+                              {idx + 1}
+                            </td>
+                            <td className="px-4 py-3 font-mono font-bold text-slate-900 dark:text-white whitespace-nowrap">
+                              {fb.referenceNumber}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-blue-800 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50">
+                                {fb.category}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <div className="flex items-center gap-1 font-bold text-amber-500">
+                                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                <span>{fb.rating}.0</span>
+                              </div>
+                            </td>
+                            <td className="px-4 py-3 font-mono text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                              {fb.appointmentRef || 'General Visit'}
+                            </td>
+                            <td className="px-4 py-3 max-w-xs">
+                              <div className="truncate text-slate-700 dark:text-slate-300 font-medium">"{fb.message}"</div>
+                              {fb.resolutionNote && (
+                                <div className="text-[11px] text-emerald-600 dark:text-emerald-400 truncate flex items-center gap-1 mt-0.5">
+                                  <HeartHandshake className="w-3 h-3 shrink-0" />
+                                  <span>Clinic: {fb.resolutionNote}</span>
+                                </div>
+                              )}
+                            </td>
+                            <td className="px-4 py-3 text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                              {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                              })}
+                            </td>
+                            <td className="px-4 py-3 text-right whitespace-nowrap">
+                              <Badge variant={fb.status} size="sm">
+                                {fb.status === 'New'
+                                  ? 'Submitted'
+                                  : fb.status === 'Reviewed'
+                                  ? 'In Review'
+                                  : 'Resolved'}
+                              </Badge>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
+              ) : (
+                myFeedbacks.map((fb) => (
+                  <Card key={fb.id} className="p-5 sm:p-6 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 space-y-3.5 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs font-bold text-slate-700 dark:text-slate-300">{fb.referenceNumber}</span>
+                          <span className="text-slate-300 dark:text-slate-700">•</span>
+                          <span className="text-xs font-semibold text-blue-800 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-blue-900/50">
+                            {fb.category}
+                          </span>
+                          {fb.appointmentRef && (
+                            <span className="text-xs text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full font-mono">
+                              {fb.appointmentRef}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-xs text-slate-400 dark:text-slate-500 mt-1 block">
+                          Submitted on {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                          })}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center text-amber-400">
+                          {[1, 2, 3, 4, 5].map((s) => (
+                            <Star
+                              key={s}
+                              className={`w-4 h-4 ${
+                                s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <Badge variant={fb.status}>
+                          {fb.status === 'New'
+                            ? 'Submitted · Pending Review'
+                            : fb.status === 'Reviewed'
+                            ? 'Under Clinic Review'
+                            : 'Resolved by Clinic'}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* Written Message */}
+                    <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic border border-slate-100 dark:border-slate-800">
+                      "{fb.message}"
+                    </div>
+
+                    {fb.suggestions && (
+                      <div className="text-xs text-slate-500 dark:text-slate-400 pl-1">
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">Suggestion:</span> {fb.suggestions}
+                      </div>
+                    )}
+
+                    {/* Clinic Resolution Message Response if provided */}
+                    {fb.resolutionNote && (
+                      <div className="p-3.5 bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs space-y-1">
+                        <span className="font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-1.5 text-xs">
+                          <HeartHandshake className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                          Response from {activeClinic.name} Management:
+                        </span>
+                        <p className="text-emerald-800 dark:text-emerald-300/90 leading-relaxed">{fb.resolutionNote}</p>
+                      </div>
+                    )}
+                  </Card>
+                ))
+              )}
+>>>>>>> origin/main
             </div>
           )}
         </div>

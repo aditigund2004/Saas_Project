@@ -1,7 +1,10 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { FontSizeSwitcher } from '../ui/FontSizeSwitcher';
+=======
+>>>>>>> origin/main
 import {
   Sparkles,
   ShieldCheck,
@@ -148,6 +151,7 @@ export function DemoRoleBar() {
         </Link>
       </div>
 
+<<<<<<< HEAD
       {/* Right controls: Font Size & Reset Demo */}
       <div className="flex items-center gap-2">
         <FontSizeSwitcher variant="dropdown" />
@@ -160,6 +164,17 @@ export function DemoRoleBar() {
           <span className="hidden sm:inline">Reset Demo</span>
         </button>
       </div>
+=======
+      {/* Right reset action */}
+      <button
+        onClick={resetDemoData}
+        className="text-[11px] text-slate-400 hover:text-white transition-colors flex items-center gap-1 px-2 py-1 rounded hover:bg-slate-800 cursor-pointer"
+        title="Reset all demo data to seed defaults"
+      >
+        <RotateCcw className="w-3 h-3" />
+        <span className="hidden sm:inline">Reset Demo</span>
+      </button>
+>>>>>>> origin/main
     </div>
   );
 }

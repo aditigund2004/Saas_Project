@@ -5,6 +5,10 @@ import { Card, CardHeader } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { Badge } from '../../../components/ui/Badge';
 import { Modal } from '../../../components/ui/Modal';
+<<<<<<< HEAD
+=======
+import { QRCodeBadge } from '../../../components/ui/QRCodeBadge';
+>>>>>>> origin/main
 import {
   Receipt,
   PlusCircle,
@@ -21,7 +25,15 @@ import {
   User,
   Phone,
   Calendar,
+<<<<<<< HEAD
   X
+=======
+  X,
+  QrCode,
+  Smartphone,
+  ShieldCheck,
+  Check
+>>>>>>> origin/main
 } from 'lucide-react';
 
 export function ClinicInvoicesPage() {
@@ -541,13 +553,73 @@ export function ClinicInvoicesPage() {
                 onChange={(e) => setPaymentMethodChoice(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
               >
+<<<<<<< HEAD
                 <option value="UPI QR">UPI Dynamic QR</option>
+=======
+                <option value="UPI QR">UPI Dynamic QR (GPay / PhonePe / Paytm / BHIM)</option>
+>>>>>>> origin/main
                 <option value="Debit / Credit Card">POS Terminal Card</option>
                 <option value="Cash">Cash Currency</option>
                 <option value="Net Banking">IMPS / NEFT Transfer</option>
               </select>
             </div>
 
+<<<<<<< HEAD
+=======
+            {/* Dynamic UPI QR Code Intent Preview */}
+            {paymentMethodChoice === 'UPI QR' && (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50/70 via-blue-50/50 to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-blue-200 dark:border-blue-900/60 space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-blue-200 dark:border-blue-900/40">
+                  <span className="text-xs font-bold text-blue-900 dark:text-blue-300 flex items-center gap-1.5">
+                    <QrCode className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    Dynamic UPI QR Payment Intent
+                  </span>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                    Live Demo QR
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="shrink-0 p-2 bg-white rounded-xl shadow-xs border border-slate-200">
+                    <QRCodeBadge
+                      verificationId={`UPI-${paymentModalInvoice.invoiceNumber}-${customPaymentAmount}`}
+                      referenceNumber={paymentModalInvoice.invoiceNumber}
+                      size={105}
+                      showLink={false}
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 text-xs flex-1">
+                    <div className="font-semibold text-slate-900 dark:text-white flex items-center justify-between">
+                      <span>VPA Account:</span>
+                      <span className="font-mono text-blue-600 dark:text-blue-400 font-bold">citycare@okaxis</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                      <span>Payee:</span>
+                      <span>{activeClinic?.name || 'CityCare Family Clinic'}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                      <span>Amount:</span>
+                      <span className="font-bold text-slate-900 dark:text-white font-mono">₹{customPaymentAmount || paymentModalInvoice.totalAmount}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                      <span>Ref Code:</span>
+                      <span className="font-mono text-[11px]">{paymentModalInvoice.invoiceNumber}</span>
+                    </div>
+
+                    <div className="pt-1 text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                      * Compatible with all UPI PSP apps: PhonePe, GPay, Paytm, Cred, Navi, Amazon Pay.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-2 bg-blue-100/60 dark:bg-blue-950/40 rounded-xl text-[10px] text-blue-900 dark:text-blue-300 leading-tight">
+                  <strong>Simulation Disclaimer:</strong> Demo payment intent preview. In production deployment, automated webhook listeners from Razorpay / Cashfree UPI Gateway settle invoices immediately upon bank settlement acknowledgement.
+                </div>
+              </div>
+            )}
+
+>>>>>>> origin/main
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="outline" type="button" onClick={() => setPaymentModalInvoice(null)}>
                 Cancel
@@ -680,6 +752,43 @@ export function ClinicInvoicesPage() {
                 </div>
               </div>
 
+<<<<<<< HEAD
+=======
+              {/* Dynamic UPI QR Section on Bill */}
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-white rounded-lg border border-slate-200 shadow-xs">
+                    <QRCodeBadge
+                      verificationId={`UPI-${selectedInvoice.invoiceNumber}`}
+                      referenceNumber={selectedInvoice.invoiceNumber}
+                      size={75}
+                      showLink={false}
+                    />
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="font-bold text-slate-900 flex items-center gap-1">
+                      <QrCode className="w-3.5 h-3.5 text-blue-600" />
+                      Dynamic Clinic UPI Payment QR
+                    </span>
+                    <p className="text-[11px] text-slate-500 font-mono">VPA: citycare@okaxis</p>
+                    <p className="text-[10px] text-slate-400">
+                      Scan with Google Pay, PhonePe, or Paytm for instant receipt reconciliation.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-right shrink-0">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block">UPI Reference</span>
+                  <span className="font-mono font-bold text-blue-700 text-xs">
+                    {selectedInvoice.invoiceNumber}
+                  </span>
+                  <div className="text-[10px] text-emerald-600 font-semibold flex items-center justify-end gap-1 mt-0.5">
+                    <ShieldCheck className="w-3 h-3" /> Encrypted & Verified
+                  </div>
+                </div>
+              </div>
+
+>>>>>>> origin/main
               {/* Footer Note */}
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
                 <span>Computer-generated clinical invoice. No signature required.</span>

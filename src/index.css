@@ -2,6 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+<<<<<<< HEAD
 @theme {
   --color-main-bg: var(--bg-main);
   --color-secondary-bg: var(--bg-secondary);
@@ -189,12 +190,87 @@ input::placeholder, textarea::placeholder {
   min-height: 2.5rem;
   box-sizing: border-box;
   width: 100%;
+=======
+@layer base {
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --deep-navy: #172554;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --surface: #ffffff;
+    --surface-pale: #f8faff;
+    --background: #f7f9fc;
+    --card: #ffffff;
+    --text-primary: #172033;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --warning: #d97706;
+    --error: #dc2626;
+  }
+
+  .dark {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-light: #1e293b;
+    --deep-navy: #0f172a;
+    --accent: #3b82f6;
+    --accent-light: #1e293b;
+    --surface: #111827;
+    --surface-pale: #1e293b;
+    --background: #0b0f19;
+    --card: #111827;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border: #1f2937;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+  }
+
+  .high-contrast {
+    --primary: #facc15;
+    --primary-dark: #eab308;
+    --primary-light: #422006;
+    --deep-navy: #000000;
+    --accent: #facc15;
+    --accent-light: #422006;
+    --surface: #000000;
+    --surface-pale: #0a0a0a;
+    --background: #000000;
+    --card: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #facc15;
+    --border: #ffffff;
+    --success: #4ade80;
+    --warning: #facc15;
+    --error: #ff4d4d;
+  }
+}
+
+.high-contrast button,
+.high-contrast a,
+.high-contrast input,
+.high-contrast select {
+  outline: 2px solid transparent;
+}
+
+.high-contrast button:focus-visible,
+.high-contrast a:focus-visible,
+.high-contrast input:focus-visible,
+.high-contrast select:focus-visible {
+  outline: 3px solid #facc15 !important;
+  outline-offset: 2px !important;
+>>>>>>> origin/main
 }
 
 html {
   font-size: 17px;
   color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
+<<<<<<< HEAD
   transition: font-size 150ms ease;
 }
 
@@ -211,10 +287,13 @@ html[data-font-size="medium"] {
 html.font-size-large,
 html[data-font-size="large"] {
   font-size: 19.5px !important;
+=======
+>>>>>>> origin/main
 }
 
 body {
   margin: 0;
+<<<<<<< HEAD
   font-family: var(--font-family-base);
   background-color: var(--background);
   color: var(--text-primary);
@@ -239,6 +318,16 @@ body {
                 color 200ms cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+=======
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 150ms ease, color 150ms ease;
+>>>>>>> origin/main
 }
 
 /* ========================================================================= */
@@ -588,6 +677,125 @@ table td,
   z-index: -1;
 }
 
+<<<<<<< HEAD
+=======
+/* ========================================================================= */
+/* MEDICAL MOTION SYSTEM: ECG Telemetry & Cardiac Rhythm                     */
+/* ========================================================================= */
+
+/* Natural dual-phase cardiac contraction (systole & diastole / lub-dub) */
+@keyframes cardiacPulse {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  14% {
+    transform: scale3d(1.13, 1.13, 1);
+  }
+  24% {
+    transform: scale3d(1.02, 1.02, 1);
+  }
+  38% {
+    transform: scale3d(1.22, 1.22, 1);
+  }
+  50% {
+    transform: scale3d(1.04, 1.04, 1);
+  }
+  64% {
+    transform: scale3d(1, 1, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Rhythmic radial backglow expanding in sync with heartbeat */
+@keyframes cardiacRadialGlow {
+  0%, 65%, 100% {
+    opacity: 0.18;
+    transform: scale3d(0.92, 0.92, 1);
+  }
+  14% {
+    opacity: 0.48;
+    transform: scale3d(1.16, 1.16, 1);
+  }
+  38% {
+    opacity: 0.75;
+    transform: scale3d(1.36, 1.36, 1);
+  }
+  52% {
+    opacity: 0.32;
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+/* Continuous infinite ECG waveform flow */
+@keyframes ecgTrackFlow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Smooth continuous beam scanner line */
+@keyframes ecgPulseTravel {
+  0% {
+    stroke-dashoffset: 2800;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Soft floating drift */
+@keyframes medicalGentleFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) rotate(1.2deg);
+  }
+}
+
+.animate-cardiac-pulse {
+  animation: cardiacPulse 1.45s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.animate-cardiac-glow {
+  animation: cardiacRadialGlow 1.45s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.animate-ecg-track {
+  display: flex;
+  width: 200%;
+  animation: ecgTrackFlow 16s linear infinite;
+  will-change: transform;
+}
+
+.animate-ecg-track-fast {
+  display: flex;
+  width: 200%;
+  animation: ecgTrackFlow 10s linear infinite;
+  will-change: transform;
+}
+
+.animate-ecg-line {
+  stroke-dasharray: 450 2400;
+  animation: ecgPulseTravel 5.5s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.animate-medical-float {
+  animation: medicalGentleFloat 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+>>>>>>> origin/main
 /* Print specific styles for digital prescriptions */
 @media print {
   body {

@@ -730,4 +730,8 @@ export function EmailEventSimulatorModal({
       </div>
     </Modal>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

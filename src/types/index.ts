@@ -318,6 +318,7 @@ export interface PatientFeedback {
   updatedAt: string;
 }
 
+<<<<<<< HEAD
 export interface EmergencyContact {
   name: string;
   relationship: string;
@@ -372,6 +373,8 @@ export interface FamilyMember {
   registeredAt: string;
 }
 
+=======
+>>>>>>> origin/main
 export interface Patient {
   id: string;
   clinicId: string;
@@ -386,9 +389,12 @@ export interface Patient {
   medicalHistory?: string;
   address?: string;
   emergencyContact?: string;
+<<<<<<< HEAD
   emergencyContactDetails?: EmergencyContact;
   emergencyMedicalDetails?: EmergencyMedicalDetails;
   familyMembers?: FamilyMember[];
+=======
+>>>>>>> origin/main
   registeredAt: string;
   status: 'Active' | 'Inactive';
 }
@@ -495,6 +501,7 @@ export interface PrescriptionVerification {
   verificationNotice: string;
 }
 
+<<<<<<< HEAD
 export type DoseStatus = 'pending' | 'taken' | 'missed';
 export type TimeOfDay = 'Morning' | 'Afternoon' | 'Evening' | 'Bedtime';
 
@@ -609,6 +616,8 @@ export interface PatientQuery {
   messages: PatientQueryMessage[];
 }
 
+=======
+>>>>>>> origin/main
 export interface InvoiceLineItem {
   id: string;
   description: string;
@@ -711,11 +720,38 @@ export interface ClinicPaymentRecord {
   patientName: string;
   invoiceNumber: string;
   amount: number;
+<<<<<<< HEAD
   paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking';
+=======
+  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking' | string;
+>>>>>>> origin/main
   date: string;
   status: 'Completed' | 'Pending';
 }
 
+<<<<<<< HEAD
+=======
+export interface ReceiptRecord {
+  id: string;
+  receiptNumber: string;
+  paymentReference: string;
+  invoiceNumber: string;
+  invoiceId?: string;
+  patientId: string;
+  patientName: string;
+  amount: number;
+  paymentMethod: string;
+  date: string;
+  time?: string;
+  clinicId?: string;
+  clinicName?: string;
+  branchId?: string;
+  issuedBy?: string;
+  status: 'Issued' | 'Void';
+  notes?: string;
+}
+
+>>>>>>> origin/main
 export interface ClinicRefundRecord {
   id: string;
   requestReference: string;
@@ -970,3 +1006,26 @@ export interface PlatformMetric {
   registeredUsers: number;
 }
 
+<<<<<<< HEAD
+=======
+export interface VirtualConsultation {
+  id: string;
+  patientId: string;
+  patientName: string;
+  patientPhone: string;
+  patientAvatar?: string;
+  doctorId: string;
+  doctorName: string;
+  doctorSpecialty: string;
+  clinicId: string;
+  clinicName: string;
+  reason: string;
+  status: 'Waiting' | 'Connecting' | 'In Call' | 'Completed' | 'Declined';
+  requestedAt: string;
+  preferredTime: string;
+  meetingLink: string;
+  notes?: string;
+  duration?: string;
+}
+
+>>>>>>> origin/main

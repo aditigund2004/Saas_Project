@@ -1,11 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
+<<<<<<< HEAD
 import { Sparkles, Bot, Stethoscope, Pill, TrendingUp, AlertTriangle, X, CheckCircle2 } from 'lucide-react';
+=======
+import {
+  Sparkles,
+  Bot,
+  Stethoscope,
+  Pill,
+  TrendingUp,
+  AlertTriangle,
+  X,
+  CheckCircle2,
+  PanelRightClose,
+  PanelRightOpen,
+  Maximize2,
+  Minimize2,
+  ShieldAlert
+} from 'lucide-react';
+>>>>>>> origin/main
 import { Card } from './Card';
 import { Button } from './Button';
 import { Badge } from './Badge';
 
 export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
   const [isOpen, setIsOpen] = useState(false);
+<<<<<<< HEAD
+=======
+  const [dockMode, setDockMode] = useState(() => {
+    try {
+      return sessionStorage.getItem('clinicos_ai_dock') || 'center';
+    } catch {
+      return 'center';
+    }
+  });
+>>>>>>> origin/main
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [selectedScenario, setSelectedScenario] = useState('dental_pain');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -244,12 +272,29 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
       {/* Modal / Slide-over Drawer */}
       {isOpen && (
         <div
+<<<<<<< HEAD
           className="fixed inset-0 w-full h-full min-h-dvh z-[70] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fade-in cursor-pointer"
           onClick={() => setIsOpen(false)}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh] cursor-default"
+=======
+          className={
+            dockMode === 'docked'
+              ? 'fixed inset-y-0 right-0 z-[70] w-full sm:w-[520px] h-full shadow-2xl flex flex-col bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 animate-slide-left'
+              : 'fixed inset-0 w-full h-full min-h-dvh z-[70] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fade-in cursor-pointer'
+          }
+          onClick={dockMode === 'center' ? () => setIsOpen(false) : undefined}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={
+              dockMode === 'docked'
+                ? 'w-full h-full flex flex-col overflow-hidden bg-white dark:bg-slate-900 cursor-default'
+                : 'bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh] cursor-default'
+            }
+>>>>>>> origin/main
           >
             {/* Header */}
             <div className="p-4 sm:p-5 bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white flex items-center justify-between border-b border-slate-800">
@@ -259,12 +304,17 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
+<<<<<<< HEAD
                     <h3 className="font-bold text-base text-white">ClinicOS AI Experience Preview</h3>
+=======
+                    <h3 className="font-bold text-base text-white">ClinicOS AI Clinical Co-Pilot</h3>
+>>>>>>> origin/main
                     <span className="text-[10px] font-semibold uppercase tracking-wider bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full border border-blue-400/30">
                       Synthetic Demo
                     </span>
                   </div>
                   <p className="text-xs text-slate-300">
+<<<<<<< HEAD
                     Deterministic simulation of clinical summarization, patient Rx translation, and clinic ops intelligence.
                   </p>
                 </div>
@@ -276,6 +326,39 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
               >
                 <X className="w-5 h-5" />
               </button>
+=======
+                    Clinical summarization, patient Rx translation, and clinic ops intelligence.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1">
+                {/* Dock Mode Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const nextMode = dockMode === 'center' ? 'docked' : 'center';
+                    setDockMode(nextMode);
+                    try {
+                      sessionStorage.setItem('clinicos_ai_dock', nextMode);
+                    } catch {}
+                  }}
+                  className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                  title={dockMode === 'docked' ? 'Switch to Center Dialog' : 'Dock to Right Sidebar Panel'}
+                  aria-label="Toggle layout mode"
+                >
+                  {dockMode === 'docked' ? <Maximize2 className="w-4 h-4" /> : <PanelRightClose className="w-4 h-4" />}
+                </button>
+
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                  aria-label="Close dialog"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+>>>>>>> origin/main
             </div>
 
             {/* Feature Tabs */}
@@ -328,11 +411,19 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
 
             {/* Content Area */}
             <div className="p-5 overflow-y-auto space-y-4 flex-1 text-slate-800 dark:text-slate-200">
+<<<<<<< HEAD
               {/* Notice */}
               <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl flex items-start gap-2.5 text-xs text-amber-850 dark:text-amber-300">
                 <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <strong>Demonstration Notice:</strong> Deterministic mock preview for SaaS product evaluation. No patient data is transmitted to external cloud APIs or LLM services. Never use for actual medical diagnoses.
+=======
+              {/* Clinician Review & Demonstration Notice */}
+              <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl flex items-start gap-2.5 text-xs text-amber-900 dark:text-amber-200">
+                <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <strong>AI Clinical Co-Pilot Demonstration:</strong> Guidance output is synthetic simulation intended solely for product evaluation and workflow prototyping. Qualified physician verification and manual sign-off is mandatory before prescribing medications or performing procedures.
+>>>>>>> origin/main
                 </div>
               </div>
 

@@ -184,6 +184,7 @@ export function PatientRemindersPage() {
       {/* Adherence Scoreboard Cards (3 col per row grid) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Metric 1: Today's Adherence Rate */}
+<<<<<<< HEAD
         <div className="relative overflow-hidden p-5 sm:p-6 rounded-3xl bg-[#111E33] border border-[#263B59] shadow-lg shadow-black/20 space-y-2 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 via-teal-500/5 to-transparent pointer-events-none" />
           <Activity className="absolute -bottom-2 -right-2 w-20 h-20 text-emerald-400/[0.05] pointer-events-none transform -rotate-12 transition-transform duration-300 group-hover:scale-110" />
@@ -205,12 +206,37 @@ export function PatientRemindersPage() {
           <div className="relative z-10 w-full bg-[#0D1729] h-2 rounded-full overflow-hidden">
             <div
               className="bg-emerald-500 h-full rounded-full transition-all duration-300"
+=======
+        <div className="relative overflow-hidden p-5 sm:p-6 rounded-3xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 space-y-2 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 via-teal-500/5 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/50 dark:ring-white/10 pointer-events-none" />
+          <Activity className="absolute -bottom-2 -right-2 w-20 h-20 text-emerald-600/[0.05] dark:text-emerald-400/[0.05] pointer-events-none transform -rotate-12 transition-transform duration-300 group-hover:scale-110" />
+
+          <div className="relative z-10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span className="font-bold uppercase tracking-wider">Today's Adherence</span>
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-800/60 flex items-center justify-center">
+              <Activity className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            </div>
+          </div>
+          <div className="relative z-10 flex items-baseline gap-2">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+              {adherenceRate}%
+            </span>
+            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+              {takenCount} of {totalDoses} doses taken
+            </span>
+          </div>
+          <div className="relative z-10 w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+            <div
+              className="bg-emerald-600 h-full rounded-full transition-all duration-300"
+>>>>>>> origin/main
               style={{ width: `${(takenCount / Math.max(totalDoses, 1)) * 100}%` }}
             />
           </div>
         </div>
 
         {/* Metric 2: Adherence Streak */}
+<<<<<<< HEAD
         <div className="relative overflow-hidden p-5 sm:p-6 rounded-3xl bg-[#111E33] border border-[#263B59] shadow-lg shadow-black/20 space-y-2 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-transparent pointer-events-none" />
           <Flame className="absolute -bottom-2 -right-2 w-20 h-20 text-amber-400/[0.05] pointer-events-none transform -rotate-12 transition-transform duration-300 group-hover:scale-110" />
@@ -230,11 +256,34 @@ export function PatientRemindersPage() {
             </span>
           </div>
           <p className="relative z-10 text-[11px] text-[#94A3B8]">
+=======
+        <div className="relative overflow-hidden p-5 sm:p-6 rounded-3xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 space-y-2 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group">
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/50 dark:ring-white/10 pointer-events-none" />
+          <Flame className="absolute -bottom-2 -right-2 w-20 h-20 text-amber-600/[0.05] dark:text-amber-400/[0.05] pointer-events-none transform -rotate-12 transition-transform duration-300 group-hover:scale-110" />
+
+          <div className="relative z-10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span className="font-bold uppercase tracking-wider">Adherence Streak</span>
+            <div className="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-200/80 dark:border-amber-800/60 flex items-center justify-center">
+              <Flame className="w-4 h-4 text-amber-500" />
+            </div>
+          </div>
+          <div className="relative z-10 flex items-baseline gap-2">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+              5 Days
+            </span>
+            <span className="text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-500/15 px-2.5 py-0.5 rounded-full border border-amber-300/80 dark:border-amber-700/60">
+              Optimal Regimen 🔥
+            </span>
+          </div>
+          <p className="relative z-10 text-[11px] text-slate-500 dark:text-slate-400">
+>>>>>>> origin/main
             Zero missed doses on active antibiotic and maintenance regimen
           </p>
         </div>
 
         {/* Metric 3: Active Reminders & WhatsApp Delivery */}
+<<<<<<< HEAD
         <div className="relative overflow-hidden p-5 sm:p-6 rounded-3xl bg-[#111E33] border border-[#263B59] shadow-lg shadow-black/20 space-y-2 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group">
           <div className="absolute inset-0 bg-gradient-to-br from-teal-500/15 via-emerald-500/5 to-transparent pointer-events-none" />
           <MessageSquare className="absolute -bottom-2 -right-2 w-20 h-20 text-emerald-400/[0.05] pointer-events-none transform -rotate-12 transition-transform duration-300 group-hover:scale-110" />
@@ -242,11 +291,22 @@ export function PatientRemindersPage() {
           <div className="relative z-10 flex items-center justify-between text-xs text-[#94A3B8]">
             <span className="font-bold uppercase tracking-wider">Active Alerts & WhatsApp</span>
             <div className="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-800/60 flex items-center justify-center">
+=======
+        <div className="relative overflow-hidden p-5 sm:p-6 rounded-3xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 space-y-2 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group">
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/15 via-emerald-500/5 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/50 dark:ring-white/10 pointer-events-none" />
+          <MessageSquare className="absolute -bottom-2 -right-2 w-20 h-20 text-emerald-600/[0.05] dark:text-emerald-400/[0.05] pointer-events-none transform -rotate-12 transition-transform duration-300 group-hover:scale-110" />
+
+          <div className="relative z-10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span className="font-bold uppercase tracking-wider">Active Alerts & WhatsApp</span>
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-800/60 flex items-center justify-center">
+>>>>>>> origin/main
               <MessageSquare className="w-4 h-4 text-[#25D366]" />
             </div>
           </div>
           <div className="relative z-10 flex items-baseline justify-between gap-2">
             <div className="flex items-baseline gap-1.5">
+<<<<<<< HEAD
               <span className="text-2xl sm:text-3xl font-extrabold text-[#F1F5F9] font-mono">
                 {myReminders.filter((r) => r.enabled).length}
               </span>
@@ -255,26 +315,49 @@ export function PatientRemindersPage() {
               </span>
             </div>
             <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-800/60">
+=======
+              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+                {myReminders.filter((r) => r.enabled).length}
+              </span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                active
+              </span>
+            </div>
+            <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-200/80 dark:border-emerald-800/60">
+>>>>>>> origin/main
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               WhatsApp Live
             </span>
           </div>
+<<<<<<< HEAD
           <p className="relative z-10 text-[11px] text-[#94A3B8] truncate">
+=======
+          <p className="relative z-10 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+>>>>>>> origin/main
             {myReminders.map((r) => r.medicationName.split(' ')[0]).join(', ')} · {currentUser?.phone || '+91 98765 43210'}
           </p>
         </div>
       </div>
 
       {/* Tabs Switcher */}
+<<<<<<< HEAD
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#263B59] pb-3">
+=======
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+>>>>>>> origin/main
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setActiveTab('today')}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 ${
               activeTab === 'today'
+<<<<<<< HEAD
                 ? 'bg-[#3B82F6] text-white shadow-sm'
                 : 'bg-[#111E33] text-[#CBD5E1] border border-[#263B59] hover:bg-[#172640] hover:text-[#F1F5F9]'
+=======
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+>>>>>>> origin/main
             }`}
           >
             <Clock className="w-4 h-4" />
@@ -289,13 +372,22 @@ export function PatientRemindersPage() {
             onClick={() => setActiveTab('config')}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 ${
               activeTab === 'config'
+<<<<<<< HEAD
                 ? 'bg-[#3B82F6] text-white shadow-sm'
                 : 'bg-[#111E33] text-[#CBD5E1] border border-[#263B59] hover:bg-[#172640] hover:text-[#F1F5F9]'
+=======
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+>>>>>>> origin/main
             }`}
           >
             <Pill className="w-4 h-4" />
             <span>Prescription Reminders</span>
+<<<<<<< HEAD
             <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-[#172640] text-[#22D3EE] font-mono">
+=======
+            <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono">
+>>>>>>> origin/main
               {myReminders.length}
             </span>
           </button>
@@ -305,8 +397,13 @@ export function PatientRemindersPage() {
             onClick={() => setActiveTab('history')}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 ${
               activeTab === 'history'
+<<<<<<< HEAD
                 ? 'bg-[#3B82F6] text-white shadow-sm'
                 : 'bg-[#111E33] text-[#CBD5E1] border border-[#263B59] hover:bg-[#172640] hover:text-[#F1F5F9]'
+=======
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+>>>>>>> origin/main
             }`}
           >
             <CheckCheck className="w-4 h-4" />

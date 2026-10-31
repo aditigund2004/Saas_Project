@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import { useAuth } from '../../hooks/useAuth';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -21,12 +20,11 @@ import {
 } from 'lucide-react';
 
 export function LoginPage() {
-  const { showToast } = useApp();
-  const { login, loginAsDemoRole } = useAuth();
+  const { switchRole, showToast } = useApp();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('aarav.mehta@citycare.demo');
-  const [password, setPassword] = useState('Demo@1234');
+  const [email, setEmail] = useState('doctor@apexdentalcare.demo');
+  const [password, setPassword] = useState('••••••••••••');
   const [submitting, setSubmitting] = useState(false);
 
   const demoPersonas = [
@@ -64,34 +62,21 @@ export function LoginPage() {
     }
   ];
 
-  const handleQuickLogin = async (roleId, path) => {
-    const result = await loginAsDemoRole(roleId);
-    if (result.success) {
-      showToast(`Logged in as demo persona: ${roleId.replace('_', ' ').toUpperCase()}`);
-      navigate(path);
-    } else {
-      showToast(result.error || 'Could not sign in to the demo account.', 'error');
-    }
+  const handleQuickLogin = (roleId, path) => {
+    switchRole(roleId);
+    showToast(`Logged in as demo persona: ${roleId.replace('_', ' ').toUpperCase()}`);
+    navigate(path);
   };
 
-  const handleFormLogin = async (e) => {
+  const handleFormLogin = (e) => {
     e.preventDefault();
     setSubmitting(true);
-    try {
-      const result = await login({
-        identifier: email.trim(),
-        password,
-        role: 'doctor_admin'
-      });
-      if (result.success) {
-        showToast('Logged in as Clinic Administrator. Opening Dashboard...');
-        navigate('/clinic/dashboard');
-      } else {
-        showToast(result.error || 'Could not sign in to the clinic account.', 'error');
-      }
-    } finally {
+    setTimeout(() => {
       setSubmitting(false);
-    }
+      switchRole('clinic_admin');
+      showToast('Logged in as Clinic Administrator. Opening Dashboard...');
+      navigate('/clinic/dashboard');
+    }, 600);
   };
 
   return (

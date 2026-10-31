@@ -17,16 +17,16 @@ export function ReceptionReportsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Shift Summary</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">Reception Operational Log</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Shift Summary</span>
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Reception Operational Log</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Daily throughput report for walk-in arrivals, online confirmations, and wait time averages.
           </p>
         </div>
 
         <Button
           variant="outline"
-          size="sm"
+          size="md"
           icon={Download}
           onClick={() => showToast('Daily reception shift summary exported.')}
         >
@@ -64,23 +64,23 @@ export function ReceptionReportsPage() {
         />
       </div>
 
-      <Card>
+      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
         <CardHeader
           title="Reception Shift Highlights"
           subtitle="Key front-desk performance observations"
         />
-        <CardContent className="space-y-3 text-xs text-slate-600">
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between">
-            <span>Average Patient Waiting Time:</span>
-            <span className="font-bold text-slate-900">8.5 Minutes</span>
+        <CardContent className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span className="font-medium text-slate-700 dark:text-slate-300">Average Patient Waiting Time:</span>
+            <span className="font-bold text-slate-900 dark:text-slate-100 font-mono text-base">8.5 Minutes</span>
           </div>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between">
-            <span>WhatsApp Confirmations Dispatched:</span>
-            <span className="font-bold text-blue-800">100% of Verified Numbers</span>
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span className="font-medium text-slate-700 dark:text-slate-300">WhatsApp Confirmations Dispatched:</span>
+            <span className="font-bold text-blue-700 dark:text-blue-400 font-mono text-base">100% of Verified Numbers</span>
           </div>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between">
-            <span>Duplicate Patients Detected & Prevented:</span>
-            <span className="font-bold text-slate-900">4 Instances</span>
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span className="font-medium text-slate-700 dark:text-slate-300">Duplicate Patients Detected & Prevented:</span>
+            <span className="font-bold text-slate-900 dark:text-slate-100 font-mono text-base">4 Instances</span>
           </div>
         </CardContent>
       </Card>

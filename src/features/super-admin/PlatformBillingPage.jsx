@@ -20,10 +20,10 @@ export function PlatformBillingPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-purple-600 uppercase tracking-wider">Platform Finance</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">SaaS Subscription Invoices</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            B2B subscription invoices issued to clinic organizations for CliniPulse platform usage.
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Platform Finance</span>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Subscription Invoices</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            B2B subscription invoices issued to clinic organizations for ClinicOS platform usage.
           </p>
         </div>
 
@@ -37,45 +37,47 @@ export function PlatformBillingPage() {
         </Button>
       </div>
 
-      <div className="p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-900 flex items-center gap-2">
-        <ShieldCheck className="w-4 h-4 text-purple-600 shrink-0" />
+      <div className="p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-sm text-blue-900 dark:text-blue-200 flex items-center gap-3">
+        <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
         <span>
-          <strong>Tenant Separation Note:</strong> This ledger contains platform SaaS subscription fees paid by clinics to CliniPulse. It is strictly segregated from individual clinic patient procedure invoices.
+          <strong>Tenant Separation Note:</strong> This ledger contains platform SaaS subscription fees paid by clinics to ClinicOS. It is strictly segregated from individual clinic patient procedure invoices.
         </span>
       </div>
 
-      <Card>
+      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
         <CardHeader
           title="Recent Subscription Invoices"
           subtitle="Showing transaction references and automated payment gateway webhooks"
         />
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="p-3.5">Invoice #</th>
-                <th className="p-3.5">Subscribing Clinic</th>
-                <th className="p-3.5">Subscription Tier</th>
-                <th className="p-3.5">Date Paid</th>
-                <th className="p-3.5">Amount</th>
-                <th className="p-3.5">Payment Method</th>
-                <th className="p-3.5">Transaction Ref</th>
-                <th className="p-3.5">Status</th>
+                <th className="p-4 text-center w-12 font-bold">#</th>
+                <th className="p-4">Invoice #</th>
+                <th className="p-4">Subscribing Clinic</th>
+                <th className="p-4">Subscription Tier</th>
+                <th className="p-4">Date Paid</th>
+                <th className="p-4">Amount</th>
+                <th className="p-4">Payment Method</th>
+                <th className="p-4">Transaction Ref</th>
+                <th className="p-4">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
-              {invoices.map((inv) => (
-                <tr key={inv.id} className="hover:bg-slate-50/50">
-                  <td className="p-3.5 font-mono font-bold text-slate-900">{inv.id}</td>
-                  <td className="p-3.5 font-medium text-slate-800">{inv.clinic}</td>
-                  <td className="p-3.5 text-slate-600">{inv.plan}</td>
-                  <td className="p-3.5 text-slate-500">{inv.date}</td>
-                  <td className="p-3.5 font-bold font-mono text-slate-900">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {invoices.map((inv, idx) => (
+                <tr key={inv.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
+                  <td className="p-4 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
+                  <td className="p-4 font-mono font-bold text-slate-900 dark:text-white text-base">{inv.id}</td>
+                  <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">{inv.clinic}</td>
+                  <td className="p-4 text-slate-600 dark:text-slate-300 font-medium">{inv.plan}</td>
+                  <td className="p-4 text-slate-500 dark:text-slate-400 font-mono text-xs">{inv.date}</td>
+                  <td className="p-4 font-bold font-mono text-slate-900 dark:text-white text-base">
                     ₹{inv.amount.toLocaleString('en-IN')}
                   </td>
-                  <td className="p-3.5 text-slate-600">{inv.method}</td>
-                  <td className="p-3.5 font-mono text-slate-500 text-[11px]">{inv.ref}</td>
-                  <td className="p-3.5">
+                  <td className="p-4 text-slate-600 dark:text-slate-300">{inv.method}</td>
+                  <td className="p-4 font-mono text-slate-500 dark:text-slate-400 text-xs">{inv.ref}</td>
+                  <td className="p-4">
                     <Badge variant={inv.status}>{inv.status}</Badge>
                   </td>
                 </tr>
@@ -87,4 +89,3 @@ export function PlatformBillingPage() {
     </div>
   );
 }
-

@@ -5,27 +5,21 @@ import {
   Calendar,
   Clock,
   UserCheck,
-  UserPlus,
-  AlertCircle,
   CheckCircle2,
-  Phone,
-  ArrowRight,
   MessageSquare,
-  Sparkles,
   ClipboardList
 } from 'lucide-react';
 import { StatCard } from '../../components/ui/StatCard';
-import { Card, CardHeader, CardContent } from '../../components/ui/Card';
+import { Card, CardHeader } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 
 export function ReceptionDashboardPage() {
   const {
-    activeClinic,
-    activeBranch,
-    appointments,
+    activeClinic = {},
+    appointments = [],
     updateAppointmentStatus,
-    followUps,
+    followUps = [],
     openWhatsAppModal
   } = useApp();
 
@@ -48,36 +42,36 @@ export function ReceptionDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Front Desk Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
+            <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
               Front Desk Station
             </span>
-            <span className="text-slate-300">•</span>
-            <span className="text-xs font-semibold text-slate-700">{activeClinic?.name}</span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{activeClinic?.name}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
             Reception Control Center
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             Speed-optimized for multi-clinic booking triage, slot availability verification, walk-ins, and doctor queue.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Link to="/reception/requests">
-            <Button variant="outline" size="md" icon={ClipboardList} className="font-bold border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100">
+            <Button variant="outline" size="sm" icon={ClipboardList} className="font-semibold border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/50 text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60">
               Review Requests ({pendingRequests.length})
             </Button>
           </Link>
           <Link to="/reception/walk-ins">
-            <Button variant="primary" size="md" icon={Clock} className="bg-blue-700 hover:bg-blue-800 font-bold">
+            <Button variant="primary" size="sm" icon={Clock} className="font-semibold">
               + Fast Walk-In Token
             </Button>
           </Link>
           <Link to="/reception/appointments/new">
-            <Button variant="outline" size="md" icon={Calendar}>
+            <Button variant="outline" size="sm" icon={Calendar}>
               Book Slot
             </Button>
           </Link>
@@ -93,7 +87,7 @@ export function ReceptionDashboardPage() {
             change={pendingRequests.length > 0 ? 'Requires slot check' : 'All caught up'}
             trend="up"
             icon={ClipboardList}
-            color={pendingRequests.length > 0 ? 'amber' : 'teal'}
+            color={pendingRequests.length > 0 ? 'amber' : 'blue'}
             subtitle="Patient booking requests"
           />
         </Link>
@@ -103,7 +97,7 @@ export function ReceptionDashboardPage() {
           change={waitingPatients.length > 0 ? 'Patients seated' : 'Lounge clear'}
           trend="up"
           icon={UserCheck}
-          color="teal"
+          color="blue"
           subtitle="Checked in and ready"
         />
         <StatCard
@@ -112,7 +106,7 @@ export function ReceptionDashboardPage() {
           change="In doctor room"
           trend="up"
           icon={Clock}
-          color="blue"
+          color="indigo"
           subtitle="Visits actively underway"
         />
         <StatCard
@@ -130,19 +124,19 @@ export function ReceptionDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Waiting Lounge & Active Consultations */}
         <div className="lg:col-span-7 space-y-4">
-          <Card>
+          <Card className="border-slate-200 dark:border-slate-800">
             <CardHeader
               title={`Waiting Room & Active Consultations (${waitingPatients.length + inProgress.length})`}
               subtitle="Patients currently at the clinic"
               action={
-                <Link to="/reception/walk-ins" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/reception/walk-ins" className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                   + Issue Token
                 </Link>
               }
             />
             <div className="p-4 space-y-3">
               {waitingPatients.length === 0 && inProgress.length === 0 ? (
-                <div className="text-center py-8 text-xs text-slate-400">
+                <div className="text-center py-8 text-sm text-slate-400 dark:text-slate-500">
                   Waiting room is currently clear. No patients awaiting doctors.
                 </div>
               ) : (
@@ -150,15 +144,15 @@ export function ReceptionDashboardPage() {
                   {inProgress.map((apt) => (
                     <div
                       key={apt.id}
-                      className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/50 flex items-center justify-between text-xs"
+                      className="p-3.5 rounded-xl border border-blue-200/90 dark:border-blue-900 bg-blue-50/40 dark:bg-blue-950/40 flex items-center justify-between text-sm"
                     >
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-900">{apt.patientName}</span>
-                          <span className="font-mono text-slate-400 font-bold text-[10px]">{apt.queueNumber || '#Q-01'}</span>
-                          <Badge variant="In Progress">In Doctor Room</Badge>
+                          <span className="font-bold text-slate-900 dark:text-white">{apt.patientName}</span>
+                          <span className="font-mono text-slate-400 dark:text-slate-500 font-semibold text-xs tabular-nums">{apt.queueNumber || '#Q-01'}</span>
+                          <Badge variant="In Progress" size="sm">In Doctor Room</Badge>
                         </div>
-                        <p className="text-slate-600 mt-0.5">{apt.doctorName} · {apt.serviceName}</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-1 text-xs">{apt.doctorName} · {apt.serviceName}</p>
                       </div>
 
                       <Button
@@ -174,17 +168,17 @@ export function ReceptionDashboardPage() {
                   {waitingPatients.map((apt) => (
                     <div
                       key={apt.id}
-                      className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/30 flex items-center justify-between text-xs"
+                      className="p-3.5 rounded-xl border border-blue-200/80 dark:border-blue-900 bg-blue-50/20 dark:bg-blue-950/30 flex items-center justify-between text-sm"
                     >
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-900">{apt.patientName}</span>
-                          <span className="font-mono text-blue-800 font-bold text-[11px] bg-blue-100 px-1.5 py-0.5 rounded">
+                          <span className="font-bold text-slate-900 dark:text-white">{apt.patientName}</span>
+                          <span className="font-mono text-blue-800 dark:text-blue-300 font-semibold text-xs bg-blue-100 dark:bg-blue-900 px-2 py-0.5 rounded-md tabular-nums">
                             {apt.queueNumber || '#Q-02'}
                           </span>
-                          <Badge variant="Checked In">Waiting</Badge>
+                          <Badge variant="Checked In" size="sm">Waiting</Badge>
                         </div>
-                        <p className="text-slate-600 mt-0.5">Assigned: {apt.doctorName} · Time: {apt.time}</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-1 text-xs">Assigned: {apt.doctorName} · Time: <span className="tabular-nums font-mono">{apt.time}</span></p>
                       </div>
 
                       <Button
@@ -202,41 +196,41 @@ export function ReceptionDashboardPage() {
           </Card>
 
           {/* Pending Online Requests needing Reception Review */}
-          <Card>
+          <Card className="border-slate-200 dark:border-slate-800">
             <CardHeader
               title={`Online Booking Requests (${pendingRequests.length})`}
               subtitle="Requires receptionist slot verification or alternative proposal"
               action={
-                <Link to="/reception/requests" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/reception/requests" className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                   Open Requests Workspace &rarr;
                 </Link>
               }
             />
-            <div className="p-4 space-y-2.5">
+            <div className="p-4 space-y-3">
               {proposedAlternatives.length > 0 && (
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-700 shrink-0" />
+                <div className="p-3.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-xl text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <Clock className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0" />
                     <span><strong>{proposedAlternatives.length} alternative proposals</strong> currently awaiting patient confirmation.</span>
                   </div>
                   <Link to="/reception/requests">
-                    <Button variant="secondary" size="xs">View</Button>
+                    <Button variant="secondary" size="sm">View</Button>
                   </Link>
                 </div>
               )}
 
               {pendingRequests.length === 0 ? (
-                <p className="text-xs text-slate-400 text-center py-4">No pending online requests awaiting front-desk approval.</p>
+                <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-4">No pending online requests awaiting front-desk approval.</p>
               ) : (
                 pendingRequests.slice(0, 3).map((req) => (
-                  <div key={req.id} className="p-3 rounded-xl border border-amber-200 bg-amber-50/40 flex items-center justify-between text-xs">
+                  <div key={req.id} className="p-3.5 rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50/40 dark:bg-amber-950/30 flex items-center justify-between text-sm">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900">{req.patientName}</span>
-                        <span className="text-[10px] text-slate-400 font-mono">{req.requestId || req.referenceNumber}</span>
-                        <Badge variant="warning">Awaiting Review</Badge>
+                        <span className="font-bold text-slate-900 dark:text-white">{req.patientName}</span>
+                        <span className="text-xs text-slate-400 dark:text-slate-500 font-mono">{req.requestId || req.referenceNumber}</span>
+                        <Badge variant="Requested" size="sm">Awaiting Review</Badge>
                       </div>
-                      <p className="text-slate-600">Requested: {req.requestedDate || req.date} at {req.requestedTime || req.time} · {req.doctorName}</p>
+                      <p className="text-slate-600 dark:text-slate-400 text-xs mt-1">Requested: <span className="tabular-nums font-mono">{req.requestedDate || req.date}</span> at <span className="tabular-nums font-mono">{req.requestedTime || req.time}</span> · {req.doctorName}</p>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -259,8 +253,8 @@ export function ReceptionDashboardPage() {
         {/* Right Column: Follow-up Reminders & Daily Task Checklist */}
         <div className="lg:col-span-5 space-y-4">
           {/* Quick Actions Bar */}
-          <Card className="p-4 border-slate-200 bg-gradient-to-br from-blue-50/50 to-white space-y-3">
-            <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">Fast Shortcuts</span>
+          <Card className="p-4 border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Fast Shortcuts</span>
             <div className="grid grid-cols-2 gap-2">
               <Link to="/reception/walk-ins">
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
@@ -286,43 +280,43 @@ export function ReceptionDashboardPage() {
           </Card>
 
           {/* Follow-up tasks due today */}
-          <Card>
+          <Card className="border-slate-200 dark:border-slate-800">
             <CardHeader
               title="Follow-Ups Due Today"
               subtitle="Proactive post-procedure reminders"
               action={
-                <Link to="/reception/follow-ups" className="text-xs text-blue-600 font-semibold hover:underline">
+                <Link to="/reception/follow-ups" className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                   All ({followUps.length})
                 </Link>
               }
             />
             <div className="p-4 space-y-3">
               {pendingFollowUps.slice(0, 3).map((f) => (
-                <div key={f.id} className="p-3 rounded-xl border border-slate-200 bg-white text-xs space-y-1.5">
+                <div key={f.id} className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">{f.patientName}</span>
-                    <span className="text-[10px] text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded">
+                    <span className="font-bold text-slate-900 dark:text-white">{f.patientName}</span>
+                    <span className="text-xs text-blue-700 dark:text-blue-300 font-semibold bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-800 tabular-nums">
                       Due: {f.dueDate}
                     </span>
                   </div>
-                  <p className="text-slate-500 text-[11px] leading-relaxed line-clamp-2">{f.reason}</p>
-                  <div className="pt-1 flex items-center justify-between">
-                    <span className="text-[10px] text-slate-400">Doctor: {f.doctorName}</span>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed line-clamp-2">{f.reason}</p>
+                  <div className="pt-1 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
+                    <span className="text-xs text-slate-400 dark:text-slate-500">Doctor: {f.doctorName}</span>
                     <button
                       onClick={() =>
                         openWhatsAppModal({
                           patient_name: f.patientName,
-                          clinic_name: activeClinic.name,
+                          clinic_name: activeClinic?.name || 'Clinic',
                           appointment_date: f.dueDate,
                           appointment_time: '11:00 AM',
                           doctor_name: f.doctorName,
                           appointment_reference: 'REV-FOLLOWUP',
-                          clinic_phone: activeClinic.phone
+                          clinic_phone: activeClinic?.phone || ''
                         })
                       }
-                      className="text-emerald-700 hover:text-emerald-800 text-[11px] font-semibold flex items-center gap-1 cursor-pointer"
+                      className="text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                     >
-                      <MessageSquare className="w-3 h-3" /> Send WhatsApp
+                      <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Send WhatsApp
                     </button>
                   </div>
                 </div>
@@ -334,4 +328,3 @@ export function ReceptionDashboardPage() {
     </div>
   );
 }
-

@@ -36,27 +36,13 @@ export function PatientBookPage() {
     showToast,
     formatCurrency
   } = useApp();
-  const publicClinics = clinics.filter(
-    (clinic) =>
-      clinic.approvalStatus !== 'Pending' &&
-      clinic.approvalStatus !== 'Rejected' &&
-      clinic.status !== 'Pending'
-  );
 
   // Wizard Step State (1 to 6)
   const [currentStep, setCurrentStep] = useState(1);
 
   // Form State
-  const requestedClinicId = searchParams.get('clinicId');
-  const initialClinicId = publicClinics.some((clinic) => clinic.id === requestedClinicId)
-    ? requestedClinicId
-    : publicClinics[0]?.id || '';
-  const requestedDoctorId = searchParams.get('doctorId');
-  const initialDoctorId = doctors.some(
-    (doctor) => doctor.id === requestedDoctorId && doctor.clinicId === initialClinicId
-  )
-    ? requestedDoctorId
-    : '';
+  const initialClinicId = searchParams.get('clinicId') || clinics[0]?.id || '';
+  const initialDoctorId = searchParams.get('doctorId') || '';
   const initialServiceId = searchParams.get('serviceId') || '';
 
   const [selectedClinicId, setSelectedClinicId] = useState(initialClinicId);
@@ -85,8 +71,8 @@ export function PatientBookPage() {
   const [submittedRequest, setSubmittedRequest] = useState(null);
 
   // Derived Objects
-  const selectedClinic = publicClinics.find((c) => c.id === selectedClinicId) || publicClinics[0];
-  const clinicDoctors = doctors.filter((d) => d.clinicId === selectedClinic?.id);
+  const selectedClinic = clinics.find((c) => c.id === selectedClinicId) || clinics[0];
+  const clinicDoctors = doctors.filter((d) => d.clinicId === selectedClinicId);
   const selectedDoctor = clinicDoctors.find((d) => d.id === selectedDoctorId) || clinicDoctors[0];
   const selectedService = selectedClinic?.services?.find((s) => s.id === selectedServiceId) || selectedClinic?.services?.[0];
 
@@ -107,13 +93,13 @@ export function PatientBookPage() {
     setSelectedClinicId(clinicId);
     const docs = doctors.filter((d) => d.clinicId === clinicId);
     setSelectedDoctorId(docs[0]?.id || '');
-    const cln = publicClinics.find((c) => c.id === clinicId);
+    const cln = clinics.find((c) => c.id === clinicId);
     setSelectedServiceId(cln?.services?.[0]?.id || '');
   };
 
   // Available slots for selected doctor & date
   const availableSlots = selectedDoctor
-    ? getAvailableSlotsForDoctor(selectedClinic.id, selectedDoctor.id, preferredDate)
+    ? getAvailableSlotsForDoctor(selectedClinicId, selectedDoctor.id, preferredDate)
     : [];
 
   const handleNext = () => {
@@ -166,7 +152,7 @@ export function PatientBookPage() {
       consultationType,
       preferredDate,
       preferredTime,
-      patientId: currentUser.id,
+      patientId: 'pt-1041',
       patientName,
       patientPhone,
       patientEmail,
@@ -194,24 +180,24 @@ export function PatientBookPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
         <div>
-          <div className="flex items-center gap-2">
-            <Link to="/patient/appointments" className="text-xs text-blue-600 hover:underline flex items-center gap-1 font-semibold">
+          <div className="flex items-center gap-2 mb-1">
+            <Link to="/patient/appointments" className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold">
               <ArrowLeft className="w-3.5 h-3.5" /> Back to My Appointments
             </Link>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 mt-1 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 tracking-tight">
             Appointment Request Wizard
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             Submit a booking request. Our clinic receptionist verifies schedule availability before finalizing your appointment.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <Link to="/patient/appointments/requests">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="md">
               View Active Requests &rarr;
             </Button>
           </Link>
@@ -219,8 +205,8 @@ export function PatientBookPage() {
       </div>
 
       {/* Step Progress Tracker */}
-      <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
-        <div className="flex items-center justify-between overflow-x-auto gap-2">
+      <div className="bg-white dark:bg-slate-900/90 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="flex items-center justify-between overflow-x-auto gap-3">
           {steps.map((s, idx) => {
             const isCompleted = currentStep > s.num;
             const isCurrent = currentStep === s.num;
@@ -229,29 +215,29 @@ export function PatientBookPage() {
               <React.Fragment key={s.num}>
                 <div
                   onClick={() => isCompleted && setCurrentStep(s.num)}
-                  className={`flex items-center gap-2 cursor-pointer transition-all ${
+                  className={`flex items-center gap-2.5 cursor-pointer transition-all ${
                     isCurrent
-                      ? 'text-blue-600 font-bold'
+                      ? 'text-blue-600 dark:text-blue-400 font-bold'
                       : isCompleted
-                      ? 'text-slate-700 hover:text-blue-600'
-                      : 'text-slate-400 opacity-60'
+                      ? 'text-slate-700 dark:text-slate-300 hover:text-blue-600'
+                      : 'text-slate-400 dark:text-slate-600 opacity-60'
                   }`}
                 >
                   <span
-                    className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                       isCurrent
-                        ? 'bg-blue-600 text-white shadow-xs'
+                        ? 'bg-blue-600 text-white shadow-sm'
                         : isCompleted
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-slate-100 text-slate-400'
+                        ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
                     }`}
                   >
-                    {isCompleted ? <Check className="w-3.5 h-3.5" /> : s.num}
+                    {isCompleted ? <Check className="w-4 h-4" /> : s.num}
                   </span>
-                  <span className="text-xs whitespace-nowrap">{s.title}</span>
+                  <span className="text-xs sm:text-sm whitespace-nowrap">{s.title}</span>
                 </div>
                 {idx < steps.length - 1 && (
-                  <div className={`hidden sm:block flex-1 h-0.5 ${isCompleted ? 'bg-blue-200' : 'bg-slate-100'}`} />
+                  <div className={`hidden sm:block flex-1 h-0.5 ${isCompleted ? 'bg-blue-300 dark:bg-blue-700' : 'bg-slate-100 dark:bg-slate-800'}`} />
                 )}
               </React.Fragment>
             );
@@ -260,19 +246,19 @@ export function PatientBookPage() {
       </div>
 
       {/* Wizard Form Container */}
-      <Card className="p-6 border-slate-200 shadow-xs">
+      <Card className="p-6 sm:p-7 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
         {/* Step 1: Choose Clinic */}
         {currentStep === 1 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-base font-black text-slate-900">Step 1: Select a Participating Clinic</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 1: Select a Participating Clinic</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Choose one of the 5 accredited demonstration clinics on the ClinicOS platform.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
-              {publicClinics.map((clinic) => {
+              {clinics.map((clinic) => {
                 const isSelected = selectedClinicId === clinic.id;
 
                 return (
@@ -281,36 +267,36 @@ export function PatientBookPage() {
                     onClick={() => handleClinicChange(clinic.id)}
                     className={`p-4 rounded-xl border text-left cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-blue-600 bg-blue-50/70 ring-2 ring-blue-500/20 shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50/50'
+                        ? 'border-blue-600 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500/20 shadow-xs'
+                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-950/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/50'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-2.5">
                         <span className="text-2xl">{clinic.logo || '🏥'}</span>
                         <div>
-                          <h3 className="font-bold text-slate-900 text-xs">{clinic.name}</h3>
-                          <span className="text-[10px] text-blue-700 font-bold uppercase font-mono">
+                          <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{clinic.name}</h3>
+                          <span className="text-xs text-blue-700 dark:text-blue-400 font-bold uppercase font-mono">
                             {clinic.specialty}
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-                        <Star className="w-3 h-3 fill-amber-400" />
+                        <Star className="w-3.5 h-3.5 fill-amber-400" />
                         <span>{clinic.rating || 4.9}</span>
                       </div>
                     </div>
 
-                    <p className="text-[11px] text-slate-600 line-clamp-2 mt-2 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 mt-2 leading-relaxed">
                       {clinic.description}
                     </p>
 
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-3 mt-3 border-t border-slate-100">
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-blue-600" />
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-3 mt-3 border-t border-slate-100 dark:border-slate-800">
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         {clinic.city}
                       </span>
-                      <span className="font-mono font-bold text-slate-800">
+                      <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
                         {clinic.consultationFeeRange || '₹500 - ₹1,200'}
                       </span>
                     </div>
@@ -325,9 +311,9 @@ export function PatientBookPage() {
         {currentStep === 2 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-base font-black text-slate-900">Step 2: Choose Consulting Doctor</h2>
-              <p className="text-xs text-slate-500">
-                Physicians currently practicing at <strong>{selectedClinic.name}</strong> ({selectedClinic.city}).
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 2: Choose Consulting Doctor</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Physicians currently practicing at <strong className="text-slate-800 dark:text-slate-200">{selectedClinic.name}</strong> ({selectedClinic.city}).
               </p>
             </div>
 
@@ -341,35 +327,35 @@ export function PatientBookPage() {
                     onClick={() => setSelectedDoctorId(doc.id)}
                     className={`p-4 rounded-xl border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-blue-600 bg-blue-50/70 ring-2 ring-blue-500/20 shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50/50'
+                        ? 'border-blue-600 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500/20 shadow-xs'
+                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-950/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/50'
                     }`}
                   >
                     <div className="flex items-start gap-3">
                       <img
                         src={doc.avatar}
                         alt={doc.name}
-                        className="w-12 h-12 rounded-xl object-cover shrink-0 border border-slate-200"
+                        className="w-12 h-12 rounded-xl object-cover shrink-0 border border-slate-200 dark:border-slate-700"
                       />
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-slate-900 text-xs truncate">{doc.name}</h3>
-                        <p className="text-[11px] text-blue-700 font-semibold truncate">{doc.specialty}</p>
-                        <p className="text-[10px] text-slate-400 mt-0.5 truncate">{doc.qualifications}</p>
+                        <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm truncate">{doc.name}</h3>
+                        <p className="text-xs text-blue-700 dark:text-blue-400 font-semibold truncate">{doc.specialty}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 truncate">{doc.qualifications}</p>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2 rounded-lg mt-3">
+                    <div className="grid grid-cols-2 gap-2 text-xs bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800 mt-3">
                       <div>
-                        <span className="text-[10px] text-slate-400 uppercase font-bold block">Experience</span>
-                        <span className="font-semibold text-slate-900">{doc.experienceYears} Years</span>
+                        <span className="text-xs text-slate-400 dark:text-slate-500 uppercase font-bold block">Experience</span>
+                        <span className="font-semibold text-slate-900 dark:text-slate-100">{doc.experienceYears} Years</span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-slate-400 uppercase font-bold block">Fee</span>
-                        <span className="font-bold font-mono text-blue-700">₹{doc.consultationFee}</span>
+                        <span className="text-xs text-slate-400 dark:text-slate-500 uppercase font-bold block">Fee</span>
+                        <span className="font-bold font-mono text-blue-700 dark:text-blue-400">₹{doc.consultationFee}</span>
                       </div>
                     </div>
 
-                    <p className="text-[10px] text-slate-500 mt-2 truncate">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 truncate">
                       Days: {doc.availableDays?.join(', ')}
                     </p>
                   </div>
@@ -378,20 +364,19 @@ export function PatientBookPage() {
             </div>
           </div>
         )}
-
         {/* Step 3: Choose Service & Consultation Type */}
         {currentStep === 3 && (
           <div className="space-y-5">
             <div>
-              <h2 className="text-base font-black text-slate-900">Step 3: Clinical Service & Consultation Mode</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 3: Clinical Service & Consultation Mode</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Select from services supported by Dr. {selectedDoctor?.name} at {selectedClinic?.name}.
               </p>
             </div>
 
             {/* Consultation Type Selector */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                 Consultation Type
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -404,14 +389,14 @@ export function PatientBookPage() {
                     key={type.id}
                     type="button"
                     onClick={() => setConsultationType(type.id)}
-                    className={`p-3 rounded-xl border text-left transition-all ${
+                    className={`p-3.5 rounded-xl border text-left transition-all ${
                       consultationType === type.id
-                        ? 'border-blue-600 bg-blue-50/80 ring-1 ring-blue-600 text-blue-950 shadow-2xs'
-                        : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                        ? 'border-blue-600 dark:border-blue-500 bg-blue-50/80 dark:bg-blue-950/40 ring-1 ring-blue-600 text-blue-950 dark:text-blue-200 shadow-sm'
+                        : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/60 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                     }`}
                   >
-                    <div className="font-bold text-xs">{type.label}</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">{type.desc}</div>
+                    <div className="font-bold text-sm">{type.label}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{type.desc}</div>
                   </button>
                 ))}
               </div>
@@ -419,10 +404,10 @@ export function PatientBookPage() {
 
             {/* Services List */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                 Available Clinic Services
               </label>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {selectedClinic?.services?.map((srv) => {
                   const isSelected = selectedServiceId === srv.id;
 
@@ -430,24 +415,24 @@ export function PatientBookPage() {
                     <div
                       key={srv.id}
                       onClick={() => setSelectedServiceId(srv.id)}
-                      className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all ${
+                      className={`p-4 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all ${
                         isSelected
-                          ? 'border-blue-600 bg-blue-50/70 ring-1 ring-blue-500 shadow-2xs'
-                          : 'border-slate-200 hover:border-slate-300 bg-white'
+                          ? 'border-blue-600 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-1 ring-blue-500 shadow-sm'
+                          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-950/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
                       }`}
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-slate-900 text-xs">{srv.name}</h4>
-                          <span className="px-2 py-0.2 rounded bg-slate-100 text-slate-600 font-mono text-[10px]">
+                          <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{srv.name}</h4>
+                          <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono text-xs">
                             {srv.durationMinutes} mins
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-500">{srv.description}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{srv.description}</p>
                       </div>
 
                       <div className="text-right shrink-0">
-                        <span className="text-sm font-bold font-mono text-slate-900">
+                        <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
                           ₹{srv.fee.toLocaleString('en-IN')}
                         </span>
                       </div>
@@ -463,15 +448,15 @@ export function PatientBookPage() {
         {currentStep === 4 && (
           <div className="space-y-5">
             <div>
-              <h2 className="text-base font-black text-slate-900">Step 4: Select Preferred Date & Time Slot</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 4: Select Preferred Date & Time Slot</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Operating Hours: <strong>{selectedClinic?.operatingHours}</strong> (Clinic-Local Time).
               </p>
             </div>
 
-            {/* Explanatory Banner (Section E) */}
-            <div className="p-3 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-950 text-xs flex items-start gap-2.5">
-              <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+            {/* Explanatory Banner */}
+            <div className="p-3.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 text-blue-950 dark:text-blue-200 text-xs flex items-start gap-2.5">
+              <Info className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
               <div>
                 <strong>Appointment Request Verification:</strong> You are submitting a requested slot. The clinic receptionist will cross-check the doctor's live emergency rota and confirm or offer an alternative.
               </div>
@@ -479,18 +464,18 @@ export function PatientBookPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Preferred Date *</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Preferred Date *</label>
                 <input
                   type="date"
                   min={new Date().toISOString().slice(0, 10)}
                   value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                   Alternative Preferred Date (Optional)
                 </label>
                 <input
@@ -498,14 +483,14 @@ export function PatientBookPage() {
                   min={new Date().toISOString().slice(0, 10)}
                   value={secondPreferredDate}
                   onChange={(e) => setSecondPreferredDate(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
                 />
               </div>
             </div>
 
             {/* Time Slot Picker */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold text-slate-700">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Select Preferred Slot (30 mins duration) *
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -518,12 +503,12 @@ export function PatientBookPage() {
                       type="button"
                       disabled={!slot.available}
                       onClick={() => setPreferredTime(slot.time)}
-                      className={`p-2.5 rounded-lg text-xs font-mono font-bold text-center border transition-all ${
+                      className={`p-2.5 rounded-xl text-xs font-mono font-bold text-center border transition-all ${
                         !slot.available
-                          ? 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed line-through'
+                          ? 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/40 text-slate-400 dark:text-slate-600 cursor-not-allowed line-through'
                           : isSelected
-                          ? 'border-blue-600 bg-blue-600 text-white shadow-2xs'
-                          : 'border-slate-200 bg-white hover:border-blue-400 text-slate-700'
+                          ? 'border-blue-600 bg-blue-600 text-white shadow-sm'
+                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200'
                       }`}
                       title={slot.reason || 'Slot available'}
                     >
@@ -537,13 +522,13 @@ export function PatientBookPage() {
             {/* Time of Day Preference & Notes */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                   Flexible Timing Preference
                 </label>
                 <select
                   value={preferredTimeOfDay}
                   onChange={(e) => setPreferredTimeOfDay(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 text-xs bg-white focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 >
                   <option value="Morning">Morning (09:00 AM - 12:00 PM)</option>
                   <option value="Afternoon">Afternoon (12:00 PM - 04:00 PM)</option>
@@ -553,7 +538,7 @@ export function PatientBookPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                   Short Note for Clinic Receptionist
                 </label>
                 <input
@@ -561,7 +546,7 @@ export function PatientBookPage() {
                   placeholder="e.g. Prefers after 11 AM due to travel from Indiranagar"
                   value={patientNote}
                   onChange={(e) => setPatientNote(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 />
               </div>
             </div>
@@ -572,67 +557,67 @@ export function PatientBookPage() {
         {currentStep === 5 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-base font-black text-slate-900">Step 5: Patient Details & Verification</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 5: Patient Details & Verification</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Synthetic demonstration details for appointment coordination.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Patient Full Name *</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Patient Full Name *</label>
                 <input
                   type="text"
                   required
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Contact Mobile Number *</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Contact Mobile Number *</label>
                 <input
                   type="text"
                   required
                   value={patientPhone}
                   onChange={(e) => setPatientPhone(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Email Address</label>
               <input
                 type="email"
                 value={patientEmail}
                 onChange={(e) => setPatientEmail(e.target.value)}
-                className="w-full p-2.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
               />
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
-              <label className="flex items-center gap-2 cursor-pointer">
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2.5">
+              <label className="flex items-center gap-2.5 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={isNewPatient}
                   onChange={(e) => setIsNewPatient(e.target.checked)}
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="text-xs font-semibold text-slate-800">
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   First visit to this clinic (Requires brief 5-min intake check at reception)
                 </span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer pt-1 border-t border-slate-200">
+              <label className="flex items-center gap-2.5 cursor-pointer pt-2 border-t border-slate-200 dark:border-slate-700">
                 <input
                   type="checkbox"
                   checked={agreedToPolicy}
                   onChange={(e) => setAgreedToPolicy(e.target.checked)}
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="text-xs text-slate-700">
+                <span className="text-xs text-slate-700 dark:text-slate-300">
                   I agree to the clinic booking policy: <em>"{selectedClinic?.bookingPolicy}"</em>
                 </span>
               </label>
@@ -644,73 +629,73 @@ export function PatientBookPage() {
         {currentStep === 6 && (
           <form onSubmit={handleSubmitBookingRequest} className="space-y-5">
             <div>
-              <h2 className="text-base font-black text-slate-900">Step 6: Review & Submit Booking Request</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 6: Review & Submit Booking Request</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Verify your appointment request summary before dispatching to the clinic reception queue.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
-              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Selected Clinic:</span>
-                <span className="font-bold text-slate-900 flex items-center gap-1.5">
+            <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-3.5 text-sm">
+              <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Selected Clinic:</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                   <span>{selectedClinic?.logo}</span>
                   {selectedClinic?.name} ({selectedClinic?.city})
                 </span>
               </div>
 
-              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Consulting Doctor:</span>
-                <span className="font-bold text-blue-700">{selectedDoctor?.name} ({selectedDoctor?.specialty})</span>
+              <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Consulting Doctor:</span>
+                <span className="font-bold text-blue-600 dark:text-blue-400">{selectedDoctor?.name} ({selectedDoctor?.specialty})</span>
               </div>
 
-              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Service & Type:</span>
-                <span className="font-semibold text-slate-900">
-                  {selectedService?.name} · <span className="text-blue-600">{consultationType}</span>
+              <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Service & Type:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">
+                  {selectedService?.name} · <span className="text-blue-600 dark:text-blue-400">{consultationType}</span>
                 </span>
               </div>
 
-              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Preferred Slot:</span>
-                <span className="font-mono font-bold text-slate-900 text-sm">
+              <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Preferred Slot:</span>
+                <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-base">
                   {preferredDate} at {preferredTime}
                 </span>
               </div>
 
               {secondPreferredDate && (
-                <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                  <span className="text-slate-500 font-medium">Alternative Date Preference:</span>
-                  <span className="font-mono text-slate-700">{secondPreferredDate} ({preferredTimeOfDay})</span>
+                <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
+                  <span className="text-slate-500 dark:text-slate-400 font-medium">Alternative Date Preference:</span>
+                  <span className="font-mono text-slate-700 dark:text-slate-300">{secondPreferredDate} ({preferredTimeOfDay})</span>
                 </div>
               )}
 
-              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Patient Details:</span>
-                <span className="text-slate-800">{patientName} ({patientPhone})</span>
+              <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Patient Details:</span>
+                <span className="text-slate-800 dark:text-slate-200">{patientName} ({patientPhone})</span>
               </div>
 
               <div className="flex justify-between items-center pt-1 font-mono">
-                <span className="font-sans font-bold text-slate-700">Consultation Tariff:</span>
-                <span className="text-base font-extrabold text-blue-700">
+                <span className="font-sans font-bold text-slate-700 dark:text-slate-300">Consultation Tariff:</span>
+                <span className="text-lg font-extrabold text-blue-600 dark:text-blue-400">
                   {formatCurrency(selectedService?.fee || selectedDoctor?.consultationFee || 600)}
                 </span>
               </div>
             </div>
 
-            <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs flex items-center gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
               <span>
                 <strong>Notice:</strong> Submitting will create a pending request for reception verification. You will receive a simulated notification once confirmed.
               </span>
             </div>
 
             {/* Submit Action */}
-            <div className="flex items-center justify-between pt-3 border-t border-slate-200">
+            <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
               <Button variant="outline" type="button" onClick={handleBack}>
                 &larr; Back
               </Button>
-              <Button variant="primary" type="submit" size="md" icon={CheckCircle2}>
+              <Button variant="primary" type="submit" size="md" icon={CheckCircle2} className="shadow-md shadow-blue-500/20 font-bold">
                 Submit Booking Request &rarr;
               </Button>
             </div>
@@ -745,41 +730,41 @@ export function PatientBookPage() {
         title="Booking Request Submitted Successfully"
       >
         {submittedRequest && (
-          <div className="space-y-4 text-xs">
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-2 text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white mx-auto flex items-center justify-center font-bold text-xl shadow-xs">
+          <div className="space-y-4 text-sm">
+            <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200 space-y-2 text-center">
+              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white mx-auto flex items-center justify-center font-bold text-xl shadow-sm">
                 ✓
               </div>
-              <h3 className="font-extrabold text-slate-900 text-sm">
+              <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">
                 Request {submittedRequest.requestId} Received!
               </h3>
-              <p className="text-[11px] text-emerald-800">
+              <p className="text-xs text-emerald-800 dark:text-emerald-300">
                 The clinic receptionist at <strong>{submittedRequest.clinicName}</strong> has been notified and will verify the slot availability.
               </p>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5 font-mono text-[11px]">
-              <div className="flex justify-between">
-                <span className="text-slate-500 font-sans">Request ID:</span>
-                <span className="font-bold text-slate-900">{submittedRequest.requestId}</span>
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 font-mono text-xs">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400 font-sans">Request ID:</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100">{submittedRequest.requestId}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500 font-sans">Doctor:</span>
-                <span className="text-blue-700">{submittedRequest.doctorName}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400 font-sans">Doctor:</span>
+                <span className="text-blue-600 dark:text-blue-400 font-semibold">{submittedRequest.doctorName}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500 font-sans">Requested Slot:</span>
-                <span className="text-slate-900">{submittedRequest.requestedDate} at {submittedRequest.requestedTime}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400 font-sans">Requested Slot:</span>
+                <span className="text-slate-900 dark:text-slate-100">{submittedRequest.requestedDate} at {submittedRequest.requestedTime}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500 font-sans">Initial Status:</span>
-                <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px]">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400 font-sans">Initial Status:</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 font-bold text-xs border border-amber-200 dark:border-amber-800">
                   Pending Clinic Confirmation
                 </span>
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex justify-end gap-2.5 pt-2">
               <Button
                 variant="outline"
                 size="sm"
@@ -797,6 +782,7 @@ export function PatientBookPage() {
                   setSubmittedRequest(null);
                   navigate('/patient/appointments/requests');
                 }}
+                className="font-bold shadow-md shadow-blue-500/20"
               >
                 Track in My Requests &rarr;
               </Button>

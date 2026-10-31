@@ -31,69 +31,69 @@ import {
   DEMO_SAAS_EXPENSES,
   DEMO_CLINIC_PAYMENTS,
   DEMO_CLINIC_REFUNDS,
-  DEMO_NOTIFICATIONS
+  DEMO_RECEIPTS,
+  DEMO_NOTIFICATIONS,
+  DEMO_VIRTUAL_CONSULTATIONS
 } from '../demo-data';
+import { DEMO_HEALTH_JOURNEY_EVENTS } from '../demo-data/healthJourneyData';
+import { INITIAL_VISIT_BRIEFS } from '../demo-data/visitPreparationData';
+import { INITIAL_MEDICATION_SCHEDULE, INITIAL_WEEKLY_ADHERENCE } from '../demo-data/medicationData';
+import { INITIAL_FAMILY_MEMBERS } from '../demo-data/familyCareData';
+import { INITIAL_CLINIC_ROOMS, INITIAL_HANDOVER_DATA } from '../demo-data/receptionOperationsData';
 import { ROLE_PERMISSIONS } from '../types';
-import { useAuth } from '../hooks/useAuth';
-import { toWorkspaceRole } from '../services/roleMapping';
+import { useAuth, toAppRole, toAuthRole } from './AuthContext';
+import { getDefaultWebsiteSettings } from '../features/website-builder/websiteBuilderDefaults';
+import { broadcastSync, subscribeSync } from '../services/crossTabSync';
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  const { user: authUser, switchClinic: switchAuthClinic } = useAuth();
+  const auth = useAuth();
 
   // Authentication & Role State
-  const [selectedRole, setSelectedRole] = useState(() => {
-    const savedRole = localStorage.getItem('clinipulse_role');
-    return ['super_admin', 'clinic_admin', 'receptionist', 'patient'].includes(savedRole)
-      ? savedRole
-      : 'clinic_admin';
+  const [currentRole, setCurrentRole] = useState(() => {
+    if (auth?.user?.role) {
+      return toAppRole(auth.user.role);
+    }
+    return localStorage.getItem('clinipulse_role') || 'clinic_admin';
   });
-  const currentRole = toWorkspaceRole(authUser?.role) || selectedRole;
 
-  const currentUser = authUser || DEMO_USERS[currentRole] || DEMO_USERS.clinic_admin;
+  const [currentUser, setCurrentUser] = useState(() => {
+    if (auth?.user) {
+      const appRole = toAppRole(auth.user.role);
+      return {
+        id: auth.user.id,
+        name: auth.user.name,
+        email: auth.user.email,
+        phone: auth.user.phone || '',
+        role: appRole,
+        clinicId: auth.user.activeClinicId || 'clinic-citycare',
+        branchId: auth.user.activeBranchId || 'branch-citycare-main',
+        avatar: auth.user.avatar || DEMO_USERS[appRole]?.avatar,
+        createdAt: auth.user.createdAt || '2026-01-01'
+      };
+    }
+    return DEMO_USERS[currentRole] || DEMO_USERS.clinic_admin;
+  });
 
   // Multi-Tenant Clinic & Branch State
-  const [selectedClinicId, setSelectedClinicId] = useState(() => {
+  const [activeClinicId, setActiveClinicId] = useState(() => {
     const saved = localStorage.getItem('clinipulse_clinic_id');
     return saved && DEMO_CLINICS.some((c) => c.id === saved) ? saved : 'clinic-citycare';
   });
-  const activeClinicId = authUser?.activeClinicId || selectedClinicId;
 
-  const [branchSelection, setBranchSelection] = useState(() => ({
-    userId: null,
-    clinicId: null,
-    id: localStorage.getItem('clinipulse_branch_id') || 'branch-citycare-main'
-  }));
-  const setActiveBranchId = (branchId) => {
-    setBranchSelection({
-      userId: authUser?.id || null,
-      clinicId: activeClinicId,
-      id: branchId
-    });
-  };
-  const hasAuthenticatedBranchSelection =
-    authUser &&
-    branchSelection.userId === authUser.id &&
-    branchSelection.clinicId === activeClinicId;
-  const activeBranchId = hasAuthenticatedBranchSelection
-    ? branchSelection.id
-    : authUser?.activeBranchId || branchSelection.id;
-
-  const setActiveClinicId = (clinicId) => {
-    setSelectedClinicId(clinicId);
-    setBranchSelection((selection) => ({
-      ...selection,
-      userId: authUser?.id || null,
-      clinicId,
-      id: DEMO_CLINICS.find((clinic) => clinic.id === clinicId)?.branches[0]?.id || selection.id
-    }));
-  };
+  const [activeBranchId, setActiveBranchId] = useState(() => {
+    return localStorage.getItem('clinipulse_branch_id') || 'branch-citycare-main';
+  });
 
   // Domain Entity Collections with LocalStorage hydration for smooth demo edits
   const [clinics, setClinics] = useState(() => {
     const s = localStorage.getItem('clinipulse_clinics');
-    return s ? JSON.parse(s) : DEMO_CLINICS;
+    const raw = s ? JSON.parse(s) : DEMO_CLINICS;
+    return raw.map((c) => ({
+      ...c,
+      websiteSettings: c.websiteSettings || getDefaultWebsiteSettings(c)
+    }));
   });
 
   const [doctors, setDoctors] = useState(() => {
@@ -178,7 +178,18 @@ export function AppProvider({ children }) {
 
   const [staffMembers, setStaffMembers] = useState(() => {
     const s = localStorage.getItem('clinipulse_staff_members');
-    return s ? JSON.parse(s) : DEMO_STAFF_MEMBERS;
+    if (!s) return DEMO_STAFF_MEMBERS;
+    try {
+      const parsed = JSON.parse(s);
+      if (Array.isArray(parsed) && parsed.length < DEMO_STAFF_MEMBERS.length) {
+        const existingIds = new Set(parsed.map((p) => p.id));
+        const missing = DEMO_STAFF_MEMBERS.filter((d) => !existingIds.has(d.id));
+        return [...parsed, ...missing];
+      }
+      return parsed;
+    } catch {
+      return DEMO_STAFF_MEMBERS;
+    }
   });
 
   const [encounters, setEncounters] = useState(() => {
@@ -232,21 +243,311 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_CLINIC_REFUNDS;
   });
 
+  const [receipts, setReceipts] = useState(() => {
+    const s = localStorage.getItem('clinipulse_receipts');
+    return s ? JSON.parse(s) : DEMO_RECEIPTS;
+  });
+
+  const [activePatientId, setActivePatientId] = useState(() => {
+    return localStorage.getItem('clinipulse_active_patient_id') || 'pt-1041';
+  });
+
   // Simulated Notifications Center
   const [notifications, setNotifications] = useState(() => {
     const s = localStorage.getItem('clinipulse_notifications');
     return s ? JSON.parse(s) : DEMO_NOTIFICATIONS;
   });
 
+  // Virtual Consulting State
+  const [virtualConsultations, setVirtualConsultations] = useState(() => {
+    const s = localStorage.getItem('clinipulse_virtual_consultations');
+    return s ? JSON.parse(s) : DEMO_VIRTUAL_CONSULTATIONS;
+  });
+
+  // Next-Gen Health Journey & Care Journey States
+  const [healthJourneyEvents, setHealthJourneyEvents] = useState(() => {
+    const s = localStorage.getItem('clinipulse_health_journey');
+    return s ? JSON.parse(s) : DEMO_HEALTH_JOURNEY_EVENTS;
+  });
+
+  const [visitBriefs, setVisitBriefs] = useState(() => {
+    const s = localStorage.getItem('clinipulse_visit_briefs');
+    return s ? JSON.parse(s) : INITIAL_VISIT_BRIEFS;
+  });
+
+  const [medicationSchedule, setMedicationSchedule] = useState(() => {
+    const s = localStorage.getItem('clinipulse_medication_schedule');
+    return s ? JSON.parse(s) : INITIAL_MEDICATION_SCHEDULE;
+  });
+
+  const [weeklyAdherence, setWeeklyAdherence] = useState(() => {
+    const s = localStorage.getItem('clinipulse_weekly_adherence');
+    return s ? JSON.parse(s) : INITIAL_WEEKLY_ADHERENCE;
+  });
+
+  const [familyMembers, setFamilyMembers] = useState(() => {
+    const s = localStorage.getItem('clinipulse_family_members');
+    return s ? JSON.parse(s) : INITIAL_FAMILY_MEMBERS;
+  });
+
+  const [activeFamilyMemberId, setActiveFamilyMemberId] = useState('pt-1041');
+
+  const [isPatientFriendlyMode, setIsPatientFriendlyMode] = useState(() => {
+    return localStorage.getItem('clinipulse_patient_friendly_mode') === 'true';
+  });
+
+  const [clinicRooms, setClinicRooms] = useState(() => {
+    const s = localStorage.getItem('clinipulse_clinic_rooms');
+    return s ? JSON.parse(s) : INITIAL_CLINIC_ROOMS;
+  });
+
+  const [handoverData, setHandoverData] = useState(() => {
+    const s = localStorage.getItem('clinipulse_handover_data');
+    return s ? JSON.parse(s) : INITIAL_HANDOVER_DATA;
+  });
+
+  // Persistence effects for new state collections
+  useEffect(() => {
+    localStorage.setItem('clinipulse_health_journey', JSON.stringify(healthJourneyEvents));
+  }, [healthJourneyEvents]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_visit_briefs', JSON.stringify(visitBriefs));
+  }, [visitBriefs]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_medication_schedule', JSON.stringify(medicationSchedule));
+  }, [medicationSchedule]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_family_members', JSON.stringify(familyMembers));
+  }, [familyMembers]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_clinic_rooms', JSON.stringify(clinicRooms));
+  }, [clinicRooms]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_handover_data', JSON.stringify(handoverData));
+  }, [handoverData]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_patient_friendly_mode', String(isPatientFriendlyMode));
+    if (typeof document !== 'undefined') {
+      if (isPatientFriendlyMode) {
+        document.documentElement.classList.add('patient-friendly');
+      } else {
+        document.documentElement.classList.remove('patient-friendly');
+      }
+    }
+  }, [isPatientFriendlyMode]);
+
+  const togglePatientFriendlyMode = () => {
+    setIsPatientFriendlyMode((prev) => {
+      const next = !prev;
+      localStorage.setItem('clinipulse_patient_friendly_mode', String(next));
+      return next;
+    });
+  };
+
+  const addHealthJourneyEvent = (event) => {
+    const newEvent = {
+      id: event.id || `hj-${Date.now()}`,
+      date: event.date || new Date().toISOString().slice(0, 10),
+      time: event.time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      status: event.status || 'Recorded',
+      ...event
+    };
+    setHealthJourneyEvents((prev) => [newEvent, ...prev]);
+  };
+
+  const saveVisitBrief = (brief) => {
+    const aptKey = brief.appointmentId || 'apt-101';
+    setVisitBriefs((prev) => {
+      const updated = {
+        ...prev,
+        [aptKey]: {
+          ...brief,
+          lastUpdated: new Date().toISOString()
+        }
+      };
+      return updated;
+    });
+    showToast('Visit Brief saved! Your doctor can now review your pre-visit brief.');
+  };
+
+  const updateMedicationStatus = (id, newStatus) => {
+    setMedicationSchedule((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, status: newStatus, takenAt: newStatus === 'taken' ? new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null } : m))
+    );
+    showToast(`Medication marked as ${newStatus}`);
+  };
+
+  const addFamilyMember = (member) => {
+    const newMem = {
+      id: `pt-fam-${Date.now().toString().slice(-4)}`,
+      ...member
+    };
+    setFamilyMembers((prev) => [...prev, newMem]);
+    showToast(`Added ${member.name} to Family Care Circle`);
+  };
+
+  const removeFamilyMember = (id) => {
+    setFamilyMembers((prev) => prev.filter((m) => m.id !== id));
+    showToast('Family member removed');
+  };
+
+  const updateRoomStatus = (roomId, newStatus, currentPatient = null) => {
+    setClinicRooms((prev) =>
+      prev.map((r) => (r.id === roomId ? { ...r, status: newStatus, currentPatient } : r))
+    );
+    showToast(`Room ${roomId} status changed to ${newStatus}`);
+  };
+
+  const updateHandoverTask = (taskId, completed) => {
+    setHandoverData((prev) => ({
+      ...prev,
+      checklist: prev.checklist.map((c) => (c.id === taskId ? { ...c, completed } : c))
+    }));
+  };
+
+  const updateHandoverNotes = (notes) => {
+    setHandoverData((prev) => ({
+      ...prev,
+      shiftNotes: notes
+    }));
+    showToast('Handover shift notes updated');
+  };
+
+  const requestVirtualConsultation = (reqData) => {
+    const newVC = {
+      id: `vc-${Date.now().toString().slice(-4)}`,
+      patientId: reqData.patientId || auth?.user?.id || 'usr-patient-aarav',
+      patientName: reqData.patientName || auth?.user?.name || 'Aarav Patel',
+      patientPhone: reqData.patientPhone || auth?.user?.phone || '+91 98765 43210',
+      patientAvatar: reqData.patientAvatar || auth?.user?.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      doctorId: reqData.doctorId || activeDoctor?.id || 'doc-aarav',
+      doctorName: reqData.doctorName || activeDoctor?.name || 'Dr. Aarav Mehta',
+      doctorSpecialty: reqData.doctorSpecialty || activeDoctor?.specialty || 'General Physician',
+      clinicId: reqData.clinicId || activeClinic?.id || 'clinic-citycare',
+      clinicName: reqData.clinicName || activeClinic?.name || 'CityCare Family Clinic',
+      reason: reqData.reason || 'Virtual Consultation Request',
+      status: 'Waiting',
+      requestedAt: 'Just now',
+      preferredTime: reqData.preferredTime || 'Immediate Live Connect',
+      meetingLink: `https://clinicos.health/meet/vc-${Date.now().toString().slice(-4)}-live`,
+      notes: '',
+      duration: '00:00'
+    };
+
+    setVirtualConsultations((prev) => {
+      const updated = [newVC, ...prev];
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+
+    // Also trigger notification
+    const newNotif = {
+      id: `notif-${Date.now()}`,
+      recipientRole: 'clinic_admin',
+      recipientUserId: 'usr-clinicadmin-aarav',
+      clinicId: newVC.clinicId,
+      type: 'request_received_by_clinic',
+      title: 'Virtual Consultation Requested',
+      message: `${newVC.patientName} has requested a virtual consultation: "${newVC.reason}".`,
+      createdAt: new Date().toISOString(),
+      read: false,
+      priority: 'high'
+    };
+    setNotifications((prev) => [newNotif, ...prev]);
+
+    if (showToast) {
+      showToast(`Virtual consultation requested with ${newVC.doctorName}. Doctor has been notified!`, 'success');
+    }
+    return newVC;
+  };
+
+  const acceptVirtualConsultation = (id) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'In Call', duration: '00:01' } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Connected to Virtual Consultation room.', 'success');
+    }
+  };
+
+  const endVirtualConsultation = (id, notes) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'Completed', notes: notes || vc.notes } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Virtual consultation ended and saved.', 'info');
+    }
+  };
+
+  const declineVirtualConsultation = (id) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'Declined' } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Virtual consultation request declined.', 'info');
+    }
+  };
+
   // UI Modals & Feedback
   const [toast, setToast] = useState(null);
   const [whatsAppModal, setWhatsAppModal] = useState({ isOpen: false, payload: null });
   const [prescriptionModal, setPrescriptionModal] = useState({ isOpen: false, prescription: null });
 
-  // Sync state to local storage
+  // Sync state to local storage & AuthContext active user
+  useEffect(() => {
+    if (auth?.user) {
+      const appRole = toAppRole(auth.user.role);
+      setCurrentRole(appRole);
+      localStorage.setItem('clinipulse_role', appRole);
+
+      const mappedUser = {
+        id: auth.user.id,
+        name: auth.user.name,
+        email: auth.user.email,
+        phone: auth.user.phone || '',
+        role: appRole,
+        clinicId: auth.user.activeClinicId || 'clinic-citycare',
+        branchId: auth.user.activeBranchId || 'branch-citycare-main',
+        avatar: auth.user.avatar || DEMO_USERS[appRole]?.avatar,
+        createdAt: auth.user.createdAt || '2026-01-01'
+      };
+      setCurrentUser(mappedUser);
+
+      if (auth.user.activeClinicId) {
+        setActiveClinicId(auth.user.activeClinicId);
+        localStorage.setItem('clinipulse_clinic_id', auth.user.activeClinicId);
+      }
+    } else if (auth && !auth.user) {
+      setCurrentRole('patient');
+      localStorage.setItem('clinipulse_role', 'patient');
+      setCurrentUser(DEMO_USERS.patient);
+    }
+  }, [auth]);
+
   useEffect(() => {
     localStorage.setItem('clinipulse_role', currentRole);
-  }, [currentRole]);
+    if (!auth?.user) {
+      setCurrentUser(DEMO_USERS[currentRole] || DEMO_USERS.clinic_admin);
+    }
+  }, [currentRole, auth?.user]);
 
   useEffect(() => {
     localStorage.setItem('clinipulse_clinic_id', activeClinicId);
@@ -340,12 +641,73 @@ export function AppProvider({ children }) {
     localStorage.setItem('clinipulse_followups', JSON.stringify(followUps));
   }, [followUps]);
 
+  useEffect(() => {
+    localStorage.setItem('clinipulse_receipts', JSON.stringify(receipts));
+  }, [receipts]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_active_patient_id', activePatientId);
+  }, [activePatientId]);
+
+  // Real-Time Cross-Tab Event Bus Listener (BroadcastChannel + LocalStorage)
+  useEffect(() => {
+    const unsubscribe = subscribeSync((msg) => {
+      if (msg.type === 'APPOINTMENT_UPDATED') {
+        const { appointmentId, status, newDate, newTime, newDoctorId } = msg.payload || {};
+        setAppointments((prev) =>
+          prev.map((apt) =>
+            apt.id === appointmentId
+              ? {
+                  ...apt,
+                  ...(status ? { status } : {}),
+                  ...(newDate ? { date: newDate } : {}),
+                  ...(newTime ? { time: newTime } : {}),
+                  ...(newDoctorId ? { doctorId: newDoctorId } : {})
+                }
+              : apt
+          )
+        );
+        showToast('Live Sync: Appointment updated across tabs.', 'info');
+      } else if (msg.type === 'PATIENT_CHECKED_IN') {
+        const { appointmentId, queueNumber, patientName, doctorName } = msg.payload || {};
+        setAppointments((prev) =>
+          prev.map((apt) =>
+            apt.id === appointmentId
+              ? {
+                  ...apt,
+                  status: 'Patient Checked In',
+                  queueNumber: queueNumber || apt.queueNumber
+                }
+              : apt
+          )
+        );
+        showToast(
+          `Live Sync: ${patientName || 'Patient'} arrived & checked in (${queueNumber || 'Token assigned'}). Queue updated!`,
+          'success'
+        );
+      } else if (msg.type === 'APPOINTMENT_CANCELLED') {
+        const { appointmentId } = msg.payload || {};
+        setAppointments((prev) =>
+          prev.map((apt) => (apt.id === appointmentId ? { ...apt, status: 'Cancelled' } : apt))
+        );
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   // Toast Notification Trigger
-  const showToast = (message, type = 'success') => {
-    setToast({ id: Date.now(), message, type });
+  const showToast = (message, type = 'success', options = {}) => {
+    setToast({
+      id: Date.now(),
+      message,
+      type,
+      actionLabel: options.actionLabel,
+      onAction: options.onAction
+    });
     setTimeout(() => {
       setToast(null);
-    }, 4000);
+    }, options.durationMs || 4500);
   };
 
   // Active Clinic & Branch helpers
@@ -354,16 +716,23 @@ export function AppProvider({ children }) {
 
   // Actions
   const switchRole = (role) => {
-    setSelectedRole(role);
-    localStorage.setItem('clinipulse_role', role);
-    showToast(`Switched active workspace to: ${role.replace('_', ' ').toUpperCase()}`, 'info');
+    const appRole = toAppRole(role);
+    const authRole = toAuthRole(role);
+    setCurrentRole(appRole);
+    localStorage.setItem('clinipulse_role', appRole);
+
+    if (auth && auth.syncRole) {
+      auth.syncRole(authRole, activeClinicId);
+    }
+
+    setCurrentUser(DEMO_USERS[appRole] || DEMO_USERS.patient);
+    showToast(`Switched active workspace to: ${appRole.replace('_', ' ').toUpperCase()}`, 'info');
   };
 
   const switchClinic = (clinicId) => {
-    if (authUser?.memberships?.some((membership) => membership.clinicId === clinicId)) {
-      switchAuthClinic(clinicId);
-    } else {
-      setActiveClinicId(clinicId);
+    setActiveClinicId(clinicId);
+    if (auth && auth.switchClinic) {
+      auth.switchClinic(clinicId);
     }
     const target = clinics.find((c) => c.id === clinicId);
     if (target && target.branches.length > 0) {
@@ -392,11 +761,43 @@ export function AppProvider({ children }) {
       return null;
     }
 
+    // Ensure patient exists in patients collection for seamless end-to-end lookup
+    let targetPatientId = appointmentData.patientId;
+    if (appointmentData.patientName) {
+      const existingPt = patients.find(
+        (p) =>
+          (p.phone && appointmentData.patientPhone && p.phone === appointmentData.patientPhone) ||
+          p.id === appointmentData.patientId ||
+          p.patientIdNumber === appointmentData.patientId
+      );
+      if (!existingPt) {
+        const seq = Math.floor(1050 + Math.random() * 800);
+        targetPatientId = `pt-${seq}`;
+        const autoPatient = {
+          id: targetPatientId,
+          patientIdNumber: `PT-${seq}`,
+          name: appointmentData.patientName,
+          phone: appointmentData.patientPhone || '',
+          email: appointmentData.patientEmail || `${appointmentData.patientName.toLowerCase().replace(/\s+/g, '.')}@example.demo`,
+          clinicId: appointmentData.clinicId || activeClinicId,
+          registeredAt: appointmentData.date || new Date().toISOString().slice(0, 10),
+          status: 'Active',
+          gender: 'Unspecified',
+          dob: '1995-01-01',
+          bloodGroup: 'B+'
+        };
+        setPatients((prev) => [autoPatient, ...prev]);
+      } else {
+        targetPatientId = existingPt.id;
+      }
+    }
+
     const id = `apt-${Date.now().toString().slice(-5)}`;
     const referenceNumber = `APT-${Math.floor(2000 + Math.random() * 8000)}`;
     const newAppointment = {
       ...appointmentData,
       id,
+      patientId: targetPatientId || appointmentData.patientId,
       referenceNumber,
       createdAt: new Date().toISOString()
     };
@@ -409,6 +810,7 @@ export function AppProvider({ children }) {
     setAppointments((prev) =>
       prev.map((apt) => (apt.id === appointmentId ? { ...apt, status } : apt))
     );
+    broadcastSync('APPOINTMENT_UPDATED', { appointmentId, status });
     showToast(`Appointment status updated to ${status}`);
   };
 
@@ -416,15 +818,63 @@ export function AppProvider({ children }) {
     const seq = Math.floor(1050 + Math.random() * 800);
     const newPatient = {
       ...patientData,
-      id: `pt-${seq}`,
-      patientIdNumber: `PT-${seq}`,
-      clinicId: activeClinicId,
-      registeredAt: new Date().toISOString().slice(0, 10),
-      status: 'Active'
+      id: patientData.id || `pt-${seq}`,
+      patientIdNumber: patientData.patientIdNumber || `PT-${seq}`,
+      clinicId: patientData.clinicId || activeClinicId,
+      registeredAt: patientData.registeredAt || new Date().toISOString().slice(0, 10),
+      status: patientData.status || 'Active'
     };
     setPatients((prev) => [newPatient, ...prev]);
+    setActivePatientId(newPatient.id);
+    localStorage.setItem('clinipulse_active_patient_id', newPatient.id);
+    if (currentRole === 'patient') {
+      setCurrentUser({
+        id: newPatient.id,
+        name: newPatient.name,
+        email: newPatient.email,
+        phone: newPatient.phone,
+        role: 'patient',
+        patientIdNumber: newPatient.patientIdNumber,
+        bloodGroup: newPatient.bloodGroup,
+        allergies: newPatient.allergies,
+        dob: newPatient.dob,
+        gender: newPatient.gender,
+        emergencyContact: newPatient.emergencyContact,
+        address: newPatient.address
+      });
+    }
     showToast(`Patient ${newPatient.name} registered (ID: ${newPatient.patientIdNumber})`);
     return newPatient;
+  };
+
+  const updatePatient = (patientId, updates) => {
+    setPatients((prev) =>
+      prev.map((p) => (p.id === patientId || p.patientIdNumber === patientId ? { ...p, ...updates } : p))
+    );
+    showToast(`Updated profile for ${updates.name || 'patient'}`);
+  };
+
+  const switchDemoPatient = (patientId) => {
+    const pt = patients.find((p) => p.id === patientId || p.patientIdNumber === patientId);
+    if (!pt) return;
+    setActivePatientId(pt.id);
+    localStorage.setItem('clinipulse_active_patient_id', pt.id);
+    if (currentRole === 'patient') {
+      setCurrentUser({
+        id: pt.id,
+        name: pt.name,
+        email: pt.email,
+        phone: pt.phone,
+        role: 'patient',
+        patientIdNumber: pt.patientIdNumber || pt.id,
+        bloodGroup: pt.bloodGroup,
+        allergies: pt.allergies,
+        dob: pt.dob,
+        gender: pt.gender,
+        address: pt.address
+      });
+    }
+    showToast(`Switched active patient: ${pt.name} (${pt.patientIdNumber || pt.id})`);
   };
 
   const createPrescription = (rxData) => {
@@ -664,6 +1114,10 @@ export function AppProvider({ children }) {
 
   // Patient Feedback Actions
   const submitPatientFeedback = (feedbackData) => {
+    if (feedbackData.appointmentId && feedbacks.some((f) => f.appointmentId === feedbackData.appointmentId)) {
+      showToast('Feedback has already been recorded for this appointment.', 'warning');
+      return null;
+    }
     const seq = Math.floor(2600 + Math.random() * 900);
     const newFb = {
       ...feedbackData,
@@ -1029,9 +1483,58 @@ export function AppProvider({ children }) {
         createdAt: new Date().toISOString()
       };
       setPrescriptions((prev) => [newRx, ...prev]);
+
+      // Add medications to Medication Day Planner
+      const newPlannerMeds = encounterData.medications.map((med, idx) => ({
+        id: `med-rx-${Date.now()}-${idx}`,
+        patientId: encounterData.patientId || 'pt-1041',
+        name: med.drugName || med.name,
+        brand: med.brandName || med.drugName || med.name,
+        dosage: med.strength || med.dosage || 'Standard dose',
+        form: med.form || 'Tablet',
+        category: 'Prescription Medicine',
+        timeSlot: med.timing?.toLowerCase().includes('night') || med.frequency?.toLowerCase().includes('bed') ? 'Bedtime' :
+                  med.timing?.toLowerCase().includes('evening') ? 'Evening' :
+                  med.timing?.toLowerCase().includes('afternoon') ? 'Afternoon' : 'Morning',
+        scheduledTime: '09:00 AM',
+        instructions: med.instructions || `${med.frequency || 'Daily'} - ${med.timing || 'After food'}`,
+        status: 'pending',
+        prescribedBy: encounterData.doctorName || 'Dr. Aarav Mehta',
+        refillsLeft: 1,
+        pillsRemaining: 14,
+        color: 'blue'
+      }));
+      setMedicationSchedule((prev) => [...newPlannerMeds, ...prev]);
     }
 
-    showToast(`Consultation finalized and prescription generated for ${encounterData.patientName}!`);
+    // Connect automatically to Living Health Timeline
+    const journeyEvent = {
+      id: `hj-enc-${Date.now()}`,
+      patientId: encounterData.patientId || 'pt-1041',
+      patientName: encounterData.patientName || 'Aarav Patel',
+      type: 'consultation',
+      category: 'Consultation Finalized',
+      date: new Date().toISOString().slice(0, 10),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      title: `Clinical Consultation: ${encounterData.diagnosis || 'General Health Review'}`,
+      doctor: encounterData.doctorName || 'Dr. Aarav Mehta',
+      specialty: 'Primary & Specialty Clinical Care',
+      clinic: activeClinic?.name || 'CityCare Family Clinic',
+      status: 'Finalized',
+      summary: encounterData.chiefComplaint || 'Clinical consultation concluded with recorded diagnosis and care pathway.',
+      details: {
+        chiefComplaint: encounterData.chiefComplaint,
+        findings: encounterData.clinicalFindings,
+        diagnosis: encounterData.diagnosis,
+        treatmentPlan: encounterData.treatmentPlan,
+        vitals: encounterData.vitals,
+        prescriptions: (encounterData.medications || []).map((m) => `${m.drugName || m.name} (${m.frequency || 'Daily'})`),
+        nextFollowUp: encounterData.followUpDate || 'In 4 weeks'
+      }
+    };
+    setHealthJourneyEvents((prev) => [journeyEvent, ...prev]);
+
+    showToast(`Consultation finalized and added to ${encounterData.patientName}'s Health Journey!`);
     return finalized;
   };
 
@@ -1509,6 +2012,14 @@ export function AppProvider({ children }) {
       )
     );
 
+    // Broadcast check-in to doctor / reception tabs
+    broadcastSync('PATIENT_CHECKED_IN', {
+      appointmentId,
+      queueNumber: queueSeq,
+      patientName: apt.patientName,
+      doctorName: apt.doctorName
+    });
+
     // Notify doctor
     const notif = {
       id: `notif-${Date.now()}`,
@@ -1603,6 +2114,8 @@ export function AppProvider({ children }) {
     const apt = appointments.find((a) => a.id === appointmentId);
     if (!apt) return;
 
+    const previousStatus = apt.status;
+
     const audit = {
       id: `aud-${Date.now()}`,
       action: 'Appointment cancelled',
@@ -1624,7 +2137,20 @@ export function AppProvider({ children }) {
           : a
       )
     );
-    showToast('Appointment cancelled.');
+
+    broadcastSync('APPOINTMENT_CANCELLED', { appointmentId, reason });
+
+    showToast(`Appointment ${apt.referenceNumber || ''} cancelled.`, 'warning', {
+      actionLabel: 'Undo',
+      durationMs: 5000,
+      onAction: () => {
+        setAppointments((prev) =>
+          prev.map((a) => (a.id === appointmentId ? { ...a, status: previousStatus } : a))
+        );
+        broadcastSync('APPOINTMENT_UPDATED', { appointmentId, status: previousStatus });
+        showToast('Cancellation undone successfully!', 'success');
+      }
+    });
   };
 
   const rescheduleAppointment = (appointmentId, newDate, newTime) => {
@@ -1668,45 +2194,182 @@ export function AppProvider({ children }) {
     return newNotif;
   };
 
-  const isNotificationForCurrentUser = (notification) => {
-    if (notification.recipientUserId === currentUser?.id) return true;
-    if (currentRole === 'patient') return false;
-    return (
-      notification.clinicId === activeClinicId &&
-      toWorkspaceRole(notification.recipientRole) === currentRole
-    );
-  };
-
   const markNotificationAsRead = (notifId) => {
     setNotifications((prev) =>
-      prev.map((n) =>
-        n.id === notifId && isNotificationForCurrentUser(n) ? { ...n, read: true } : n
-      )
+      prev.map((n) => (n.id === notifId ? { ...n, read: true } : n))
     );
   };
 
-  const markAllNotificationsAsRead = () => {
-    setNotifications((prev) =>
-      prev.map((notification) =>
-        isNotificationForCurrentUser(notification) ? { ...notification, read: true } : notification
-      )
-    );
-    showToast('Your notifications have been marked as read.');
+  const clearAllNotifications = () => {
+    setNotifications([]);
+    showToast('All notifications cleared.');
   };
 
   // Staff Management
-  const inviteStaffMember = (staffData) => {
+  const addStaffMember = (staffData) => {
     const newStaff = {
-      ...staffData,
-      id: `stf-${Date.now()}`,
-      clinicId: activeClinicId,
-      branchIds: [activeBranchId],
-      status: 'Active',
-      joinedDate: new Date().toISOString().slice(0, 10)
+      id: staffData.id || `stf-${Date.now()}`,
+      clinicId: staffData.clinicId || activeClinicId || 'clinic-citycare',
+      branchIds: staffData.branchIds || [activeBranchId || 'branch-citycare-main'],
+      name: staffData.name,
+      email: staffData.email,
+      phone: staffData.phone,
+      role: staffData.role || 'doctor',
+      department: staffData.department || (staffData.role === 'doctor' ? 'General Medicine' : 'Administration'),
+      status: staffData.status || 'Active',
+      shift: staffData.shift || '09:00 - 18:00',
+      joinedDate: staffData.joinedDate || new Date().toISOString().slice(0, 10),
+      qualifications: staffData.qualifications || '',
+      registrationNumber: staffData.registrationNumber || '',
+      avatar: staffData.avatar || '',
+      experienceYears: Number(staffData.experienceYears) || 5,
+      notes: staffData.notes || ''
     };
+
     setStaffMembers((prev) => [newStaff, ...prev]);
-    showToast(`Staff invitation sent to ${newStaff.name} (${newStaff.role.toUpperCase()}).`);
+
+    // If role is doctor, sync into doctors list so appointments & rosters recognize them
+    if (newStaff.role === 'doctor') {
+      const alreadyDoctor = doctors.some(
+        (d) => d.email?.toLowerCase() === newStaff.email?.toLowerCase() || d.name?.toLowerCase() === newStaff.name?.toLowerCase()
+      );
+      if (!alreadyDoctor) {
+        const newDoc = {
+          id: `doc-${Date.now()}`,
+          doctorIdNumber: `DOC-${Math.floor(100 + Math.random() * 900)}`,
+          clinicId: newStaff.clinicId,
+          clinicName: activeClinic?.name || 'CityCare Family Clinic',
+          branchIds: newStaff.branchIds,
+          name: newStaff.name,
+          specialty: newStaff.department,
+          qualifications: newStaff.qualifications || 'MBBS',
+          registrationNumber: newStaff.registrationNumber || `MDC-${Date.now().toString().slice(-5)}`,
+          experienceYears: newStaff.experienceYears,
+          consultationFee: staffData.consultationFee || 500,
+          email: newStaff.email,
+          phone: newStaff.phone,
+          status: 'Active',
+          avatar: newStaff.avatar || 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80',
+          bio: newStaff.notes || `${newStaff.name} is a specialist in ${newStaff.department}.`
+        };
+        setDoctors((prev) => [newDoc, ...prev]);
+      }
+    }
+
+    // If role is receptionist, sync into receptionists list
+    if (newStaff.role === 'receptionist') {
+      const alreadyRec = receptionists.some(
+        (r) => r.email?.toLowerCase() === newStaff.email?.toLowerCase()
+      );
+      if (!alreadyRec) {
+        const newRec = {
+          id: `rec-${Date.now()}`,
+          staffIdNumber: `REC-${Math.floor(100 + Math.random() * 900)}`,
+          clinicId: newStaff.clinicId,
+          branchIds: newStaff.branchIds,
+          name: newStaff.name,
+          email: newStaff.email,
+          phone: newStaff.phone,
+          shift: newStaff.shift,
+          workingDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+          permissions: ['register_patients', 'manage_appointments', 'check_in_patients'],
+          status: 'Active',
+          joiningDate: newStaff.joinedDate,
+          createdAt: newStaff.joinedDate
+        };
+        setReceptionists((prev) => [newRec, ...prev]);
+      }
+    }
+
+    showToast(`Staff member "${newStaff.name}" added to clinic team.`);
     return newStaff;
+  };
+
+  const updateStaffMember = (staffId, updates) => {
+    let updatedMember = null;
+    setStaffMembers((prev) =>
+      prev.map((s) => {
+        if (s.id === staffId) {
+          updatedMember = { ...s, ...updates };
+          return updatedMember;
+        }
+        return s;
+      })
+    );
+
+    if (updatedMember) {
+      if (updatedMember.role === 'doctor') {
+        setDoctors((prev) =>
+          prev.map((d) =>
+            d.email === updatedMember.email || d.name === updatedMember.name
+              ? {
+                  ...d,
+                  name: updatedMember.name,
+                  email: updatedMember.email,
+                  phone: updatedMember.phone,
+                  specialty: updatedMember.department || d.specialty,
+                  qualifications: updatedMember.qualifications || d.qualifications,
+                  registrationNumber: updatedMember.registrationNumber || d.registrationNumber,
+                  status: updatedMember.status === 'Active' ? 'Active' : 'Inactive'
+                }
+              : d
+          )
+        );
+      } else if (updatedMember.role === 'receptionist') {
+        setReceptionists((prev) =>
+          prev.map((r) =>
+            r.email === updatedMember.email || r.name === updatedMember.name
+              ? {
+                  ...r,
+                  name: updatedMember.name,
+                  email: updatedMember.email,
+                  phone: updatedMember.phone,
+                  shift: updatedMember.shift || r.shift,
+                  status: updatedMember.status === 'Active' ? 'Active' : 'Inactive'
+                }
+              : r
+          )
+        );
+      }
+    }
+
+    showToast('Staff profile updated successfully.');
+  };
+
+  const deleteStaffMember = (staffId) => {
+    const target = staffMembers.find((s) => s.id === staffId);
+    if (!target) return { success: false, error: 'Staff member not found.' };
+
+    if (
+      target.id === 'stf-1' ||
+      target.email === currentUser?.email ||
+      target.name.toLowerCase().includes('aarav mehta')
+    ) {
+      showToast('Cannot delete the primary clinic administrator account.', 'error');
+      return { success: false, error: 'Cannot delete primary clinic administrator.' };
+    }
+
+    setStaffMembers((prev) => prev.filter((s) => s.id !== staffId));
+
+    if (target.role === 'doctor') {
+      setDoctors((prev) => prev.filter((d) => d.email !== target.email && d.name !== target.name));
+    } else if (target.role === 'receptionist') {
+      setReceptionists((prev) => prev.filter((r) => r.email !== target.email && r.name !== target.name));
+    }
+
+    showToast(`Staff member "${target.name}" removed from clinic.`);
+    return { success: true };
+  };
+
+  const toggleStaffStatus = (staffId, newStatus) => {
+    setStaffMembers((prev) =>
+      prev.map((s) => (s.id === staffId ? { ...s, status: newStatus } : s))
+    );
+    showToast(`Staff status updated to ${newStatus}.`);
+  };
+
+  const inviteStaffMember = (staffData) => {
+    return addStaffMember(staffData);
   };
 
   const updateStaffRole = (staffId, newRole) => {
@@ -1717,23 +2380,8 @@ export function AppProvider({ children }) {
   };
 
   // Billing & Payments
-  const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan') => {
-    setInvoices((prev) =>
-      prev.map((inv) => {
-        if (inv.id === invoiceId) {
-          const totalPaid = (inv.amountPaid || 0) + Number(amountPaid);
-          const isFullyPaid = totalPaid >= inv.totalAmount;
-          return {
-            ...inv,
-            amountPaid: totalPaid,
-            status: isFullyPaid ? 'Paid' : 'Partially Paid',
-            paymentMethod
-          };
-        }
-        return inv;
-      })
-    );
-    showToast(`Simulated Payment of ${formatCurrency(amountPaid)} received via ${paymentMethod}! (Demo Transaction - No real charge)`);
+  const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
+    return recordClinicPayment(invoiceId, paymentMethod, amountPaid, transactionRef);
   };
 
   const requestRefund = (invoiceId, reason) => {
@@ -1745,27 +2393,8 @@ export function AppProvider({ children }) {
 
   // Demo Onboarding
   const onboardNewClinic = (onboardingData) => {
-    const clinicId = onboardingData.clinicId ||
-      `clinic-${onboardingData.clinicName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${Date.now().toString().slice(-4)}`;
-    const branchCount = Math.max(1, Number(onboardingData.branchCount) || 1);
-    const branches = Array.from({ length: branchCount }, (_, index) => {
-      const branchId = index === 0 ? `branch-${clinicId}-main` : `branch-${clinicId}-${index + 1}`;
-      return {
-        id: branchId,
-        clinicId,
-        name: index === 0
-          ? `${onboardingData.clinicName} (Main Branch)`
-          : `${onboardingData.clinicName} (Branch ${index + 1})`,
-        code: index === 0 ? 'MAIN' : `BR-${index + 1}`,
-        address: onboardingData.address || '101 Healthcare Boulevard',
-        city: onboardingData.city || 'Mumbai',
-        phone: onboardingData.phone || '+91 98000 12345',
-        email: onboardingData.email || 'contact@newclinic.demo',
-        operatingHours: 'Mon - Sat: 09:00 - 20:00',
-        isMain: index === 0,
-        activeDoctorsCount: Math.ceil((Number(onboardingData.doctorCount) || 2) / branchCount)
-      };
-    });
+    const clinicId = `clinic-${onboardingData.clinicName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${Date.now().toString().slice(-4)}`;
+    const branchId = `branch-${clinicId}-main`;
 
     const newClinic = {
       id: clinicId,
@@ -1780,14 +2409,26 @@ export function AppProvider({ children }) {
       city: onboardingData.city || 'Mumbai',
       phone: onboardingData.phone || '+91 98000 12345',
       email: onboardingData.email || 'contact@newclinic.demo',
-      ownerEmail: onboardingData.ownerEmail,
       ownerName: onboardingData.ownerName || 'Dr. Administrator',
-      status: 'Pending',
-      approvalStatus: 'Pending',
+      status: 'Trial',
       subscriptionPlanId: onboardingData.planId || 'professional',
       trialEndsAt: new Date(Date.now() + 14 * 86400000).toISOString().slice(0, 10),
       isTrial: true,
-      branches,
+      branches: [
+        {
+          id: branchId,
+          clinicId,
+          name: `${onboardingData.clinicName} (Main Branch)`,
+          code: 'MAIN',
+          address: onboardingData.address || '101 Healthcare Boulevard',
+          city: onboardingData.city || 'Mumbai',
+          phone: onboardingData.phone || '+91 98000 12345',
+          email: onboardingData.email || 'contact@newclinic.demo',
+          operatingHours: 'Mon - Sat: 09:00 - 20:00',
+          isMain: true,
+          activeDoctorsCount: Number(onboardingData.doctorCount) || 2
+        }
+      ],
       services: [
         { id: 'srv-gen-1', name: 'Comprehensive Consultation', durationMinutes: 30, fee: 800, category: 'Consultation', description: 'Primary consultation and diagnosis' },
         { id: 'srv-gen-2', name: 'Follow-up Checkup', durationMinutes: 15, fee: 400, category: 'Follow-up', description: 'Review progress and medication adjustment' }
@@ -1799,8 +2440,29 @@ export function AppProvider({ children }) {
     };
 
     setClinics((prev) => [newClinic, ...prev]);
-    showToast(`${newClinic.name} registration was submitted for super-admin approval.`);
+    setActiveClinicId(clinicId);
+    setActiveBranchId(branchId);
+    switchRole('clinic_admin');
+    showToast(`🎉 Welcome to ClinicOS! ${newClinic.name} created on 14-day ${onboardingData.planId?.toUpperCase() || 'PRO'} trial.`);
     return newClinic;
+  };
+
+  const createPlan = (newPlan) => {
+    setPlans((prev) => {
+      const next = [...prev, newPlan];
+      localStorage.setItem('clinipulse_plans', JSON.stringify(next));
+      return next;
+    });
+    showToast(`Plan "${newPlan.name}" created successfully!`, 'success');
+  };
+
+  const deletePlan = (planId) => {
+    setPlans((prev) => {
+      const next = prev.filter((p) => p.id !== planId);
+      localStorage.setItem('clinipulse_plans', JSON.stringify(next));
+      return next;
+    });
+    showToast(`Plan deleted successfully.`, 'info');
   };
 
   const updatePlan = (planId, updates) => {
@@ -1819,6 +2481,100 @@ export function AppProvider({ children }) {
       return next;
     });
     showToast(`Clinic subscription plan updated to ${newPlanId.toUpperCase()}`);
+  };
+
+  const updateClinic = (clinicId, updates) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => (c.id === clinicId ? { ...c, ...updates } : c));
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('Clinic profile updated successfully.', 'success');
+  };
+
+  const updateClinicWebsite = (clinicIdOrUpdates, maybeUpdates) => {
+    let targetClinicId = clinicIdOrUpdates;
+    let websiteUpdates = maybeUpdates;
+    if (typeof clinicIdOrUpdates === 'object' && clinicIdOrUpdates !== null && maybeUpdates === undefined) {
+      targetClinicId = activeClinicId;
+      websiteUpdates = clinicIdOrUpdates;
+    }
+
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== targetClinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            ...websiteUpdates,
+            status: websiteUpdates.status || (currentWebsite.status === 'published' ? 'changes_pending' : currentWebsite.status)
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const saveClinicWebsiteDraft = (clinicId, draftSettings) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            ...draftSettings,
+            status: 'draft'
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('Website changes saved as draft.', 'info');
+  };
+
+  const publishClinicWebsite = (clinicId) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            status: 'published',
+            publishedAt: new Date().toISOString()
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('🎉 Website published! Patients can now discover your services and book online.', 'success');
+  };
+
+  const unpublishClinicWebsite = (clinicId) => {
+    setClinics((prev) => {
+      const next = prev.map((c) => {
+        if (c.id !== clinicId) return c;
+        const currentWebsite = c.websiteSettings || getDefaultWebsiteSettings(c);
+        return {
+          ...c,
+          websiteSettings: {
+            ...currentWebsite,
+            status: 'draft'
+          }
+        };
+      });
+      localStorage.setItem('clinipulse_clinics', JSON.stringify(next));
+      return next;
+    });
+    showToast('Website unpublished and set to private draft mode.', 'info');
   };
 
   // Centralized Permission Checker
@@ -1880,18 +2636,40 @@ export function AppProvider({ children }) {
   };
 
   // Clinic Finance Actions
-  const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount) => {
-    const inv = invoices.find((i) => i.invoiceNumber === invoiceNumber);
-    if (!inv) return;
-    const remaining = inv.totalAmount - (inv.amountPaid || 0);
-    const paidAmount = Number(amount) || (remaining > 0 ? remaining : inv.totalAmount);
-    const newAmountPaid = (inv.amountPaid || 0) + paidAmount;
-    const newStatus = newAmountPaid >= inv.totalAmount ? 'Paid' : 'Partially Paid';
+  const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount, transactionRef = '') => {
+    const inv = invoices.find(
+      (i) => i.invoiceNumber === invoiceNumber || i.id === invoiceNumber
+    );
+    if (!inv) {
+      showToast(`Invoice ${invoiceNumber} not found`, 'error');
+      return null;
+    }
+    const currentPaid = Number(inv.amountPaid) || 0;
+    const remaining = Math.max(0, inv.totalAmount - currentPaid);
+    if (remaining <= 0) {
+      showToast(`Invoice ${inv.invoiceNumber} is already fully paid.`, 'info');
+      return null;
+    }
+    const numAmount = Number(amount);
+    if (!numAmount || numAmount <= 0) {
+      showToast('Payment amount must be greater than zero.', 'error');
+      return null;
+    }
+    const paidAmount = Math.min(numAmount, remaining);
+    const newAmountPaid = currentPaid + paidAmount;
+    const newOutstanding = Math.max(0, inv.totalAmount - newAmountPaid);
+    const newStatus = newOutstanding === 0 ? 'Paid' : 'Partially Paid';
 
     setInvoices((prev) =>
       prev.map((i) =>
-        i.invoiceNumber === invoiceNumber
-          ? { ...i, amountPaid: newAmountPaid, status: newStatus, paymentMethod }
+        i.invoiceNumber === inv.invoiceNumber || i.id === inv.id
+          ? {
+              ...i,
+              amountPaid: newAmountPaid,
+              outstandingBalance: newOutstanding,
+              status: newStatus,
+              paymentMethod
+            }
           : i
       )
     );
@@ -1905,12 +2683,174 @@ export function AppProvider({ children }) {
       invoiceNumber: inv.invoiceNumber,
       amount: paidAmount,
       paymentMethod,
+      transactionRef: transactionRef || '',
       date: new Date().toISOString().slice(0, 10),
       status: 'Completed'
     };
     setClinicPayments((prev) => [newPayRecord, ...prev]);
-    showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded on ${invoiceNumber} (${paymentMethod})`);
-    return newPayRecord;
+
+    const rSeq = Math.floor(1000 + Math.random() * 9000);
+    const newReceipt = {
+      id: `rcp-${Date.now()}`,
+      receiptNumber: `RCP-2026-${rSeq}`,
+      paymentReference: paymentRef,
+      invoiceNumber: inv.invoiceNumber,
+      invoiceId: inv.id,
+      patientId: inv.patientId,
+      patientName: inv.patientName,
+      amount: paidAmount,
+      paymentMethod,
+      transactionRef: transactionRef || '',
+      date: new Date().toISOString().slice(0, 10),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      clinicId: inv.clinicId || activeClinicId,
+      clinicName: activeClinic?.name || 'CityCare Family Practice',
+      branchId: inv.branchId || activeBranchId,
+      issuedBy: currentUser?.name || 'Front Desk Cashier',
+      status: 'Issued',
+      notes: `Settlement for ${inv.items?.[0]?.description || 'OPD Consultation'}`
+    };
+    setReceipts((prev) => [newReceipt, ...prev]);
+
+    showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded! Receipt #${newReceipt.receiptNumber} generated.`);
+    return { payment: newPayRecord, receipt: newReceipt };
+  };
+
+  // Synchronized Doctor Fee Settlement from Patient Portal / Clinic
+  const payDoctorConsultationFee = (appointmentId, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
+    const apt = appointments.find(
+      (a) => a.id === appointmentId || a.referenceNumber === appointmentId || a.requestId === appointmentId
+    );
+    if (!apt) {
+      showToast('Appointment record not found for fee settlement.', 'error');
+      return null;
+    }
+
+    const fee = Number(apt.consultationFee) || 600;
+    const dateStr = new Date().toISOString().slice(0, 10);
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const payRef = transactionRef || `UPI-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+
+    // 1. Update appointment payment status across platform
+    setAppointments((prev) =>
+      prev.map((a) =>
+        a.id === apt.id
+          ? {
+              ...a,
+              paymentStatus: 'Paid',
+              amountPaid: fee,
+              paidAt: `${dateStr} ${timeStr}`,
+              paymentMethod,
+              transactionRef: payRef,
+              paymentReference: payRef
+            }
+          : a
+      )
+    );
+
+    // 2. Synchronize or create matching invoice
+    let matchedInv = invoices.find(
+      (i) =>
+        i.appointmentId === apt.id ||
+        (apt.referenceNumber && i.referenceNumber === apt.referenceNumber) ||
+        (i.patientId === apt.patientId && i.date === (apt.confirmedDate || apt.date))
+    );
+
+    const invNum = matchedInv ? matchedInv.invoiceNumber : `INV-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    if (matchedInv) {
+      setInvoices((prev) =>
+        prev.map((i) =>
+          i.id === matchedInv.id
+            ? {
+                ...i,
+                amountPaid: i.totalAmount || fee,
+                outstandingBalance: 0,
+                status: 'Paid',
+                paymentMethod,
+                paidAt: `${dateStr} ${timeStr}`,
+                transactionRef: payRef
+              }
+            : i
+        )
+      );
+    } else {
+      const newInv = {
+        id: `inv-${Date.now()}`,
+        invoiceNumber: invNum,
+        clinicId: apt.clinicId || activeClinicId,
+        branchId: apt.branchId || activeBranchId,
+        patientId: apt.patientId,
+        patientName: apt.patientName,
+        patientPhone: apt.patientPhone,
+        appointmentId: apt.id,
+        referenceNumber: apt.referenceNumber || apt.requestId,
+        date: dateStr,
+        dueDate: dateStr,
+        items: [
+          {
+            id: `item-${Date.now()}`,
+            description: `${apt.serviceName || 'OPD Consultation'} with Dr. ${apt.doctorName || 'Doctor'}`,
+            quantity: 1,
+            unitPrice: fee,
+            total: fee
+          }
+        ],
+        subtotal: fee,
+        discount: 0,
+        tax: 0,
+        totalAmount: fee,
+        amountPaid: fee,
+        outstandingBalance: 0,
+        status: 'Paid',
+        paymentMethod,
+        paidAt: `${dateStr} ${timeStr}`
+      };
+      setInvoices((prev) => [newInv, ...prev]);
+    }
+
+    // 3. Record in clinicPayments
+    const newPayRecord = {
+      id: `cpay-${Date.now()}`,
+      paymentReference: payRef,
+      patientId: apt.patientId,
+      patientName: apt.patientName,
+      invoiceNumber: invNum,
+      appointmentId: apt.id,
+      amount: fee,
+      paymentMethod,
+      transactionRef: payRef,
+      date: dateStr,
+      status: 'Completed'
+    };
+    setClinicPayments((prev) => [newPayRecord, ...prev]);
+
+    // 4. Generate official Receipt for Patient & Clinic
+    const rSeq = Math.floor(1000 + Math.random() * 9000);
+    const newReceipt = {
+      id: `rcp-${Date.now()}`,
+      receiptNumber: `RCP-2026-${rSeq}`,
+      paymentReference: payRef,
+      invoiceNumber: invNum,
+      appointmentId: apt.id,
+      patientId: apt.patientId,
+      patientName: apt.patientName,
+      amount: fee,
+      paymentMethod,
+      transactionRef: payRef,
+      date: dateStr,
+      time: timeStr,
+      clinicId: apt.clinicId || activeClinicId,
+      clinicName: apt.clinicName || activeClinic?.name || 'CityCare Family Practice',
+      branchId: apt.branchId || activeBranchId,
+      issuedBy: 'Patient Self-Service Payment Gateway',
+      status: 'Issued',
+      notes: `Consultation fee settlement for Dr. ${apt.doctorName} (${apt.serviceName || 'OPD Consultation'})`
+    };
+    setReceipts((prev) => [newReceipt, ...prev]);
+
+    showToast(`Payment of ₹${fee.toLocaleString('en-IN')} paid to Dr. ${apt.doctorName}! Receipt #${newReceipt.receiptNumber} generated.`);
+    return { success: true, receipt: newReceipt, payment: newPayRecord };
   };
 
   const requestClinicRefund = (refundData) => {
@@ -2079,6 +3019,11 @@ export function AppProvider({ children }) {
         currentReceptionist,
         hasReceptionistPermission,
         staffMembers,
+        setStaffMembers,
+        addStaffMember,
+        updateStaffMember,
+        deleteStaffMember,
+        toggleStaffStatus,
         inviteStaffMember,
         updateStaffRole,
         feedbacks,
@@ -2091,6 +3036,12 @@ export function AppProvider({ children }) {
         addFeedbackInternalNote,
         patients,
         createPatient,
+        updatePatient,
+        activePatientId,
+        setActivePatientId,
+        switchDemoPatient,
+        receipts,
+        setReceipts,
         appointments,
         createAppointment,
         updateAppointmentStatus,
@@ -2109,8 +3060,7 @@ export function AppProvider({ children }) {
         notifications,
         addNotification,
         markNotificationAsRead,
-        isNotificationForCurrentUser,
-        markAllNotificationsAsRead,
+        clearAllNotifications,
         prescriptions,
         createPrescription,
         encounters,
@@ -2149,6 +3099,8 @@ export function AppProvider({ children }) {
         updateFollowUpStatus,
         plans,
         setPlans,
+        createPlan,
+        deletePlan,
         updatePlan,
         upgradeClinicSubscription,
         hasPermission,
@@ -2162,9 +3114,15 @@ export function AppProvider({ children }) {
         clinicPayments,
         clinicRefunds,
         recordClinicPayment,
+        payDoctorConsultationFee,
         requestClinicRefund,
         approveClinicRefund,
         createClinicExpense,
+        updateClinic,
+        updateClinicWebsite,
+        saveClinicWebsiteDraft,
+        publishClinicWebsite,
+        unpublishClinicWebsite,
         toast,
         showToast,
         whatsAppModal,
@@ -2173,6 +3131,31 @@ export function AppProvider({ children }) {
         prescriptionModal,
         openPrescriptionModal,
         closePrescriptionModal,
+        virtualConsultations,
+        requestVirtualConsultation,
+        acceptVirtualConsultation,
+        endVirtualConsultation,
+        declineVirtualConsultation,
+        // Connected Patient & Care Experience
+        healthJourneyEvents,
+        addHealthJourneyEvent,
+        visitBriefs,
+        saveVisitBrief,
+        medicationSchedule,
+        updateMedicationStatus,
+        weeklyAdherence,
+        familyMembers,
+        addFamilyMember,
+        removeFamilyMember,
+        activeFamilyMemberId,
+        setActiveFamilyMemberId,
+        isPatientFriendlyMode,
+        togglePatientFriendlyMode,
+        clinicRooms,
+        updateRoomStatus,
+        handoverData,
+        updateHandoverTask,
+        updateHandoverNotes,
         resetDemoData
       }}
     >
@@ -2188,3 +3171,4 @@ export function useApp() {
   }
   return context;
 }
+

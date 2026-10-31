@@ -1,12 +1,31 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MockAuthService, SEEDED_DEMO_USERS } from '../services/mockAuthService';
-import { toAuthRole, toWorkspaceRole } from '../services/roleMapping';
+
+export function toAppRole(role) {
+  if (!role) return 'patient';
+  if (role === 'superadmin' || role === 'super_admin') return 'super_admin';
+  if (role === 'doctor_admin' || role === 'clinic_admin' || role === 'doctor') return 'clinic_admin';
+  if (role === 'receptionist_manager' || role === 'receptionist') return 'receptionist';
+  if (role === 'patient') return 'patient';
+  return 'patient';
+}
+
+export function toAuthRole(role) {
+  if (!role) return 'patient';
+  if (role === 'super_admin' || role === 'superadmin') return 'superadmin';
+  if (role === 'clinic_admin' || role === 'doctor_admin' || role === 'doctor') return 'doctor_admin';
+  if (role === 'receptionist' || role === 'receptionist_manager') return 'receptionist_manager';
+  if (role === 'patient') return 'patient';
+  return 'patient';
+}
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   // Session initialization
-  const [user, setUser] = useState(() => MockAuthService.getSession());
+  const [user, setUser] = useState(() => {
+    return MockAuthService.getSession();
+  });
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,37 +46,48 @@ export function AuthProvider({ children }) {
     return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
+  const syncRole = (targetRole, clinicId) => {
+    const authRole = toAuthRole(targetRole);
+    const appRole = toAppRole(targetRole);
+    let matchedUser = null;
+    if (authRole === 'superadmin') {
+      matchedUser = SEEDED_DEMO_USERS.find((u) => u.role === 'superadmin');
+    } else if (authRole === 'doctor_admin') {
+      matchedUser =
+        SEEDED_DEMO_USERS.find((u) => u.role === 'doctor_admin' && (!clinicId || u.activeClinicId === clinicId)) ||
+        SEEDED_DEMO_USERS.find((u) => u.role === 'doctor_admin');
+    } else if (authRole === 'receptionist_manager') {
+      matchedUser =
+        SEEDED_DEMO_USERS.find((u) => u.role === 'receptionist_manager' && (!clinicId || u.activeClinicId === clinicId)) ||
+        SEEDED_DEMO_USERS.find((u) => u.role === 'receptionist_manager');
+    } else {
+      matchedUser = SEEDED_DEMO_USERS.find((u) => u.role === 'patient');
+    }
+
+    if (matchedUser) {
+      MockAuthService.saveSession(matchedUser);
+      setUser(matchedUser);
+      localStorage.setItem('clinipulse_role', appRole);
+      return matchedUser;
+    }
+    return null;
+  };
+
   const login = async (credentials) => {
     setIsLoading(true);
     try {
       const result = await MockAuthService.login(credentials);
       if (result.success && result.user) {
         setUser(result.user);
+        localStorage.setItem('clinipulse_role', toAppRole(result.user.role));
+        if (result.user.activeClinicId) {
+          localStorage.setItem('clinipulse_clinic_id', result.user.activeClinicId);
+        }
       }
       return result;
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const loginAsDemoRole = async (workspaceRole) => {
-    const normalizedRole = toWorkspaceRole(workspaceRole);
-    if (!normalizedRole) {
-      return { success: false, error: `Unknown demo role: ${workspaceRole}` };
-    }
-
-    const demoRole = toAuthRole(normalizedRole);
-    const demoUser = SEEDED_DEMO_USERS.find((candidate) => candidate.role === demoRole);
-    if (!demoUser) {
-      return { success: false, error: `No demo account is configured for the ${workspaceRole} role.` };
-    }
-
-    return login({
-      identifier: demoUser.email,
-      password: 'DemoPassword123',
-      role: demoRole,
-      clinicId: demoUser.activeClinicId
-    });
   };
 
   const registerPatient = async (formData) => {
@@ -66,24 +96,13 @@ export function AuthProvider({ children }) {
       const result = await MockAuthService.registerPatient(formData);
       if (result.success && result.user) {
         setUser(result.user);
+        localStorage.setItem('clinipulse_role', 'patient');
       }
       return result;
     } finally {
       setIsLoading(false);
     }
   };
-
-  const registerTenant = async (formData) => {
-    setIsLoading(true);
-    try {
-      return await MockAuthService.registerTenant(formData);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const updateTenantApproval = (clinicId, status) =>
-    MockAuthService.updateTenantApproval(clinicId, status);
 
   const verifyEmail = async (tokenOrEmail) => {
     setIsLoading(true);
@@ -115,12 +134,14 @@ export function AuthProvider({ children }) {
   const logout = () => {
     MockAuthService.clearSession();
     setUser(null);
+    localStorage.setItem('clinipulse_role', 'patient');
   };
 
   const switchClinic = (clinicId) => {
     const updated = MockAuthService.switchClinic(clinicId);
     if (updated) {
       setUser(updated);
+      localStorage.setItem('clinipulse_clinic_id', clinicId);
       return true;
     }
     return false;
@@ -138,14 +159,12 @@ export function AuthProvider({ children }) {
     activeClinicId,
     memberships,
     login,
-    loginAsDemoRole,
     registerPatient,
-    registerTenant,
-    updateTenantApproval,
     verifyEmail,
     updateProfile,
     logout,
     switchClinic,
+    syncRole,
     requestPasswordReset
   };
 

@@ -4,12 +4,17 @@ import { useAuth } from '../../hooks/useAuth';
 import { AuthLayout } from './AuthLayout';
 import { Button } from '../../components/ui/Button';
 import {
+  UserCheck,
   Lock,
   Mail,
+  Building2,
   AlertCircle,
   ArrowRight,
   Eye,
-  EyeOff
+  EyeOff,
+  Clock,
+  Users,
+  ShieldCheck
 } from 'lucide-react';
 
 export function ReceptionistLoginPage() {
@@ -70,8 +75,8 @@ export function ReceptionistLoginPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Error Banner */}
         {error && (
-          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 flex items-start gap-2.5">
-            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+          <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-xs text-red-800 dark:text-red-200 flex items-start gap-2.5">
+            <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
             <div className="flex-1 leading-relaxed">
               <span className="font-bold">Access Issue:</span> {error}
             </div>
@@ -79,8 +84,8 @@ export function ReceptionistLoginPage() {
         )}
 
         {/* Work Email */}
-        <div className="space-y-1">
-          <label className="text-[13px] font-semibold text-[#1E293B] block">
+        <div className="space-y-1.5">
+          <label className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
             Reception Work Email <span className="text-red-500">*</span>
           </label>
           <div className="relative">
@@ -93,21 +98,21 @@ export function ReceptionistLoginPage() {
                 if (error) setError('');
               }}
               placeholder="frontdesk@clinic.demo"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
         </div>
 
         {/* Password */}
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className="text-[13px] font-semibold text-[#1E293B]">
+            <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
               Password <span className="text-red-500">*</span>
             </label>
             <Link
               to="/forgot-password"
-              className="text-[12px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+              className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 hover:underline"
             >
               Forgot password?
             </Link>
@@ -122,13 +127,13 @@ export function ReceptionistLoginPage() {
                 if (error) setError('');
               }}
               placeholder="••••••••••••"
-              className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#1E293B] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-1"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -137,33 +142,33 @@ export function ReceptionistLoginPage() {
 
         {/* Quick Clinic Receptionist Account Switchers */}
         <div className="space-y-1.5 pt-1">
-          <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Select Seeded Receptionist by Clinic:
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs">
             <button
               type="button"
               onClick={() => setEmail('priya.sharma@citycare.demo')}
-              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:border-blue-300 dark:hover:border-blue-700 text-left truncate cursor-pointer transition-colors"
             >
-              <span className="font-bold text-slate-800 block truncate">Priya Sharma</span>
-              <span className="text-[10px] text-slate-500">CityCare Family</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200 block truncate">Priya Sharma</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">CityCare Family</span>
             </button>
             <button
               type="button"
               onClick={() => setEmail('aniket.verma@heartwell.demo')}
-              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:border-blue-300 dark:hover:border-blue-700 text-left truncate cursor-pointer transition-colors"
             >
-              <span className="font-bold text-slate-800 block truncate">Aniket Verma</span>
-              <span className="text-[10px] text-slate-500">HeartWell Cardio</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200 block truncate">Aniket Verma</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">HeartWell Cardio</span>
             </button>
             <button
               type="button"
               onClick={() => setEmail('sneha.nair@brightsmile.demo')}
-              className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-left truncate cursor-pointer"
+              className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:border-blue-300 dark:hover:border-blue-700 text-left truncate cursor-pointer transition-colors"
             >
-              <span className="font-bold text-slate-800 block truncate">Sneha Nair</span>
-              <span className="text-[10px] text-slate-500">BrightSmile Dental</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200 block truncate">Sneha Nair</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">BrightSmile Dental</span>
             </button>
           </div>
         </div>
@@ -189,17 +194,17 @@ export function ReceptionistLoginPage() {
         </Button>
 
         {/* Role Boundary Note (Section 7) */}
-        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1">
-          <span className="font-bold text-slate-800 block">Scoped Role Access Boundaries:</span>
+        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+          <span className="font-bold text-slate-800 dark:text-slate-200 block">Scoped Role Access Boundaries:</span>
           <span>
             Receptionists have operational permissions for appointments, queues, patient check-in, and billing. Clinical diagnosis, Rx alterations, and corporate finance remain strictly protected.
           </span>
         </div>
 
         {/* Navigation */}
-        <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100">
-          <Link to="/login" className="font-semibold text-blue-600 hover:underline inline-block">
-            &larr; Return to Main Login Page
+        <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100 dark:border-slate-800">
+          <Link to="/" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-block">
+            &larr; Return to Home Page
           </Link>
         </div>
       </form>

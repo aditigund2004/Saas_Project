@@ -79,41 +79,40 @@ export function SolutionsPage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 space-y-12 sm:space-y-16 transition-colors">
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Tailored SaaS Workflows</span>
-        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+        <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tailored SaaS Workflows</span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Specialty Solutions Designed Around Your Clinical Day
         </h1>
-        <p className="text-slate-600 text-base leading-relaxed">
-          CliniPulse avoids rigid one-size-fits-all schemas. Each clinic customizes services, consultation durations, medication presets, and operational templates.
+        <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+          ClinicOS avoids rigid one-size-fits-all schemas. Each clinic customizes services, consultation durations, medication presets, and operational templates.
         </p>
       </div>
 
-      <div className="space-y-12">
-        {specialties.map((spec, index) => {
+      <div className="space-y-8 sm:space-y-12">
+        {specialties.map((spec) => {
           const Icon = spec.icon;
-          const isEven = index % 2 === 0;
 
           return (
             <div
               key={spec.id}
               id={spec.id}
-              className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-sm"
+              className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                     <Icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900">{spec.title}</h2>
-                    <p className="text-sm text-blue-700 font-medium mt-1">{spec.subtitle}</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{spec.title}</h2>
+                    <p className="text-sm text-blue-700 dark:text-blue-400 font-medium mt-1">{spec.subtitle}</p>
                   </div>
                   <div className="space-y-3 pt-2">
                     {spec.workflows.map((wf, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+                        <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                         <span>{wf}</span>
                       </div>
                     ))}
@@ -124,7 +123,7 @@ export function SolutionsPage() {
                         Preview Demo Profile
                       </Button>
                     </Link>
-                    <Link to="/register">
+                    <Link to="/register/clinic">
                       <Button variant="outline" size="md">
                         Start 14-Day Free Trial
                       </Button>
@@ -132,13 +131,13 @@ export function SolutionsPage() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-3">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Sample Active Profile</span>
-                  <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-2">
-                    <p className="font-bold text-slate-900 text-sm">{spec.sampleClinic}</p>
-                    <p className="text-xs text-slate-500">Configured with preloaded service fees, doctors, and sample appointments in this demo.</p>
+                <div className="lg:col-span-5 bg-slate-50 dark:bg-slate-950 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 space-y-3">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sample Active Profile</span>
+                  <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2">
+                    <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{spec.sampleClinic}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Configured with preloaded service fees, doctors, and sample appointments in this demo.</p>
                     <div className="pt-2">
-                      <Link to="/clinic/dashboard" className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
+                      <Link to="/clinic/dashboard" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
                         Open Admin Dashboard <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
@@ -152,4 +151,3 @@ export function SolutionsPage() {
     </div>
   );
 }
-

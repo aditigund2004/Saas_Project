@@ -23,50 +23,50 @@ export function AccountsServicesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 uppercase tracking-wide">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800 uppercase tracking-wide">
               Tariff & Pricing Master
             </span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Clinical Service Tariffs</h1>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinical Service Tariffs</h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Standard OPD treatment procedures, standard consultation durations, and fee schedule
           </p>
         </div>
       </div>
 
       <div className="relative max-w-md">
-        <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+        <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search clinical procedures and categories..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm"
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredServices.map((srv) => (
-          <Card key={srv.id} className="p-5 border-slate-200 space-y-3 flex flex-col justify-between">
-            <div className="space-y-1.5">
+          <Card key={srv.id} className="p-5 border-slate-200 dark:border-slate-800 dark:bg-slate-900 space-y-3.5 flex flex-col justify-between shadow-sm">
+            <div className="space-y-2">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-bold text-sm text-slate-900">{srv.name}</h3>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">{srv.name}</h3>
                 <Badge variant="teal" size="sm">{srv.category}</Badge>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 {srv.description}
               </p>
             </div>
 
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+                <Clock className="w-4 h-4 text-slate-400" />
                 <span>{srv.durationMinutes} mins</span>
               </div>
-              <div className="font-mono font-bold text-blue-800 text-base">
+              <div className="font-mono font-bold text-blue-700 dark:text-blue-400 text-base">
                 {formatCurrency(srv.fee)}
               </div>
             </div>
@@ -76,4 +76,3 @@ export function AccountsServicesPage() {
     </div>
   );
 }
-

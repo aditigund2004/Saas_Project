@@ -1,45 +1,67 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const THEME_STORAGE_KEY = 'clinicos_public_theme';
-const ThemeContext = createContext(null);
-
-function getInitialTheme() {
-  try {
-    return localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
-  } catch {
-    return 'light';
-  }
-}
+const ThemeContext = createContext({
+  theme: 'light',
+  isDark: false,
+  isHighContrast: false,
+  toggleTheme: () => {},
+  setTheme: (t) => {}
+});
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [theme, setThemeState] = useState(() => {
+    try {
+      const saved = localStorage.getItem('clinicos_theme');
+      if (saved === 'dark' || saved === 'light' || saved === 'high-contrast') return saved;
+      return 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
+  const isDark = theme === 'dark';
+  const isHighContrast = theme === 'high-contrast';
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
+    const root = document.documentElement;
+    root.classList.remove('dark', 'high-contrast');
+
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else if (theme === 'high-contrast') {
+      root.classList.add('high-contrast');
+    }
+
     try {
-      localStorage.setItem(THEME_STORAGE_KEY, theme);
+      localStorage.setItem('clinicos_theme', theme);
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor) {
+        metaThemeColor.setAttribute(
+          'content',
+          theme === 'dark' ? '#0b0f19' : theme === 'high-contrast' ? '#000000' : '#2563eb'
+        );
+      }
     } catch {
-      // Keep the selected theme active for this page when storage is unavailable.
+      // Storage fail-safe
     }
   }, [theme]);
 
-  useEffect(() => {
-    const handleStorage = (event) => {
-      if (event.key === THEME_STORAGE_KEY) {
-        setTheme(event.newValue === 'dark' ? 'dark' : 'light');
-      }
-    };
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, []);
-
   const toggleTheme = () => {
-    setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark');
+    setThemeState((prev) => {
+      if (prev === 'light') return 'dark';
+      if (prev === 'dark') return 'high-contrast';
+      return 'light';
+    });
+  };
+
+  const setTheme = (newTheme) => {
+    if (newTheme === 'dark' || newTheme === 'light' || newTheme === 'high-contrast') {
+      setThemeState(newTheme);
+    }
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, isDark, isHighContrast, toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

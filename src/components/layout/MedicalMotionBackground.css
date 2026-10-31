@@ -1,0 +1,164 @@
+/* Public-site-only decorative medical animation layer. */
+.public-site-shell {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.medical-motion {
+  position: fixed;
+  z-index: 0;
+  inset: 64px 0 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: #2563eb;
+  opacity: .72;
+}
+
+.public-site-content,
+.public-site-shell > footer {
+  position: relative;
+  z-index: 1;
+}
+
+.medical-motion__glow {
+  position: absolute;
+  width: clamp(220px, 34vw, 480px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(58px);
+  opacity: .12;
+  background: #38bdf8;
+}
+
+.medical-motion__glow--one {
+  top: 8%;
+  right: -7%;
+  animation: medical-glow-drift 16s ease-in-out infinite alternate;
+}
+
+.medical-motion__glow--two {
+  left: -10%;
+  bottom: 5%;
+  background: #2563eb;
+  animation: medical-glow-drift 19s ease-in-out infinite alternate-reverse;
+}
+
+.medical-motion__dna-wrap {
+  position: absolute;
+  top: 9%;
+  right: clamp(18px, 7vw, 110px);
+  width: clamp(90px, 12vw, 170px);
+  height: clamp(260px, 42vh, 430px);
+  perspective: 720px;
+  opacity: .27;
+  filter: drop-shadow(0 0 10px #38bdf833);
+}
+
+.medical-motion__dna {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.medical-motion__dna-rung {
+  position: absolute;
+  top: calc(var(--rung-index) * 6.65%);
+  left: 9%;
+  width: 82%;
+  height: 2px;
+  transform-style: preserve-3d;
+  transform-origin: center;
+  background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 48%, #2563eb 100%);
+  box-shadow: 0 0 8px #38bdf866;
+  animation: medical-dna-rotation 5.8s linear infinite;
+  animation-delay: calc(var(--rung-index) * -.38s);
+}
+
+.medical-motion__dna-rung::before,
+.medical-motion__dna-rung::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #7dd3fc;
+  border-radius: 50%;
+  background: #0ea5e9;
+  box-shadow: 0 0 12px #38bdf899;
+  transform: translateY(-50%);
+}
+
+.medical-motion__dna-rung::before { left: -4px; }
+.medical-motion__dna-rung::after { right: -4px; background: #2563eb; }
+
+.medical-motion__ecg {
+  position: absolute;
+  left: -4%;
+  bottom: 8%;
+  width: 108%;
+  height: clamp(90px, 16vh, 180px);
+  opacity: .26;
+  filter: drop-shadow(0 0 5px #38bdf866);
+}
+
+.medical-motion__ecg-line {
+  stroke-dasharray: 300 2200;
+  stroke-dashoffset: 0;
+  animation: medical-ecg-sweep 7s linear infinite;
+}
+
+.medical-motion__heart {
+  position: absolute;
+  right: clamp(70px, 17vw, 250px);
+  top: 48%;
+  width: clamp(54px, 7vw, 92px);
+  height: auto;
+  opacity: .17;
+  filter: drop-shadow(0 0 12px #38bdf866);
+  transform-origin: 50% 55%;
+  animation: medical-heartbeat 1.45s ease-in-out infinite;
+}
+
+@keyframes medical-dna-rotation {
+  0% { transform: rotateY(0deg) scaleX(.95); opacity: .42; }
+  25% { transform: rotateY(90deg) scaleX(.25); opacity: .9; }
+  50% { transform: rotateY(180deg) scaleX(.95); opacity: .55; }
+  75% { transform: rotateY(270deg) scaleX(.25); opacity: .9; }
+  100% { transform: rotateY(360deg) scaleX(.95); opacity: .42; }
+}
+
+@keyframes medical-ecg-sweep {
+  to { stroke-dashoffset: -2500; }
+}
+
+@keyframes medical-heartbeat {
+  0%, 34%, 70%, 100% { transform: scale(1); }
+  12% { transform: scale(1.11); }
+  22% { transform: scale(1.02); }
+  48% { transform: scale(1.15); }
+  58% { transform: scale(1.02); }
+}
+
+@keyframes medical-glow-drift {
+  from { transform: translate3d(0, -12px, 0) scale(.94); }
+  to { transform: translate3d(-24px, 20px, 0) scale(1.08); }
+}
+
+/* Keep motion subtle and readable over both pale and dark sections. */
+@media (max-width: 700px) {
+  .medical-motion { inset-top: 58px; opacity: .48; }
+  .medical-motion__dna-wrap { right: -22px; top: 13%; width: 100px; height: 260px; opacity: .2; }
+  .medical-motion__heart { right: 28px; top: 45%; opacity: .13; }
+  .medical-motion__ecg { bottom: 5%; opacity: .2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medical-motion__dna-rung,
+  .medical-motion__ecg-line,
+  .medical-motion__heart,
+  .medical-motion__glow {
+    animation: none !important;
+  }
+  .medical-motion__dna-rung { transform: none; }
+}

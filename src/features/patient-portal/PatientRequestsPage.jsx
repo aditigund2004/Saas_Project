@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { belongsToCurrentPatient } from './patientDataAccess';
 import { Link } from 'react-router-dom';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -19,7 +18,10 @@ import {
   Info,
   RefreshCw,
   PlusCircle,
-  HelpCircle
+  HelpCircle,
+  List,
+  LayoutGrid,
+  Eye
 } from 'lucide-react';
 
 export function PatientRequestsPage() {
@@ -33,6 +35,7 @@ export function PatientRequestsPage() {
 
   const [simulateConflictMode, setSimulateConflictMode] = useState(false);
   const [selectedRequestForDetail, setSelectedRequestForDetail] = useState(null);
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
 
   // Filter requests for patient: Pending Clinic Confirmation, Alternative Slot Proposed, Awaiting Patient Response, Rejected
   const requestStatuses = [
@@ -43,7 +46,10 @@ export function PatientRequestsPage() {
   ];
 
   const myRequests = appointments.filter((a) => {
-    const isPatientMatch = belongsToCurrentPatient(a, currentUser);
+    const isPatientMatch =
+      a.patientName === currentUser?.name ||
+      a.patientId === 'pt-1041' ||
+      !a.patientId;
 
     const isRequestStatus =
       requestStatuses.includes(a.status) ||
@@ -97,59 +103,222 @@ export function PatientRequestsPage() {
       </div>
 
       {/* Interactive Scenario 4 Demonstration Helper Box */}
-      <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-white border border-blue-200 text-xs text-blue-950 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+      <div className="p-4 sm:p-5 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-white dark:from-slate-900 dark:via-blue-950/30 dark:to-slate-900 border border-blue-200 dark:border-blue-900/50 text-sm text-blue-950 dark:text-blue-200 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
         <div className="flex items-start gap-3">
-          <HelpCircle className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-          <div className="space-y-0.5">
-            <strong className="text-slate-900 block text-xs">
+          <HelpCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <strong className="text-slate-900 dark:text-slate-100 block text-sm">
               Demo Acceptance Scenario Testing (Scenario 4)
             </strong>
-            <p className="text-[11px] text-slate-600 max-w-xl">
+            <p className="text-xs text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
               Toggle <strong>"Simulate Concurrency Conflict"</strong> below to test what happens if another patient books the proposed slot before acceptance. The system will detect the conflict, prevent double-booking, and return the request to the receptionist!
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            type="button"
-            onClick={() => {
-              setSimulateConflictMode(!simulateConflictMode);
-              showToast(
-                !simulateConflictMode
-                  ? 'Simulated Conflict Mode ENABLED: Accepting alternative will trigger concurrency conflict!'
-                  : 'Simulated Conflict Mode DISABLED: Normal availability check active.'
-              );
-            }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all border cursor-pointer ${
-              simulateConflictMode
-                ? 'bg-red-600 text-white border-red-700 shadow-xs ring-2 ring-red-400/30'
-                : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-            }`}
-          >
-            {simulateConflictMode ? '⚠️ Concurrency Conflict Active' : 'Normal Slot Validation'}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* View Mode Toggle */}
+            <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+              <button
+                type="button"
+                onClick={() => setViewMode('table')}
+                className={`p-1.5 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  viewMode === 'table'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                }`}
+                title="Table View"
+              >
+                <List className="w-3.5 h-3.5" />
+                <span>Table</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('cards')}
+                className={`p-1.5 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  viewMode === 'cards'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                }`}
+                title="Card View"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Cards</span>
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSimulateConflictMode(!simulateConflictMode);
+                showToast(
+                  !simulateConflictMode
+                    ? 'Simulated Conflict Mode ENABLED: Accepting alternative will trigger concurrency conflict!'
+                    : 'Simulated Conflict Mode DISABLED: Normal availability check active.'
+                );
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all border cursor-pointer ${
+                simulateConflictMode
+                  ? 'bg-red-600 text-white border-red-700 shadow-sm ring-2 ring-red-400/30'
+                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
+              }`}
+            >
+              {simulateConflictMode ? '⚠️ Concurrency Conflict Active' : 'Normal Slot Validation'}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Requests List */}
+      {/* Requests: Table Structure (Default) */}
       {myRequests.length === 0 ? (
-        <Card className="p-12 text-center space-y-3 border-dashed border-2 border-slate-200">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 mx-auto flex items-center justify-center font-bold text-xl">
+        <Card className="p-12 text-center space-y-3.5 border-dashed border-2 border-slate-200 dark:border-slate-800 dark:bg-slate-900/60">
+          <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 mx-auto flex items-center justify-center font-bold text-xl">
             <Clock className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-sm">No Pending Booking Requests</h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">No Pending Booking Requests</h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
             All your appointment requests have either been confirmed or completed. You can browse clinics to book a new appointment.
           </p>
           <div className="pt-2">
             <Link to="/patient/appointments/book">
-              <Button variant="primary" size="sm" icon={PlusCircle}>
+              <Button variant="primary" size="md" icon={PlusCircle}>
                 Request New Appointment
               </Button>
             </Link>
           </div>
         </Card>
+      ) : viewMode === 'table' ? (
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-sm">
+              <thead>
+                <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                  <th className="py-3.5 px-3 text-center w-12">#</th>
+                  <th className="py-3.5 px-4">Request Ref & Clinic</th>
+                  <th className="py-3.5 px-4">Doctor & Specialty</th>
+                  <th className="py-3.5 px-3">Service</th>
+                  <th className="py-3.5 px-3">Requested Slot</th>
+                  <th className="py-3.5 px-4">Alternative Offered</th>
+                  <th className="py-3.5 px-3">Status</th>
+                  <th className="py-3.5 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {myRequests.map((req, idx) => {
+                  const hasAlternative =
+                    req.status === 'Alternative Slot Proposed' ||
+                    req.status === 'Awaiting Patient Response';
+                  const latestAlt = req.proposedAlternatives?.[0];
+
+                  return (
+                    <tr
+                      key={req.id}
+                      className={`hover:bg-blue-50/40 dark:hover:bg-slate-800/40 transition-colors group ${
+                        hasAlternative ? 'bg-blue-50/30 dark:bg-blue-950/20' : ''
+                      }`}
+                    >
+                      <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
+                        {idx + 1}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <div className="font-bold text-slate-900 dark:text-slate-100 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {req.clinicName}
+                        </div>
+                        <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
+                          {req.requestId || req.referenceNumber || req.id}
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 px-4">
+                        <div className="font-semibold text-slate-800 dark:text-slate-200 text-sm">
+                          Dr. {req.doctorName}
+                        </div>
+                        <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                          Consulting Physician
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 px-3 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                        {req.serviceName}
+                      </td>
+
+                      <td className="py-3.5 px-3">
+                        <div className="font-mono text-xs font-bold text-slate-800 dark:text-slate-200">
+                          {req.requestedDate}
+                        </div>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                          {req.requestedTime}
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 px-4">
+                        {hasAlternative && latestAlt ? (
+                          <div className="p-2 rounded-lg bg-blue-100/70 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 text-xs text-blue-950 dark:text-blue-200 space-y-1">
+                            <div className="font-bold">
+                              {latestAlt.date} at {latestAlt.time}
+                            </div>
+                            <div className="flex items-center gap-1.5 pt-0.5">
+                              <Button
+                                variant="primary"
+                                size="xs"
+                                onClick={() => handleAcceptAlternative(req.id)}
+                                className="text-[11px] font-bold"
+                              >
+                                Accept Slot
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="xs"
+                                onClick={() => handleDeclineAlternative(req.id)}
+                                className="text-[11px]"
+                              >
+                                Decline
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-slate-400 dark:text-slate-500 italic">
+                            None pending
+                          </span>
+                        )}
+                      </td>
+
+                      <td className="py-3.5 px-3">
+                        <span
+                          className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold whitespace-nowrap ${
+                            hasAlternative
+                              ? 'bg-blue-600 text-white shadow-xs'
+                              : req.status === 'Pending Clinic Confirmation' || req.status === 'Requested'
+                              ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+                              : 'bg-red-100 dark:bg-red-950/60 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800'
+                          }`}
+                        >
+                          {req.status}
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 px-4 text-right">
+                        <Button
+                          variant="outline"
+                          size="xs"
+                          onClick={() => setSelectedRequestForDetail(req)}
+                          className="text-xs"
+                        >
+                          Details
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className="p-3 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+            <span>Displaying {myRequests.length} appointment booking requests</span>
+            <span>All responses sync with clinic front desk in real-time</span>
+          </div>
+        </div>
       ) : (
         <div className="space-y-4">
           {myRequests.map((req) => {
@@ -164,35 +333,35 @@ export function PatientRequestsPage() {
                 key={req.id}
                 className={`overflow-hidden border transition-all ${
                   hasAlternativeProposed
-                    ? 'border-blue-400 ring-1 ring-blue-400/40 shadow-xs bg-white'
-                    : 'border-slate-200'
+                    ? 'border-blue-400 dark:border-blue-500/70 ring-1 ring-blue-400/40 shadow-sm bg-white dark:bg-slate-900/90'
+                    : 'border-slate-200 dark:border-slate-800 dark:bg-slate-900/90'
                 }`}
               >
                 {/* Header Row */}
-                <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
-                  <div className="flex items-center gap-2.5">
-                    <span className="p-2 rounded-lg bg-white border border-slate-200 text-blue-600">
-                      <Building2 className="w-4 h-4" />
+                <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50 dark:bg-slate-800/40">
+                  <div className="flex items-center gap-3">
+                    <span className="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-blue-600 dark:text-blue-400">
+                      <Building2 className="w-5 h-5" />
                     </span>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="font-black text-slate-900 text-sm">{req.clinicName}</h3>
-                        <span className="font-mono text-[10px] text-slate-400">{req.requestId || req.referenceNumber}</span>
+                        <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">{req.clinicName}</h3>
+                        <span className="font-mono text-xs text-slate-400 dark:text-slate-500">{req.requestId || req.referenceNumber}</span>
                       </div>
-                      <p className="text-xs text-blue-700 font-medium">
-                        Dr. {req.doctorName} · <span className="text-slate-600">{req.serviceName}</span>
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
+                        Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <span
-                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold ${
+                      className={`px-3 py-1 rounded-full text-xs font-bold ${
                         hasAlternativeProposed
-                          ? 'bg-blue-600 text-white shadow-2xs'
+                          ? 'bg-blue-600 text-white shadow-sm'
                           : req.status === 'Pending Clinic Confirmation' || req.status === 'Requested'
-                          ? 'bg-amber-100 text-amber-800'
-                          : 'bg-red-100 text-red-800'
+                          ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+                          : 'bg-red-100 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800'
                       }`}
                     >
                       {req.status}
@@ -201,55 +370,55 @@ export function PatientRequestsPage() {
                 </div>
 
                 {/* Request Content Body */}
-                <div className="p-5 space-y-4 text-xs">
-                  {/* ALTERNATIVE PROPOSAL CARD (Section H) */}
+                <div className="p-5 space-y-4 text-sm">
+                  {/* ALTERNATIVE PROPOSAL CARD */}
                   {hasAlternativeProposed && latestAlt && (
-                    <div className="p-4 rounded-xl bg-blue-50/90 border border-blue-200 space-y-3">
-                      <div className="flex items-start gap-2.5">
-                        <AlertTriangle className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
+                    <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/90 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/60 space-y-3.5">
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                         <div>
-                          <h4 className="font-extrabold text-blue-950 text-xs">
+                          <h4 className="font-extrabold text-blue-950 dark:text-blue-200 text-sm">
                             Alternative Appointment Slot Proposed
                           </h4>
-                          <p className="text-[11px] text-slate-600 mt-0.5">
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                             "Your requested appointment time is unavailable. The clinic has proposed an alternative appointment. Please review the new time and confirm whether it works for you."
                           </p>
                         </div>
                       </div>
 
                       {/* Comparison Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                        <div className="p-3 bg-white/90 rounded-lg border border-slate-200 space-y-1">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 block">Original Requested Slot</span>
-                          <span className="font-mono font-bold text-slate-700 line-through block text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+                        <div className="p-3.5 bg-white/90 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                          <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Original Requested Slot</span>
+                          <span className="font-mono font-bold text-slate-700 dark:text-slate-300 line-through block text-sm">
                             {req.requestedDate} at {req.requestedTime}
                           </span>
-                          <span className="text-[10px] text-red-600 font-semibold">Unavailable</span>
+                          <span className="text-xs text-rose-600 dark:text-rose-400 font-semibold">Unavailable</span>
                         </div>
 
-                        <div className="p-3 bg-white rounded-lg border-2 border-blue-500 space-y-1 shadow-2xs">
-                          <span className="text-[10px] uppercase font-bold text-blue-600 block">Proposed Alternative Slot</span>
-                          <span className="font-mono font-extrabold text-blue-900 text-sm block">
+                        <div className="p-3.5 bg-white dark:bg-slate-900 rounded-xl border-2 border-blue-500 dark:border-blue-400 space-y-1 shadow-sm">
+                          <span className="text-xs uppercase font-bold text-blue-600 dark:text-blue-400 block">Proposed Alternative Slot</span>
+                          <span className="font-mono font-extrabold text-blue-900 dark:text-blue-200 text-base block">
                             {latestAlt.proposedDate} at {latestAlt.proposedTime}
                           </span>
-                          <span className="text-[10px] text-emerald-700 font-semibold">Ready for Your Confirmation</span>
+                          <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Ready for Your Confirmation</span>
                         </div>
                       </div>
 
                       {/* Reason from Receptionist */}
-                      <div className="p-2.5 rounded-lg bg-white/80 border border-blue-100 text-[11px] text-slate-700">
-                        <span className="font-bold text-blue-950">Receptionist Note: </span>
+                      <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-900 border border-blue-100 dark:border-blue-900/40 text-xs text-slate-700 dark:text-slate-300">
+                        <span className="font-bold text-blue-950 dark:text-blue-200">Receptionist Note: </span>
                         <span>{latestAlt.reason}</span>
                       </div>
 
                       {/* Accept / Decline Action Buttons */}
-                      <div className="flex items-center justify-end gap-2.5 pt-1">
+                      <div className="flex items-center justify-end gap-3 pt-1">
                         <Button
                           variant="outline"
                           size="sm"
                           icon={XCircle}
                           onClick={() => handleDeclineAlternative(req.id)}
-                          className="text-xs text-red-600 border-red-200 hover:bg-red-50"
+                          className="text-xs text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900 hover:bg-rose-50 dark:hover:bg-rose-950/40"
                         >
                           Decline Alternative
                         </Button>
@@ -258,7 +427,7 @@ export function PatientRequestsPage() {
                           size="sm"
                           icon={CheckCircle2}
                           onClick={() => handleAcceptAlternative(req.id)}
-                          className="text-xs shadow-xs"
+                          className="text-xs shadow-md shadow-blue-500/20 font-bold"
                         >
                           Accept Alternative Slot &rarr;
                         </Button>
@@ -268,8 +437,8 @@ export function PatientRequestsPage() {
 
                   {/* Standard Pending Details */}
                   {req.status === 'Pending Clinic Confirmation' && (
-                    <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
-                      <Clock className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                    <div className="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-200 text-sm flex items-start gap-3">
+                      <Clock className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                       <div>
                         <strong>Awaiting Clinic Availability Verification:</strong> Reception is verifying Dr. {req.doctorName}'s procedure rota for <strong>{req.requestedDate} at {req.requestedTime}</strong>. You will be notified immediately upon confirmation.
                       </div>
@@ -278,17 +447,17 @@ export function PatientRequestsPage() {
 
                   {/* Rejected Details */}
                   {req.status === 'Rejected' && (
-                    <div className="p-3 rounded-xl bg-red-50/70 border border-red-200 text-red-900 text-xs space-y-1">
-                      <div className="font-bold flex items-center gap-1.5">
-                        <XCircle className="w-4 h-4 text-red-600" />
+                    <div className="p-4 rounded-xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 text-rose-900 dark:text-rose-200 text-sm space-y-1.5">
+                      <div className="font-bold flex items-center gap-2">
+                        <XCircle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
                         <span>Request Closed</span>
                       </div>
-                      <p className="text-[11px]">
+                      <p className="text-xs text-slate-600 dark:text-slate-300">
                         {req.rejectionReason || 'The alternative slot was declined or the clinic could not accommodate this booking.'}
                       </p>
                       <div className="pt-2">
                         <Link to={`/patient/appointments/book?clinicId=${req.clinicId}&doctorId=${req.doctorId}`}>
-                          <Button variant="outline" size="xs">
+                          <Button variant="outline" size="sm">
                             Submit a New Request &rarr;
                           </Button>
                         </Link>
@@ -297,28 +466,28 @@ export function PatientRequestsPage() {
                   )}
 
                   {/* Request Summary Metadata Row */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[11px] text-slate-600 pt-1 border-t border-slate-100">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-100 dark:border-slate-800">
                     <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Requested Date</span>
-                      <span className="font-mono text-slate-800 font-bold">{req.requestedDate}</span>
+                      <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Requested Date</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200 font-bold">{req.requestedDate}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Preferred Time</span>
-                      <span className="font-mono text-slate-800 font-bold">{req.requestedTime}</span>
+                      <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Preferred Time</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200 font-bold">{req.requestedTime}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Consultation Tariff</span>
-                      <span className="font-mono font-bold text-blue-700">{formatCurrency(req.consultationFee || 600)}</span>
+                      <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Consultation Tariff</span>
+                      <span className="font-mono font-bold text-blue-600 dark:text-blue-400">{formatCurrency(req.consultationFee || 600)}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block font-semibold uppercase text-[10px]">Request Reference</span>
-                      <span className="font-mono text-slate-800">{req.requestId}</span>
+                      <span className="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-xs">Request Reference</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200">{req.requestId}</span>
                     </div>
                   </div>
 
                   {/* Patient Preferences Note if present */}
                   {req.patientAlternativePreferences && (
-                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100 text-[11px] text-slate-600 flex justify-between">
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 flex justify-between">
                       <span>
                         <strong>Alternate Preference Provided:</strong> {req.patientAlternativePreferences.secondPreferredDate || 'Flexible'} ({req.patientAlternativePreferences.preferredTimeOfDay})
                       </span>
@@ -336,3 +505,4 @@ export function PatientRequestsPage() {
     </div>
   );
 }
+

@@ -161,7 +161,7 @@ export type PaymentStatus = 'Paid' | 'Pending' | 'Partially Paid' | 'Refunded';
 
 export type WhatsAppStatus = 'not_configured' | 'pending' | 'sent' | 'delivered' | 'failed' | 'requires_attention';
 
-export type SubscriptionTier = 'starter' | 'growth' | 'professional' | 'enterprise';
+export type SubscriptionTier = 'starter' | 'growth' | 'professional' | 'enterprise' | (string & {});
 
 export interface User {
   id: string;
@@ -214,7 +214,6 @@ export interface Clinic {
   email: string;
   ownerName: string;
   status: AccountStatus;
-  approvalStatus?: 'Pending' | 'Approved' | 'Rejected';
   subscriptionPlanId: SubscriptionTier;
   trialEndsAt: string;
   isTrial: boolean;
@@ -541,9 +540,29 @@ export interface ClinicPaymentRecord {
   patientName: string;
   invoiceNumber: string;
   amount: number;
-  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking';
+  paymentMethod: 'UPI QR' | 'Credit/Debit Card' | 'Cash' | 'Net Banking' | string;
   date: string;
   status: 'Completed' | 'Pending';
+}
+
+export interface ReceiptRecord {
+  id: string;
+  receiptNumber: string;
+  paymentReference: string;
+  invoiceNumber: string;
+  invoiceId?: string;
+  patientId: string;
+  patientName: string;
+  amount: number;
+  paymentMethod: string;
+  date: string;
+  time?: string;
+  clinicId?: string;
+  clinicName?: string;
+  branchId?: string;
+  issuedBy?: string;
+  status: 'Issued' | 'Void';
+  notes?: string;
 }
 
 export interface ClinicRefundRecord {
@@ -799,3 +818,24 @@ export interface PlatformMetric {
   totalAppointmentsMonth: number;
   registeredUsers: number;
 }
+
+export interface VirtualConsultation {
+  id: string;
+  patientId: string;
+  patientName: string;
+  patientPhone: string;
+  patientAvatar?: string;
+  doctorId: string;
+  doctorName: string;
+  doctorSpecialty: string;
+  clinicId: string;
+  clinicName: string;
+  reason: string;
+  status: 'Waiting' | 'Connecting' | 'In Call' | 'Completed' | 'Declined';
+  requestedAt: string;
+  preferredTime: string;
+  meetingLink: string;
+  notes?: string;
+  duration?: string;
+}
+

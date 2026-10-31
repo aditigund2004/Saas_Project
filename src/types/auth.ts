@@ -27,7 +27,6 @@ export interface DemoUser {
   bloodGroup?: string;
   emergencyContact?: string;
   allergies?: string;
-  tenantApprovalStatus?: 'Pending' | 'Approved' | 'Rejected';
   createdAt: string;
 }
 
@@ -48,18 +47,6 @@ export interface RegistrationForm {
   agreeTerms: boolean;
   dob?: string;
   preferredCommunication?: 'whatsapp' | 'sms' | 'email';
-}
-
-export interface TenantRegistrationForm {
-  clinicName: string;
-  ownerName: string;
-  specialty: string;
-  email: string;
-  phone: string;
-  city: string;
-  doctorCount: number;
-  branchCount: number;
-  planId: string;
 }
 
 export interface LoginForm {
@@ -84,3 +71,4 @@ export interface StaffInvitation {
   invitedAt: string;
   status: 'Pending' | 'Accepted' | 'Expired' | 'Cancelled';
 }
+

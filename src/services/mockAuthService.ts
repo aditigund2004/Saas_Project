@@ -1,24 +1,26 @@
-import {
-  DemoUser,
-  LoginForm,
-  RegistrationForm,
-  StaffInvitation,
-  TenantRegistrationForm,
-  UserRole
-} from '../types/auth';
+import { DemoUser, LoginForm, RegistrationForm, StaffInvitation, UserRole } from '../types/auth';
 
 const STORAGE_KEY_SESSION = 'clinicos_auth_session';
 const STORAGE_KEY_REGISTERED_PATIENTS = 'clinicos_registered_patients';
-const STORAGE_KEY_REGISTERED_TENANTS = 'clinicos_registered_tenants';
 const STORAGE_KEY_INVITATIONS = 'clinicos_staff_invitations';
 
 // Seeded demonstration accounts across all 4 roles and 5 clinics
+export const SUPERADMIN_CREDENTIALS = {
+  email: 'superadmin@admin.com',
+  password: 'superadmin@123',
+  role: 'superadmin' as const,
+  name: 'Super Administrator',
+  title: 'Platform Super Administrator'
+};
+
+export const SUPERADMIN_DEMO_CREDENTIALS = SUPERADMIN_CREDENTIALS;
+
 export const SEEDED_DEMO_USERS: DemoUser[] = [
   // 1. SaaS Superadmin (Platform Business Owner)
   {
     id: 'usr-superadmin',
-    name: 'Vikramaditya Singhania',
-    email: 'admin@clinicos.health',
+    name: 'Super Administrator',
+    email: 'superadmin@admin.com',
     phone: '+91 98000 00001',
     role: 'superadmin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -357,28 +359,10 @@ export class MockAuthService {
     }
   }
 
-  static getRegisteredTenants(): DemoUser[] {
-    try {
-      const data = localStorage.getItem(STORAGE_KEY_REGISTERED_TENANTS);
-      return data ? JSON.parse(data) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  static saveRegisteredTenants(users: DemoUser[]): void {
-    try {
-      localStorage.setItem(STORAGE_KEY_REGISTERED_TENANTS, JSON.stringify(users));
-    } catch {
-      // Storage unavailable fallback
-    }
-  }
-
   // Get all users (seeded + registered)
   static getAllUsers(): DemoUser[] {
     const registered = this.getRegisteredPatients();
-    const tenantOwners = this.getRegisteredTenants();
-    return [...SEEDED_DEMO_USERS, ...registered, ...tenantOwners];
+    return [...SEEDED_DEMO_USERS, ...registered];
   }
 
   // Find user by normalized email or phone
@@ -386,6 +370,12 @@ export class MockAuthService {
     const normalized = normalizeEmail(identifier);
     const cleanPhone = identifier.trim().replace(/\s+/g, '');
     const allUsers = this.getAllUsers();
+
+    // Check alias emails for superadmin
+    if (normalized === 'superadmin@admin.com') {
+      const superadminUser = allUsers.find((u) => u.role === 'superadmin');
+      if (superadminUser) return superadminUser;
+    }
 
     return allUsers.find(
       (u) =>
@@ -402,23 +392,15 @@ export class MockAuthService {
     const user = this.findUserByIdentifier(form.identifier);
 
     if (!user) {
+      if (form.role === 'superadmin') {
+        return {
+          success: false,
+          error: 'No administrator account found with this email. Please verify credentials.'
+        };
+      }
       return {
         success: false,
         error: 'No demo account found matching this email or phone number. Check credentials or register.'
-      };
-    }
-
-    if (user.tenantApprovalStatus === 'Pending') {
-      return {
-        success: false,
-        error: 'Your clinic registration is awaiting super-admin approval. You can sign in after it is approved.'
-      };
-    }
-
-    if (user.tenantApprovalStatus === 'Rejected') {
-      return {
-        success: false,
-        error: 'This clinic registration was not approved. Please contact ClinicOS support for assistance.'
       };
     }
 
@@ -436,12 +418,22 @@ export class MockAuthService {
       };
     }
 
-    // Check password (In prototype demo mode, accept any non-empty password of at least 4 characters)
-    if (!form.password || form.password.length < 4) {
-      return {
-        success: false,
-        error: 'Password must be at least 4 characters long in demo mode.'
-      };
+    // Super Admin specific password validation: strictly superadmin@123
+    if (user.role === 'superadmin' || form.role === 'superadmin') {
+      if (form.password !== 'superadmin@123') {
+        return {
+          success: false,
+          error: 'Invalid administrator password. Please check your credentials.'
+        };
+      }
+    } else {
+      // General demo password check
+      if (!form.password || form.password.length < 4) {
+        return {
+          success: false,
+          error: 'Password must be at least 4 characters long in demo mode.'
+        };
+      }
     }
 
     // Resolve active clinic if specified
@@ -457,61 +449,6 @@ export class MockAuthService {
 
     this.saveSession(activeUser);
     return { success: true, user: activeUser };
-  }
-
-  static async registerTenant(
-    form: TenantRegistrationForm
-  ): Promise<{ success: boolean; user?: DemoUser; error?: string }> {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const email = normalizeEmail(form.email);
-    if (this.findUserByIdentifier(email)) {
-      return {
-        success: false,
-        error: `An account with email "${email}" already exists. Use another email or sign in.`
-      };
-    }
-
-    const clinicId = `clinic-${form.clinicName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Date.now().toString().slice(-5)}`;
-    const branchId = `branch-${clinicId}-main`;
-    const user: DemoUser = {
-      id: `usr-tenant-admin-${Date.now().toString().slice(-6)}`,
-      name: form.ownerName.trim(),
-      email,
-      phone: form.phone.trim(),
-      role: 'doctor_admin',
-      memberships: [{
-        clinicId,
-        clinicName: form.clinicName.trim(),
-        branchId,
-        branchName: `${form.clinicName.trim()} (Main Branch)`,
-        roleInClinic: 'doctor_admin',
-        isPrimary: true
-      }],
-      activeClinicId: clinicId,
-      activeBranchId: branchId,
-      tenantApprovalStatus: 'Pending',
-      isDemoVerified: true,
-      createdAt: new Date().toISOString().slice(0, 10)
-    };
-
-    this.saveRegisteredTenants([...this.getRegisteredTenants(), user]);
-    return { success: true, user };
-  }
-
-  static updateTenantApproval(
-    clinicId: string,
-    status: 'Approved' | 'Rejected'
-  ): boolean {
-    const users = this.getRegisteredTenants();
-    let updated = false;
-    const nextUsers = users.map((user) => {
-      if (user.activeClinicId !== clinicId) return user;
-      updated = true;
-      return { ...user, tenantApprovalStatus: status };
-    });
-
-    if (updated) this.saveRegisteredTenants(nextUsers);
-    return updated;
   }
 
   // Simulate Patient Registration
@@ -557,6 +494,50 @@ export class MockAuthService {
     this.saveSession(newUser);
 
     return { success: true, user: newUser };
+  }
+
+  // Register a new Doctor / Clinic Owner
+  static registerDoctor(doctorData: {
+    name: string;
+    email: string;
+    phone?: string;
+    clinicId: string;
+    clinicName: string;
+    password?: string;
+  }): DemoUser {
+    const normalizedEmail = normalizeEmail(doctorData.email);
+    const existing = this.findUserByIdentifier(normalizedEmail);
+    if (existing && existing.role === 'doctor_admin') {
+      return existing;
+    }
+
+    const newUser: DemoUser = {
+      id: `usr-doc-${Date.now().toString().slice(-6)}`,
+      name: doctorData.name.trim(),
+      email: normalizedEmail,
+      phone: (doctorData.phone || '+91 98000 12345').trim(),
+      role: 'doctor_admin',
+      avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=200&q=80',
+      isDemoVerified: true,
+      activeClinicId: doctorData.clinicId,
+      memberships: [
+        {
+          clinicId: doctorData.clinicId,
+          clinicName: doctorData.clinicName,
+          branchName: `${doctorData.clinicName} (Main Branch)`,
+          role: 'doctor_admin',
+          isPrimary: true
+        }
+      ],
+      createdAt: new Date().toISOString().slice(0, 10)
+    };
+
+    const registered = this.getRegisteredPatients();
+    const filtered = registered.filter((u) => normalizeEmail(u.email) !== normalizedEmail);
+    filtered.push(newUser);
+    this.saveRegisteredPatients(filtered);
+
+    return newUser;
   }
 
   // Simulate Email Verification
@@ -719,3 +700,4 @@ export class MockAuthService {
     this.saveStaffInvitations(updated);
   }
 }
+

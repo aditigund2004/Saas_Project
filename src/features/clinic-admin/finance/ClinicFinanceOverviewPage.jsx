@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../../context/AppContext';
+import { useTheme } from '../../../context/ThemeContext';
 import { ClinicFinanceNav } from './ClinicFinanceNav';
 import { Card, CardHeader } from '../../../components/ui/Card';
 import { Badge } from '../../../components/ui/Badge';
@@ -38,16 +39,17 @@ import {
 
 export function ClinicFinanceOverviewPage() {
   const {
-    invoices,
-    expenses,
-    clinicPayments,
-    clinicRefunds,
+    invoices = [],
+    expenses = [],
+    clinicPayments = [],
+    clinicRefunds = [],
     activeClinic,
     showToast,
     formatCurrency,
     createClinicExpense,
     recordClinicPayment
   } = useApp();
+  const { isDark } = useTheme();
 
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
   const [expenseVendor, setExpenseVendor] = useState('Apollo Diagnostics Courier');
@@ -120,11 +122,11 @@ export function ClinicFinanceOverviewPage() {
       <ClinicFinanceNav />
 
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Practice Economics</span>
-          <h1 className="text-2xl font-extrabold text-slate-900">Clinic Financial Overview</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Practice Economics</span>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinic Financial Overview</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Real-time cash flow, patient collections, operating overhead, and clinic profit margin for {activeClinic?.name || 'Aegis Health Clinic'}.
           </p>
         </div>
@@ -133,17 +135,17 @@ export function ClinicFinanceOverviewPage() {
           <Button
             variant="outline"
             size="sm"
-            icon={Printer}
             onClick={() => showToast('Generating daily cashier & collection summary PDF...')}
           >
+            <Printer className="w-4 h-4 mr-1.5" />
             Day Close Sheet
           </Button>
           <Button
             variant="primary"
             size="sm"
-            icon={PlusCircle}
             onClick={() => setIsExpenseModalOpen(true)}
           >
+            <PlusCircle className="w-4 h-4 mr-1.5" />
             Record Expense
           </Button>
         </div>
@@ -152,72 +154,72 @@ export function ClinicFinanceOverviewPage() {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Today's Collections */}
-        <Card className="p-4 bg-white border border-slate-200">
+        <Card className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Today's Collections</span>
-            <span className="p-2 rounded-xl bg-blue-50 text-blue-600">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Today's Collections</span>
+            <span className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
               <CreditCard className="w-4 h-4" />
             </span>
           </div>
-          <div className="mt-2 text-2xl font-extrabold font-mono text-slate-900">
+          <div className="mt-2 text-2xl font-black font-mono text-slate-900 dark:text-white tabular-nums">
             {formatCurrency(todayCollections)}
           </div>
-          <div className="mt-2 flex items-center gap-1.5 text-xs text-emerald-600 font-medium">
+          <div className="mt-2 flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
             <TrendingUp className="w-3.5 h-3.5" />
             <span>+14.2% vs yesterday (18 receipts)</span>
           </div>
         </Card>
 
         {/* MTD Gross Billings */}
-        <Card className="p-4 bg-white border border-slate-200">
+        <Card className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">MTD Patient Billings</span>
-            <span className="p-2 rounded-xl bg-blue-50 text-blue-600">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">MTD Patient Billings</span>
+            <span className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
               <Receipt className="w-4 h-4" />
             </span>
           </div>
-          <div className="mt-2 text-2xl font-extrabold font-mono text-slate-900">
+          <div className="mt-2 text-2xl font-black font-mono text-slate-900 dark:text-white tabular-nums">
             {formatCurrency(totalBillings || 485000)}
           </div>
-          <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
-            <span>Collected: <strong className="text-blue-700 font-mono">{formatCurrency(totalCollections || 432000)}</strong></span>
-            <span className="font-bold text-emerald-600">{collectionRate}%</span>
+          <div className="mt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>Collected: <strong className="text-blue-700 dark:text-blue-400 font-mono">{formatCurrency(totalCollections || 432000)}</strong></span>
+            <span className="font-bold text-emerald-600 dark:text-emerald-400">{collectionRate}%</span>
           </div>
         </Card>
 
         {/* Outstanding Receivables */}
-        <Card className="p-4 bg-white border border-slate-200">
+        <Card className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Outstanding Patient Dues</span>
-            <span className="p-2 rounded-xl bg-amber-50 text-amber-600">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Outstanding Patient Dues</span>
+            <span className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
               <AlertCircle className="w-4 h-4" />
             </span>
           </div>
-          <div className="mt-2 text-2xl font-extrabold font-mono text-amber-700">
+          <div className="mt-2 text-2xl font-black font-mono text-amber-600 dark:text-amber-400 tabular-nums">
             {formatCurrency(outstandingReceivables || 53000)}
           </div>
-          <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+          <div className="mt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Pending or partial bills</span>
-            <Link to="/clinic/finance/invoices" className="text-blue-600 hover:underline font-semibold">
+            <Link to="/clinic/finance/invoices" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
               Review dues
             </Link>
           </div>
         </Card>
 
         {/* Operating Margin */}
-        <Card className="p-4 bg-white border border-slate-200">
+        <Card className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Estimated Operating Margin</span>
-            <span className="p-2 rounded-xl bg-emerald-50 text-emerald-600">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Estimated Operating Margin</span>
+            <span className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
               <Percent className="w-4 h-4" />
             </span>
           </div>
-          <div className="mt-2 text-2xl font-extrabold font-mono text-emerald-700">
+          <div className="mt-2 text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
             {netOperatingMargin}%
           </div>
-          <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
-            <span>Net Profit: <strong className="font-mono text-slate-900">{formatCurrency(operatingProfit || 283800)}</strong></span>
-            <span className="text-emerald-600 font-medium">Healthy</span>
+          <div className="mt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>Net Profit: <strong className="font-mono text-slate-900 dark:text-white">{formatCurrency(operatingProfit || 283800)}</strong></span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-medium">Healthy</span>
           </div>
         </Card>
       </div>
@@ -225,7 +227,7 @@ export function ClinicFinanceOverviewPage() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Collections vs Expenses Area Chart (2 cols) */}
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 border-slate-200 dark:border-slate-800">
           <CardHeader
             title="Practice Cash Flow & Operating Cost Trend (Past 14 Days)"
             subtitle="Comparing patient cash inflows against clinic daily operational overhead"
@@ -244,15 +246,21 @@ export function ClinicFinanceOverviewPage() {
                       <stop offset="95%" stopColor="#DC2626" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#64748B' }} stroke="#CBD5E1" />
-                  <YAxis tick={{ fontSize: 11, fill: '#64748B' }} stroke="#CBD5E1" tickFormatter={(v) => `₹${v / 1000}k`} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? '#1F2937' : '#E2E8F0'} />
+                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: isDark ? '#94A3B8' : '#64748B' }} stroke={isDark ? '#374151' : '#CBD5E1'} />
+                  <YAxis tick={{ fontSize: 11, fill: isDark ? '#94A3B8' : '#64748B' }} stroke={isDark ? '#374151' : '#CBD5E1'} tickFormatter={(v) => `₹${v / 1000}k`} />
                   <Tooltip
                     formatter={(val, name) => [
                       `₹${Number(val).toLocaleString('en-IN')}`,
                       name === 'collections' ? 'Patient Collections' : 'Clinic Expenses'
                     ]}
-                    contentStyle={{ backgroundColor: '#0F172A', color: '#F8FAFC', borderRadius: '8px', fontSize: '12px' }}
+                    contentStyle={{
+                      backgroundColor: isDark ? '#111827' : '#0F172A',
+                      borderColor: isDark ? '#1F2937' : '#334155',
+                      color: '#F8FAFC',
+                      borderRadius: '8px',
+                      fontSize: '12px'
+                    }}
                   />
                   <Area
                     type="monotone"
@@ -276,38 +284,38 @@ export function ClinicFinanceOverviewPage() {
             <div className="flex items-center justify-center gap-6 mt-3 text-xs">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded bg-blue-600 inline-block"></span>
-                <span className="text-slate-700 font-semibold">Patient Cash Collections</span>
+                <span className="text-slate-700 dark:text-slate-300 font-semibold">Patient Cash Collections</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded bg-red-600 inline-block"></span>
-                <span className="text-slate-700 font-semibold">Clinic Operating Expenses</span>
+                <span className="text-slate-700 dark:text-slate-300 font-semibold">Clinic Operating Expenses</span>
               </div>
             </div>
           </div>
         </Card>
 
         {/* Revenue by Clinical Department Bar Chart (1 col) */}
-        <Card padding="default">
+        <Card className="border-slate-200 dark:border-slate-800">
           <CardHeader
             title="Revenue by Clinical Department"
             subtitle="MTD gross billings distribution"
           />
-          <div className="space-y-3">
+          <div className="p-4 pt-0 space-y-3.5">
             {serviceBreakdown.map((item) => {
               const pct = ((item.amount / 515500) * 100).toFixed(0);
               return (
                 <div key={item.service} className="space-y-1">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-slate-800">{item.service}</span>
-                    <span className="font-mono font-bold text-slate-900">{formatCurrency(item.amount)}</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">{item.service}</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white tabular-nums">{formatCurrency(item.amount)}</span>
                   </div>
-                  <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
                     <div
                       className="bg-blue-600 h-2 rounded-full transition-all duration-500"
                       style={{ width: `${pct}%` }}
                     />
                   </div>
-                  <div className="flex justify-between text-[10px] text-slate-400">
+                  <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
                     <span>{item.count} procedures/visits</span>
                     <span>{pct}% of clinic total</span>
                   </div>
@@ -321,11 +329,11 @@ export function ClinicFinanceOverviewPage() {
       {/* Two-Column Detail Grids: Recent Collections & Practice Payables */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Collections Table */}
-        <Card padding="none">
-          <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+        <Card padding="none" className="border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Recent Patient Collections</h3>
-              <p className="text-xs text-slate-500">Live cashier and gateway payment receipts</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Recent Patient Collections</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Live cashier and gateway payment receipts</p>
             </div>
             <Link to="/clinic/finance/payments">
               <Button variant="ghost" size="xs">
@@ -334,9 +342,10 @@ export function ClinicFinanceOverviewPage() {
             </Link>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
+                  <th className="p-3 text-center w-10 font-semibold">#</th>
                   <th className="p-3">Receipt / Ref</th>
                   <th className="p-3">Patient</th>
                   <th className="p-3">Method</th>
@@ -344,19 +353,20 @@ export function ClinicFinanceOverviewPage() {
                   <th className="p-3">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
-                {clinicPayments.slice(0, 5).map((pay) => (
-                  <tr key={pay.id} className="hover:bg-slate-50/50">
-                    <td className="p-3 font-mono font-bold text-slate-900">{pay.paymentReference}</td>
-                    <td className="p-3 font-semibold text-slate-800">{pay.patientName}</td>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {clinicPayments.slice(0, 5).map((pay, idx) => (
+                  <tr key={pay.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="p-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
+                    <td className="p-3 font-mono font-bold text-slate-900 dark:text-white text-xs">{pay.paymentReference}</td>
+                    <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">{pay.patientName}</td>
                     <td className="p-3">
-                      <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-mono text-xs font-bold border border-blue-200 dark:border-blue-800">
                         {pay.paymentMethod}
                       </span>
                     </td>
-                    <td className="p-3 font-mono font-bold text-slate-900">{formatCurrency(pay.amount)}</td>
+                    <td className="p-3 font-mono font-bold text-slate-900 dark:text-white tabular-nums">{formatCurrency(pay.amount)}</td>
                     <td className="p-3">
-                      <Badge variant="success">Completed</Badge>
+                      <Badge variant="success" size="sm">Completed</Badge>
                     </td>
                   </tr>
                 ))}
@@ -366,11 +376,11 @@ export function ClinicFinanceOverviewPage() {
         </Card>
 
         {/* Operating Expenses & Payables */}
-        <Card padding="none">
-          <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+        <Card padding="none" className="border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Recent Practice Expenses</h3>
-              <p className="text-xs text-slate-500">Facilities, consumables, waste disposal & software</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Recent Practice Expenses</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Facilities, consumables, waste disposal & software</p>
             </div>
             <Link to="/clinic/finance/expenses">
               <Button variant="ghost" size="xs">
@@ -379,9 +389,10 @@ export function ClinicFinanceOverviewPage() {
             </Link>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
+                  <th className="p-3 text-center w-10 font-semibold">#</th>
                   <th className="p-3">Vendor / Payee</th>
                   <th className="p-3">Category</th>
                   <th className="p-3">Amount</th>
@@ -389,21 +400,22 @@ export function ClinicFinanceOverviewPage() {
                   <th className="p-3">Method</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
-                {expenses.slice(0, 5).map((exp) => (
-                  <tr key={exp.id} className="hover:bg-slate-50/50">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {expenses.slice(0, 5).map((exp, idx) => (
+                  <tr key={exp.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="p-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">{idx + 1}</td>
                     <td className="p-3">
-                      <div className="font-bold text-slate-900">{exp.vendor || exp.description}</div>
-                      <div className="text-[10px] text-slate-400 truncate max-w-[180px]">{exp.description}</div>
+                      <div className="font-bold text-slate-900 dark:text-white">{exp.vendor || exp.description}</div>
+                      <div className="text-xs text-slate-400 dark:text-slate-500 truncate max-w-[180px]">{exp.description}</div>
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-semibold">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold border border-slate-200 dark:border-slate-700">
                         {exp.category}
                       </span>
                     </td>
-                    <td className="p-3 font-mono font-bold text-red-600">{formatCurrency(exp.amount)}</td>
-                    <td className="p-3 text-slate-500 font-mono text-[11px]">{exp.date}</td>
-                    <td className="p-3 text-slate-600 text-[11px]">{exp.paymentMethod || 'Bank Transfer'}</td>
+                    <td className="p-3 font-mono font-bold text-red-600 dark:text-red-400 tabular-nums">{formatCurrency(exp.amount)}</td>
+                    <td className="p-3 text-slate-500 dark:text-slate-400 font-mono text-xs">{exp.date}</td>
+                    <td className="p-3 text-slate-600 dark:text-slate-300 text-xs">{exp.paymentMethod || 'Bank Transfer'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -418,26 +430,26 @@ export function ClinicFinanceOverviewPage() {
         onClose={() => setIsExpenseModalOpen(false)}
         title="Record Practice Operating Expense"
       >
-        <form onSubmit={handleCreateExpense} className="space-y-4 text-xs">
+        <form onSubmit={handleCreateExpense} className="space-y-4 text-sm">
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Vendor / Payee</label>
+            <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Vendor / Payee</label>
             <input
               type="text"
               required
               value={expenseVendor}
               onChange={(e) => setExpenseVendor(e.target.value)}
-              className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="e.g. Apex Medical Disposables, CleanWaste Services, Clinic Landlord"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-700 font-semibold mb-1">Expense Category</label>
+              <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Expense Category</label>
               <select
                 value={expenseCategory}
                 onChange={(e) => setExpenseCategory(e.target.value)}
-                className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
               >
                 <option value="Consumables">Medical Consumables & PPE</option>
                 <option value="Biomedical Waste">Biomedical Waste Disposal</option>
@@ -449,30 +461,30 @@ export function ClinicFinanceOverviewPage() {
               </select>
             </div>
             <div>
-              <label className="block text-slate-700 font-semibold mb-1">Amount (₹)</label>
+              <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Amount (₹)</label>
               <input
                 type="number"
                 required
                 min="100"
                 value={expenseAmount}
                 onChange={(e) => setExpenseAmount(e.target.value)}
-                className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
+                className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Description / Memo</label>
+            <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Description / Memo</label>
             <textarea
               rows={2}
               value={expenseDesc}
               onChange={(e) => setExpenseDesc(e.target.value)}
-              className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="e.g. Monthly hazmat pick-up, sterilizer chemical refills..."
             />
           </div>
 
-          <div className="p-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 text-[11px]">
+          <div className="p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-900 dark:text-blue-200 text-xs">
             <strong>Note:</strong> Clinic operational expenses will be immediately deducted from the practice cash flow and reflected in the Operating Profit Margin calculation.
           </div>
 
@@ -489,4 +501,3 @@ export function ClinicFinanceOverviewPage() {
     </div>
   );
 }
-

@@ -4,7 +4,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
-import { ThemeToggle } from '../../components/ui/ThemeToggle';
 import {
   Activity,
   CheckCircle2,
@@ -45,23 +44,22 @@ export function PatientOnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] py-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between">
-      <ThemeToggle className="fixed right-4 top-4 z-[100] bg-white" />
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between text-slate-900 dark:text-slate-100">
       {/* Top Header */}
-      <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200">
+      <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold">
             <Activity className="w-5 h-5" />
           </div>
-          <span className="text-base font-black text-slate-900 tracking-tight">
-            Clinic<span className="text-blue-600">OS</span>
+          <span className="text-base font-black text-slate-900 dark:text-white tracking-tight">
+            Clinic<span className="text-blue-600 dark:text-blue-400">OS</span>
           </span>
         </Link>
 
-        {/* Skip button available at all times (Section 4) */}
+        {/* Skip button available at all times */}
         <button
           onClick={handleFinishOnboarding}
-          className="text-xs font-semibold text-slate-500 hover:text-slate-800 hover:underline cursor-pointer"
+          className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:underline cursor-pointer"
         >
           Skip Onboarding &rarr;
         </button>
@@ -82,14 +80,14 @@ export function PatientOnboardingPage() {
                 className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                   currentStep >= s.num
                     ? 'bg-blue-600 text-white shadow-xs'
-                    : 'bg-slate-200 text-slate-500'
+                    : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                 }`}
               >
                 {currentStep > s.num ? <CheckCircle2 className="w-4 h-4" /> : s.num}
               </div>
               <span
                 className={`text-xs font-semibold hidden sm:inline ${
-                  currentStep >= s.num ? 'text-slate-900' : 'text-slate-400'
+                  currentStep >= s.num ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'
                 }`}
               >
                 {s.label}
@@ -100,40 +98,40 @@ export function PatientOnboardingPage() {
 
         {/* STEP 1: Welcome to ClinicOS */}
         {currentStep === 1 && (
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6 text-center">
-            <div className="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto shadow-sm">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-center">
+            <div className="w-16 h-16 rounded-3xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto shadow-sm">
               <Sparkles className="w-8 h-8" />
             </div>
 
             <div className="space-y-2">
-              <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800">
                 Step 1 of 4 · Welcome
               </span>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 Welcome to ClinicOS, {user?.name || 'Aarav'}!
               </h1>
-              <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
                 Your demonstration patient account is activated. You can now discover specialized doctors across 5 independent clinics, request consultations, and access verified digital prescriptions.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left pt-2">
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                <Building2 className="w-5 h-5 text-blue-600" />
-                <h2 className="font-bold text-xs text-slate-900">5 Specialty Clinics</h2>
-                <p className="text-[11px] text-slate-500">General, Cardiology, Dental, Skin, and Orthopedics.</p>
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700 space-y-1">
+                <Building2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <h2 className="font-bold text-xs text-slate-900 dark:text-white">5 Specialty Clinics</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">General, Cardiology, Dental, Skin, and Orthopedics.</p>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                <Calendar className="w-5 h-5 text-blue-600" />
-                <h2 className="font-bold text-xs text-slate-900">Smart Scheduling</h2>
-                <p className="text-[11px] text-slate-500">Real-time slot check with alternative proposals.</p>
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700 space-y-1">
+                <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <h2 className="font-bold text-xs text-slate-900 dark:text-white">Smart Scheduling</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Real-time slot check with alternative proposals.</p>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                <ShieldCheck className="w-5 h-5 text-blue-600" />
-                <h2 className="font-bold text-xs text-slate-900">QR Prescriptions</h2>
-                <p className="text-[11px] text-slate-500">Tamper-evident medical records with instant lookup.</p>
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700 space-y-1">
+                <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <h2 className="font-bold text-xs text-slate-900 dark:text-white">QR Prescriptions</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Tamper-evident medical records with instant lookup.</p>
               </div>
             </div>
 
@@ -141,7 +139,7 @@ export function PatientOnboardingPage() {
               <button
                 type="button"
                 onClick={handleFinishOnboarding}
-                className="text-xs text-slate-500 hover:text-slate-800 font-semibold cursor-pointer"
+                className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold cursor-pointer"
               >
                 Skip straight to dashboard
               </button>
@@ -160,26 +158,26 @@ export function PatientOnboardingPage() {
 
         {/* STEP 2: Optional Health Profile */}
         {currentStep === 2 && (
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
             <div className="space-y-1">
-              <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800">
                 Step 2 of 4 · Optional Profile Information
               </span>
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                 Enhance Your Patient Chart
               </h1>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 These optional clinical markers assist consulting physicians during your outpatient visits.
               </p>
             </div>
 
             <div className="space-y-4 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">Blood Group</label>
+                <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">Blood Group</label>
                 <select
                   value={bloodGroup}
                   onChange={(e) => setBloodGroup(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white font-medium text-slate-800 focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="A+">A Positive (A+)</option>
                   <option value="A-">A Negative (A-)</option>
@@ -193,29 +191,29 @@ export function PatientOnboardingPage() {
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">Emergency Contact</label>
+                <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">Emergency Contact</label>
                 <input
                   type="text"
                   value={emergencyContact}
                   onChange={(e) => setEmergencyContact(e.target.value)}
                   placeholder="e.g. +91 98765 99999 (Ritu Patel - Spouse)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 font-medium text-slate-800 focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">Known Drug Allergies</label>
+                <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">Known Drug Allergies</label>
                 <input
                   type="text"
                   value={allergies}
                   onChange={(e) => setAllergies(e.target.value)}
                   placeholder="e.g. Penicillin, NSAIDs, Sulfa drugs (or None)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 font-medium text-slate-800 focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-between border-t border-slate-100">
+            <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
               <Button variant="ghost" size="sm" onClick={() => setCurrentStep(1)}>
                 <ArrowLeft className="w-4 h-4 mr-1" /> Back
               </Button>
@@ -240,15 +238,15 @@ export function PatientOnboardingPage() {
 
         {/* STEP 3: Discover Clinics & Doctors */}
         {currentStep === 3 && (
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
             <div className="space-y-1">
-              <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800">
                 Step 3 of 4 · Multi-Clinic Discovery
               </span>
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                 Discover 5 Specialty Clinics
               </h1>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 You are not locked into one clinic. You can schedule appointments across all participating clinics freely.
               </p>
             </div>
@@ -261,19 +259,19 @@ export function PatientOnboardingPage() {
                 { name: 'SkinSpring Dermatology Clinic', spec: 'Clinical Dermatology & Cosmetology', fee: '₹950', city: 'Pune' },
                 { name: 'MoveWell Orthopedic & Physio', spec: 'Orthopedics & Sports Rehab', fee: '₹700–₹1,100', city: 'Navi Mumbai' }
               ].map((c, i) => (
-                <div key={i} className="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between text-xs">
+                <div key={i} className="p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between text-xs">
                   <div>
-                    <h2 className="font-bold text-slate-900">{c.name}</h2>
-                    <p className="text-[11px] text-slate-500">{c.spec} · {c.city}</p>
+                    <h2 className="font-bold text-slate-900 dark:text-white">{c.name}</h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{c.spec} · {c.city}</p>
                   </div>
-                  <span className="font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-lg text-[11px]">
+                  <span className="font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 px-2.5 py-0.5 rounded-lg text-xs">
                     {c.fee}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="pt-4 flex items-center justify-between border-t border-slate-100">
+            <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
               <Button variant="ghost" size="sm" onClick={() => setCurrentStep(2)}>
                 <ArrowLeft className="w-4 h-4 mr-1" /> Back
               </Button>
@@ -291,19 +289,19 @@ export function PatientOnboardingPage() {
 
         {/* STEP 4: Ready to Book */}
         {currentStep === 4 && (
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6 text-center">
-            <div className="w-16 h-16 rounded-3xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-center">
+            <div className="w-16 h-16 rounded-3xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
             <div className="space-y-2">
-              <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
                 Step 4 of 4 · Setup Complete
               </span>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 You're All Set, {user?.name || 'Aarav'}!
               </h1>
-              <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
                 Your profile is active. You can now book your first consultation or explore your health overview dashboard.
               </p>
             </div>
@@ -325,7 +323,7 @@ export function PatientOnboardingPage() {
         )}
       </div>
 
-      <div className="text-center text-xs text-slate-400 pb-4">
+      <div className="text-center text-xs text-slate-400 dark:text-slate-500 pb-4">
         ClinicOS Multi-Tenant Healthcare SaaS &bull; Synthetic Demo Environment
       </div>
     </div>

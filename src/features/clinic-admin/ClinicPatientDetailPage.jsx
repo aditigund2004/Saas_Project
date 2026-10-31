@@ -18,16 +18,7 @@ import {
   ExternalLink,
   ShieldAlert,
   Edit,
-  Save,
-  FileUp,
-  Download,
-  Eye,
-  Trash2,
-  Filter,
-  CheckCircle2,
-  Image as ImageIcon,
-  FlaskConical,
-  X
+  Save
 } from 'lucide-react';
 
 export function ClinicPatientDetailPage() {
@@ -39,8 +30,7 @@ export function ClinicPatientDetailPage() {
     prescriptions,
     invoices,
     openPrescriptionModal,
-    activeClinic,
-    showToast
+    activeClinic
   } = useApp();
 
   const patient = patients.find((p) => p.id === patientId || p.patientIdNumber === patientId) || patients[0];
@@ -137,45 +127,7 @@ export function ClinicPatientDetailPage() {
       allergies: editForm.allergies ? editForm.allergies.split(',').map((a) => a.trim()) : []
     });
     setIsEditModalOpen(false);
-    showToast('Patient profile updated successfully.');
   };
-
-  const handleUploadDoc = (e) => {
-    e.preventDefault();
-    const newDoc = {
-      id: `doc-${Date.now()}`,
-      title: uploadTitle,
-      category: uploadCategory,
-      date: uploadDate,
-      lab: uploadLab,
-      fileSize: '2.1 MB PDF',
-      status: 'Uploaded',
-      notes: uploadNotes || 'Uploaded by clinician during outpatient consultation.'
-    };
-    const updated = [newDoc, ...labDocs];
-    setLabDocs(updated);
-    try {
-      localStorage.setItem(`clinicos_docs_${patient?.id || 'demo'}`, JSON.stringify(updated));
-    } catch {}
-    setIsUploadDocOpen(false);
-    setUploadTitle('');
-    setUploadNotes('');
-    showToast(`Diagnostic scan "${uploadTitle}" added to patient vault.`);
-  };
-
-  const handleDeleteDoc = (docId) => {
-    const updated = labDocs.filter((d) => d.id !== docId);
-    setLabDocs(updated);
-    try {
-      localStorage.setItem(`clinicos_docs_${patient?.id || 'demo'}`, JSON.stringify(updated));
-    } catch {}
-    showToast('Report removed from patient records.');
-  };
-
-  const filteredDocs = labDocs.filter((d) => {
-    if (docCategoryFilter === 'All') return true;
-    return d.category === docCategoryFilter;
-  });
 
   return (
     <div className="space-y-6">
@@ -197,7 +149,7 @@ export function ClinicPatientDetailPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
@@ -286,7 +238,7 @@ export function ClinicPatientDetailPage() {
           </Card>
         </div>
 
-        {/* Right Columns: Consultations, Prescriptions, Lab Scans & Invoices */}
+        {/* Right Columns: Past Consultations, Prescriptions, Invoices */}
         <div className="lg:col-span-8 space-y-6">
           {/* Consultations History */}
           <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
@@ -757,44 +709,50 @@ export function ClinicPatientDetailPage() {
                   onChange={(e) => setEditForm({ ...editForm, bloodGroup: e.target.value })}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs font-bold"
                 >
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
+                  {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map((bg) => (
+                    <option key={bg} value={bg}>{bg}</option>
+                  ))}
                 </select>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-1">Known Drug Allergies (comma-separated)</label>
+              <label className="block text-xs font-semibold mb-1">Documented Drug Allergies</label>
               <input
                 type="text"
                 value={editForm.allergies}
                 onChange={(e) => setEditForm({ ...editForm, allergies: e.target.value })}
-                placeholder="e.g. Penicillin, Sulfa, Aspirin"
+                placeholder="Comma separated: Penicillin, Sulfa, Aspirin..."
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs text-rose-700 dark:text-rose-400 font-semibold"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold mb-1">Emergency Contact Person & Phone</label>
+              <input
+                type="text"
+                value={editForm.emergencyContact}
+                onChange={(e) => setEditForm({ ...editForm, emergencyContact: e.target.value })}
+                placeholder="e.g. Ramesh Patel (Brother) - +91 98000 12345"
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-1">Residential Address</label>
-              <textarea
-                rows={2}
+              <label className="block text-xs font-semibold mb-1">Address</label>
+              <input
+                type="text"
                 value={editForm.address}
                 onChange={(e) => setEditForm({ ...editForm, address: e.target.value })}
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-xs"
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-2">
-              <Button variant="outline" type="button" onClick={() => setIsEditModalOpen(false)}>
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
+              <Button variant="outline" size="sm" type="button" onClick={() => setIsEditModalOpen(false)}>
                 Cancel
               </Button>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" size="sm" type="submit" icon={Save}>
                 Save Changes
               </Button>
             </div>

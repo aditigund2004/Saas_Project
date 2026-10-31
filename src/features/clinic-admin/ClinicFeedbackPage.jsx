@@ -27,17 +27,10 @@ import {
   Eye,
   Send,
   HelpCircle,
-  FileText
+  FileText,
+  List,
+  LayoutGrid
 } from 'lucide-react';
-
-const CATEGORY_COLORS = {
-  'Doctor Care': 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/50',
-  'Waiting Time': 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50',
-  'Clinic Cleanliness': 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50',
-  'Reception & Staff': 'bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-900/50',
-  'Billing & Value': 'bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-900/50',
-  'General Experience': 'bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-900/50'
-};
 
 export function ClinicFeedbackPage() {
   const {
@@ -56,6 +49,7 @@ export function ClinicFeedbackPage() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedRating, setSelectedRating] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
 
   // Modal / Drawer State
   const [selectedFeedback, setSelectedFeedback] = useState(null);
@@ -283,49 +277,65 @@ export function ClinicFeedbackPage() {
             )}
           </div>
 
-          {/* Status Filter Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto">
-            {[
-              { id: 'ALL', label: 'All Reviews', count: clinicFeedbacks.length },
-              { id: 'New', label: 'New / Unread', count: metrics.newCount },
-              { id: 'Reviewed', label: 'In Review', count: metrics.reviewedCount },
-              { id: 'Resolved', label: 'Resolved', count: metrics.resolvedCount }
-            ].map((st) => (
+          <div className="flex items-center gap-3">
+            {/* View Mode Toggle */}
+            <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
               <button
-                key={st.id}
                 type="button"
-                onClick={() => setSelectedStatus(st.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                  selectedStatus === st.id
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/60 dark:border-slate-700/60'
+                onClick={() => setViewMode('table')}
+                className={`p-1 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  viewMode === 'table'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
                 }`}
+                title="Table View"
               >
-                <span>{st.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                    selectedStatus === st.id
-                      ? 'bg-white/20 text-white'
-                      : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                <List className="w-3.5 h-3.5" />
+                <span>Table</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('cards')}
+                className={`p-1 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  viewMode === 'cards'
+                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                }`}
+                title="Card View"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Cards</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-1">
+              {['ALL', 'New', 'Reviewed', 'Resolved'].map((st) => (
+                <button
+                  key={st}
+                  onClick={() => setSelectedStatus(st)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                    selectedStatus === st
+                      ? 'bg-slate-900 dark:bg-blue-600 text-white shadow-xs'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
-                  {st.count}
-                </span>
-              </button>
-            ))}
+                  {st === 'ALL' ? 'All Statuses' : st}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </Card>
 
-      {/* Structured Patient Feedback Table */}
+      {/* Inbox List / Table Structure */}
       {filteredFeedbacks.length === 0 ? (
-        <Card className="p-12 text-center border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-2xl">
+        <Card className="p-12 text-center border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-3">
             <MessageSquareHeart className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-slate-800 dark:text-white">No feedback entries found</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mt-1">
-            No patient reviews matched your search query or filter selections.
+            No submissions matched your search query or filter selections.
           </p>
           <div className="mt-4">
             <Button variant="outline" size="sm" onClick={handleResetFilters}>
@@ -333,173 +343,203 @@ export function ClinicFeedbackPage() {
             </Button>
           </div>
         </Card>
-      ) : (
-        <Card className="overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-2xl">
+      ) : viewMode === 'table' ? (
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
-              <thead className="bg-slate-50/90 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                <tr>
-                  <th className="py-3.5 px-3 text-center w-12 font-semibold">#</th>
-                  <th className="py-3.5 px-4 font-semibold">Patient & Reference</th>
-                  <th className="py-3.5 px-3 font-semibold">Rating</th>
-                  <th className="py-3.5 px-3 font-semibold">Category</th>
-                  <th className="py-3.5 px-3 font-semibold">Branch Location</th>
-                  <th className="py-3.5 px-4 font-semibold">Patient Review Message</th>
-                  <th className="py-3.5 px-3 font-semibold">Submitted</th>
-                  <th className="py-3.5 px-3 font-semibold">Status</th>
-                  <th className="py-3.5 px-4 text-right font-semibold">Action</th>
+            <table className="w-full text-left border-collapse text-sm">
+              <thead>
+                <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                  <th className="py-3.5 px-3 text-center w-12">#</th>
+                  <th className="py-3.5 px-4">Patient & Ref</th>
+                  <th className="py-3.5 px-3">Rating</th>
+                  <th className="py-3.5 px-3">Category</th>
+                  <th className="py-3.5 px-3">Branch Location</th>
+                  <th className="py-3.5 px-4">Patient Feedback</th>
+                  <th className="py-3.5 px-3">Submitted</th>
+                  <th className="py-3.5 px-3">Status</th>
+                  <th className="py-3.5 px-4 text-right">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {filteredFeedbacks.map((fb, idx) => {
-                  const branchName =
-                    activeClinic.branches?.find((b) => b.id === fb.branchId)?.name ||
-                    fb.branchName ||
-                    'Main Clinic Hub';
-                  const catClass =
-                    CATEGORY_COLORS[fb.category] ||
-                    'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700';
-
-                  return (
-                    <tr
-                      key={fb.id}
-                      onClick={() => handleOpenDetails(fb)}
-                      className="hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-colors group cursor-pointer"
-                    >
-                      {/* Index */}
-                      <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
-                        {idx + 1}
-                      </td>
-
-                      {/* Patient & Ref */}
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
-                            {fb.patientName?.charAt(0) || 'P'}
-                          </div>
-                          <div>
-                            <div className="font-bold text-slate-900 dark:text-white text-xs group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                              {fb.patientName}
-                            </div>
-                            <div className="flex items-center gap-1.5 mt-0.5">
-                              <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200/80 dark:border-slate-700/80">
-                                {fb.referenceNumber}
-                              </span>
-                              {fb.appointmentRef && (
-                                <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1.5 py-0.5 rounded font-mono font-medium">
-                                  {fb.appointmentRef}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Rating */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <div className="space-y-0.5">
-                          <div className="flex items-center gap-0.5 text-amber-400">
-                            {[1, 2, 3, 4, 5].map((s) => (
-                              <Star
-                                key={s}
-                                className={`w-3.5 h-3.5 ${
-                                  s <= fb.rating
-                                    ? 'fill-amber-400 text-amber-400'
-                                    : 'text-slate-200 dark:text-slate-700'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                          <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                            {fb.rating}.0 / 5.0
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Category */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <span
-                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold border uppercase tracking-wide ${catClass}`}
-                        >
-                          {fb.category}
+                {filteredFeedbacks.map((fb, idx) => (
+                  <tr
+                    key={fb.id}
+                    onClick={() => handleOpenDetails(fb)}
+                    className="hover:bg-blue-50/40 dark:hover:bg-slate-800/40 transition-colors group cursor-pointer"
+                  >
+                    <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
+                      {idx + 1}
+                    </td>
+                    <td className="py-3.5 px-4">
+                      <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {fb.patientName}
+                      </div>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                          {fb.referenceNumber}
                         </span>
-                      </td>
-
-                      {/* Branch Location */}
-                      <td className="py-3.5 px-3 text-xs text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
-                          <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span>{branchName}</span>
-                        </div>
-                      </td>
-
-                      {/* Patient Feedback */}
-                      <td className="py-3.5 px-4 max-w-xs sm:max-w-sm">
-                        <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-2 italic leading-relaxed">
-                          "{fb.message}"
-                        </p>
-                        {fb.suggestions && (
-                          <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 flex items-center gap-1 mt-0.5">
-                            <span className="text-amber-500 font-bold">💡</span>
-                            <span className="truncate">{fb.suggestions}</span>
-                          </p>
-                        )}
-                      </td>
-
-                      {/* Date Submitted */}
-                      <td className="py-3.5 px-3 text-xs text-slate-500 dark:text-slate-400 font-mono whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span>
-                            {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric'
-                            })}
+                        {fb.appointmentRef && (
+                          <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1 py-0.5 rounded font-mono">
+                            {fb.appointmentRef}
                           </span>
-                        </div>
-                      </td>
+                        )}
+                      </div>
+                    </td>
 
-                      {/* Status */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <Badge variant={fb.status}>
-                          {fb.status === 'Reviewed' ? 'In Review' : fb.status}
-                        </Badge>
-                      </td>
+                    <td className="py-3.5 px-3">
+                      <div className="flex items-center gap-1 text-amber-400">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star
+                            key={s}
+                            className={`w-3.5 h-3.5 ${
+                              s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'
+                            }`}
+                          />
+                        ))}
+                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 ml-1">
+                          {fb.rating}.0
+                        </span>
+                      </div>
+                    </td>
 
-                      {/* Action */}
-                      <td
-                        className="py-3.5 px-4 text-right whitespace-nowrap"
-                        onClick={(e) => e.stopPropagation()}
+                    <td className="py-3.5 px-3">
+                      <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 border border-blue-200/50 dark:border-blue-900/50 px-2 py-0.5 rounded-full whitespace-nowrap">
+                        {fb.category}
+                      </span>
+                    </td>
+
+                    <td className="py-3.5 px-3 text-xs text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap">
+                      {fb.branchName || 'Downtown Branch'}
+                    </td>
+
+                    <td className="py-3.5 px-4 max-w-xs">
+                      <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-1 italic">
+                        "{fb.message}"
+                      </p>
+                      {fb.suggestions && (
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1 mt-0.5">
+                          💡 {fb.suggestions}
+                        </p>
+                      )}
+                    </td>
+
+                    <td className="py-3.5 px-3 text-xs text-slate-500 dark:text-slate-400 font-mono whitespace-nowrap">
+                      {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </td>
+
+                    <td className="py-3.5 px-3">
+                      <Badge variant={fb.status}>{fb.status}</Badge>
+                    </td>
+
+                    <td className="py-3.5 px-4 text-right" onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        variant="outline"
+                        size="xs"
+                        onClick={() => handleOpenDetails(fb)}
+                        className="text-xs"
                       >
-                        <Button
-                          variant="outline"
-                          size="xs"
-                          onClick={() => handleOpenDetails(fb)}
-                          className="font-semibold text-xs flex items-center gap-1 text-blue-600 dark:text-blue-400 border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-700 shadow-2xs cursor-pointer"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Inspect</span>
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        Inspect
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
-
-          {/* Table Summary Footer */}
-          <div className="p-3.5 bg-slate-50/80 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2">
-            <span className="font-medium">
-              Showing <strong>{filteredFeedbacks.length}</strong> patient feedback submissions
-            </span>
-            <span className="text-[11px] text-slate-400 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-              Click any row or &quot;Inspect&quot; to view internal notes, patient contact info, and resolve reviews
-            </span>
+          <div className="p-3 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+            <span>Showing {filteredFeedbacks.length} patient review entries</span>
+            <span>Click any row to view full notes and resolve</span>
           </div>
-        </Card>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filteredFeedbacks.map((fb) => (
+            <Card
+              key={fb.id}
+              className={`p-4 border transition-all hover:border-blue-400 bg-white dark:bg-slate-900 cursor-pointer ${
+                fb.status === 'New' ? 'border-blue-300 dark:border-blue-700 shadow-xs' : 'border-slate-200 dark:border-slate-800'
+              }`}
+              onClick={() => handleOpenDetails(fb)}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                {/* Left: Patient & Star Rating */}
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-sm shrink-0">
+                    {fb.patientName?.charAt(0) || 'P'}
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-slate-900 dark:text-white text-sm">{fb.patientName}</span>
+                      <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                        {fb.referenceNumber}
+                      </span>
+                      {fb.appointmentRef && (
+                        <span className="text-[10px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 px-1.5 py-0.5 rounded font-mono">
+                          {fb.appointmentRef}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Star Rating & Category */}
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex items-center text-amber-400">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star
+                            key={s}
+                            className={`w-3.5 h-3.5 ${
+                              s <= fb.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700 fill-slate-100 dark:fill-slate-800'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">({fb.rating}/5)</span>
+                      <span className="text-slate-300 dark:text-slate-700">•</span>
+                      <span className="text-xs font-medium text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 px-2 py-0.5 rounded-full border border-blue-100 dark:border-blue-900/40">
+                        {fb.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Branch & Status */}
+                <div className="flex items-center justify-between sm:justify-end gap-3 text-xs shrink-0">
+                  <div className="text-left sm:text-right">
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 block font-mono">
+                      {new Date(fb.submittedAt).toLocaleDateString('en-IN', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+                      {fb.branchName || 'Downtown Branch'}
+                    </span>
+                  </div>
+
+                  <Badge variant={fb.status}>{fb.status}</Badge>
+                  <Button variant="outline" size="xs" onClick={(e) => { e.stopPropagation(); handleOpenDetails(fb); }}>
+                    Details
+                  </Button>
+                </div>
+              </div>
+
+              {/* Feedback Message Snippet */}
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+                <p className="text-slate-700 dark:text-slate-300 line-clamp-2 italic">"{fb.message}"</p>
+                {fb.suggestions && (
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">Suggestion:</span> {fb.suggestions}
+                  </p>
+                )}
+              </div>
+            </Card>
+          ))}
+        </div>
       )}
 
       {/* ========================================================================= */}

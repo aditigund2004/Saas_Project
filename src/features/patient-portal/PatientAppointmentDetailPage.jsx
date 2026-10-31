@@ -21,10 +21,10 @@ import {
   ShieldCheck,
   User,
   History,
-  CreditCard,
-  Receipt
+  Sparkles
 } from 'lucide-react';
-import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
+import { AIDurationBadge } from '../../components/ui/AIDurationBadge';
+import { calculateEndTime } from '../../utils/aiAppointmentDuration';
 
 export function PatientAppointmentDetailPage() {
   const { appointmentId } = useParams();
@@ -188,6 +188,16 @@ export function PatientAppointmentDetailPage() {
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
+                <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Patient</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100 text-base block">
+                  {apt.patientName} {apt.relationship && apt.relationship !== 'Self' ? `(${apt.relationship})` : ''}
+                </span>
+                <span className="text-slate-500 dark:text-slate-400 text-xs">
+                  {apt.relationship && apt.relationship !== 'Self' ? 'Family Member Dependent' : 'Primary Account'}
+                </span>
+              </div>
+
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consulting Doctor</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 text-base block">{apt.doctorName}</span>
                 <span className="text-blue-600 dark:text-blue-400 font-semibold text-xs">{doctor?.specialty}</span>
@@ -198,48 +208,23 @@ export function PatientAppointmentDetailPage() {
                 <span className="font-bold font-mono text-slate-900 dark:text-slate-100 text-base block">
                   {apt.confirmedDate || apt.date} at {apt.confirmedTime || apt.time}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400 text-xs">Duration: {apt.durationMinutes || 30} mins</span>
+                <div className="flex items-center gap-1.5 pt-0.5">
+                  <span className="text-slate-500 dark:text-slate-400 text-xs">
+                    {apt.time || apt.requestedTime} → {calculateEndTime(apt.time || apt.requestedTime, apt.durationMinutes || 30)}
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200/50 dark:border-indigo-800/50 flex items-center gap-1">
+                    <Sparkles className="w-2.5 h-2.5" />
+                    {apt.durationMinutes || 30}m AI Tailored
+                  </span>
+                </div>
               </div>
 
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Fee</span>
-                  {apt.paymentStatus === 'Paid' ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                      <CheckCircle2 className="w-3 h-3" /> Paid
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
-                      <Clock className="w-3 h-3" /> Due
-                    </span>
-                  )}
-                </div>
-                <span className="font-bold font-mono text-blue-600 dark:text-blue-400 text-lg block">
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
+                <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Fee</span>
+                <span className="font-bold font-mono text-blue-600 dark:text-blue-400 text-base block">
                   {formatCurrency(apt.consultationFee || doctor?.consultationFee || 600)}
                 </span>
-                {apt.paymentStatus === 'Paid' ? (
-                  <div className="pt-1">
-                    <Link to="/patient/receipts">
-                      <Button variant="outline" size="sm" icon={Receipt} className="w-full text-xs text-emerald-700 dark:text-emerald-400 border-emerald-300">
-                        View Official Receipt
-                      </Button>
-                    </Link>
-                  </div>
-                ) : apt.status !== 'Cancelled' && apt.status !== 'Rejected' ? (
-                  <div className="pt-1">
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      icon={CreditCard}
-                      onClick={() => setIsPaymentModalOpen(true)}
-                      className="w-full text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
-                    >
-                      Pay Doctor Fee Now
-                    </Button>
-                  </div>
-                ) : (
-                  <span className="text-slate-500 dark:text-slate-400 text-xs">Appointment Cancelled</span>
-                )}
+                <span className="text-slate-500 dark:text-slate-400 text-xs">Payable at clinic reception</span>
               </div>
 
               <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
@@ -253,8 +238,15 @@ export function PatientAppointmentDetailPage() {
               </div>
             </div>
 
+            {/* AI Dynamic Duration Factor Breakdown if available */}
+            {apt.durationDetails && (
+              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <AIDurationBadge durationDetails={apt.durationDetails} startTime={apt.confirmedTime || apt.time} variant="card" />
+              </div>
+            )}
+
             {apt.notes && (
-              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300">
+              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300">
                 <strong className="block text-slate-900 dark:text-slate-100 mb-1">Clinical / Booking Notes:</strong>
                 <span>{apt.notes}</span>
               </div>

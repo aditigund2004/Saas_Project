@@ -22,11 +22,7 @@ import {
   User,
   Phone,
   Calendar,
-  X,
-  QrCode,
-  Smartphone,
-  ShieldCheck,
-  Check
+  X
 } from 'lucide-react';
 
 export function ClinicInvoicesPage() {
@@ -546,7 +542,7 @@ export function ClinicInvoicesPage() {
                 onChange={(e) => setPaymentMethodChoice(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
               >
-                <option value="UPI QR">UPI Dynamic QR (GPay / PhonePe / Paytm / BHIM)</option>
+                <option value="UPI QR">UPI Dynamic QR</option>
                 <option value="Debit / Credit Card">POS Terminal Card</option>
                 <option value="Cash">Cash Currency</option>
                 <option value="Net Banking">IMPS / NEFT Transfer</option>

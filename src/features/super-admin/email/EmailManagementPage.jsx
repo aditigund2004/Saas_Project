@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../../../context/AppContext';
 import {
+  Mail,
   LayoutDashboard,
   FileText,
   Zap,
@@ -27,7 +28,7 @@ export function EmailManagementPage() {
   const navigate = useNavigate();
   const { clinics = [], plans = [], showToast } = useApp();
 
-  const activeTab = urlTab || 'dashboard';
+  const [activeTab, setActiveTab] = useState(urlTab || 'dashboard');
 
   // Module State
   const [templates, setTemplates] = useState(() => emailService.getTemplates());
@@ -44,7 +45,15 @@ export function EmailManagementPage() {
   const [simulatorOpen, setSimulatorOpen] = useState(false);
   const [simulatorInitialKey, setSimulatorInitialKey] = useState('');
 
+  // Keep URL in sync
+  useEffect(() => {
+    if (urlTab && urlTab !== activeTab) {
+      setActiveTab(urlTab);
+    }
+  }, [urlTab]);
+
   const handleTabChange = (newTab) => {
+    setActiveTab(newTab);
     navigate(`/superadmin/email/${newTab}`);
   };
 
@@ -152,7 +161,7 @@ export function EmailManagementPage() {
   };
 
   const handleSendTestFromPreview = (tpl) => {
-    emailService.simulateEventTrigger(tpl.associatedTriggerKey || 'feature.published', {
+    const res = emailService.simulateEventTrigger(tpl.associatedTriggerKey || 'feature.published', {
       recipientName: 'Test Administrator',
       recipientEmail: settings.testRecipientEmail
     });

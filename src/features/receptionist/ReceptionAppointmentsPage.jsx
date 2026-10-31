@@ -100,7 +100,7 @@ export function ReceptionAppointmentsPage() {
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
+                  <td colSpan={7} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
                     No appointments match your search or filter.
                   </td>
                 </tr>

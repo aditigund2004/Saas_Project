@@ -18,10 +18,7 @@ import {
   Info,
   RefreshCw,
   PlusCircle,
-  HelpCircle,
-  List,
-  LayoutGrid,
-  Eye
+  HelpCircle
 } from 'lucide-react';
 
 export function PatientRequestsPage() {
@@ -29,6 +26,7 @@ export function PatientRequestsPage() {
     appointments,
     respondToAlternativeSlot,
     currentUser,
+    familyMembers = [],
     formatCurrency,
     showToast
   } = useApp();
@@ -49,7 +47,9 @@ export function PatientRequestsPage() {
     const isPatientMatch =
       a.patientName === currentUser?.name ||
       a.patientId === 'pt-1041' ||
-      !a.patientId;
+      a.patientId === currentUser?.id ||
+      !a.patientId ||
+      familyMembers.some((fm) => fm.name === a.patientName);
 
     const isRequestStatus =
       requestStatuses.includes(a.status) ||
@@ -117,60 +117,28 @@ export function PatientRequestsPage() {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <div className="flex items-center gap-2">
-            {/* View Mode Toggle */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
-              <button
-                type="button"
-                onClick={() => setViewMode('table')}
-                className={`p-1.5 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'table'
-                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-                }`}
-                title="Table View"
-              >
-                <List className="w-3.5 h-3.5" />
-                <span>Table</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('cards')}
-                className={`p-1.5 rounded text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'cards'
-                    ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
-                }`}
-                title="Card View"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>Cards</span>
-              </button>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => {
-                setSimulateConflictMode(!simulateConflictMode);
-                showToast(
-                  !simulateConflictMode
-                    ? 'Simulated Conflict Mode ENABLED: Accepting alternative will trigger concurrency conflict!'
-                    : 'Simulated Conflict Mode DISABLED: Normal availability check active.'
-                );
-              }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all border cursor-pointer ${
-                simulateConflictMode
-                  ? 'bg-red-600 text-white border-red-700 shadow-sm ring-2 ring-red-400/30'
-                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
-              }`}
-            >
-              {simulateConflictMode ? '⚠️ Concurrency Conflict Active' : 'Normal Slot Validation'}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setSimulateConflictMode(!simulateConflictMode);
+              showToast(
+                !simulateConflictMode
+                  ? 'Simulated Conflict Mode ENABLED: Accepting alternative will trigger concurrency conflict!'
+                  : 'Simulated Conflict Mode DISABLED: Normal availability check active.'
+              );
+            }}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold font-mono transition-all border cursor-pointer ${
+              simulateConflictMode
+                ? 'bg-red-600 text-white border-red-700 shadow-sm ring-2 ring-red-400/30'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
+            }`}
+          >
+            {simulateConflictMode ? '⚠️ Concurrency Conflict Active' : 'Normal Slot Validation'}
+          </button>
         </div>
       </div>
 
-      {/* Requests: Table Structure (Default) */}
+      {/* Requests List */}
       {myRequests.length === 0 ? (
         <Card className="p-12 text-center space-y-3.5 border-dashed border-2 border-slate-200 dark:border-slate-800 dark:bg-slate-900/60">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 mx-auto flex items-center justify-center font-bold text-xl">
@@ -348,9 +316,16 @@ export function PatientRequestsPage() {
                         <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">{req.clinicName}</h3>
                         <span className="font-mono text-xs text-slate-400 dark:text-slate-500">{req.requestId || req.referenceNumber}</span>
                       </div>
-                      <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
-                        Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
-                      </p>
+                      <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
+                        <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
+                          Dr. {req.doctorName} · <span className="text-slate-600 dark:text-slate-400">{req.serviceName}</span>
+                        </span>
+                        {req.relationship && req.relationship !== 'Self' && (
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                            For {req.patientName} ({req.relationship})
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 

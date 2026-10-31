@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useTheme } from '../../context/ThemeContext';
+import { FontSizeSwitcher } from '../../components/ui/FontSizeSwitcher';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -246,6 +247,9 @@ export function ClinicDashboardPage() {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 absolute top-1.5 right-1.5" />
             </button>
           </Link>
+
+          {/* Font Size Selector */}
+          <FontSizeSwitcher variant="dropdown" />
 
           {/* Theme Toggle */}
           <button

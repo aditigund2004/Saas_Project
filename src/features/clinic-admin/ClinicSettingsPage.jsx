@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { Settings, Save, Building2, ShieldCheck } from 'lucide-react';
+import { Settings, Save, Building2, ShieldCheck, ALargeSmall } from 'lucide-react';
+import { FontSizeSwitcher } from '../../components/ui/FontSizeSwitcher';
 
 export function ClinicSettingsPage() {
   const { activeClinic, setClinics, showToast } = useApp();
@@ -129,6 +130,19 @@ export function ClinicSettingsPage() {
                 onChange={(e) => setForm({ ...form, bookingPolicy: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+
+            <div className="pt-2">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
+                <ALargeSmall className="w-4 h-4 text-blue-600" />
+                <span>Default Workspace Font Size</span>
+              </label>
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <span className="text-xs text-slate-500 dark:text-slate-400">
+                  Choose between Small (compact data views), Medium (standard), or Large (enlarged text).
+                </span>
+                <FontSizeSwitcher variant="segmented" />
+              </div>
             </div>
 
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">

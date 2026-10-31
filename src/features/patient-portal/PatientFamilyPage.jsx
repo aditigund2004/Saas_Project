@@ -305,7 +305,7 @@ export function PatientFamilyPage() {
           return (
             <Card
               key={member.id}
-              className="rounded-3xl border-white/60 dark:border-white/10 bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 overflow-hidden flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="rounded-3xl border-[#263B59] bg-[#111E33] shadow-lg shadow-black/20 overflow-hidden flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div>
                 {/* Header Strip with ambient tint */}

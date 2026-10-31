@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ClinicOS — Multi-Tenant Healthcare Clinic SaaS Platform
 
 > **"Run Your Clinic Smarter. Spend Less Time on Paperwork."**  
@@ -259,7 +258,9 @@ ClinicOS is completely client-side and optimized for static hosting:
   /*    /index.html   200
   ```
 - **Cloudflare Pages**: Set framework preset to **Vite**, build command to `npm run build`, and output folder to `dist`.
-=======
+
+---
+
 # ClinicOS Healthcare SaaS
 
 A modern multi-tenant clinic management, doctor clinical consultation, receptionist front-desk, and patient portal SaaS built with React, Vite, React Router, Tailwind CSS, Lucide Icons, and Recharts.
@@ -394,4 +395,3 @@ For full enterprise automated delivery in a production environment:
 - **Pre-Approved Template Messages (HSMs)**: Outbound automated notifications initiated outside a 24-hour customer care window require Meta-approved templates with dynamic parameters `{{1}}`, `{{2}}`.
 - **Two-Way Webhook Handling**: A secure HTTPS webhook endpoint (Node.js/Express or Cloud Functions) to process message delivery statuses (`sent`, `delivered`, `read`, `failed`) and inbound patient replies.
 - **Consent & Opt-in Management**: Maintain audit logs of patient consent before automated transactional broadcasts.
->>>>>>> origin/feature/my-work

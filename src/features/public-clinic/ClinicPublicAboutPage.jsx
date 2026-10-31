@@ -27,38 +27,38 @@ export function ClinicPublicAboutPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
       {/* Page Title Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+        <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-[#22D3EE]">
           About Our Practice
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-[#F1F5F9]">
           {settings.aboutTitle}
         </h1>
-        <p className="text-sm text-slate-600 dark:text-slate-300">
+        <p className="text-sm text-slate-600 dark:text-[#94A3B8]">
           Delivering trusted outpatient healthcare, personalized clinical consultations, and transparent treatment plans in {clinic.city}.
         </p>
       </div>
 
       {/* Main Story & Values Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-7 space-y-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+        <div className="lg:col-span-7 space-y-5 text-sm text-slate-600 dark:text-[#CBD5E1] leading-relaxed">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9]">
             Our Medical Mission & Philosophy
           </h2>
           <p>
             {settings.aboutText}
           </p>
           <p>
-            Founded and directed by <strong>{clinic.ownerName}</strong>, our practice is designed around patient dignity, zero unnecessary waiting room delays, and rigorous infection control protocols. We leverage digital prescriptions, synchronized slot scheduling, and direct WhatsApp communication to ensure continuity of care.
+            Founded and directed by <strong className="text-slate-900 dark:text-[#F1F5F9]">{clinic.ownerName}</strong>, our practice is designed around patient dignity, zero unnecessary waiting room delays, and rigorous infection control protocols. We leverage digital prescriptions, synchronized slot scheduling, and direct WhatsApp communication to ensure continuity of care.
           </p>
 
           <div className="space-y-3 pt-3">
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-[#F1F5F9] uppercase tracking-wider">
               Core Clinical Principles
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {settings.aboutValues.map((v, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs text-slate-800 dark:text-slate-200">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                <div key={i} className="flex items-center gap-2 text-xs text-slate-700 dark:text-[#CBD5E1]">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
                   <span>{v}</span>
                 </div>
               ))}
@@ -67,15 +67,15 @@ export function ClinicPublicAboutPage() {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-slate-800 aspect-4/3 relative">
+          <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-slate-200 dark:border-[#263B59] aspect-4/3 relative">
             <img
               src={clinic.image}
               alt={clinic.name}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white text-xs space-y-1">
-              <span className="font-bold block">{clinic.name}</span>
+              <span className="font-bold block text-white">{clinic.name}</span>
               <span className="text-[11px] text-slate-300">📍 {clinic.address}, {clinic.city}</span>
             </div>
           </div>
@@ -83,22 +83,22 @@ export function ClinicPublicAboutPage() {
       </div>
 
       {/* Facilities & Amenities */}
-      <div className="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+      <div className="space-y-6 pt-6 border-t border-slate-200 dark:border-[#263B59]">
         <div className="text-center max-w-xl mx-auto space-y-1">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-[#22D3EE]">
             Clinical Infrastructure
           </span>
-          <h2 className="text-2xl font-bold tracking-tight">
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-[#F1F5F9]">
             Facilities & Patient Amenities
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {settings.facilities.map((fac, i) => (
-            <Card key={i} className="p-5 border-slate-200 dark:border-slate-800 space-y-2">
-              <Building2 className="w-5 h-5 text-blue-600" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white pt-1">{fac}</h3>
-              <p className="text-[11px] text-slate-500">
+            <Card key={i} className="p-5 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-2 shadow-xs">
+              <Building2 className="w-5 h-5 text-blue-600 dark:text-[#3B82F6]" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-[#F1F5F9] pt-1">{fac}</h3>
+              <p className="text-[11px] text-slate-500 dark:text-[#94A3B8]">
                 Maintained to international outpatient safety standards with daily sterilization logs.
               </p>
             </Card>

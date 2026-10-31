@@ -18,7 +18,6 @@ import {
   ExternalLink
 } from 'lucide-react';
 
-
 export function ClinicBranchesPage() {
   const { activeClinic, activeBranch, switchBranch, showToast } = useApp();
   const [isNewBranchModalOpen, setIsNewBranchModalOpen] = useState(false);
@@ -305,7 +304,6 @@ export function ClinicBranchesPage() {
         </div>
       )}
 
-
       {isNewBranchModalOpen && (
         <Modal
           isOpen={isNewBranchModalOpen}
@@ -330,7 +328,6 @@ export function ClinicBranchesPage() {
               <input type="text" placeholder="Street, Building, Area" className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl" />
             </div>
             <div className="pt-2 flex justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setIsNewBranchModalOpen(false)}>Cancel</Button>
               <Button variant="primary" size="sm" onClick={() => { setIsNewBranchModalOpen(false); showToast('New branch provisioned in demo state.'); }}>Create Branch</Button>
             </div>

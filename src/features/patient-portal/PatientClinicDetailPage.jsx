@@ -56,7 +56,6 @@ export function PatientClinicDetailPage() {
       {/* Hero Banner Card */}
       <Card padding="none" className="overflow-hidden border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative h-56 md:h-72 w-full bg-slate-900 overflow-hidden">
-
           <img
             src={clinic.image}
             alt={clinic.name}
@@ -87,13 +86,11 @@ export function PatientClinicDetailPage() {
                 </div>
                 <div className="text-xs text-slate-400 font-medium">
                   {clinic.reviewsCount || 150}+ Verified Reviews
-
                 </div>
               </div>
 
               <Link to={`/patient/appointments/book?clinicId=${clinic.id}`}>
                 <Button variant="primary" size="md" icon={Calendar} className="shadow-lg shadow-blue-600/30 font-bold">
-
                   Request Appointment
                 </Button>
               </Link>
@@ -107,7 +104,6 @@ export function PatientClinicDetailPage() {
             <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-slate-900 dark:text-slate-100 block">Location</span>
-
               <span>{clinic.address}, {clinic.city}</span>
             </div>
           </div>
@@ -116,7 +112,6 @@ export function PatientClinicDetailPage() {
             <Clock className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-slate-900 dark:text-slate-100 block">Clinical Working Hours</span>
-
               <span className="font-mono">{clinic.operatingHours}</span>
             </div>
           </div>
@@ -125,7 +120,6 @@ export function PatientClinicDetailPage() {
             <Phone className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-slate-900 dark:text-slate-100 block">Clinic Reception</span>
-
               <span className="font-mono">{clinic.phone}</span>
             </div>
           </div>
@@ -135,7 +129,6 @@ export function PatientClinicDetailPage() {
             <div>
               <span className="font-bold text-slate-900 dark:text-slate-100 block">Tariff Range</span>
               <span className="font-mono font-bold text-slate-900 dark:text-slate-100">{clinic.consultationFeeRange || '₹500 - ₹1,200'}</span>
-
             </div>
           </div>
         </div>
@@ -147,7 +140,6 @@ export function PatientClinicDetailPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* About Clinic */}
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
             <CardHeader
               title="About the Practice"
               subtitle="Clinical expertise, standards, and patient care philosophies"
@@ -165,7 +157,6 @@ export function PatientClinicDetailPage() {
                   <span
                     key={s}
                     className="px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border border-blue-200/50 dark:border-blue-900/50 text-xs font-bold"
-
                   >
                     {s}
                   </span>
@@ -179,7 +170,6 @@ export function PatientClinicDetailPage() {
               <div>
                 <strong className="block text-slate-900 dark:text-slate-100">Clinic Appointment Policy:</strong>
                 <span className="text-slate-600 dark:text-slate-300 text-xs">{clinic.bookingPolicy}</span>
-
               </div>
             </div>
           </Card>
@@ -192,7 +182,6 @@ export function PatientClinicDetailPage() {
                 <p className="text-xs text-slate-500 dark:text-slate-400">Available consultation and procedure packages</p>
               </div>
               <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
-
                 {clinic.services?.length || 0} Listed Services
               </span>
             </div>
@@ -211,21 +200,18 @@ export function PatientClinicDetailPage() {
                       </span>
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400">{srv.description}</p>
-
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0 justify-between sm:justify-end">
                     <div className="text-right">
                       <span className="text-xs text-slate-400 dark:text-slate-500 block font-semibold uppercase">Consultation Fee</span>
                       <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
-
                         ₹{srv.fee.toLocaleString('en-IN')}
                       </span>
                     </div>
 
                     <Link to={`/patient/appointments/book?clinicId=${clinic.id}&serviceId=${srv.id}`}>
                       <Button variant="outline" size="sm" icon={Calendar}>
-
                         Select & Book
                       </Button>
                     </Link>
@@ -237,7 +223,6 @@ export function PatientClinicDetailPage() {
 
           {/* Patient Reviews */}
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
             <CardHeader
               title={`Patient Reviews & Feedback (${clinic.reviewsCount || 100}+)`}
               subtitle="Verified patient testimonials from recent clinic visits"
@@ -258,7 +243,6 @@ export function PatientClinicDetailPage() {
                     </div>
                   </div>
                   <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">{rev.comment}</p>
-
                 </div>
               ))}
             </div>
@@ -276,7 +260,6 @@ export function PatientClinicDetailPage() {
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {clinicDoctors.map((doc) => (
                 <div key={doc.id} className="p-4 sm:p-5 space-y-3.5 hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors text-sm">
-
                   <div className="flex items-start gap-3">
                     <img
                       src={doc.avatar}
@@ -303,20 +286,17 @@ export function PatientClinicDetailPage() {
 
                   <div className="text-xs text-slate-500 dark:text-slate-400">
                     <span className="font-semibold text-slate-700 dark:text-slate-300">Available Days: </span>
-
                     <span>{doc.availableDays?.join(', ') || 'Mon - Sat'}</span>
                   </div>
 
                   <div className="flex items-center gap-2 pt-1">
                     <Link to={`/patient/doctors/${doc.id}`} className="flex-1">
                       <Button variant="ghost" size="sm" className="w-full text-xs">
-
                         Profile
                       </Button>
                     </Link>
                     <Link to={`/patient/appointments/book?clinicId=${clinic.id}&doctorId=${doc.id}`} className="flex-1">
                       <Button variant="primary" size="sm" className="w-full text-xs font-bold shadow-sm" icon={Calendar}>
-
                         Book Slot
                       </Button>
                     </Link>
@@ -333,7 +313,6 @@ export function PatientClinicDetailPage() {
             </span>
             <p className="leading-relaxed">
               You can contact the front desk at <strong className="text-slate-900 dark:text-slate-100 font-mono">{clinic.phone}</strong> for urgent enquiries, or submit a flexible booking request online.
-
             </p>
           </div>
         </div>

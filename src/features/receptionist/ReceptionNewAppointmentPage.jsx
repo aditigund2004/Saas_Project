@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
-
 import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -24,7 +23,6 @@ export function ReceptionNewAppointmentPage() {
     doctors = [],
     patients = [],
     appointments = [],
-
     createAppointment,
     openWhatsAppModal,
     showToast
@@ -32,7 +30,6 @@ export function ReceptionNewAppointmentPage() {
 
   const [searchParams] = useSearchParams();
   const preselectedId = searchParams.get('patientId');
-
 
   const [step, setStep] = useState(1);
   const [patientMode, setPatientMode] = useState('existing'); // 'existing' | 'new'
@@ -51,7 +48,6 @@ export function ReceptionNewAppointmentPage() {
   const clinicDoctors = doctors.filter((d) => d.clinicId === activeClinic?.id);
   const [selectedDoctorId, setSelectedDoctorId] = useState(clinicDoctors[0]?.id || '');
   const [selectedServiceId, setSelectedServiceId] = useState(activeClinic?.services?.[0]?.id || '');
-
   const [appointmentDate, setAppointmentDate] = useState('2026-10-24');
   const [appointmentTime, setAppointmentTime] = useState('11:30 AM');
   const [notes, setNotes] = useState('');
@@ -64,7 +60,6 @@ export function ReceptionNewAppointmentPage() {
   const conflictAppointment = appointments.find(
     (a) =>
       a.doctorId === currentDoctor?.id &&
-
       a.date === appointmentDate &&
       a.time === appointmentTime &&
       !['Cancelled', 'No-show'].includes(a.status)
@@ -76,7 +71,6 @@ export function ReceptionNewAppointmentPage() {
       showToast('Please select a valid doctor.', 'error');
       return;
     }
-
     if (conflictAppointment) {
       showToast(`Conflict: Dr. ${currentDoctor.name} is already booked at ${appointmentTime} on ${appointmentDate}.`, 'error');
       return;
@@ -89,7 +83,6 @@ export function ReceptionNewAppointmentPage() {
     const newApt = createAppointment({
       clinicId: activeClinic?.id,
       branchId: activeBranch?.id,
-
       doctorId: currentDoctor.id,
       doctorName: currentDoctor.name,
       patientId,
@@ -98,7 +91,6 @@ export function ReceptionNewAppointmentPage() {
       patientEmail: 'patient@demo.io',
       serviceId: currentService?.id,
       serviceName: currentService?.name,
-
       date: appointmentDate,
       time: appointmentTime,
       status: 'Confirmed',
@@ -133,7 +125,6 @@ export function ReceptionNewAppointmentPage() {
                 onClick={() => setPatientMode('existing')}
                 className={`px-3 py-1.5 rounded-lg font-semibold cursor-pointer transition-all ${
                   patientMode === 'existing' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs' : 'text-slate-500 dark:text-slate-400'
-
                 }`}
               >
                 Existing Patient
@@ -143,7 +134,6 @@ export function ReceptionNewAppointmentPage() {
                 onClick={() => setPatientMode('new')}
                 className={`px-3 py-1.5 rounded-lg font-semibold cursor-pointer transition-all ${
                   patientMode === 'new' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs' : 'text-slate-500 dark:text-slate-400'
-
                 }`}
               >
                 New Patient
@@ -160,7 +150,6 @@ export function ReceptionNewAppointmentPage() {
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 font-medium"
               >
                 {patients.map((p) => (
-
                   <option key={p.id} value={p.id}>
                     {p.name} ({p.patientIdNumber}) · {p.phone}
                   </option>
@@ -171,7 +160,6 @@ export function ReceptionNewAppointmentPage() {
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
-
                 <input
                   required
                   type="text"
@@ -183,7 +171,6 @@ export function ReceptionNewAppointmentPage() {
               </div>
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Mobile / WhatsApp *</label>
-
                 <input
                   required
                   type="tel"
@@ -191,7 +178,6 @@ export function ReceptionNewAppointmentPage() {
                   onChange={(e) => setNewPatientPhone(e.target.value)}
                   placeholder="+91 98000 00000"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm"
-
                 />
               </div>
             </div>
@@ -200,7 +186,6 @@ export function ReceptionNewAppointmentPage() {
           <div className="pt-2 flex justify-end">
             <Button variant="primary" size="md" onClick={() => setStep(2)}>
               Proceed to Slot & Doctor <ArrowRight className="w-4 h-4 ml-1.5" />
-
             </Button>
           </div>
         </Card>
@@ -220,7 +205,6 @@ export function ReceptionNewAppointmentPage() {
                   value={selectedDoctorId}
                   onChange={(e) => setSelectedDoctorId(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-medium"
-
                 >
                   {clinicDoctors.map((d) => (
                     <option key={d.id} value={d.id}>{d.name} ({d.specialty})</option>
@@ -236,7 +220,6 @@ export function ReceptionNewAppointmentPage() {
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-medium"
                 >
                   {activeClinic?.services?.map((s) => (
-
                     <option key={s.id} value={s.id}>{s.name} (₹{s.fee})</option>
                   ))}
                 </select>
@@ -244,13 +227,11 @@ export function ReceptionNewAppointmentPage() {
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Appointment Date *</label>
-
                 <input
                   type="date"
                   value={appointmentDate}
                   onChange={(e) => setAppointmentDate(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-mono"
-
                 />
               </div>
 
@@ -260,13 +241,11 @@ export function ReceptionNewAppointmentPage() {
                   value={appointmentTime}
                   onChange={(e) => setAppointmentTime(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-medium"
-
                 >
                   {['09:30 AM', '10:30 AM', '11:30 AM', '02:00 PM', '03:30 PM', '04:30 PM', '05:30 PM'].map((t) => {
                     const isBooked = appointments.some(
                       (a) =>
                         a.doctorId === currentDoctor?.id &&
-
                         a.date === appointmentDate &&
                         a.time === t &&
                         !['Cancelled', 'No-show'].includes(a.status)
@@ -289,7 +268,6 @@ export function ReceptionNewAppointmentPage() {
                   <p className="font-bold text-sm">Schedule Conflict Detected</p>
                   <p className="text-xs text-amber-800 dark:text-amber-300 mt-0.5">
                     Dr. {currentDoctor?.name} is already booked at {appointmentTime} on {appointmentDate} for patient {conflictAppointment.patientName}. Please select an open time slot.
-
                   </p>
                 </div>
               </div>
@@ -297,7 +275,6 @@ export function ReceptionNewAppointmentPage() {
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Visit Reason / Clinical Note</label>
-
               <textarea
                 rows={2}
                 value={notes}
@@ -308,7 +285,6 @@ export function ReceptionNewAppointmentPage() {
             </div>
 
             <div className="pt-3 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setStep(1)}>
                 ← Back
               </Button>
@@ -328,7 +304,6 @@ export function ReceptionNewAppointmentPage() {
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">Appointment Confirmed!</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Reference code <strong className="font-mono text-slate-800 dark:text-slate-200 font-bold">{bookedApt.referenceNumber}</strong> created on {activeBranch?.name}.
-
           </p>
 
           <div className="pt-2">
@@ -340,13 +315,11 @@ export function ReceptionNewAppointmentPage() {
                 openWhatsAppModal({
                   patient_name: bookedApt.patientName,
                   clinic_name: activeClinic?.name || 'Clinic',
-
                   appointment_date: bookedApt.date,
                   appointment_time: bookedApt.time,
                   doctor_name: bookedApt.doctorName,
                   appointment_reference: bookedApt.referenceNumber,
                   clinic_phone: activeClinic?.phone || ''
-
                 })
               }
             >
@@ -355,7 +328,6 @@ export function ReceptionNewAppointmentPage() {
           </div>
 
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-center gap-3">
-
             <Button variant="outline" size="sm" onClick={() => setStep(1)}>
               Book Another
             </Button>
@@ -370,4 +342,3 @@ export function ReceptionNewAppointmentPage() {
     </div>
   );
 }
-

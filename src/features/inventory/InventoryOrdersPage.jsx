@@ -43,21 +43,18 @@ export function InventoryOrdersPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Purchase Orders</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Replenishment orders issued to pharmaceutical manufacturers & authorized distributors
           </p>
         </div>
 
         <Button variant="primary" size="sm" onClick={() => setModalOpen(true)} className="font-semibold shadow-sm">
           <Plus className="w-4 h-4 mr-1.5" />
-
           Create Purchase Order
         </Button>
       </div>
 
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
         <input
           type="text"
           value={searchTerm}
@@ -73,7 +70,6 @@ export function InventoryOrdersPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                 <th className="px-4 py-3">PO Number</th>
                 <th className="px-4 py-3">Supplier Name</th>
                 <th className="px-4 py-3">Order Date</th>
@@ -88,7 +84,6 @@ export function InventoryOrdersPage() {
               {filteredOrders.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No purchase orders found.
                   </td>
                 </tr>
@@ -115,7 +110,6 @@ export function InventoryOrdersPage() {
                       {formatCurrency(po.totalAmount)}
                     </td>
                     <td className="px-4 py-3.5">
-
                       <Badge
                         variant={
                           po.status === 'Delivered' ? 'success' :
@@ -127,7 +121,6 @@ export function InventoryOrdersPage() {
                       </Badge>
                     </td>
                     <td className="px-4 py-3.5 text-right whitespace-nowrap">
-
                       {po.status === 'Sent' ? (
                         <Button
                           variant="secondary"
@@ -140,7 +133,6 @@ export function InventoryOrdersPage() {
                         </Button>
                       ) : (
                         <span className="text-xs text-slate-400 dark:text-slate-500 italic">Fulfilled</span>
-
                       )}
                     </td>
                   </tr>
@@ -178,7 +170,6 @@ export function InventoryOrdersPage() {
                   value={newPo.supplierName}
                   onChange={(e) => setNewPo({ ...newPo, supplierName: e.target.value })}
                   className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 >
                   {suppliers.map((s) => (
                     <option key={s.id} value={s.name}>{s.name} ({s.city})</option>
@@ -189,7 +180,6 @@ export function InventoryOrdersPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Number of SKUs</label>
-
                   <input
                     type="number"
                     min="1"
@@ -200,20 +190,17 @@ export function InventoryOrdersPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Estimated Total (₹)</label>
-
                   <input
                     type="number"
                     min="100"
                     value={newPo.totalAmount}
                     onChange={(e) => setNewPo({ ...newPo, totalAmount: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setModalOpen(false)}>
                   Cancel
                 </Button>
@@ -228,4 +215,3 @@ export function InventoryOrdersPage() {
     </div>
   );
 }
-

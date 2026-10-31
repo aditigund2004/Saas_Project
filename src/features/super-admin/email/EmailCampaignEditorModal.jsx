@@ -130,7 +130,6 @@ export function EmailCampaignEditorModal({
         {errorMsg && (
           <div className="p-3.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-200 flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
-
             <span>{errorMsg}</span>
           </div>
         )}
@@ -144,7 +143,6 @@ export function EmailCampaignEditorModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Campaign Name <span className="text-rose-500">*</span>
               </label>
               <input
@@ -154,13 +152,11 @@ export function EmailCampaignEditorModal({
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g. Online Appointment Booking Rollout"
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Feature Name Announced <span className="text-rose-500">*</span>
               </label>
               <input
@@ -170,14 +166,12 @@ export function EmailCampaignEditorModal({
                 onChange={(e) => setFormData({ ...formData, featureName: e.target.value })}
                 placeholder="e.g. Online Patient Self-Booking Portal"
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
               Feature Description
             </label>
             <textarea
@@ -192,7 +186,6 @@ export function EmailCampaignEditorModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Release / Availability Date
               </label>
               <input
@@ -201,13 +194,11 @@ export function EmailCampaignEditorModal({
                 onChange={(e) => setFormData({ ...formData, releaseDate: e.target.value })}
                 placeholder="e.g. November 1, 2026"
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Call to Action URL
               </label>
               <input
@@ -216,7 +207,6 @@ export function EmailCampaignEditorModal({
                 onChange={(e) => setFormData({ ...formData, actionUrl: e.target.value })}
                 placeholder="https://clinicos.app/features/booking"
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
             </div>
           </div>
@@ -224,7 +214,6 @@ export function EmailCampaignEditorModal({
           {/* Key Benefits */}
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
               Key Value Highlights (Bullets in Email)
             </label>
             <div className="flex gap-2">
@@ -240,7 +229,6 @@ export function EmailCampaignEditorModal({
                 }}
                 placeholder="Add a bullet point benefit..."
                 className="flex-1 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               />
               <Button type="button" variant="secondary" size="sm" icon={Plus} onClick={handleAddBenefit}>
                 Add
@@ -252,7 +240,6 @@ export function EmailCampaignEditorModal({
                 <span
                   key={i}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs bg-blue-50 dark:bg-blue-950/60 text-blue-900 dark:text-blue-300 border border-blue-200 dark:border-blue-900/60"
-
                 >
                   <span>• {b}</span>
                   <button
@@ -261,7 +248,6 @@ export function EmailCampaignEditorModal({
                     className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
-
                   </button>
                 </span>
               ))}
@@ -276,7 +262,6 @@ export function EmailCampaignEditorModal({
               Audience Filtering & Template
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold">
-
               {recipientCount} Eligible Clinic(s)
             </span>
           </div>
@@ -284,14 +269,12 @@ export function EmailCampaignEditorModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Announcement Template
               </label>
               <select
                 value={formData.selectedTemplateId}
                 onChange={(e) => setFormData({ ...formData, selectedTemplateId: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               >
                 {templates.map((tpl) => (
                   <option key={tpl.id} value={tpl.id}>
@@ -303,7 +286,6 @@ export function EmailCampaignEditorModal({
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-
                 Target Audience Scope
               </label>
               <select
@@ -318,7 +300,6 @@ export function EmailCampaignEditorModal({
                   })
                 }
                 className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               >
                 <option value="all">All Registered Clinics ({clinics.length})</option>
                 <option value="plans">Filter by Subscription Tiers</option>
@@ -331,7 +312,6 @@ export function EmailCampaignEditorModal({
           {formData.targetAudience.type === 'plans' && (
             <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-
                 Eligible Subscription Plans:
               </label>
               <div className="flex flex-wrap gap-2">
@@ -346,7 +326,6 @@ export function EmailCampaignEditorModal({
                         isChecked
                           ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
                           : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-blue-400'
-
                       }`}
                     >
                       {p.name}
@@ -364,14 +343,12 @@ export function EmailCampaignEditorModal({
                 Select Clinics to Receive Announcement:
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto p-1.5 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950">
-
                 {clinics.map((c) => {
                   const isChecked = formData.targetAudience.clinicIds.includes(c.id);
                   return (
                     <label
                       key={c.id}
                       className="flex items-center gap-2 p-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs"
-
                     >
                       <input
                         type="checkbox"
@@ -380,7 +357,6 @@ export function EmailCampaignEditorModal({
                         className="rounded border-slate-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500"
                       />
                       <span className="font-medium text-slate-800 dark:text-slate-200 truncate">{c.name}</span>
-
                     </label>
                   );
                 })}
@@ -391,7 +367,6 @@ export function EmailCampaignEditorModal({
 
         {/* Modal Actions */}
         <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
-
           <Button variant="outline" size="sm" type="button" onClick={onClose}>
             Cancel
           </Button>

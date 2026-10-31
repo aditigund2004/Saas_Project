@@ -97,7 +97,6 @@ export interface EmailActivityLog {
   retryCount?: number;
   themeId?: string;
   themeName?: string;
-
 }
 
 export interface EmailSettings {

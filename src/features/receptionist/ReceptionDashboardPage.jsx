@@ -25,7 +25,6 @@ export function ReceptionDashboardPage() {
 
   const todayStr = '2026-10-23';
   const clinicAppointments = appointments.filter((a) => a.clinicId === activeClinic?.id || !a.clinicId);
-
   const todaysAppointments = clinicAppointments.filter((a) => (a.confirmedDate || a.date) === todayStr);
 
   const waitingPatients = todaysAppointments.filter((a) => a.status === 'Checked In' || a.status === 'Patient Checked In');
@@ -56,7 +55,6 @@ export function ReceptionDashboardPage() {
             Reception Control Center
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-
             Speed-optimized for multi-clinic booking triage, slot availability verification, walk-ins, and doctor queue.
           </p>
         </div>
@@ -64,7 +62,6 @@ export function ReceptionDashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <Link to="/reception/requests">
             <Button variant="outline" size="sm" icon={ClipboardList} className="font-semibold border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/50 text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60">
-
               Review Requests ({pendingRequests.length})
             </Button>
           </Link>
@@ -128,13 +125,11 @@ export function ReceptionDashboardPage() {
         {/* Waiting Lounge & Active Consultations */}
         <div className="lg:col-span-7 space-y-4">
           <Card className="border-slate-200 dark:border-slate-800">
-
             <CardHeader
               title={`Waiting Room & Active Consultations (${waitingPatients.length + inProgress.length})`}
               subtitle="Patients currently at the clinic"
               action={
                 <Link to="/reception/walk-ins" className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
-
                   + Issue Token
                 </Link>
               }
@@ -142,7 +137,6 @@ export function ReceptionDashboardPage() {
             <div className="p-4 space-y-3">
               {waitingPatients.length === 0 && inProgress.length === 0 ? (
                 <div className="text-center py-8 text-sm text-slate-400 dark:text-slate-500">
-
                   Waiting room is currently clear. No patients awaiting doctors.
                 </div>
               ) : (
@@ -159,7 +153,6 @@ export function ReceptionDashboardPage() {
                           <Badge variant="In Progress" size="sm">In Doctor Room</Badge>
                         </div>
                         <p className="text-slate-600 dark:text-slate-400 mt-1 text-xs">{apt.doctorName} · {apt.serviceName}</p>
-
                       </div>
 
                       <Button
@@ -186,7 +179,6 @@ export function ReceptionDashboardPage() {
                           <Badge variant="Checked In" size="sm">Waiting</Badge>
                         </div>
                         <p className="text-slate-600 dark:text-slate-400 mt-1 text-xs">Assigned: {apt.doctorName} · Time: <span className="tabular-nums font-mono">{apt.time}</span></p>
-
                       </div>
 
                       <Button
@@ -205,13 +197,11 @@ export function ReceptionDashboardPage() {
 
           {/* Pending Online Requests needing Reception Review */}
           <Card className="border-slate-200 dark:border-slate-800">
-
             <CardHeader
               title={`Online Booking Requests (${pendingRequests.length})`}
               subtitle="Requires receptionist slot verification or alternative proposal"
               action={
                 <Link to="/reception/requests" className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
-
                   Open Requests Workspace &rarr;
                 </Link>
               }
@@ -221,7 +211,6 @@ export function ReceptionDashboardPage() {
                 <div className="p-3.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-xl text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <Clock className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0" />
-
                     <span><strong>{proposedAlternatives.length} alternative proposals</strong> currently awaiting patient confirmation.</span>
                   </div>
                   <Link to="/reception/requests">
@@ -242,7 +231,6 @@ export function ReceptionDashboardPage() {
                         <Badge variant="Requested" size="sm">Awaiting Review</Badge>
                       </div>
                       <p className="text-slate-600 dark:text-slate-400 text-xs mt-1">Requested: <span className="tabular-nums font-mono">{req.requestedDate || req.date}</span> at <span className="tabular-nums font-mono">{req.requestedTime || req.time}</span> · {req.doctorName}</p>
-
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -270,25 +258,21 @@ export function ReceptionDashboardPage() {
             <div className="grid grid-cols-2 gap-2">
               <Link to="/reception/walk-ins">
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
-
                   ⚡ Walk-In Express
                 </Button>
               </Link>
               <Link to="/reception/patients/new">
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
-
                   👤 Register Patient
                 </Button>
               </Link>
               <Link to="/reception/follow-ups">
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
-
                   📞 Follow-Up Queue
                 </Button>
               </Link>
               <Link to="/reception/tasks">
                 <Button variant="outline" size="sm" className="w-full justify-start text-xs font-semibold">
-
                   📋 Daily Tasks
                 </Button>
               </Link>
@@ -297,13 +281,11 @@ export function ReceptionDashboardPage() {
 
           {/* Follow-up tasks due today */}
           <Card className="border-slate-200 dark:border-slate-800">
-
             <CardHeader
               title="Follow-Ups Due Today"
               subtitle="Proactive post-procedure reminders"
               action={
                 <Link to="/reception/follow-ups" className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
-
                   All ({followUps.length})
                 </Link>
               }
@@ -320,7 +302,6 @@ export function ReceptionDashboardPage() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed line-clamp-2">{f.reason}</p>
                   <div className="pt-1 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
                     <span className="text-xs text-slate-400 dark:text-slate-500">Doctor: {f.doctorName}</span>
-
                     <button
                       onClick={() =>
                         openWhatsAppModal({
@@ -336,7 +317,6 @@ export function ReceptionDashboardPage() {
                       className="text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                     >
                       <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Send WhatsApp
-
                     </button>
                   </div>
                 </div>

@@ -31,7 +31,6 @@ export function ReceptionRequestsPage() {
     appointments = [],
     activeClinic,
     doctors = [],
-
     confirmBookingRequest,
     proposeAlternativeSlot,
     rejectBookingRequest,
@@ -69,7 +68,6 @@ export function ReceptionRequestsPage() {
   // Requests belonging to this clinic
   const clinicRequests = appointments.filter((a) => {
     const isClinicMatch = !a.clinicId || a.clinicId === activeClinic?.id;
-
     return isClinicMatch;
   });
 
@@ -172,7 +170,6 @@ export function ReceptionRequestsPage() {
             Online Booking Requests Coordination
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Verify patient preferred appointment slots, check doctor calendar conflicts, confirm bookings, or propose alternative times.
           </p>
         </div>
@@ -207,7 +204,6 @@ export function ReceptionRequestsPage() {
             <span className="text-xs text-slate-400 dark:text-slate-500">Needs receptionist slot check</span>
           </div>
           <span className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
-
             <Clock className="w-5 h-5" />
           </span>
         </div>
@@ -226,7 +222,6 @@ export function ReceptionRequestsPage() {
             <span className="text-xs text-slate-400 dark:text-slate-500">Alternative timeslot offered</span>
           </div>
           <span className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
-
             <Send className="w-5 h-5" />
           </span>
         </div>
@@ -245,7 +240,6 @@ export function ReceptionRequestsPage() {
             <span className="text-xs text-slate-400 dark:text-slate-500">Scheduled on doctor calendar</span>
           </div>
           <span className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
-
             <CheckCircle2 className="w-5 h-5" />
           </span>
         </div>
@@ -257,14 +251,12 @@ export function ReceptionRequestsPage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900">
           <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search by Request ID, Patient Name or Phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
-
             />
           </div>
 
@@ -273,7 +265,6 @@ export function ReceptionRequestsPage() {
               value={doctorFilter}
               onChange={(e) => setDoctorFilter(e.target.value)}
               className="p-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-medium"
-
             >
               <option value="All">All Clinic Doctors</option>
               {clinicDoctors.map((doc) => (
@@ -289,7 +280,6 @@ export function ReceptionRequestsPage() {
                   statusFilter === status
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-
                 }`}
               >
                 {status === 'Pending Clinic Confirmation' ? 'Pending' : status === 'Alternative Slot Proposed' ? 'Alternative Sent' : status}
@@ -304,7 +294,6 @@ export function ReceptionRequestsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Request ID</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Consulting Doctor</th>
@@ -319,13 +308,11 @@ export function ReceptionRequestsPage() {
               {filteredRequests.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
-
                     No requests found matching your filter criteria.
                   </td>
                 </tr>
               ) : (
                 filteredRequests.map((req, idx) => {
-
                   const isPending =
                     req.status === 'Pending Clinic Confirmation' || req.status === 'Requested';
                   const isAlternative =
@@ -363,7 +350,6 @@ export function ReceptionRequestsPage() {
                           </div>
                         ) : (
                           <span className="text-slate-400 dark:text-slate-500 text-xs">Standard request</span>
-
                         )}
                       </td>
                       <td className="p-3.5">
@@ -376,7 +362,6 @@ export function ReceptionRequestsPage() {
                               : isConfirmed
                               ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-
                           }`}
                         >
                           {req.status}
@@ -389,7 +374,6 @@ export function ReceptionRequestsPage() {
                           onClick={() => setSelectedRequest(req)}
                         >
                           <Eye className="w-3.5 h-3.5 mr-1" />
-
                           Review & Triage
                         </Button>
                       </td>
@@ -429,7 +413,6 @@ export function ReceptionRequestsPage() {
                   {selectedRequest.requestedDate || selectedRequest.date}
                 </span>
                 <span className="font-mono text-blue-700 dark:text-blue-400 font-bold text-xs">
-
                   {selectedRequest.requestedTime || selectedRequest.time}
                 </span>
               </div>
@@ -440,7 +423,6 @@ export function ReceptionRequestsPage() {
                     {selectedRequest.status}
                   </Badge>
                 </div>
-
               </div>
             </div>
 
@@ -450,7 +432,6 @@ export function ReceptionRequestsPage() {
                 selectedCheck.available
                   ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-900 text-emerald-950 dark:text-emerald-200'
                   : 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900 text-amber-950 dark:text-amber-200'
-
               }`}
             >
               {selectedCheck.available ? (
@@ -459,7 +440,6 @@ export function ReceptionRequestsPage() {
                   <div>
                     <h4 className="font-bold text-sm">Doctor Schedule Verified — Slot is Available!</h4>
                     <p className="text-xs text-emerald-800 dark:text-emerald-300 mt-0.5">
-
                       No schedule conflicts found for Dr. {selectedRequest.doctorName} on {selectedRequest.requestedDate || selectedRequest.date} at {selectedRequest.requestedTime || selectedRequest.time}. You can confirm this slot directly.
                     </p>
                   </div>
@@ -470,7 +450,6 @@ export function ReceptionRequestsPage() {
                   <div>
                     <h4 className="font-bold text-sm">Doctor Unavailable / Schedule Conflict Detected</h4>
                     <p className="text-xs text-amber-800 dark:text-amber-300 mt-0.5">
-
                       {selectedCheck.reason || 'This timeslot has an overlapping confirmed appointment.'} Use <strong>Workflow B</strong> below to offer an alternative slot to the patient.
                     </p>
                   </div>
@@ -483,7 +462,6 @@ export function ReceptionRequestsPage() {
               <div className="p-3.5 bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl space-y-1">
                 <span className="font-bold text-blue-900 dark:text-blue-300 block text-xs">Patient Flexible Preferences:</span>
                 <div className="flex justify-between text-slate-700 dark:text-slate-300 text-xs">
-
                   <span>Preferred Time of Day: <strong>{selectedRequest.patientAlternativePreferences.preferredTimeOfDay}</strong></span>
                   {selectedRequest.patientAlternativePreferences.secondPreferredDate && (
                     <span>Alternative Date: <strong>{selectedRequest.patientAlternativePreferences.secondPreferredDate}</strong></span>
@@ -491,7 +469,6 @@ export function ReceptionRequestsPage() {
                 </div>
                 {selectedRequest.patientAlternativePreferences.noteForReceptionist && (
                   <p className="text-slate-600 dark:text-slate-400 italic pt-1 text-xs">
-
                     "{selectedRequest.patientAlternativePreferences.noteForReceptionist}"
                   </p>
                 )}
@@ -511,7 +488,6 @@ export function ReceptionRequestsPage() {
                       {h.notes && <p className="text-slate-500 dark:text-slate-400 italic mt-0.5">"{h.notes}"</p>}
                     </div>
                     <span className="text-xs text-slate-400 dark:text-slate-500 font-mono shrink-0 ml-2">
-
                       {h.timestamp} ({h.actor})
                     </span>
                   </div>
@@ -528,7 +504,6 @@ export function ReceptionRequestsPage() {
                 className="text-red-600 dark:text-red-400 border-red-200 dark:border-red-900 hover:bg-red-50 dark:hover:bg-red-950/40"
               >
                 <XCircle className="w-4 h-4 mr-1.5" />
-
                 Reject Request
               </Button>
 
@@ -536,7 +511,6 @@ export function ReceptionRequestsPage() {
                 <Button
                   variant="outline"
                   size="sm"
-
                   onClick={() => {
                     setAltDate(selectedRequest.requestedDate || selectedRequest.date);
                     setIsProposeModalOpen(true);
@@ -544,7 +518,6 @@ export function ReceptionRequestsPage() {
                   className="border-blue-300 dark:border-blue-800 text-blue-700 dark:text-blue-300 bg-blue-50/60 dark:bg-blue-950/40"
                 >
                   <Clock className="w-4 h-4 mr-1.5" />
-
                   Workflow B: Propose Alternative
                 </Button>
 
@@ -555,7 +528,6 @@ export function ReceptionRequestsPage() {
                   onClick={() => setIsConfirmModalOpen(true)}
                 >
                   <CheckCircle2 className="w-4 h-4 mr-1.5" />
-
                   Workflow A: Confirm Requested Slot
                 </Button>
               </div>
@@ -581,13 +553,11 @@ export function ReceptionRequestsPage() {
                 {selectedRequest.requestedDate || selectedRequest.date} at {selectedRequest.requestedTime || selectedRequest.time}
               </span>
               <span className="text-xs text-emerald-700 dark:text-emerald-400">
-
                 Service: {selectedRequest.serviceName} ({selectedRequest.durationMinutes || 30} mins)
               </span>
             </div>
 
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Confirming will add this booking to the doctor's calendar, update the clinic dashboard, and dispatch an immediate confirmation notification to the patient.
             </p>
 
@@ -597,7 +567,6 @@ export function ReceptionRequestsPage() {
               </Button>
               <Button variant="primary" size="sm" onClick={handleConfirmSubmit}>
                 <CheckCircle2 className="w-4 h-4 mr-1.5" />
-
                 Yes, Finalize & Confirm Booking
               </Button>
             </div>
@@ -614,21 +583,18 @@ export function ReceptionRequestsPage() {
         {selectedRequest && (
           <form onSubmit={handleProposeSubmit} className="space-y-4 text-sm">
             <div className="p-3.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl text-blue-950 dark:text-blue-200 text-xs">
-
               The requested time was unavailable. Select a verified available slot on Dr. {selectedRequest.doctorName}'s schedule to propose to {selectedRequest.patientName}.
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Alternative Date</label>
-
                 <input
                   type="date"
                   required
                   value={altDate}
                   onChange={(e) => setAltDate(e.target.value)}
                   className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-mono text-sm"
-
                 />
               </div>
 
@@ -638,7 +604,6 @@ export function ReceptionRequestsPage() {
                   value={altTime}
                   onChange={(e) => setAltTime(e.target.value)}
                   className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-mono text-sm"
-
                 >
                   {proposedDoctorSlots.filter((s) => s.available).map((s) => (
                     <option key={s.time} value={s.time}>{s.time}</option>
@@ -652,7 +617,6 @@ export function ReceptionRequestsPage() {
 
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-
                 Reason for Alternative (Displayed to Patient)
               </label>
               <textarea
@@ -661,13 +625,11 @@ export function ReceptionRequestsPage() {
                 value={altReason}
                 onChange={(e) => setAltReason(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm"
-
                 placeholder="Explain why the requested time could not be accommodated..."
               />
             </div>
 
             <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-600 dark:text-slate-400">
-
               <strong>Rules:</strong> The status will change to <em>"Alternative Slot Proposed / Awaiting Patient Response"</em>. The appointment will NOT be confirmed until the patient accepts and availability is re-validated.
             </div>
 
@@ -677,7 +639,6 @@ export function ReceptionRequestsPage() {
               </Button>
               <Button variant="primary" size="sm" type="submit">
                 <Send className="w-4 h-4 mr-1.5" />
-
                 Send Alternative to Patient
               </Button>
             </div>
@@ -694,20 +655,17 @@ export function ReceptionRequestsPage() {
         {selectedRequest && (
           <form onSubmit={handleRejectSubmit} className="space-y-4 text-sm">
             <p className="text-slate-700 dark:text-slate-300">
-
               Are you sure you cannot accommodate <strong>{selectedRequest.patientName}</strong>'s booking request for <strong>Dr. {selectedRequest.doctorName}</strong>?
             </p>
 
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Reason for Rejection</label>
-
               <textarea
                 rows={3}
                 required
                 value={rejectReason}
                 onChange={(e) => setRejectReason(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm"
-
               />
             </div>
 
@@ -725,4 +683,3 @@ export function ReceptionRequestsPage() {
     </div>
   );
 }
-

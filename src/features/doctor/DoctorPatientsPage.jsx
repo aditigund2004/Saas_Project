@@ -15,7 +15,6 @@ export function DoctorPatientsPage() {
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.patientIdNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.phone.includes(searchTerm)
-
   );
 
   return (
@@ -30,7 +29,6 @@ export function DoctorPatientsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinical Patient Panel</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Patients under primary care of Dr. Arvind Rao, MDS ({filteredPatients.length} records)
           </p>
         </div>
@@ -38,7 +36,6 @@ export function DoctorPatientsPage() {
         <Link to="/doctor/consultation">
           <Button variant="primary" size="sm">
             <Stethoscope className="w-3.5 h-3.5 mr-1.5" />
-
             New Clinical Encounter
           </Button>
         </Link>
@@ -47,14 +44,12 @@ export function DoctorPatientsPage() {
       {/* Search Input */}
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
-
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search patient by name, ID (e.g. PT-1042), or phone..."
           className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
         />
       </div>
 
@@ -65,7 +60,6 @@ export function DoctorPatientsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-
                 <th className="px-4 py-3">Patient ID</th>
                 <th className="px-4 py-3">Name & Demographics</th>
                 <th className="px-4 py-3">Contact</th>
@@ -79,7 +73,6 @@ export function DoctorPatientsPage() {
               {filteredPatients.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No matching patients found.
                   </td>
                 </tr>
@@ -94,7 +87,6 @@ export function DoctorPatientsPage() {
                       <td className="px-4 py-3">
                         <div className="font-bold text-slate-900 dark:text-white">{p.name}</div>
                         <div className="text-xs text-slate-400 dark:text-slate-500">
-
                           {p.gender} · DOB: {p.dob}
                         </div>
                       </td>
@@ -106,7 +98,6 @@ export function DoctorPatientsPage() {
                         <div className="text-xs text-slate-400 dark:text-slate-500">{p.email}</div>
                       </td>
                       <td className="px-4 py-3 font-semibold text-rose-700 dark:text-rose-400">
-
                         {p.bloodGroup || 'O +ve'}
                       </td>
                       <td className="px-4 py-3">
@@ -116,7 +107,6 @@ export function DoctorPatientsPage() {
                           </span>
                         ) : (
                           <span className="text-slate-400 dark:text-slate-500">No known allergies</span>
-
                         )}
                       </td>
                       <td className="px-4 py-3">
@@ -126,7 +116,6 @@ export function DoctorPatientsPage() {
                         <Link to={`/doctor/consultation`}>
                           <Button variant="secondary" size="sm" className="h-7 text-xs">
                             <Stethoscope className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-400" />
-
                             Consult
                           </Button>
                         </Link>
@@ -142,4 +131,3 @@ export function DoctorPatientsPage() {
     </div>
   );
 }
-

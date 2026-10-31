@@ -47,7 +47,6 @@ export function PatientOnboardingPage() {
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between text-slate-900 dark:text-slate-100">
       {/* Top Header */}
       <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
-
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold">
             <Activity className="w-5 h-5" />
@@ -61,7 +60,6 @@ export function PatientOnboardingPage() {
         <button
           onClick={handleFinishOnboarding}
           className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:underline cursor-pointer"
-
         >
           Skip Onboarding &rarr;
         </button>
@@ -83,7 +81,6 @@ export function PatientOnboardingPage() {
                   currentStep >= s.num
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-
                 }`}
               >
                 {currentStep > s.num ? <CheckCircle2 className="w-4 h-4" /> : s.num}
@@ -91,7 +88,6 @@ export function PatientOnboardingPage() {
               <span
                 className={`text-xs font-semibold hidden sm:inline ${
                   currentStep >= s.num ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'
-
                 }`}
               >
                 {s.label}
@@ -104,7 +100,6 @@ export function PatientOnboardingPage() {
         {currentStep === 1 && (
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-center">
             <div className="w-16 h-16 rounded-3xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto shadow-sm">
-
               <Sparkles className="w-8 h-8" />
             </div>
 
@@ -116,7 +111,6 @@ export function PatientOnboardingPage() {
                 Welcome to ClinicOS, {user?.name || 'Aarav'}!
               </h1>
               <p className="text-xs text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-
                 Your demonstration patient account is activated. You can now discover specialized doctors across 5 independent clinics, request consultations, and access verified digital prescriptions.
               </p>
             </div>
@@ -138,7 +132,6 @@ export function PatientOnboardingPage() {
                 <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <h2 className="font-bold text-xs text-slate-900 dark:text-white">QR Prescriptions</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">Tamper-evident medical records with instant lookup.</p>
-
               </div>
             </div>
 
@@ -147,7 +140,6 @@ export function PatientOnboardingPage() {
                 type="button"
                 onClick={handleFinishOnboarding}
                 className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-semibold cursor-pointer"
-
               >
                 Skip straight to dashboard
               </button>
@@ -175,7 +167,6 @@ export function PatientOnboardingPage() {
                 Enhance Your Patient Chart
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-
                 These optional clinical markers assist consulting physicians during your outpatient visits.
               </p>
             </div>
@@ -187,7 +178,6 @@ export function PatientOnboardingPage() {
                   value={bloodGroup}
                   onChange={(e) => setBloodGroup(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500"
-
                 >
                   <option value="A+">A Positive (A+)</option>
                   <option value="A-">A Negative (A-)</option>
@@ -202,33 +192,28 @@ export function PatientOnboardingPage() {
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">Emergency Contact</label>
-
                 <input
                   type="text"
                   value={emergencyContact}
                   onChange={(e) => setEmergencyContact(e.target.value)}
                   placeholder="e.g. +91 98765 99999 (Ritu Patel - Spouse)"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">Known Drug Allergies</label>
-
                 <input
                   type="text"
                   value={allergies}
                   onChange={(e) => setAllergies(e.target.value)}
                   placeholder="e.g. Penicillin, NSAIDs, Sulfa drugs (or None)"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
             </div>
 
             <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="ghost" size="sm" onClick={() => setCurrentStep(1)}>
                 <ArrowLeft className="w-4 h-4 mr-1" /> Back
               </Button>
@@ -262,7 +247,6 @@ export function PatientOnboardingPage() {
                 Discover 5 Specialty Clinics
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-
                 You are not locked into one clinic. You can schedule appointments across all participating clinics freely.
               </p>
             </div>
@@ -281,7 +265,6 @@ export function PatientOnboardingPage() {
                     <p className="text-xs text-slate-500 dark:text-slate-400">{c.spec} · {c.city}</p>
                   </div>
                   <span className="font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 px-2.5 py-0.5 rounded-lg text-xs">
-
                     {c.fee}
                   </span>
                 </div>
@@ -289,7 +272,6 @@ export function PatientOnboardingPage() {
             </div>
 
             <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="ghost" size="sm" onClick={() => setCurrentStep(2)}>
                 <ArrowLeft className="w-4 h-4 mr-1" /> Back
               </Button>
@@ -309,7 +291,6 @@ export function PatientOnboardingPage() {
         {currentStep === 4 && (
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-center">
             <div className="w-16 h-16 rounded-3xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
-
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
@@ -321,7 +302,6 @@ export function PatientOnboardingPage() {
                 You're All Set, {user?.name || 'Aarav'}!
               </h1>
               <p className="text-xs text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-
                 Your profile is active. You can now book your first consultation or explore your health overview dashboard.
               </p>
             </div>
@@ -344,10 +324,8 @@ export function PatientOnboardingPage() {
       </div>
 
       <div className="text-center text-xs text-slate-400 dark:text-slate-500 pb-4">
-
         ClinicOS Multi-Tenant Healthcare SaaS &bull; Synthetic Demo Environment
       </div>
     </div>
   );
 }
-

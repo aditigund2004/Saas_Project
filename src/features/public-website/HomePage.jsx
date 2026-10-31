@@ -27,7 +27,6 @@ import {
   Palette,
   Rocket,
   Activity
-
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -198,6 +197,12 @@ export function HomePage() {
                   <ArrowRight className="w-4 h-4 text-slate-400" />
                 </button>
               </Link>
+              <Link to="/demo-access">
+                <button className="px-5 py-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 hover:bg-blue-100/80 font-bold text-sm shadow-xs flex items-center gap-2 cursor-pointer transition-colors">
+                  <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <span>Demo Portals</span>
+                </button>
+              </Link>
             </div>
 
             {/* Video watch trigger link */}
@@ -260,7 +265,6 @@ export function HomePage() {
                         {doc.specialty}
                       </p>
                     </div>
-
                   </div>
                 ))}
               </div>
@@ -281,7 +285,6 @@ export function HomePage() {
                   className="text-[11px] text-blue-600 dark:text-blue-400 font-bold hover:underline shrink-0 ml-2"
                 >
                   View Demo →
-
                 </Link>
               </div>
             </div>
@@ -308,7 +311,6 @@ export function HomePage() {
             <span className="text-[11px] font-sans font-mono text-slate-400">
               Oct 2026
             </span>
-
           </div>
         </div>
       </section>
@@ -445,7 +447,6 @@ export function HomePage() {
                   <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xs">
                     {s.description}
                   </p>
-
                 </div>
               );
             })}
@@ -704,7 +705,6 @@ export function HomePage() {
                 className="text-white border-slate-700 hover:bg-slate-800 font-semibold text-xs px-5 py-3 rounded-2xl"
               >
                 View Plans & Pricing
-
               </Button>
             </Link>
           </div>
@@ -750,7 +750,6 @@ export function HomePage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

@@ -7,7 +7,6 @@ import {
   Mail,
   Clock,
   ShieldCheck,
-
   ArrowRight
 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
@@ -24,7 +23,6 @@ export function ClinicDetailPage() {
 
   return (
     <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-10 transition-colors">
-
       {/* Clinic Header Banner */}
       <div className="relative rounded-3xl overflow-hidden bg-slate-900 text-white border border-slate-800 shadow-xl">
         <div className="h-64 sm:h-80 w-full relative">
@@ -75,7 +73,6 @@ export function ClinicDetailPage() {
                 activeTab === 'services'
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-
               }`}
             >
               Services & Pricing ({clinic.services.length})
@@ -86,7 +83,6 @@ export function ClinicDetailPage() {
                 activeTab === 'doctors'
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-
               }`}
             >
               Consulting Doctors ({clinicDoctors.length})
@@ -97,7 +93,6 @@ export function ClinicDetailPage() {
                 activeTab === 'branches'
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-
               }`}
             >
               Branches & Locations ({clinic.branches.length})
@@ -122,7 +117,6 @@ export function ClinicDetailPage() {
 
                     <div className="text-right shrink-0">
                       <div className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
-
                         ₹{srv.fee.toLocaleString('en-IN')}
                       </div>
                       <Link to={`/book-appointment?clinic=${clinic.id}&service=${srv.id}`}>
@@ -158,7 +152,6 @@ export function ClinicDetailPage() {
                         <span>🕒 {doc.workingHours}</span>
                         <span>•</span>
                         <span className="tabular-nums">Fee: ₹{doc.consultationFee.toLocaleString('en-IN')}</span>
-
                       </div>
                     </div>
                     <div className="shrink-0 sm:self-center">
@@ -186,7 +179,6 @@ export function ClinicDetailPage() {
                       {b.isMain && <Badge variant="Active">Primary Facility</Badge>}
                     </div>
                     <div className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
-
                       <p>📍 {b.address}, {b.city}</p>
                       <p>📞 Phone: {b.phone}</p>
                       <p>🕒 Hours: {b.operatingHours}</p>
@@ -224,7 +216,6 @@ export function ClinicDetailPage() {
               </div>
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-
                 <span>{clinic.operatingHours}</span>
               </div>
             </div>
@@ -239,7 +230,6 @@ export function ClinicDetailPage() {
               {clinic.bookingPolicy}
             </p>
             <div className="pt-1 text-[11px] text-blue-700 dark:text-blue-400">
-
               ✓ Instant confirmation via SMS / WhatsApp notification
             </div>
           </Card>
@@ -250,7 +240,6 @@ export function ClinicDetailPage() {
               Move your own clinic to ClinicOS with a 14-day free trial.
             </p>
             <Link to="/register/clinic" className="block">
-
               <Button variant="outline" size="sm" className="w-full">
                 Register Your Clinic
               </Button>
@@ -261,4 +250,3 @@ export function ClinicDetailPage() {
     </div>
   );
 }
-

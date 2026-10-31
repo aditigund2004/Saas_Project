@@ -48,7 +48,6 @@ export function SaaSPaymentsPage() {
     link.click();
     document.body.removeChild(link);
     showToast('SaaS payments ledger CSV exported.', 'success');
-
   };
 
   return (
@@ -59,7 +58,6 @@ export function SaaSPaymentsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Gateway Transactions</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Payment Ledger</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Real-time gateway settlements, Razorpay/Stripe webhooks, UPI autopay debits, and corporate cards.
           </p>
         </div>
@@ -76,14 +74,12 @@ export function SaaSPaymentsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by transaction reference (e.g. rzp_pay_99812A), clinic, or invoice..."
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-
             />
           </div>
 
@@ -92,7 +88,6 @@ export function SaaSPaymentsPage() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-950 font-medium text-slate-700 dark:text-slate-200"
-
             >
               <option value="All">All Transaction Statuses</option>
               <option value="Success">Success (Settled)</option>
@@ -105,7 +100,6 @@ export function SaaSPaymentsPage() {
 
       {/* Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title={`Settled Gateway Transactions (${filteredPayments.length})`}
           subtitle="Showing bank batch reference numbers and payment provider clearance"
@@ -141,21 +135,18 @@ export function SaaSPaymentsPage() {
                         p.status === 'Success'
                           ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                           : 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
-
                       }`}
                     >
                       {p.status}
                     </span>
                   </td>
                   <td className="p-4 text-right font-sans">
-
                     {p.status === 'Failed' ? (
                       <Button
                         variant="outline"
                         size="sm"
                         className="text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40"
                         onClick={() => showToast(`Payment retry queued for ${p.paymentReference}`, 'info')}
-
                       >
                         Retry Debit
                       </Button>
@@ -164,7 +155,6 @@ export function SaaSPaymentsPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => showToast(`Gateway receipt verified: ${p.paymentReference}`, 'info')}
-
                       >
                         Receipt
                       </Button>
@@ -179,4 +169,3 @@ export function SaaSPaymentsPage() {
     </div>
   );
 }
-

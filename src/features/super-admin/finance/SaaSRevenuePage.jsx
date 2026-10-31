@@ -64,7 +64,6 @@ export function SaaSRevenuePage() {
     link.click();
     document.body.removeChild(link);
     showToast('SaaS revenue breakdown CSV exported.', 'success');
-
   };
 
   return (
@@ -75,7 +74,6 @@ export function SaaSRevenuePage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Revenue Operations</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Revenue & Plan Analytics</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             MRR distribution across subscription tiers, annual vs monthly mix, customer retention, and churn indicators.
           </p>
         </div>
@@ -111,7 +109,6 @@ export function SaaSRevenuePage() {
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Annual Billing Mix</span>
           <div className="text-2xl sm:text-3xl font-extrabold text-purple-700 dark:text-purple-400 mt-1">38% Annual</div>
           <span className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 block">Upfront annual subscriptions</span>
-
         </Card>
       </div>
 
@@ -134,7 +131,6 @@ export function SaaSRevenuePage() {
               <Tooltip
                 formatter={(val) => [`₹${Number(val).toLocaleString('en-IN')}`, 'Monthly Revenue']}
                 contentStyle={{ borderRadius: 12, backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff', fontSize: 13 }}
-
               />
               <Bar dataKey="mrr" radius={[8, 8, 0, 0]}>
                 {planBreakdown.map((entry, index) => (
@@ -148,7 +144,6 @@ export function SaaSRevenuePage() {
 
       {/* Table: Plan Economics & Retention Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title="SaaS Plan Performance & Entitlements"
           subtitle="Pricing points, active clinic tenant counts, and monthly recurring contribution"
@@ -183,7 +178,6 @@ export function SaaSRevenuePage() {
                           <div className="bg-blue-600 dark:bg-blue-500 h-full rounded-full" style={{ width: `${sharePercent}%` }} />
                         </div>
                         <span className="font-mono text-xs text-slate-600 dark:text-slate-300 font-bold">{sharePercent}%</span>
-
                       </div>
                     </td>
                   </tr>
@@ -196,4 +190,3 @@ export function SaaSRevenuePage() {
     </div>
   );
 }
-

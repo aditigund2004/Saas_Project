@@ -55,14 +55,12 @@ export function EmailTemplatesTab({
           {/* Search Box */}
           <div className="relative w-full sm:w-72">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search templates or keys..."
               className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
             />
           </div>
 
@@ -71,7 +69,6 @@ export function EmailTemplatesTab({
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
           >
             <option value="all">All Categories ({templates.length})</option>
             <option value="Onboarding & Activation">Onboarding & Activation</option>
@@ -86,7 +83,6 @@ export function EmailTemplatesTab({
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
           >
             <option value="all">All Statuses</option>
             <option value="active">Active Only</option>
@@ -102,7 +98,6 @@ export function EmailTemplatesTab({
           className="shadow-sm font-semibold shrink-0"
         >
           Create Template
-
         </Button>
       </div>
 
@@ -113,7 +108,6 @@ export function EmailTemplatesTab({
             <thead>
               <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                 <th className="py-3 px-3 text-center w-12">#</th>
-
                 <th className="py-3 px-4">Template Name & Key</th>
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Subject Line</th>
@@ -127,7 +121,6 @@ export function EmailTemplatesTab({
               {filteredTemplates.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No email templates matched the selected criteria.
                   </td>
                 </tr>
@@ -143,34 +136,29 @@ export function EmailTemplatesTab({
                           <span>{tpl.name}</span>
                           {tpl.isPrebuilt && (
                             <span className="text-xs font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono">
-
                               Prebuilt
                             </span>
                           )}
                         </div>
                         <span className="font-mono text-xs text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded inline-block mt-0.5 border border-blue-100 dark:border-blue-900/50">
-
                           {tpl.key}
                         </span>
                       </td>
 
                       <td className="py-3 px-4">
                         <span className="text-xs font-medium text-slate-600 dark:text-slate-300">
-
                           {tpl.category}
                         </span>
                       </td>
 
                       <td className="py-3 px-4">
                         <div className="font-medium text-slate-800 dark:text-slate-200 max-w-xs truncate" title={tpl.subject}>
-
                           {tpl.subject}
                         </div>
                       </td>
 
                       <td className="py-3 px-4">
                         <span className="capitalize text-slate-600 dark:text-slate-400 font-mono text-xs">
-
                           {tpl.recipientType.replace('_', ' ')}
                         </span>
                       </td>
@@ -182,7 +170,6 @@ export function EmailTemplatesTab({
                           </span>
                         ) : (
                           <span className="text-slate-400 dark:text-slate-500 text-xs italic">Manual / Broadcast</span>
-
                         )}
                       </td>
 
@@ -194,20 +181,17 @@ export function EmailTemplatesTab({
                             isActive
                               ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-
                           }`}
                           title="Click to toggle active state"
                         >
                           {isActive ? (
                             <>
                               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-
                               <span>Active</span>
                             </>
                           ) : (
                             <>
                               <XCircle className="w-3.5 h-3.5 text-slate-400" />
-
                               <span>Inactive</span>
                             </>
                           )}
@@ -224,7 +208,6 @@ export function EmailTemplatesTab({
                             title="Preview Desktop / Mobile Email"
                           >
                             <Eye className="w-4 h-4" />
-
                           </button>
 
                           {/* Test Send Simulation */}
@@ -235,7 +218,6 @@ export function EmailTemplatesTab({
                             title="Send Test Simulation"
                           >
                             <Send className="w-4 h-4" />
-
                           </button>
 
                           {/* Edit Action */}
@@ -246,7 +228,6 @@ export function EmailTemplatesTab({
                             title="Edit Template"
                           >
                             <Edit2 className="w-4 h-4" />
-
                           </button>
 
                           {/* Duplicate Action */}
@@ -257,7 +238,6 @@ export function EmailTemplatesTab({
                             title="Duplicate Template"
                           >
                             <Copy className="w-4 h-4" />
-
                           </button>
 
                           {/* Delete Action */}
@@ -268,7 +248,6 @@ export function EmailTemplatesTab({
                             title="Delete Template"
                           >
                             <Trash2 className="w-4 h-4" />
-
                           </button>
                         </div>
                       </td>
@@ -297,14 +276,12 @@ export function EmailTemplatesTab({
                   Delete "{deletingTemplate.name}"?
                 </p>
                 <p className="text-rose-800 dark:text-rose-300 text-xs mt-1">
-
                   Associated automated triggers will be unmapped. This action cannot be undone.
                 </p>
               </div>
             </div>
 
             <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button
                 variant="outline"
                 size="sm"
@@ -330,4 +307,3 @@ export function EmailTemplatesTab({
     </div>
   );
 }
-

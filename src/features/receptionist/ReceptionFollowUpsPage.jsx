@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { Modal } from '../../components/ui/Modal';
 import { Phone, Calendar, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 
 export function ReceptionFollowUpsPage() {
@@ -12,7 +13,6 @@ export function ReceptionFollowUpsPage() {
   const pendingCount = followUps.filter((f) => f.status !== 'Completed').length;
   const completedCount = followUps.filter((f) => f.status === 'Completed').length;
 
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -20,7 +20,6 @@ export function ReceptionFollowUpsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Continuity</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Follow-Up Schedule & Recalls</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Proactively contact patients for post-procedure check-ins, aligner reviews, and suture removals.
           </p>
         </div>
@@ -52,7 +51,6 @@ export function ReceptionFollowUpsPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-
         <CardHeader
           title={`Follow-Up Tasks Queue (${followUps.length})`}
           subtitle="Trigger WhatsApp check-ins and schedule review consultations"
@@ -94,7 +92,6 @@ export function ReceptionFollowUpsPage() {
                   </td>
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-2">
-
                       <button
                         onClick={() =>
                           openWhatsAppModal({
@@ -110,7 +107,6 @@ export function ReceptionFollowUpsPage() {
                         className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 cursor-pointer flex items-center gap-1.5 transition-colors"
                       >
                         <MessageSquare className="w-3.5 h-3.5" /> WhatsApp
-
                       </button>
 
                       {task.status !== 'Completed' && (
@@ -136,7 +132,79 @@ export function ReceptionFollowUpsPage() {
           </table>
         </div>
       </Card>
+
+      {/* Log Outreach Call Modal */}
+      {selectedTaskForCall && (
+        <Modal
+          isOpen={!!selectedTaskForCall}
+          onClose={() => setSelectedTaskForCall(null)}
+          title={`Log Phone Call Outreach: ${selectedTaskForCall.patientName}`}
+          size="md"
+        >
+          <form onSubmit={handleSaveOutreach} className="space-y-4 text-xs text-slate-800 dark:text-slate-200">
+            <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-xl border border-blue-200 dark:border-blue-900/50 space-y-1">
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-blue-900 dark:text-blue-300 text-xs">
+                  {selectedTaskForCall.patientName} ({selectedTaskForCall.patientPhone})
+                </span>
+                <span className="font-mono text-xs text-slate-500">Due: {selectedTaskForCall.dueDate}</span>
+              </div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400">
+                Reason: {selectedTaskForCall.reason} · Assigned: {selectedTaskForCall.doctorName}
+              </p>
+            </div>
+
+            <div>
+              <label className="block font-semibold mb-1">Outreach Call Result *</label>
+              <select
+                value={outreachResult}
+                onChange={(e) => setOutreachResult(e.target.value)}
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-medium focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="Confirmed">Patient Confirmed Attendance for Visit</option>
+                <option value="Rescheduled">Patient Requested Reschedule Date</option>
+                <option value="Unreachable">Phone Ringing / Unanswered (Retry Later)</option>
+                <option value="Recovered">Patient Fully Recovered / Review Discharged</option>
+              </select>
+            </div>
+
+            {outreachResult === 'Rescheduled' && (
+              <div>
+                <label className="block font-semibold mb-1 text-blue-700 dark:text-blue-300">
+                  New Rescheduled Follow-Up Date *
+                </label>
+                <input
+                  required
+                  type="date"
+                  value={newRescheduleDate}
+                  onChange={(e) => setNewRescheduleDate(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl border border-blue-300 dark:border-blue-700 bg-white dark:bg-slate-900 text-xs font-mono font-bold"
+                />
+              </div>
+            )}
+
+            <div>
+              <label className="block font-semibold mb-1">Conversation Notes</label>
+              <textarea
+                rows={2}
+                value={callNotes}
+                onChange={(e) => setCallNotes(e.target.value)}
+                placeholder="e.g. Patient feeling much better, pain subsiding, confirmed appointment for Thursday..."
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <Button variant="outline" type="button" onClick={() => setSelectedTaskForCall(null)}>
+                Cancel
+              </Button>
+              <Button variant="primary" type="submit" className="font-bold">
+                Save Call Record
+              </Button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </div>
   );
 }
-

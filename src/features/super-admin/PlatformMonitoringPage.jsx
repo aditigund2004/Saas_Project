@@ -29,7 +29,6 @@ export function PlatformMonitoringPage() {
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Platform Telemetry & System Health</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Real-time multi-region health indicators, worker job daemons, API adapters, and security audit trail
           </p>
         </div>
@@ -37,7 +36,6 @@ export function PlatformMonitoringPage() {
         <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
           <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300">All Clusters Operational (99.98% Uptime)</span>
-
         </div>
       </div>
 
@@ -77,7 +75,6 @@ export function PlatformMonitoringPage() {
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-blue-900 dark:text-blue-300 tabular-nums">100% Valid</div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Tamper-evident hash verified</p>
-
         </Card>
       </div>
 
@@ -95,7 +92,6 @@ export function PlatformMonitoringPage() {
               <div key={job.id} className="p-4 space-y-1.5 hover:bg-slate-50 dark:hover:bg-slate-800/40 text-sm">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-900 dark:text-white">{job.name}</span>
-
                   <Badge variant="success" size="sm">
                     {job.status}
                   </Badge>
@@ -105,7 +101,6 @@ export function PlatformMonitoringPage() {
                   <span>Execution: <strong className="text-slate-700 dark:text-slate-300">{job.duration}</strong></span>
                 </div>
                 <div className="flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 pt-0.5">
-
                   <span>Last Run: {job.lastRun}</span>
                   <span>Processed: {job.processedRecords} records</span>
                 </div>
@@ -128,7 +123,6 @@ export function PlatformMonitoringPage() {
                   <div>
                     <span className="font-bold text-slate-900 dark:text-white">{int.name}</span>
                     <span className="text-xs text-slate-400 dark:text-slate-500 block mt-0.5">{int.category} · {int.provider}</span>
-
                   </div>
                   <Badge variant="success" size="sm">
                     {int.status}
@@ -137,7 +131,6 @@ export function PlatformMonitoringPage() {
                 <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-1">
                   <span>Adapter Latency: <strong className="text-slate-700 dark:text-slate-300">{int.latencyMs}ms</strong></span>
                   <span>90-Day Uptime: <strong className="text-slate-700 dark:text-slate-300">{int.uptime90d}%</strong></span>
-
                 </div>
               </div>
             ))}
@@ -178,7 +171,6 @@ export function PlatformMonitoringPage() {
                     <td className="px-4 py-3.5 text-slate-700 dark:text-slate-300">{log.target}</td>
                     <td className="px-4 py-3.5 font-mono text-slate-500 dark:text-slate-400 text-xs">{log.ipAddress}</td>
                     <td className="px-4 py-3.5 text-right">
-
                       <Badge variant="success" size="sm">{log.status}</Badge>
                     </td>
                   </tr>
@@ -191,4 +183,3 @@ export function PlatformMonitoringPage() {
     </div>
   );
 }
-

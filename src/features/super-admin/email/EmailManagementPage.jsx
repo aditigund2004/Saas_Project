@@ -39,7 +39,6 @@ export function EmailManagementPage() {
 
   // Modal States
   const [editingTemplate, setEditingTemplate] = useState(null);
-
   const [previewTemplate, setPreviewTemplate] = useState(null);
   const [previewSampleData, setPreviewSampleData] = useState({});
   const [editingCampaign, setEditingCampaign] = useState(null);
@@ -155,13 +154,11 @@ export function EmailManagementPage() {
     showToast('Reset all email demo data back to default state.', 'info');
   };
 
-
   const handleSimulatorComplete = (res) => {
     setLogs(emailService.getActivityLogs());
     setTriggers(emailService.getTriggers());
     showToast(res.message, res.success ? 'success' : 'error');
   };
-
 
   const handleSendTestFromPreview = (tpl) => {
     const res = emailService.simulateEventTrigger(tpl.associatedTriggerKey || 'feature.published', {
@@ -196,7 +193,6 @@ export function EmailManagementPage() {
             </span>
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Manage automated event triggers, custom HTML/text templates, audience broadcast campaigns, and simulation logs.
           </p>
         </div>
@@ -211,7 +207,6 @@ export function EmailManagementPage() {
             className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm cursor-pointer"
           >
             <Play className="w-4 h-4" />
-
             <span>Event Simulator</span>
           </button>
         </div>
@@ -219,7 +214,6 @@ export function EmailManagementPage() {
 
       {/* Navigation Tabs Bar */}
       <div className="border-b border-slate-200 dark:border-slate-800">
-
         <nav className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto pb-px" aria-label="Tabs">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -242,7 +236,6 @@ export function EmailManagementPage() {
                   <span
                     className={`ml-1 px-2 py-0.5 rounded-full text-xs font-mono font-bold ${
                       isActive ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-
                     }`}
                   >
                     {tab.count}
@@ -300,6 +293,7 @@ export function EmailManagementPage() {
             onToggleStatus={handleToggleTemplateStatus}
             onDelete={handleDeleteTemplate}
             onSendTest={(tpl) => handleSendTestFromPreview(tpl)}
+            onSaveTemplate={handleSaveTemplate}
           />
         )}
 

@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
+  calculateDynamicDuration,
+  DOCTOR_PACE_PROFILES,
+  CLINICAL_REASONS,
+  calculateEndTime,
+  formatTimeWithDuration
+} from '../utils/aiAppointmentDuration';
+import {
   DEMO_USERS,
   DEMO_CLINICS,
   DEMO_DOCTORS,
@@ -32,13 +39,24 @@ import {
   DEMO_CLINIC_PAYMENTS,
   DEMO_CLINIC_REFUNDS,
   DEMO_RECEIPTS,
-
-  DEMO_NOTIFICATIONS
+  DEMO_NOTIFICATIONS,
+  DEMO_VIRTUAL_CONSULTATIONS,
+  DEMO_FAMILY_MEMBERS,
+  DEMO_MEDICATION_REMINDERS,
+  DEMO_DOSE_LOGS,
+  getMedicineInfo,
+  DEMO_PATIENT_QUERIES,
+  QUERY_RESPONSE_EXPECTATIONS,
+  EMERGENCY_GUIDANCE_TEXT,
+  DEMO_HEALTH_PACKAGES,
+  HEALTH_PACKAGE_CATEGORIES,
+  getPackageById,
+  searchPackages
 } from '../demo-data';
 import { ROLE_PERMISSIONS } from '../types';
 import { useAuth, toAppRole, toAuthRole } from './AuthContext';
 import { getDefaultWebsiteSettings } from '../features/website-builder/websiteBuilderDefaults';
-
+import { INITIAL_DEMO_MEDICINE_ORDERS } from '../demo-data/pharmacyCatalog';
 
 const AppContext = createContext(null);
 
@@ -84,12 +102,7 @@ export function AppProvider({ children }) {
   // Domain Entity Collections with LocalStorage hydration for smooth demo edits
   const [clinics, setClinics] = useState(() => {
     const s = localStorage.getItem('clinipulse_clinics');
-    const raw = s ? JSON.parse(s) : DEMO_CLINICS;
-    return raw.map((c) => ({
-      ...c,
-      websiteSettings: c.websiteSettings || getDefaultWebsiteSettings(c)
-    }));
-
+    return s ? JSON.parse(s) : DEMO_CLINICS;
   });
 
   const [doctors, setDoctors] = useState(() => {
@@ -135,6 +148,11 @@ export function AppProvider({ children }) {
   const [invoices, setInvoices] = useState(() => {
     const s = localStorage.getItem('clinipulse_invoices');
     return s ? JSON.parse(s) : DEMO_INVOICES;
+  });
+
+  const [receipts, setReceipts] = useState(() => {
+    const s = localStorage.getItem('clinipulse_receipts');
+    return s ? JSON.parse(s) : DEMO_RECEIPTS;
   });
 
   const [expenses, setExpenses] = useState(() => {
@@ -191,6 +209,31 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_FOLLOW_UPS;
   });
 
+  const [familyMembers, setFamilyMembers] = useState(() => {
+    const s = localStorage.getItem('clinipulse_family_members');
+    return s ? JSON.parse(s) : DEMO_FAMILY_MEMBERS;
+  });
+
+  const [medicationReminders, setMedicationReminders] = useState(() => {
+    const s = localStorage.getItem('clinipulse_medication_reminders');
+    return s ? JSON.parse(s) : DEMO_MEDICATION_REMINDERS;
+  });
+
+  const [doseLogs, setDoseLogs] = useState(() => {
+    const s = localStorage.getItem('clinipulse_dose_logs');
+    return s ? JSON.parse(s) : DEMO_DOSE_LOGS;
+  });
+
+  const [patientQueries, setPatientQueries] = useState(() => {
+    const s = localStorage.getItem('clinipulse_patient_queries');
+    return s ? JSON.parse(s) : DEMO_PATIENT_QUERIES;
+  });
+
+  const [medicineOrders, setMedicineOrders] = useState(() => {
+    const s = localStorage.getItem('clinipulse_medicine_orders');
+    return s ? JSON.parse(s) : INITIAL_DEMO_MEDICINE_ORDERS;
+  });
+
   const [plans, setPlans] = useState(() => {
     const s = localStorage.getItem('clinipulse_plans');
     return s ? JSON.parse(s) : DEMO_PLANS;
@@ -228,21 +271,115 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_CLINIC_REFUNDS;
   });
 
-  const [receipts, setReceipts] = useState(() => {
-    const s = localStorage.getItem('clinipulse_receipts');
-    return s ? JSON.parse(s) : DEMO_RECEIPTS;
-  });
+
 
   const [activePatientId, setActivePatientId] = useState(() => {
     return localStorage.getItem('clinipulse_active_patient_id') || 'pt-1041';
   });
-
 
   // Simulated Notifications Center
   const [notifications, setNotifications] = useState(() => {
     const s = localStorage.getItem('clinipulse_notifications');
     return s ? JSON.parse(s) : DEMO_NOTIFICATIONS;
   });
+
+  // Virtual Consulting State
+  const [virtualConsultations, setVirtualConsultations] = useState(() => {
+    try {
+      const s = localStorage.getItem('clinipulse_virtual_consultations');
+      if (s) return JSON.parse(s);
+    } catch {}
+    return typeof DEMO_VIRTUAL_CONSULTATIONS !== 'undefined' && Array.isArray(DEMO_VIRTUAL_CONSULTATIONS)
+      ? DEMO_VIRTUAL_CONSULTATIONS
+      : [];
+  });
+
+  const requestVirtualConsultation = (reqData) => {
+    const newVC = {
+      id: `vc-${Date.now().toString().slice(-4)}`,
+      patientId: reqData.patientId || auth?.user?.id || 'usr-patient-aarav',
+      patientName: reqData.patientName || auth?.user?.name || 'Aarav Patel',
+      patientPhone: reqData.patientPhone || auth?.user?.phone || '+91 98765 43210',
+      patientAvatar: reqData.patientAvatar || auth?.user?.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      doctorId: reqData.doctorId || activeDoctor?.id || 'doc-aarav',
+      doctorName: reqData.doctorName || activeDoctor?.name || 'Dr. Aarav Mehta',
+      doctorSpecialty: reqData.doctorSpecialty || activeDoctor?.specialty || 'General Physician',
+      clinicId: reqData.clinicId || activeClinic?.id || 'clinic-citycare',
+      clinicName: reqData.clinicName || activeClinic?.name || 'CityCare Family Clinic',
+      reason: reqData.reason || 'Virtual Consultation Request',
+      status: 'Waiting',
+      requestedAt: 'Just now',
+      preferredTime: reqData.preferredTime || 'Immediate Live Connect',
+      meetingLink: `https://clinicos.health/meet/vc-${Date.now().toString().slice(-4)}-live`,
+      notes: '',
+      duration: '00:00'
+    };
+
+    setVirtualConsultations((prev) => {
+      const updated = [newVC, ...prev];
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+
+    // Also trigger notification
+    const newNotif = {
+      id: `notif-${Date.now()}`,
+      recipientRole: 'clinic_admin',
+      recipientUserId: 'usr-clinicadmin-aarav',
+      clinicId: newVC.clinicId,
+      type: 'request_received_by_clinic',
+      title: 'Virtual Consultation Requested',
+      message: `${newVC.patientName} has requested a virtual consultation: "${newVC.reason}".`,
+      createdAt: new Date().toISOString(),
+      read: false,
+      priority: 'high'
+    };
+    setNotifications((prev) => [newNotif, ...prev]);
+
+    if (showToast) {
+      showToast(`Virtual consultation requested with ${newVC.doctorName}. Doctor has been notified!`, 'success');
+    }
+    return newVC;
+  };
+
+  const acceptVirtualConsultation = (id) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'In Call', duration: '00:01' } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Connected to Virtual Consultation room.', 'success');
+    }
+  };
+
+  const endVirtualConsultation = (id, notes) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'Completed', notes: notes || vc.notes } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Virtual consultation ended and saved.', 'info');
+    }
+  };
+
+  const declineVirtualConsultation = (id) => {
+    setVirtualConsultations((prev) => {
+      const updated = prev.map((vc) =>
+        vc.id === id ? { ...vc, status: 'Declined' } : vc
+      );
+      localStorage.setItem('clinipulse_virtual_consultations', JSON.stringify(updated));
+      return updated;
+    });
+    if (showToast) {
+      showToast('Virtual consultation request declined.', 'info');
+    }
+  };
 
   // UI Modals & Feedback
   const [toast, setToast] = useState(null);
@@ -380,13 +517,28 @@ export function AppProvider({ children }) {
   }, [followUps]);
 
   useEffect(() => {
-    localStorage.setItem('clinipulse_receipts', JSON.stringify(receipts));
-  }, [receipts]);
+    localStorage.setItem('clinipulse_family_members', JSON.stringify(familyMembers));
+  }, [familyMembers]);
 
   useEffect(() => {
-    localStorage.setItem('clinipulse_active_patient_id', activePatientId);
-  }, [activePatientId]);
+    localStorage.setItem('clinipulse_medication_reminders', JSON.stringify(medicationReminders));
+  }, [medicationReminders]);
 
+  useEffect(() => {
+    localStorage.setItem('clinipulse_dose_logs', JSON.stringify(doseLogs));
+  }, [doseLogs]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_patient_queries', JSON.stringify(patientQueries));
+  }, [patientQueries]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_medicine_orders', JSON.stringify(medicineOrders));
+  }, [medicineOrders]);
+
+  useEffect(() => {
+    localStorage.setItem('clinipulse_receipts', JSON.stringify(receipts));
+  }, [receipts]);
 
   // Toast Notification Trigger
   const showToast = (message, type = 'success') => {
@@ -434,63 +586,54 @@ export function AppProvider({ children }) {
   };
 
   const createAppointment = (appointmentData) => {
-    // Conflict detection against active bookings
-    const conflict = appointments.find(
-      (a) =>
-        a.doctorId === appointmentData.doctorId &&
-        a.date === appointmentData.date &&
-        a.time === appointmentData.time &&
-        !['Cancelled', 'No-show'].includes(a.status)
+    const doctorObj = doctors.find((d) => d.id === appointmentData.doctorId);
+    const patientObj = patients.find((p) => p.id === appointmentData.patientId || p.patientIdNumber === appointmentData.patientId);
+
+    // Dynamic AI Duration estimation if not provided
+    let durationMinutes = appointmentData.durationMinutes;
+    let durationDetails = appointmentData.durationDetails;
+    if (!durationMinutes) {
+      const calc = calculateDynamicDuration({
+        doctor: doctorObj || appointmentData.doctorId,
+        patient: patientObj,
+        reasonForVisit: appointmentData.notes || appointmentData.serviceName || '',
+        service: { name: appointmentData.serviceName || '' },
+        isNewPatient: appointmentData.isNewPatient || false,
+        patientNotes: appointmentData.notes || ''
+      });
+      durationMinutes = calc.calculatedMinutes;
+      durationDetails = calc;
+    }
+
+    const endTime = calculateEndTime(appointmentData.time, durationMinutes);
+
+    // Conflict detection against active bookings with temporal duration overlap check
+    const check = checkSlotAvailability(
+      appointmentData.clinicId,
+      appointmentData.doctorId,
+      appointmentData.date,
+      appointmentData.time,
+      durationMinutes
     );
-    if (conflict) {
-      showToast(`Slot Conflict: Dr. ${conflict.doctorName} already has an appointment booked at ${appointmentData.time} on ${appointmentData.date}. Please pick an alternative slot.`, 'error');
+
+    if (!check.available && check.conflictingAppointment) {
+      showToast(check.reason || `Slot Conflict: Dr. ${doctorObj?.name || 'Doctor'} already has a conflicting booking at this time.`, 'error');
       return null;
     }
-
-    // Ensure patient exists in patients collection for seamless end-to-end lookup
-    let targetPatientId = appointmentData.patientId;
-    if (appointmentData.patientName) {
-      const existingPt = patients.find(
-        (p) =>
-          (p.phone && appointmentData.patientPhone && p.phone === appointmentData.patientPhone) ||
-          p.id === appointmentData.patientId ||
-          p.patientIdNumber === appointmentData.patientId
-      );
-      if (!existingPt) {
-        const seq = Math.floor(1050 + Math.random() * 800);
-        targetPatientId = `pt-${seq}`;
-        const autoPatient = {
-          id: targetPatientId,
-          patientIdNumber: `PT-${seq}`,
-          name: appointmentData.patientName,
-          phone: appointmentData.patientPhone || '',
-          email: appointmentData.patientEmail || `${appointmentData.patientName.toLowerCase().replace(/\s+/g, '.')}@example.demo`,
-          clinicId: appointmentData.clinicId || activeClinicId,
-          registeredAt: appointmentData.date || new Date().toISOString().slice(0, 10),
-          status: 'Active',
-          gender: 'Unspecified',
-          dob: '1995-01-01',
-          bloodGroup: 'B+'
-        };
-        setPatients((prev) => [autoPatient, ...prev]);
-      } else {
-        targetPatientId = existingPt.id;
-      }
-    }
-
 
     const id = `apt-${Date.now().toString().slice(-5)}`;
     const referenceNumber = `APT-${Math.floor(2000 + Math.random() * 8000)}`;
     const newAppointment = {
       ...appointmentData,
       id,
-      patientId: targetPatientId || appointmentData.patientId,
       referenceNumber,
-
+      durationMinutes,
+      durationDetails,
+      endTime,
       createdAt: new Date().toISOString()
     };
     setAppointments((prev) => [newAppointment, ...prev]);
-    showToast(`Appointment ${referenceNumber} scheduled successfully!`);
+    showToast(`Appointment ${referenceNumber} (${durationMinutes}m AI tailored) scheduled successfully!`);
     return newAppointment;
   };
 
@@ -498,6 +641,7 @@ export function AppProvider({ children }) {
     setAppointments((prev) =>
       prev.map((apt) => (apt.id === appointmentId ? { ...apt, status } : apt))
     );
+    broadcastSync('APPOINTMENT_UPDATED', { appointmentId, status });
     showToast(`Appointment status updated to ${status}`);
   };
 
@@ -516,36 +660,330 @@ export function AppProvider({ children }) {
     return newPatient;
   };
 
-  const updatePatient = (patientId, updates) => {
+  const updatePatient = (patientId, updatedData) => {
     setPatients((prev) =>
-      prev.map((p) => (p.id === patientId || p.patientIdNumber === patientId ? { ...p, ...updates } : p))
+      prev.map((p) => (p.id === patientId || p.patientIdNumber === patientId ? { ...p, ...updatedData } : p))
     );
-    showToast(`Updated profile for ${updates.name || 'patient'}`);
+    showToast('Patient record & emergency details updated successfully.');
   };
 
-  const switchDemoPatient = (patientId) => {
-    const pt = patients.find((p) => p.id === patientId || p.patientIdNumber === patientId);
-    if (!pt) return;
-    setActivePatientId(pt.id);
-    localStorage.setItem('clinipulse_active_patient_id', pt.id);
-    if (currentRole === 'patient') {
-      setCurrentUser({
-        id: pt.id,
-        name: pt.name,
-        email: pt.email,
-        phone: pt.phone,
-        role: 'patient',
-        patientIdNumber: pt.patientIdNumber || pt.id,
-        bloodGroup: pt.bloodGroup,
-        allergies: pt.allergies,
-        dob: pt.dob,
-        gender: pt.gender,
-        address: pt.address
-      });
+  const addFamilyMember = (memberData) => {
+    const currentPatientMembers = familyMembers.filter(
+      (m) => m.primaryPatientId === 'pt-1041' || m.primaryPatientId === currentUser?.id
+    );
+    if (currentPatientMembers.length >= 4) {
+      showToast('Family limit reached: Maximum 4 family members allowed.', 'error');
+      return false;
     }
-    showToast(`Switched active patient: ${pt.name} (${pt.patientIdNumber || pt.id})`);
+    const newMember = {
+      ...memberData,
+      id: `fm-${Date.now()}`,
+      primaryPatientId: memberData.primaryPatientId || 'pt-1041',
+      recordsCount: 0,
+      records: [],
+      registeredAt: new Date().toISOString().slice(0, 10)
+    };
+    setFamilyMembers((prev) => [...prev, newMember]);
+    showToast(`Family member ${newMember.name} (${newMember.relationship}) added successfully!`);
+    return newMember;
   };
 
+  const updateFamilyMember = (id, updatedData) => {
+    setFamilyMembers((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, ...updatedData } : m))
+    );
+    showToast('Family member profile and health records updated.');
+    return true;
+  };
+
+  const deleteFamilyMember = (id) => {
+    const target = familyMembers.find((m) => m.id === id);
+    setFamilyMembers((prev) => prev.filter((m) => m.id !== id));
+    showToast(`Removed ${target?.name || 'family member'} from family circle.`);
+    return true;
+  };
+
+  const addFamilyMemberRecord = (memberId, recordData) => {
+    const newRecord = {
+      ...recordData,
+      id: `frec-${Date.now()}`,
+      date: recordData.date || new Date().toISOString().slice(0, 10),
+      status: recordData.status || 'Completed'
+    };
+    setFamilyMembers((prev) =>
+      prev.map((m) => {
+        if (m.id === memberId) {
+          const currentRecords = m.records || [];
+          return {
+            ...m,
+            records: [newRecord, ...currentRecords],
+            recordsCount: (m.recordsCount || currentRecords.length) + 1
+          };
+        }
+        return m;
+      })
+    );
+    showToast('Clinical record saved for family member.');
+    return newRecord;
+  };
+
+  // Prescription Medication Reminders & Dose Adherence Tracking
+  const toggleMedicationReminder = (reminderId, enabled) => {
+    setMedicationReminders((prev) =>
+      prev.map((r) => (r.id === reminderId ? { ...r, enabled } : r))
+    );
+    showToast(enabled ? 'Medication reminder alerts activated.' : 'Medication reminder alerts paused.');
+  };
+
+  const updateReminderPreferences = (reminderId, updates) => {
+    // SECURITY & CLINICAL SAFETY: Ensure prescribed dose and frequency cannot be modified by patient
+    const safeUpdates = {
+      enabled: updates.enabled !== undefined ? updates.enabled : true,
+      reminderTimes: updates.reminderTimes || undefined,
+      channels: updates.channels || undefined,
+      whatsappPhone: updates.whatsappPhone || undefined
+    };
+    Object.keys(safeUpdates).forEach((k) => safeUpdates[k] === undefined && delete safeUpdates[k]);
+
+    setMedicationReminders((prev) =>
+      prev.map((r) => (r.id === reminderId ? { ...r, ...safeUpdates } : r))
+    );
+    showToast('Reminder schedule and notification channels updated.');
+    return true;
+  };
+
+  const markDoseTaken = (doseId, notes = '') => {
+    const takenTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setDoseLogs((prev) =>
+      prev.map((d) =>
+        d.id === doseId
+          ? { ...d, status: 'taken', takenAt: takenTime, notes: notes || d.notes || 'Taken as prescribed' }
+          : d
+      )
+    );
+    showToast('Dose recorded as Taken! Regimen adherence updated.');
+  };
+
+  const markDoseMissed = (doseId, notes = '') => {
+    const missedTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setDoseLogs((prev) =>
+      prev.map((d) =>
+        d.id === doseId
+          ? { ...d, status: 'missed', missedAt: missedTime, notes: notes || d.notes || 'Dose skipped' }
+          : d
+      )
+    );
+    showToast('Dose recorded as Missed. Clinical note: Never double up on your next dose.', 'info');
+  };
+
+  const resetDoseStatus = (doseId) => {
+    setDoseLogs((prev) =>
+      prev.map((d) =>
+        d.id === doseId
+          ? { ...d, status: 'pending', takenAt: undefined, missedAt: undefined }
+          : d
+      )
+    );
+    showToast('Dose status reset to Pending.');
+  };
+
+  const createRemindersFromPrescription = (prescription) => {
+    if (!prescription || !prescription.medications || prescription.medications.length === 0) {
+      showToast('No prescribed medications found in this prescription.', 'error');
+      return [];
+    }
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const newReminders = [];
+    const newDoses = [];
+
+    prescription.medications.forEach((med, index) => {
+      const remId = `rem-${Date.now()}-${index}`;
+      const freqLower = (med.frequency || '').toLowerCase();
+
+      // Clinical schedule derivation: match doctor's frequency without altering prescribed dosage
+      const reminderTimes = {};
+      if (freqLower.includes('twice') || freqLower.includes('1-0-1') || freqLower.includes('bid')) {
+        reminderTimes.morning = '08:30 AM';
+        reminderTimes.evening = '08:30 PM';
+      } else if (freqLower.includes('three') || freqLower.includes('1-1-1') || freqLower.includes('tid')) {
+        reminderTimes.morning = '08:30 AM';
+        reminderTimes.afternoon = '01:30 PM';
+        reminderTimes.evening = '08:30 PM';
+      } else if (freqLower.includes('night') || freqLower.includes('bed') || freqLower.includes('0-0-1') || freqLower.includes('hs')) {
+        reminderTimes.bedtime = '10:00 PM';
+      } else {
+        reminderTimes.morning = '08:30 AM';
+      }
+
+      const reminderConfig = {
+        id: remId,
+        patientId: prescription.patientId || 'pt-1041',
+        prescriptionId: prescription.id,
+        prescriptionNumber: prescription.prescriptionNumber,
+        medicationId: med.id || `med-${index}`,
+        medicationName: med.name,
+        prescribedDosage: med.dosage, // Immutable doctor prescribed value
+        prescribedFrequency: med.frequency, // Immutable doctor prescribed frequency
+        duration: med.duration || '5 days',
+        route: med.route || 'Oral',
+        instructions: med.instructions || 'Take as prescribed by doctor',
+        doctorName: prescription.doctorName,
+        clinicName: activeClinic?.name || 'CityCare Family Clinic',
+        enabled: true,
+        reminderTimes,
+        channels: {
+          whatsapp: true,
+          inApp: true
+        },
+        whatsappPhone: currentUser?.phone || '+91 98765 43210',
+        startDate: todayStr,
+        dosageLocked: true
+      };
+
+      newReminders.push(reminderConfig);
+
+      // Create initial daily dose slots for today
+      Object.entries(reminderTimes).forEach(([tod, time]) => {
+        const timeOfDayFormatted =
+          tod === 'morning' ? 'Morning' : tod === 'afternoon' ? 'Afternoon' : tod === 'evening' ? 'Evening' : 'Bedtime';
+        newDoses.push({
+          id: `dose-${Date.now()}-${index}-${tod}`,
+          patientId: prescription.patientId || 'pt-1041',
+          reminderId: remId,
+          prescriptionId: prescription.id,
+          prescriptionNumber: prescription.prescriptionNumber,
+          medicationName: med.name,
+          dosage: med.dosage,
+          scheduledTime: time,
+          timeOfDay: timeOfDayFormatted,
+          instructions: med.instructions || med.route || 'Take with water after meals',
+          doctorName: prescription.doctorName,
+          clinicName: activeClinic?.name || 'CityCare Family Clinic',
+          date: todayStr,
+          status: 'pending'
+        });
+      });
+    });
+
+    setMedicationReminders((prev) => [...prev, ...newReminders]);
+    setDoseLogs((prev) => [...prev, ...newDoses]);
+    showToast(`Reminders activated for ${newReminders.length} prescribed medications!`);
+    return newReminders;
+  };
+
+  const sendMedicationWhatsAppReminder = (doseOrReminder) => {
+    const medicineName = doseOrReminder.medicationName || doseOrReminder.name;
+    const dosage = doseOrReminder.dosage || doseOrReminder.prescribedDosage || '1 dose';
+    const timing = doseOrReminder.scheduledTime || doseOrReminder.reminderTimes?.morning || '08:30 AM';
+    const instructions = doseOrReminder.instructions || 'Take with water after meals';
+    const clinicName = doseOrReminder.clinicName || activeClinic?.name || 'CityCare Family Clinic';
+    const doctorName = doseOrReminder.doctorName || 'Dr. Arvind Rao, MDS';
+    const patientName = currentUser?.name || 'Aarav Patel';
+
+    openWhatsAppModal({
+      template: 'medication_reminder',
+      patient_name: patientName,
+      clinic_name: clinicName,
+      doctor_name: doctorName,
+      medicine_name: medicineName,
+      dosage: dosage,
+      timing: timing,
+      instructions: instructions,
+      clinic_phone: activeClinic?.phone || '+91 98220 12345'
+    });
+  };
+
+  // Patient Queries & Clinical/Bill Clarifications
+  const createPatientQuery = (queryData) => {
+    const seq = Math.floor(100 + Math.random() * 900);
+    const queryNumber = `QRY-2026-${seq}`;
+    const id = `pq-${Date.now()}`;
+    const category = queryData.category || 'General Clinical Query';
+    const expectation = QUERY_RESPONSE_EXPECTATIONS[category] || QUERY_RESPONSE_EXPECTATIONS['General Clinical Query'];
+
+    const initialMessage = {
+      id: `msg-${Date.now()}-1`,
+      senderId: currentUser?.id || 'pt-1041',
+      senderName: queryData.patientName || currentUser?.name || 'Aarav Patel',
+      senderRole: 'patient',
+      senderBadge: 'Patient',
+      message: queryData.message || queryData.description || 'Request for clarification.',
+      timestamp: new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      isStaff: false
+    };
+
+    const newQuery = {
+      id,
+      queryNumber,
+      patientId: queryData.patientId || currentUser?.id || 'pt-1041',
+      patientName: queryData.patientName || currentUser?.name || 'Aarav Patel',
+      patientPhone: queryData.patientPhone || currentUser?.phone || '+91 98765 43210',
+      clinicId: queryData.clinicId || activeClinic?.id || 'clinic-citycare',
+      clinicName: queryData.clinicName || activeClinic?.name || 'CityCare Family Clinic',
+      category,
+      relatedEntityId: queryData.relatedEntityId || undefined,
+      relatedEntityLabel: queryData.relatedEntityLabel || undefined,
+      subject: queryData.subject || `${category}: ${queryData.relatedEntityLabel || 'Inquiry'}`,
+      status: 'Awaiting Staff Reply',
+      urgency: queryData.urgency || 'Routine Non-Emergency',
+      expectedResponseHours: expectation.hours,
+      expectedResponseText: expectation.text,
+      assignedStaffRole: expectation.staffRole,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      messages: [initialMessage]
+    };
+
+    setPatientQueries((prev) => [newQuery, ...prev]);
+    showToast(`Inquiry ${queryNumber} dispatched! Expected response: ${expectation.text.toLowerCase()}`);
+    return newQuery;
+  };
+
+  const replyToPatientQuery = (queryId, messageText, senderRole = 'patient', senderName, senderBadge) => {
+    const isStaff = senderRole !== 'patient';
+    const nowFormatted = new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const newMsg = {
+      id: `msg-${Date.now()}`,
+      senderId: isStaff ? 'staff-duty' : (currentUser?.id || 'pt-1041'),
+      senderName: senderName || (isStaff ? 'Clinical Staff' : (currentUser?.name || 'Aarav Patel')),
+      senderRole,
+      senderBadge: senderBadge || (isStaff ? 'Clinic Duty Officer' : 'Patient'),
+      message: messageText,
+      timestamp: nowFormatted,
+      isStaff
+    };
+
+    setPatientQueries((prev) =>
+      prev.map((q) => {
+        if (q.id === queryId) {
+          const newStatus = isStaff ? 'Staff Replied' : 'Awaiting Staff Reply';
+          return {
+            ...q,
+            status: newStatus,
+            updatedAt: new Date().toISOString(),
+            messages: [...q.messages, newMsg]
+          };
+        }
+        return q;
+      })
+    );
+    showToast(isStaff ? 'Staff response published to patient thread.' : 'Follow-up message sent to clinic staff.');
+    return newMsg;
+  };
+
+  const resolvePatientQuery = (queryId) => {
+    setPatientQueries((prev) =>
+      prev.map((q) => (q.id === queryId ? { ...q, status: 'Resolved', updatedAt: new Date().toISOString() } : q))
+    );
+    showToast('Inquiry marked as Resolved. Thank you for your feedback!');
+  };
+
+  const simulateStaffReply = (queryId, replyText, staffRole = 'doctor', staffName = 'Dr. Arvind Rao, MDS') => {
+    const badge = staffRole === 'doctor' ? 'Prescribing Doctor' : staffRole === 'billing' ? 'Lead Billing Coordinator' : 'Clinic Receptionist';
+    return replyToPatientQuery(queryId, replyText, staffRole, staffName, badge);
+  };
 
   const createPrescription = (rxData) => {
     const seq = Math.floor(8820 + Math.random() * 900);
@@ -788,7 +1226,6 @@ export function AppProvider({ children }) {
       showToast('Feedback has already been recorded for this appointment.', 'warning');
       return null;
     }
-
     const seq = Math.floor(2600 + Math.random() * 900);
     const newFb = {
       ...feedbackData,
@@ -1160,6 +1597,20 @@ export function AppProvider({ children }) {
     return finalized;
   };
 
+  // Helper to parse "10:30 AM" into minutes from 00:00
+  const timeToMinutes = (timeStr) => {
+    if (!timeStr) return 0;
+    const parts = timeStr.trim().split(' ');
+    if (parts.length < 2) return 0;
+    const [hStr, mStr] = parts[0].split(':');
+    let h = parseInt(hStr, 10);
+    const m = parseInt(mStr, 10) || 0;
+    const mod = parts[1].toUpperCase();
+    if (mod === 'PM' && h < 12) h += 12;
+    if (mod === 'AM' && h === 12) h = 0;
+    return h * 60 + m;
+  };
+
   // Reusable Client-Side Availability Service (Section L)
   const checkSlotAvailability = (clinicId, doctorId, date, time, durationMinutes = 30, excludeAppointmentId = null) => {
     const doc = doctors.find((d) => d.id === doctorId);
@@ -1181,20 +1632,32 @@ export function AppProvider({ children }) {
     // Blocking statuses that consume a slot
     const blockingStatuses = ['Confirmed', 'Patient Checked In', 'Checked In', 'In Consultation', 'In Progress'];
 
+    const targetStart = timeToMinutes(time);
+    const targetEnd = targetStart + durationMinutes;
+
     const conflict = appointments.find((a) => {
       if (excludeAppointmentId && a.id === excludeAppointmentId) return false;
       if (a.doctorId !== doctorId) return false;
       const aptDate = a.confirmedDate || a.date;
       if (aptDate !== date) return false;
+      if (!blockingStatuses.includes(a.status)) return false;
+
       const aptTime = a.confirmedTime || a.time;
-      if (aptTime !== time) return false;
-      return blockingStatuses.includes(a.status);
+      const aptStart = timeToMinutes(aptTime);
+      const aptDur = a.durationMinutes || doc.appointmentDurationMinutes || 30;
+      const aptEnd = aptStart + aptDur;
+
+      // Temporal range collision check
+      return targetStart < aptEnd && targetEnd > aptStart;
     });
 
     if (conflict) {
+      const conflictStart = conflict.confirmedTime || conflict.time;
+      const conflictDur = conflict.durationMinutes || 30;
+      const conflictEnd = calculateEndTime(conflictStart, conflictDur);
       return {
         available: false,
-        reason: `Slot conflict: Dr. ${doc.name} already has a confirmed booking at ${time} on ${date}.`,
+        reason: `Slot conflict: Dr. ${doc.name} already has a ${conflictDur}m booking from ${conflictStart} to ${conflictEnd} on ${date}.`,
         conflictingAppointment: conflict
       };
     }
@@ -1202,7 +1665,7 @@ export function AppProvider({ children }) {
     return { available: true };
   };
 
-  const getAvailableSlotsForDoctor = (clinicId, doctorId, date) => {
+  const getAvailableSlotsForDoctor = (clinicId, doctorId, date, targetDuration = null) => {
     const doc = doctors.find((d) => d.id === doctorId);
     if (!doc) return [];
 
@@ -1212,10 +1675,14 @@ export function AppProvider({ children }) {
       '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '06:30 PM', '07:00 PM'
     ];
 
+    const effectiveDuration = targetDuration || doc.appointmentDurationMinutes || 30;
+
     return standardSlots.map((time) => {
-      const check = checkSlotAvailability(clinicId, doctorId, date, time, doc.appointmentDurationMinutes || 30);
+      const check = checkSlotAvailability(clinicId, doctorId, date, time, effectiveDuration);
       return {
         time,
+        endTime: calculateEndTime(time, effectiveDuration),
+        durationMinutes: effectiveDuration,
         available: check.available,
         reason: check.reason || null
       };
@@ -1231,6 +1698,27 @@ export function AppProvider({ children }) {
 
     const clinic = clinics.find((c) => c.id === requestData.clinicId) || clinics[0];
     const doctor = doctors.find((d) => d.id === requestData.doctorId) || doctors[0];
+    const patient = patients.find((p) => p.id === requestData.patientId) || null;
+
+    // AI Dynamic Duration computation if not pre-computed
+    let durationMinutes = requestData.durationMinutes;
+    let durationDetails = requestData.durationDetails;
+    if (!durationMinutes) {
+      const calc = calculateDynamicDuration({
+        doctor,
+        patient,
+        reasonForVisit: requestData.patientNote || requestData.notes || '',
+        service: { name: requestData.serviceName || '' },
+        isNewPatient: requestData.isNewPatient || false,
+        patientNotes: requestData.patientNote || requestData.notes || '',
+        familyMember: requestData.familyMember || null
+      });
+      durationMinutes = calc.calculatedMinutes;
+      durationDetails = calc;
+    }
+
+    const requestedTime = requestData.preferredTime || requestData.time;
+    const endTime = calculateEndTime(requestedTime, durationMinutes);
 
     const newRequest = {
       ...requestData,
@@ -1246,10 +1734,12 @@ export function AppProvider({ children }) {
       consultationFee: requestData.consultationFee || doctor.consultationFee || 600,
       consultationType: requestData.consultationType || 'First Consultation',
       requestedDate: requestData.preferredDate || requestData.date,
-      requestedTime: requestData.preferredTime || requestData.time,
+      requestedTime,
       date: requestData.preferredDate || requestData.date,
-      time: requestData.preferredTime || requestData.time,
-      durationMinutes: requestData.durationMinutes || doctor.appointmentDurationMinutes || 30,
+      time: requestedTime,
+      durationMinutes,
+      durationDetails,
+      endTime,
       status: 'Pending Clinic Confirmation',
       patientAlternativePreferences: requestData.patientAlternativePreferences || null,
       proposedAlternatives: [],
@@ -1259,7 +1749,7 @@ export function AppProvider({ children }) {
           action: 'Booking request submitted by patient',
           timestamp: new Date().toLocaleString(),
           actor: `${requestData.patientName} (Patient)`,
-          notes: `Requested preferred slot: ${requestData.preferredDate || requestData.date} at ${requestData.preferredTime || requestData.time}`
+          notes: `Requested AI tailored slot: ${requestData.preferredDate || requestData.date} at ${requestedTime} (${durationMinutes}m session)`
         }
       ],
       createdAt: new Date().toISOString()
@@ -1634,6 +2124,14 @@ export function AppProvider({ children }) {
       )
     );
 
+    // Broadcast check-in to doctor / reception tabs
+    broadcastSync('PATIENT_CHECKED_IN', {
+      appointmentId,
+      queueNumber: queueSeq,
+      patientName: apt.patientName,
+      doctorName: apt.doctorName
+    });
+
     // Notify doctor
     const notif = {
       id: `notif-${Date.now()}`,
@@ -1727,6 +2225,8 @@ export function AppProvider({ children }) {
   const cancelAppointment = (appointmentId, reason = 'Cancelled by clinic front desk') => {
     const apt = appointments.find((a) => a.id === appointmentId);
     if (!apt) return;
+
+    const previousStatus = apt.status;
 
     const audit = {
       id: `aud-${Date.now()}`,
@@ -1829,7 +2329,6 @@ export function AppProvider({ children }) {
   // Billing & Payments
   const recordInvoicePayment = (invoiceId, amountPaid, paymentMethod = 'UPI / QR Scan', transactionRef = '') => {
     return recordClinicPayment(invoiceId, paymentMethod, amountPaid, transactionRef);
-
   };
 
   const requestRefund = (invoiceId, reason) => {
@@ -2018,7 +2517,6 @@ export function AppProvider({ children }) {
     showToast('Website unpublished and set to private draft mode.', 'info');
   };
 
-
   // Centralized Permission Checker
   const hasPermission = (permission) => {
     const perms = ROLE_PERMISSIONS[currentRole] || [];
@@ -2078,41 +2576,18 @@ export function AppProvider({ children }) {
   };
 
   // Clinic Finance Actions
-  const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount, transactionRef = '') => {
-    const inv = invoices.find(
-      (i) => i.invoiceNumber === invoiceNumber || i.id === invoiceNumber
-    );
-    if (!inv) {
-      showToast(`Invoice ${invoiceNumber} not found`, 'error');
-      return null;
-    }
-    const currentPaid = Number(inv.amountPaid) || 0;
-    const remaining = Math.max(0, inv.totalAmount - currentPaid);
-    if (remaining <= 0) {
-      showToast(`Invoice ${inv.invoiceNumber} is already fully paid.`, 'info');
-      return null;
-    }
-    const numAmount = Number(amount);
-    if (!numAmount || numAmount <= 0) {
-      showToast('Payment amount must be greater than zero.', 'error');
-      return null;
-    }
-    const paidAmount = Math.min(numAmount, remaining);
-    const newAmountPaid = currentPaid + paidAmount;
-    const newOutstanding = Math.max(0, inv.totalAmount - newAmountPaid);
-    const newStatus = newOutstanding === 0 ? 'Paid' : 'Partially Paid';
+  const recordClinicPayment = (invoiceNumber, paymentMethod = 'UPI QR', amount) => {
+    const inv = invoices.find((i) => i.invoiceNumber === invoiceNumber);
+    if (!inv) return;
+    const remaining = inv.totalAmount - (inv.amountPaid || 0);
+    const paidAmount = Number(amount) || (remaining > 0 ? remaining : inv.totalAmount);
+    const newAmountPaid = (inv.amountPaid || 0) + paidAmount;
+    const newStatus = newAmountPaid >= inv.totalAmount ? 'Paid' : 'Partially Paid';
 
     setInvoices((prev) =>
       prev.map((i) =>
-        i.invoiceNumber === inv.invoiceNumber || i.id === inv.id
-          ? {
-              ...i,
-              amountPaid: newAmountPaid,
-              outstandingBalance: newOutstanding,
-              status: newStatus,
-              paymentMethod
-            }
-
+        i.invoiceNumber === invoiceNumber
+          ? { ...i, amountPaid: newAmountPaid, status: newStatus, paymentMethod }
           : i
       )
     );
@@ -2127,38 +2602,12 @@ export function AppProvider({ children }) {
       amount: paidAmount,
       paymentMethod,
       transactionRef: transactionRef || '',
-
       date: new Date().toISOString().slice(0, 10),
       status: 'Completed'
     };
     setClinicPayments((prev) => [newPayRecord, ...prev]);
-
-    const rSeq = Math.floor(1000 + Math.random() * 9000);
-    const newReceipt = {
-      id: `rcp-${Date.now()}`,
-      receiptNumber: `RCP-2026-${rSeq}`,
-      paymentReference: paymentRef,
-      invoiceNumber: inv.invoiceNumber,
-      invoiceId: inv.id,
-      patientId: inv.patientId,
-      patientName: inv.patientName,
-      amount: paidAmount,
-      paymentMethod,
-      transactionRef: transactionRef || '',
-      date: new Date().toISOString().slice(0, 10),
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      clinicId: inv.clinicId || activeClinicId,
-      clinicName: activeClinic?.name || 'CityCare Family Practice',
-      branchId: inv.branchId || activeBranchId,
-      issuedBy: currentUser?.name || 'Front Desk Cashier',
-      status: 'Issued',
-      notes: `Settlement for ${inv.items?.[0]?.description || 'OPD Consultation'}`
-    };
-    setReceipts((prev) => [newReceipt, ...prev]);
-
-    showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded! Receipt #${newReceipt.receiptNumber} generated.`);
-    return { payment: newPayRecord, receipt: newReceipt };
-
+    showToast(`Payment of ₹${paidAmount.toLocaleString('en-IN')} recorded on ${invoiceNumber} (${paymentMethod})`);
+    return newPayRecord;
   };
 
   const requestClinicRefund = (refundData) => {
@@ -2252,7 +2701,12 @@ export function AppProvider({ children }) {
     localStorage.removeItem('clinipulse_encounters');
     localStorage.removeItem('clinipulse_currency');
     localStorage.removeItem('clinipulse_followups');
+    localStorage.removeItem('clinipulse_family_members');
     localStorage.removeItem('clinipulse_notifications');
+    localStorage.removeItem('clinipulse_medication_reminders');
+    localStorage.removeItem('clinipulse_dose_logs');
+    localStorage.removeItem('clinipulse_patient_queries');
+    localStorage.removeItem('clinipulse_virtual_consultations');
     setClinics(DEMO_CLINICS);
     setPlans(DEMO_PLANS);
     setDoctors(DEMO_DOCTORS);
@@ -2263,6 +2717,11 @@ export function AppProvider({ children }) {
     setAppointments(DEMO_APPOINTMENTS);
     setNotifications(DEMO_NOTIFICATIONS);
     setPatients(DEMO_PATIENTS);
+    setFamilyMembers(DEMO_FAMILY_MEMBERS);
+    setMedicationReminders(DEMO_MEDICATION_REMINDERS);
+    setDoseLogs(DEMO_DOSE_LOGS);
+    setPatientQueries(DEMO_PATIENT_QUERIES);
+    setVirtualConsultations(DEMO_VIRTUAL_CONSULTATIONS);
     setPrescriptions(DEMO_PRESCRIPTIONS);
     setInvoices(DEMO_INVOICES);
     setExpenses(DEMO_EXPENSES);
@@ -2276,6 +2735,7 @@ export function AppProvider({ children }) {
     setEncounters(DEMO_ENCOUNTERS);
     setCurrency('INR');
     setFollowUps(DEMO_FOLLOW_UPS);
+    setMedicineOrders(INITIAL_DEMO_MEDICINE_ORDERS);
     showToast('Demo data restored to initial state.', 'info');
   };
 
@@ -2293,6 +2753,24 @@ export function AppProvider({ children }) {
 
   const closePrescriptionModal = () => {
     setPrescriptionModal({ isOpen: false, prescription: null });
+  };
+
+  const createMedicineOrder = (orderData) => {
+    const orderNum = `RX-ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newOrder = {
+      id: `mord-${Date.now().toString().slice(-6)}`,
+      orderNumber: orderNum,
+      createdAt: new Date().toISOString(),
+      orderStatus: 'Order Placed',
+      paymentStatus: 'Paid',
+      estimatedDelivery: 'Estimated by tomorrow, 6:00 PM',
+      clinicId: activeClinicId,
+      clinicName: activeClinic?.name || 'Clinic Pharmacy',
+      ...orderData
+    };
+    setMedicineOrders((prev) => [newOrder, ...prev]);
+    showToast(`Order ${orderNum} placed successfully! The pharmacy has received your prescription order.`, 'success');
+    return newOrder;
   };
 
   return (
@@ -2327,6 +2805,11 @@ export function AppProvider({ children }) {
         currentReceptionist,
         hasReceptionistPermission,
         staffMembers,
+        setStaffMembers,
+        addStaffMember,
+        updateStaffMember,
+        deleteStaffMember,
+        toggleStaffStatus,
         inviteStaffMember,
         updateStaffRole,
         feedbacks,
@@ -2340,12 +2823,31 @@ export function AppProvider({ children }) {
         patients,
         createPatient,
         updatePatient,
-        activePatientId,
-        setActivePatientId,
-        switchDemoPatient,
-        receipts,
-        setReceipts,
-
+        familyMembers,
+        addFamilyMember,
+        updateFamilyMember,
+        deleteFamilyMember,
+        addFamilyMemberRecord,
+        medicationReminders,
+        doseLogs,
+        toggleMedicationReminder,
+        updateReminderPreferences,
+        markDoseTaken,
+        markDoseMissed,
+        resetDoseStatus,
+        createRemindersFromPrescription,
+        sendMedicationWhatsAppReminder,
+        getMedicineInfo,
+        patientQueries,
+        createPatientQuery,
+        replyToPatientQuery,
+        resolvePatientQuery,
+        simulateStaffReply,
+        medicineOrders,
+        setMedicineOrders,
+        createMedicineOrder,
+        queryResponseExpectations: QUERY_RESPONSE_EXPECTATIONS,
+        emergencyGuidanceText: EMERGENCY_GUIDANCE_TEXT,
         appointments,
         createAppointment,
         updateAppointmentStatus,
@@ -2371,6 +2873,7 @@ export function AppProvider({ children }) {
         saveEncounterDraft,
         finalizeEncounter,
         invoices,
+        receipts,
         createInvoice,
         recordInvoicePayment,
         requestRefund,
@@ -2398,6 +2901,11 @@ export function AppProvider({ children }) {
         backgroundJobs: DEMO_BACKGROUND_JOBS,
         auditLogs: DEMO_AUDIT_LOGS,
         integrations: DEMO_INTEGRATIONS,
+        updateClinic,
+        updateClinicWebsite,
+        saveClinicWebsiteDraft,
+        publishClinicWebsite,
+        unpublishClinicWebsite,
         onboardNewClinic,
         followUps,
         updateFollowUpStatus,
@@ -2421,12 +2929,6 @@ export function AppProvider({ children }) {
         requestClinicRefund,
         approveClinicRefund,
         createClinicExpense,
-        updateClinic,
-        updateClinicWebsite,
-        saveClinicWebsiteDraft,
-        publishClinicWebsite,
-        unpublishClinicWebsite,
-
         toast,
         showToast,
         whatsAppModal,
@@ -2435,7 +2937,23 @@ export function AppProvider({ children }) {
         prescriptionModal,
         openPrescriptionModal,
         closePrescriptionModal,
-        resetDemoData
+        virtualConsultations,
+        requestVirtualConsultation,
+        acceptVirtualConsultation,
+        endVirtualConsultation,
+        declineVirtualConsultation,
+        resetDemoData,
+        // AI Dynamic Duration Engine
+        calculateDynamicDuration,
+        DOCTOR_PACE_PROFILES,
+        CLINICAL_REASONS,
+        calculateEndTime,
+        formatTimeWithDuration,
+        // Preventive Health Packages System
+        healthPackages: DEMO_HEALTH_PACKAGES,
+        packageCategories: HEALTH_PACKAGE_CATEGORIES,
+        getPackageById,
+        searchPackages
       }}
     >
       {children}

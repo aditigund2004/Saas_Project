@@ -11,7 +11,7 @@ import {
   AlertCircle,
   Stethoscope,
   Sparkles,
-  Phone
+  Phone, X, QrCode
 } from 'lucide-react';
 
 export function ReceptionWalkInsPage() {
@@ -20,7 +20,7 @@ export function ReceptionWalkInsPage() {
     activeBranch,
     doctors,
     appointments,
-
+    patients = [],
     createAppointment,
     createPatient,
     showToast
@@ -42,7 +42,6 @@ export function ReceptionWalkInsPage() {
       (a.clinicId === activeClinic.id || !a.clinicId) &&
       (a.isWalkIn || a.queueNumber?.startsWith('#W-') || a.time?.toLowerCase().includes('immediate'))
   );
-
 
   const handleWalkInSubmit = (e) => {
     e.preventDefault();
@@ -121,7 +120,6 @@ export function ReceptionWalkInsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">
                   <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Patient Full Name *</label>
-
                   <input
                     required
                     type="text"
@@ -129,13 +127,11 @@ export function ReceptionWalkInsPage() {
                     onChange={(e) => setWalkInName(e.target.value)}
                     placeholder="Enter walk-in patient name..."
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 font-medium"
-
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mobile / WhatsApp Number *</label>
-
                   <input
                     required
                     type="tel"
@@ -143,7 +139,6 @@ export function ReceptionWalkInsPage() {
                     onChange={(e) => setWalkInPhone(e.target.value)}
                     placeholder="+91 98000 00000"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
 
@@ -153,7 +148,6 @@ export function ReceptionWalkInsPage() {
                     value={selectedDoctorId}
                     onChange={(e) => setSelectedDoctorId(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
                   >
                     {clinicDoctors.map((d) => (
                       <option key={d.id} value={d.id}>{d.name} ({d.specialty})</option>
@@ -167,7 +161,6 @@ export function ReceptionWalkInsPage() {
                     value={selectedServiceId}
                     onChange={(e) => setSelectedServiceId(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
                   >
                     {activeClinic.services.map((s) => (
                       <option key={s.id} value={s.id}>{s.name} (₹{s.fee})</option>
@@ -178,14 +171,12 @@ export function ReceptionWalkInsPage() {
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Chief Complaint / Symptoms</label>
-
                 <textarea
                   rows={2}
                   value={chiefComplaint}
                   onChange={(e) => setChiefComplaint(e.target.value)}
                   placeholder="e.g. Toothache since yesterday; acute pain..."
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
@@ -194,7 +185,6 @@ export function ReceptionWalkInsPage() {
                 size="md"
                 type="submit"
                 className="w-full font-bold shadow-md shadow-blue-500/20"
-
               >
                 Issue Token & Seat in Waiting Room
               </Button>
@@ -228,7 +218,6 @@ export function ReceptionWalkInsPage() {
                 <div className="flex justify-between items-center">
                   <span className="text-slate-500 dark:text-slate-400">Service:</span>
                   <span className="text-slate-700 dark:text-slate-300 font-medium">{issuedTicket.serviceName}</span>
-
                 </div>
               </div>
 
@@ -248,7 +237,6 @@ export function ReceptionWalkInsPage() {
               </div>
               <p className="font-semibold text-slate-700 dark:text-slate-300 text-sm">No active walk-in ticket selected</p>
               <p className="text-xs max-w-xs mx-auto">Complete the form to register a walk-in patient and issue a thermal queue slip.</p>
-
             </Card>
           )}
 
@@ -256,12 +244,116 @@ export function ReceptionWalkInsPage() {
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 space-y-1.5">
             <p className="font-bold text-slate-700 dark:text-slate-300">Offline-Ready Architecture Specification</p>
             <p className="leading-relaxed">
-
               Designed for future client-side service worker synchronization. In intermittent connectivity, walk-in tokens queue in memory and reconcile with backend authoritative IDs upon network reconnect.
             </p>
           </div>
         </div>
       </div>
+
+      {/* 80mm Thermal Slip Modal */}
+      {showSlipModal && issuedTicket && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fade-in"
+          onClick={() => setShowSlipModal(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white text-slate-900 rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-slate-200 space-y-4"
+          >
+            {/* Modal Controls */}
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200 no-print">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                80mm Thermal Slip Preview
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowSlipModal(false)}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Printable 80mm Slip */}
+            <div className="thermal-receipt p-4 bg-white rounded-lg border border-dashed border-slate-400 font-mono text-center text-xs space-y-3">
+              <div>
+                <h3 className="font-black text-sm uppercase tracking-tight text-slate-900">
+                  {activeClinic?.name || 'CityCare Family Clinic'}
+                </h3>
+                <p className="text-[10px] text-slate-600">{activeClinic?.address || '14 Central Health Arcade, FC Road, Pune'}</p>
+                <p className="text-[10px] text-slate-600">Ph: {activeClinic?.phone || '+91 98220 12345'}</p>
+              </div>
+
+              <div className="border-t border-b border-dashed border-slate-400 py-3">
+                <span className="text-[10px] uppercase font-bold text-slate-500 block">Queue Token Number</span>
+                <span className="text-4xl font-black text-slate-950 tracking-tighter block mt-0.5">
+                  {issuedTicket.token}
+                </span>
+                <span className="text-[10px] text-slate-500 block mt-1">
+                  Est. Wait: ~{issuedTicket.estimatedWaitMins} mins · {issuedTicket.timeIssued}
+                </span>
+              </div>
+
+              <div className="text-left text-[11px] space-y-1 py-1">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Patient:</span>
+                  <span className="font-bold">{issuedTicket.patientName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Patient ID:</span>
+                  <span className="font-semibold">{issuedTicket.patientId}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Doctor:</span>
+                  <span className="font-bold">{issuedTicket.doctorName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Service:</span>
+                  <span>{issuedTicket.serviceName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Consult Fee:</span>
+                  <span className="font-bold">₹{issuedTicket.serviceFee}</span>
+                </div>
+              </div>
+
+              {/* Simulated QR Code for Live Smartphone Queue Tracker */}
+              <div className="pt-2 border-t border-dashed border-slate-300 flex flex-col items-center gap-1.5">
+                <div className="w-16 h-16 bg-slate-900 p-1.5 rounded-lg text-white flex items-center justify-center">
+                  <QrCode className="w-12 h-12" />
+                </div>
+                <p className="text-[9.5px] text-slate-600 leading-tight">
+                  Scan QR with camera to track live waiting queue on your smartphone
+                </p>
+                <p className="text-[9px] text-slate-400 italic">
+                  Thank you for visiting. Please be seated in lounge.
+                </p>
+              </div>
+            </div>
+
+            {/* Print button */}
+            <div className="flex items-center gap-2 pt-2 no-print">
+              <Button
+                variant="primary"
+                size="sm"
+                icon={Printer}
+                onClick={() => window.print()}
+                className="w-full font-bold text-xs"
+              >
+                Print 80mm Slip
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowSlipModal(false)}
+                className="text-xs"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Today's Walk-in Queue Roster Table */}
       <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-800">
@@ -367,8 +459,6 @@ export function ReceptionWalkInsPage() {
           </div>
         </Card>
       </div>
-
     </div>
   );
 }
-

@@ -151,6 +151,16 @@ export function ClinicPublicBookingPage() {
         <p className="text-xs sm:text-sm text-slate-500">
           No advance payment required. Choose your slot, enter patient details, and receive instant confirmation.
         </p>
+        <p className="text-xs text-blue-600 dark:text-blue-400">
+          Already a patient?{' '}
+          <Link to={`/clinic/${clinic.slug}/signin`} className="font-bold underline">
+            Sign In to Patient Portal
+          </Link>{' '}
+          or{' '}
+          <Link to={`/clinic/${clinic.slug}/register`} className="font-bold underline">
+            Register for Quick Access
+          </Link>
+        </p>
       </div>
 
       {/* 6-Step Stepper Progress Bar */}
@@ -276,7 +286,7 @@ export function ClinicPublicBookingPage() {
           </div>
 
           <div className="space-y-4 max-w-sm">
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1]">
               Appointment Date:
             </label>
             <input
@@ -284,15 +294,15 @@ export function ClinicPublicBookingPage() {
               value={appointmentDate}
               min="2026-10-27"
               onChange={(e) => setAppointmentDate(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#0B1628] text-sm font-semibold text-slate-900 dark:text-[#F1F5F9] focus:ring-2 focus:ring-[#3B82F6]"
             />
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[11px] text-slate-500 dark:text-[#94A3B8]">
               Clinic working days: {currentDoctor?.availableDays?.join(', ') || 'Monday through Saturday'}.
             </p>
           </div>
 
-          <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-            <Button variant="outline" size="md" onClick={() => setStep(1)} className="text-xs">
+          <div className="pt-4 flex items-center justify-between border-t border-slate-200 dark:border-[#263B59]">
+            <Button variant="outline" size="md" onClick={() => setStep(1)} className="text-xs border-slate-200 dark:border-[#263B59] text-slate-700 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-[#F1F5F9]">
               <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back
             </Button>
             <Button
@@ -310,14 +320,14 @@ export function ClinicPublicBookingPage() {
 
       {/* Step 3: Select Available Time Slot */}
       {step === 3 && (
-        <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
+        <Card className="p-6 sm:p-8 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-6">
           <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-[#F1F5F9]">
               Step 3: Select an Available Slot
             </h2>
-            <p className="text-xs text-slate-500">
-              Date: <span className="font-semibold text-slate-800 dark:text-white">{appointmentDate}</span> · Doctor:{' '}
-              <span className="font-semibold text-slate-800 dark:text-white">{currentDoctor?.name}</span>
+            <p className="text-xs text-slate-500 dark:text-[#94A3B8]">
+              Date: <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">{appointmentDate}</span> · Doctor:{' '}
+              <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">{currentDoctor?.name}</span>
             </p>
           </div>
 
@@ -332,10 +342,10 @@ export function ClinicPublicBookingPage() {
                   onClick={() => setAppointmentTime(slot)}
                   className={`p-3 rounded-xl text-xs font-bold border transition-all text-center flex flex-col items-center justify-center gap-1 ${
                     booked
-                      ? 'bg-slate-100 dark:bg-slate-800/40 text-slate-400 border-slate-200 dark:border-slate-800 cursor-not-allowed opacity-60'
+                      ? 'bg-slate-100 dark:bg-[#0D1729]/50 text-slate-400 dark:text-[#94A3B8] border-slate-200 dark:border-[#263B59] cursor-not-allowed opacity-40'
                       : isSelected
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-md ring-2 ring-blue-500/30'
-                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-blue-400 cursor-pointer'
+                      ? 'bg-blue-600 dark:bg-[#3B82F6] text-white border-blue-600 dark:border-[#3B82F6] shadow-md ring-2 ring-blue-500/30 dark:ring-[#3B82F6]/30'
+                      : 'bg-slate-50 dark:bg-[#0B1628] text-slate-700 dark:text-[#CBD5E1] border-slate-200 dark:border-[#263B59] hover:border-blue-500 dark:hover:border-[#3B82F6] hover:text-blue-600 dark:hover:text-[#F1F5F9] cursor-pointer'
                   }`}
                 >
                   <Clock className="w-3.5 h-3.5" />
@@ -348,8 +358,8 @@ export function ClinicPublicBookingPage() {
             })}
           </div>
 
-          <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-            <Button variant="outline" size="md" onClick={() => setStep(2)} className="text-xs">
+          <div className="pt-4 flex items-center justify-between border-t border-slate-200 dark:border-[#263B59]">
+            <Button variant="outline" size="md" onClick={() => setStep(2)} className="text-xs border-slate-200 dark:border-[#263B59] text-slate-700 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-[#F1F5F9]">
               <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back
             </Button>
             <Button
@@ -367,19 +377,19 @@ export function ClinicPublicBookingPage() {
 
       {/* Step 4: Enter Patient Details */}
       {step === 4 && (
-        <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
+        <Card className="p-6 sm:p-8 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-6">
           <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-[#F1F5F9]">
               Step 4: Patient Information
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-[#94A3B8]">
               Provide your details so the clinic front-desk can confirm and prepare your file.
             </p>
           </div>
 
           <form onSubmit={handleStep4Next} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] mb-1">
                 Patient Full Name *
               </label>
               <input
@@ -388,7 +398,7 @@ export function ClinicPublicBookingPage() {
                 value={patientName}
                 placeholder="e.g. Ramesh Kulkarni"
                 onChange={(e) => setPatientName(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] placeholder-slate-400 dark:placeholder-[#94A3B8] text-xs focus:ring-2 focus:ring-[#3B82F6]"
               />
               {formErrors.patientName && (
                 <p className="text-rose-500 text-[10px] mt-1">{formErrors.patientName}</p>
@@ -397,7 +407,7 @@ export function ClinicPublicBookingPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] mb-1">
                   Mobile Phone (for WhatsApp Confirmation) *
                 </label>
                 <input
@@ -406,7 +416,7 @@ export function ClinicPublicBookingPage() {
                   value={patientPhone}
                   placeholder="+91 98220 12345"
                   onChange={(e) => setPatientPhone(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] placeholder-slate-400 dark:placeholder-[#94A3B8] text-xs focus:ring-2 focus:ring-[#3B82F6]"
                 />
                 {formErrors.patientPhone && (
                   <p className="text-rose-500 text-[10px] mt-1">{formErrors.patientPhone}</p>
@@ -414,7 +424,7 @@ export function ClinicPublicBookingPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] mb-1">
                   Email Address (Optional)
                 </label>
                 <input
@@ -422,13 +432,13 @@ export function ClinicPublicBookingPage() {
                   value={patientEmail}
                   placeholder="name@example.com"
                   onChange={(e) => setPatientEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] placeholder-slate-400 dark:placeholder-[#94A3B8] text-xs focus:ring-2 focus:ring-[#3B82F6]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-[#CBD5E1] mb-1">
                 Reason for Visit / Symptoms
               </label>
               <textarea
@@ -436,12 +446,12 @@ export function ClinicPublicBookingPage() {
                 value={notes}
                 placeholder="Briefly describe what you would like the doctor to look into..."
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#263B59] bg-slate-50 dark:bg-[#0B1628] text-slate-900 dark:text-[#F1F5F9] placeholder-slate-400 dark:placeholder-[#94A3B8] text-xs focus:ring-2 focus:ring-[#3B82F6]"
               />
             </div>
 
-            <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-              <Button variant="outline" size="md" type="button" onClick={() => setStep(3)} className="text-xs">
+            <div className="pt-4 flex items-center justify-between border-t border-slate-200 dark:border-[#263B59]">
+              <Button variant="outline" size="md" type="button" onClick={() => setStep(3)} className="text-xs border-slate-200 dark:border-[#263B59] text-slate-700 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-[#F1F5F9]">
                 <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back
               </Button>
               <Button
@@ -460,42 +470,42 @@ export function ClinicPublicBookingPage() {
 
       {/* Step 5: Review Booking Summary */}
       {step === 5 && (
-        <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 space-y-6">
+        <Card className="p-6 sm:p-8 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] space-y-6">
           <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-[#F1F5F9]">
               Step 5: Review Appointment Summary
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-[#94A3B8]">
               Please double check your consultation details before finalizing.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-4 text-xs">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0D1729] border border-slate-200 dark:border-[#263B59] space-y-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-slate-200 dark:border-[#263B59]">
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Clinic & Location</span>
-                <span className="font-bold text-slate-900 dark:text-white text-sm">{clinic.name}</span>
-                <p className="text-slate-500 text-[11px] mt-0.5">{clinic.address}, {clinic.city}</p>
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Clinic & Location</span>
+                <span className="font-bold text-slate-900 dark:text-[#F1F5F9] text-sm">{clinic.name}</span>
+                <p className="text-slate-600 dark:text-[#CBD5E1] text-[11px] mt-0.5">{clinic.address}, {clinic.city}</p>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Doctor Specialist</span>
-                <span className="font-bold text-slate-900 dark:text-white text-sm">{currentDoctor?.name}</span>
-                <p className="text-blue-600 dark:text-blue-400 text-[11px] font-medium mt-0.5">{currentDoctor?.specialty}</p>
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Doctor Specialist</span>
+                <span className="font-bold text-slate-900 dark:text-[#F1F5F9] text-sm">{currentDoctor?.name}</span>
+                <p className="text-blue-600 dark:text-[#22D3EE] text-[11px] font-medium mt-0.5">{currentDoctor?.specialty}</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b border-slate-200 dark:border-[#263B59]">
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Date</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{appointmentDate}</span>
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Date</span>
+                <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">{appointmentDate}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Slot Time</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{appointmentTime}</span>
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Slot Time</span>
+                <span className="font-semibold text-blue-600 dark:text-[#22D3EE]">{appointmentTime}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Pay at Clinic</span>
-                <span className="font-extrabold text-blue-600 dark:text-blue-400 text-sm">
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Pay at Clinic</span>
+                <span className="font-extrabold text-blue-600 dark:text-[#22D3EE] text-sm">
                   ₹{currentService?.fee || currentDoctor?.consultationFee || 600}
                 </span>
               </div>
@@ -503,23 +513,23 @@ export function ClinicPublicBookingPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Patient Name</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{patientName}</span>
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Patient Name</span>
+                <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">{patientName}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Mobile / WhatsApp</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{patientPhone}</span>
+                <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] uppercase font-bold tracking-wider block">Mobile / WhatsApp</span>
+                <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">{patientPhone}</span>
               </div>
             </div>
           </div>
 
           <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-[11px] text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>Zero advance payment needed. Consultation fee is paid directly at the clinic desk upon arrival.</span>
           </div>
 
-          <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-            <Button variant="outline" size="md" onClick={() => setStep(4)} className="text-xs">
+          <div className="pt-4 flex items-center justify-between border-t border-slate-200 dark:border-[#263B59]">
+            <Button variant="outline" size="md" onClick={() => setStep(4)} className="text-xs border-slate-200 dark:border-[#263B59] text-slate-700 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-[#F1F5F9]">
               <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Edit Details
             </Button>
             <Button
@@ -537,56 +547,56 @@ export function ClinicPublicBookingPage() {
 
       {/* Step 6: Confirmation Screen */}
       {step === 6 && completedBooking && (
-        <Card className="p-8 sm:p-10 border-slate-200 dark:border-slate-800 text-center space-y-6">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-md">
+        <Card className="p-8 sm:p-10 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] text-center space-y-6">
+          <div className="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center mx-auto shadow-md">
             <CheckCircle2 className="w-10 h-10" />
           </div>
 
           <div className="space-y-2 max-w-lg mx-auto">
-            <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
               Booking Reserved Successfully
             </span>
-            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-[#F1F5F9]">
               We look forward to seeing you, {patientName}!
             </h2>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-[#CBD5E1]">
               Your consultation has been registered in the clinic's reception queue.
             </p>
           </div>
 
           {/* Reference Card */}
-          <div className="max-w-md mx-auto p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-left text-xs space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-              <span className="text-slate-500 font-medium">Booking Reference</span>
-              <span className="font-mono font-extrabold text-blue-600 text-sm">
+          <div className="max-w-md mx-auto p-5 rounded-2xl bg-slate-50 dark:bg-[#0D1729] border border-slate-200 dark:border-[#263B59] text-left text-xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#263B59] pb-2">
+              <span className="text-slate-500 dark:text-[#94A3B8] font-medium">Booking Reference</span>
+              <span className="font-mono font-extrabold text-blue-600 dark:text-[#22D3EE] text-sm">
                 {completedBooking.referenceNumber}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-slate-500">Doctor</span>
-              <span className="font-bold text-slate-800 dark:text-slate-200">{completedBooking.doctorName}</span>
+              <span className="text-slate-500 dark:text-[#94A3B8]">Doctor</span>
+              <span className="font-bold text-slate-900 dark:text-[#F1F5F9]">{completedBooking.doctorName}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-slate-500">Date & Time</span>
-              <span className="font-bold text-slate-800 dark:text-slate-200">
+              <span className="text-slate-500 dark:text-[#94A3B8]">Date & Time</span>
+              <span className="font-bold text-slate-900 dark:text-[#F1F5F9]">
                 {completedBooking.date} at {completedBooking.time}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-slate-500">Consultation Fee</span>
-              <span className="font-bold text-emerald-600">₹{completedBooking.fee || 600} (Pay at clinic)</span>
+              <span className="text-slate-500 dark:text-[#94A3B8]">Consultation Fee</span>
+              <span className="font-bold text-emerald-600 dark:text-emerald-400">₹{completedBooking.fee || 600} (Pay at clinic)</span>
             </div>
           </div>
 
           {/* Simulated WhatsApp Confirmation Preview */}
-          <div className="max-w-md mx-auto p-4 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-left text-xs space-y-2">
+          <div className="max-w-md mx-auto p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-left text-xs space-y-2">
             <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold">
-              <MessageSquare className="w-4 h-4 text-emerald-600" />
+              <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Automated WhatsApp Confirmation Simulated</span>
             </div>
-            <p className="text-[11px] text-slate-600 dark:text-slate-300">
+            <p className="text-[11px] text-slate-600 dark:text-[#CBD5E1]">
               An SMS & WhatsApp reminder with clinic address and token directions has been dispatched to{' '}
-              <span className="font-mono font-semibold">{patientPhone}</span>.
+              <span className="font-mono font-semibold text-slate-900 dark:text-[#F1F5F9]">{patientPhone}</span>.
             </p>
           </div>
 

@@ -66,7 +66,6 @@ export function EmailDashboardTab({
           <div>
             <span className="font-bold text-slate-900 dark:text-white">Prototype Notification Engine Active:</span>{' '}
             <span className="text-slate-700 dark:text-slate-300">
-
               This module simulates real-world SaaS email triggers, templating, and audience campaigns with client-side persistence. No actual external emails are transmitted.
             </span>
           </div>
@@ -104,7 +103,6 @@ export function EmailDashboardTab({
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Across 5 functional healthcare categories
           </p>
         </Card>
@@ -128,7 +126,6 @@ export function EmailDashboardTab({
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Hospital, billing & doctor lifecycle hooks
           </p>
         </Card>
@@ -152,7 +149,6 @@ export function EmailDashboardTab({
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Automations & broadcast campaigns combined
           </p>
         </Card>
@@ -177,13 +173,11 @@ export function EmailDashboardTab({
               </span>
             ) : (
               <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
-
                 All Clean
               </span>
             )}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-
             Simulated network timeouts & disabled triggers
           </p>
         </Card>
@@ -208,7 +202,6 @@ export function EmailDashboardTab({
                 Delivered
               </span>
               <span className="inline-flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-semibold">
-
                 <span className="w-2 h-2 rounded-full bg-rose-500" />
                 Failed
               </span>
@@ -216,7 +209,6 @@ export function EmailDashboardTab({
           </div>
 
           <div className="h-60 w-full pt-2">
-
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
@@ -230,14 +222,12 @@ export function EmailDashboardTab({
                 <YAxis tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{ backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #334155', color: '#fff', fontSize: '12px' }}
-
                 />
                 <Area
                   type="monotone"
                   dataKey="delivered"
                   stroke="#2563eb"
                   strokeWidth={2.5}
-
                   fillOpacity={1}
                   fill="url(#emailDeliveryGradient)"
                   name="Simulated Delivered"
@@ -258,7 +248,6 @@ export function EmailDashboardTab({
               <Badge variant="outline" className="text-xs">Interactive</Badge>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-
               Trigger instant simulated events to test variable injection, trigger filters, and activity logging.
             </p>
 
@@ -277,7 +266,6 @@ export function EmailDashboardTab({
                   </span>
                 </div>
                 <Play className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
-
               </button>
 
               <button
@@ -294,7 +282,6 @@ export function EmailDashboardTab({
                   </span>
                 </div>
                 <Play className="w-4 h-4 text-slate-400 group-hover:text-rose-600" />
-
               </button>
 
               <button
@@ -311,7 +298,6 @@ export function EmailDashboardTab({
                   </span>
                 </div>
                 <Play className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
-
               </button>
             </div>
           </div>
@@ -335,7 +321,6 @@ export function EmailDashboardTab({
               Recent Email Notification Activity
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Chronological log of simulated trigger dispatches and recipient outcomes.
             </p>
           </div>
@@ -346,7 +331,6 @@ export function EmailDashboardTab({
           >
             <span>View All Activity Logs ({logs.length})</span>
             <ArrowRight className="w-4 h-4" />
-
           </button>
         </div>
 
@@ -355,7 +339,6 @@ export function EmailDashboardTab({
             <thead>
               <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                 <th className="py-3 px-3 text-center w-12">#</th>
-
                 <th className="py-3 px-4">Email Subject & Recipient</th>
                 <th className="py-3 px-4">Event Trigger</th>
                 <th className="py-3 px-4">Source</th>
@@ -366,7 +349,6 @@ export function EmailDashboardTab({
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {logs.slice(0, 6).map((log, idx) => {
-
                 const isDelivered = log.status === 'delivered';
                 const isFailed = log.status === 'failed';
                 const isSkipped = log.status === 'skipped';
@@ -380,7 +362,6 @@ export function EmailDashboardTab({
                       </div>
                       <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
                         <span className="font-medium text-slate-700 dark:text-slate-300">{log.recipientName}</span>
-
                         <span>•</span>
                         <span className="font-mono">{log.recipientEmail}</span>
                       </div>
@@ -395,13 +376,11 @@ export function EmailDashboardTab({
 
                     <td className="py-3.5 px-4">
                       <span className="capitalize text-slate-700 dark:text-slate-300 font-medium text-xs">
-
                         {log.source.replace('_', ' ')}
                       </span>
                     </td>
 
                     <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 font-mono text-xs whitespace-nowrap">
-
                       {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} •{' '}
                       {new Date(log.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' })}
                     </td>
@@ -410,34 +389,29 @@ export function EmailDashboardTab({
                       {isDelivered && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-
                           Delivered (Simulated)
                         </span>
                       )}
                       {isFailed && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-400 border border-rose-200 dark:border-rose-800" title={log.errorReason}>
                           <XCircle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
-
                           Failed
                         </span>
                       )}
                       {isSkipped && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-800" title={log.errorReason}>
                           <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-
                           Skipped
                         </span>
                       )}
                     </td>
 
                     <td className="py-3.5 px-4 text-right whitespace-nowrap">
-
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           type="button"
                           onClick={() => onOpenPreview(log)}
                           className="p-1.5 rounded text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-
                           title="Preview Rendered Email"
                         >
                           <Eye className="w-4 h-4" />
@@ -448,7 +422,6 @@ export function EmailDashboardTab({
                             type="button"
                             onClick={() => onRetryLog(log.id)}
                             className="p-1.5 rounded text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-
                             title="Retry Simulation"
                           >
                             <RotateCcw className="w-4 h-4" />

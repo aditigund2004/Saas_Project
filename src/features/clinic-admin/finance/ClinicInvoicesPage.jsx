@@ -5,6 +5,7 @@ import { Card, CardHeader } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { Badge } from '../../../components/ui/Badge';
 import { Modal } from '../../../components/ui/Modal';
+import { QRCodeBadge } from '../../../components/ui/QRCodeBadge';
 import {
   Receipt,
   PlusCircle,
@@ -21,7 +22,7 @@ import {
   User,
   Phone,
   Calendar,
-  X
+  X, QrCode, ShieldCheck
 } from 'lucide-react';
 
 export function ClinicInvoicesPage() {
@@ -31,7 +32,6 @@ export function ClinicInvoicesPage() {
     createInvoice,
     recordClinicPayment,
     patients = [],
-
     activeClinic,
     activeBranch,
     showToast,
@@ -50,7 +50,6 @@ export function ClinicInvoicesPage() {
 
   // Form state for creating a new invoice
   const [selectedPatientId, setSelectedPatientId] = useState(patients[0]?.id || '');
-
   const [itemDescription, setItemDescription] = useState('Consultation & Clinical Assessment');
   const [itemQuantity, setItemQuantity] = useState(1);
   const [itemUnitPrice, setItemUnitPrice] = useState(800);
@@ -59,7 +58,6 @@ export function ClinicInvoicesPage() {
   const [invoiceStatusChoice, setInvoiceStatusChoice] = useState('Issued');
   const [initialPaymentMethod, setInitialPaymentMethod] = useState('UPI QR');
   const [markAsPaidNow, setMarkAsPaidNow] = useState(false);
-
 
   // Filter invoices for current clinic
   const clinicInvoices = invoices.filter((i) => !i.clinicId || i.clinicId === activeClinic?.id);
@@ -87,14 +85,12 @@ export function ClinicInvoicesPage() {
   const handleCreateInvoice = (e) => {
     e.preventDefault();
     const patient = patients.find((p) => p.id === selectedPatientId) || patients[0];
-
     const subtotal = itemQuantity * itemUnitPrice;
     const discounted = Math.max(0, subtotal - discountAmount);
     const tax = Math.round(discounted * (taxPercent / 100));
     const totalAmount = discounted + tax;
     const amountPaid = markAsPaidNow ? totalAmount : 0;
     const status = markAsPaidNow ? 'Paid' : invoiceStatusChoice;
-
 
     const newInv = createInvoice({
       clinicId: activeClinic?.id || 'clinic-1',
@@ -119,7 +115,6 @@ export function ClinicInvoicesPage() {
       totalAmount,
       amountPaid,
       outstandingBalance: Math.max(0, totalAmount - amountPaid),
-
       status,
       paymentMethod: markAsPaidNow ? initialPaymentMethod : 'Unpaid'
     });
@@ -151,7 +146,6 @@ export function ClinicInvoicesPage() {
     if (res?.receipt) {
       setSelectedReceiptForPrint(res.receipt);
     }
-
   };
 
   return (
@@ -165,7 +159,6 @@ export function ClinicInvoicesPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Billing Master</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Patient Invoices & Bills</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Issue official tax invoices, manage patient dues, and print OPD receipt summaries.
           </p>
         </div>
@@ -186,7 +179,6 @@ export function ClinicInvoicesPage() {
             onClick={() => showToast('Exporting practice invoices CSV ledger...')}
           >
             <Download className="w-4 h-4 mr-1.5" />
-
             Export CSV
           </Button>
           <Button
@@ -195,7 +187,6 @@ export function ClinicInvoicesPage() {
             onClick={() => setIsNewInvoiceOpen(true)}
           >
             <PlusCircle className="w-4 h-4 mr-1.5" />
-
             Create Patient Invoice
           </Button>
         </div>
@@ -228,7 +219,6 @@ export function ClinicInvoicesPage() {
           </div>
           <span className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
             <Clock className="w-5 h-5" />
-
           </span>
         </div>
       </div>
@@ -239,14 +229,12 @@ export function ClinicInvoicesPage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search by invoice #, patient name or ID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
-
             />
           </div>
 
@@ -259,7 +247,6 @@ export function ClinicInvoicesPage() {
                   statusFilter === status
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-
                 }`}
               >
                 {status}
@@ -274,7 +261,6 @@ export function ClinicInvoicesPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Invoice #</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Billing Date</th>
@@ -290,13 +276,11 @@ export function ClinicInvoicesPage() {
               {filteredInvoices.length === 0 ? (
                 <tr>
                   <td colSpan={10} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
-
                     No patient invoices found matching your filters.
                   </td>
                 </tr>
               ) : (
                 filteredInvoices.map((inv, idx) => {
-
                   const balanceDue = (inv.totalAmount || 0) - (inv.amountPaid || 0);
                   const isFullyPaid = balanceDue <= 0 || inv.status === 'Paid';
 
@@ -315,7 +299,6 @@ export function ClinicInvoicesPage() {
                         </div>
                         {inv.items?.length > 1 && (
                           <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-
                             +{inv.items.length - 1} other item(s)
                           </span>
                         )}
@@ -324,7 +307,6 @@ export function ClinicInvoicesPage() {
                       <td className="p-3.5 font-mono font-bold text-blue-700 dark:text-blue-400 tabular-nums">{formatCurrency(inv.amountPaid || 0)}</td>
                       <td className="p-3.5">
                         <span className="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold border border-slate-200 dark:border-slate-700">
-
                           {inv.paymentMethod || 'Cash'}
                         </span>
                       </td>
@@ -340,7 +322,6 @@ export function ClinicInvoicesPage() {
                               : 'warning'
                           }
                           size="sm"
-
                         >
                           {inv.status}
                         </Badge>
@@ -353,7 +334,6 @@ export function ClinicInvoicesPage() {
                             onClick={() => handleOpenPaymentModal(inv)}
                           >
                             <CreditCard className="w-3.5 h-3.5 mr-1" />
-
                             Collect ₹{balanceDue}
                           </Button>
                         )}
@@ -363,7 +343,6 @@ export function ClinicInvoicesPage() {
                           onClick={() => setSelectedInvoice(inv)}
                         >
                           <Printer className="w-3.5 h-3.5 mr-1" />
-
                           Receipt
                         </Button>
                       </td>
@@ -391,7 +370,6 @@ export function ClinicInvoicesPage() {
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
             >
               {patients.map((p) => (
-
                 <option key={p.id} value={p.id}>
                   {p.name} ({p.patientIdNumber}) - {p.phone}
                 </option>
@@ -401,14 +379,12 @@ export function ClinicInvoicesPage() {
 
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Procedure / Item Description</label>
-
             <input
               type="text"
               required
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-
               placeholder="e.g. Root Canal Treatment, Ultrasonic Scaling, Orthopedic Consultation"
             />
           </div>
@@ -416,7 +392,6 @@ export function ClinicInvoicesPage() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Quantity</label>
-
               <input
                 type="number"
                 min="1"
@@ -428,7 +403,6 @@ export function ClinicInvoicesPage() {
             </div>
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Unit Tariff (₹)</label>
-
               <input
                 type="number"
                 min="0"
@@ -436,7 +410,6 @@ export function ClinicInvoicesPage() {
                 value={itemUnitPrice}
                 onChange={(e) => setItemUnitPrice(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-
               />
             </div>
           </div>
@@ -444,7 +417,6 @@ export function ClinicInvoicesPage() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Special Discount (₹)</label>
-
               <input
                 type="number"
                 min="0"
@@ -459,7 +431,6 @@ export function ClinicInvoicesPage() {
                 value={taxPercent}
                 onChange={(e) => setTaxPercent(Number(e.target.value))}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
               >
                 <option value={0}>0% (Standard OPD Exempt)</option>
                 <option value={5}>5% (Cosmetic / Lab Diagnostic)</option>
@@ -472,7 +443,6 @@ export function ClinicInvoicesPage() {
           <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-between font-mono">
             <span className="text-slate-600 dark:text-slate-300 font-sans font-semibold">Net Total Payable:</span>
             <span className="text-lg font-black text-blue-700 dark:text-blue-400 tabular-nums">
-
               {formatCurrency(
                 Math.max(0, itemQuantity * itemUnitPrice - discountAmount) * (1 + taxPercent / 100)
               )}
@@ -481,7 +451,6 @@ export function ClinicInvoicesPage() {
 
           <div className="space-y-2 pt-1 border-t border-slate-200 dark:border-slate-700">
             <label className="flex items-center gap-2.5 cursor-pointer">
-
               <input
                 type="checkbox"
                 checked={markAsPaidNow}
@@ -489,7 +458,6 @@ export function ClinicInvoicesPage() {
                 className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
               />
               <span className="font-semibold text-slate-800 dark:text-slate-200">Collect payment immediately at billing counter</span>
-
             </label>
 
             {markAsPaidNow && (
@@ -499,7 +467,6 @@ export function ClinicInvoicesPage() {
                   value={initialPaymentMethod}
                   onChange={(e) => setInitialPaymentMethod(e.target.value)}
                   className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
                 >
                   <option value="UPI QR">UPI Dynamic QR (PhonePe / GPay / Paytm)</option>
                   <option value="Debit / Credit Card">Point of Sale (POS) Card</option>
@@ -545,7 +512,6 @@ export function ClinicInvoicesPage() {
               <div className="flex justify-between pt-1.5 border-t border-blue-200 dark:border-blue-800">
                 <span className="font-bold text-blue-900 dark:text-blue-300">Balance Due Now:</span>
                 <span className="font-black font-mono text-lg text-blue-700 dark:text-blue-400 tabular-nums">
-
                   {formatCurrency(paymentModalInvoice.totalAmount - (paymentModalInvoice.amountPaid || 0))}
                 </span>
               </div>
@@ -575,7 +541,6 @@ export function ClinicInvoicesPage() {
                 value={paymentMethodChoice}
                 onChange={(e) => setPaymentMethodChoice(e.target.value)}
                 className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
               >
                 <option value="UPI QR">UPI Dynamic QR</option>
                 <option value="Debit / Credit Card">POS Terminal Card</option>
@@ -584,13 +549,65 @@ export function ClinicInvoicesPage() {
               </select>
             </div>
 
+            {/* Dynamic UPI QR Code Intent Preview */}
+            {paymentMethodChoice === 'UPI QR' && (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50/70 via-blue-50/50 to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-blue-200 dark:border-blue-900/60 space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-blue-200 dark:border-blue-900/40">
+                  <span className="text-xs font-bold text-blue-900 dark:text-blue-300 flex items-center gap-1.5">
+                    <QrCode className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    Dynamic UPI QR Payment Intent
+                  </span>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                    Live Demo QR
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="shrink-0 p-2 bg-white rounded-xl shadow-xs border border-slate-200">
+                    <QRCodeBadge
+                      verificationId={`UPI-${paymentModalInvoice.invoiceNumber}-${customPaymentAmount}`}
+                      referenceNumber={paymentModalInvoice.invoiceNumber}
+                      size={105}
+                      showLink={false}
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 text-xs flex-1">
+                    <div className="font-semibold text-slate-900 dark:text-white flex items-center justify-between">
+                      <span>VPA Account:</span>
+                      <span className="font-mono text-blue-600 dark:text-blue-400 font-bold">citycare@okaxis</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                      <span>Payee:</span>
+                      <span>{activeClinic?.name || 'CityCare Family Clinic'}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                      <span>Amount:</span>
+                      <span className="font-bold text-slate-900 dark:text-white font-mono">₹{customPaymentAmount || paymentModalInvoice.totalAmount}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                      <span>Ref Code:</span>
+                      <span className="font-mono text-[11px]">{paymentModalInvoice.invoiceNumber}</span>
+                    </div>
+
+                    <div className="pt-1 text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                      * Compatible with all UPI PSP apps: PhonePe, GPay, Paytm, Cred, Navi, Amazon Pay.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-2 bg-blue-100/60 dark:bg-blue-950/40 rounded-xl text-[10px] text-blue-900 dark:text-blue-300 leading-tight">
+                  <strong>Simulation Disclaimer:</strong> Demo payment intent preview. In production deployment, automated webhook listeners from Razorpay / Cashfree UPI Gateway settle invoices immediately upon bank settlement acknowledgement.
+                </div>
+              </div>
+            )}
+
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="outline" type="button" onClick={() => setPaymentModalInvoice(null)}>
                 Cancel
               </Button>
               <Button variant="primary" type="submit">
                 <CheckCircle className="w-4 h-4 mr-1.5" />
-
                 Confirm Payment Receipt
               </Button>
             </div>
@@ -613,20 +630,17 @@ export function ClinicInvoicesPage() {
               <div className="flex justify-between items-start border-b border-slate-200 pb-4">
                 <div>
                   <div className="flex items-center gap-2.5">
-
                     <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
                       <Building className="w-4 h-4" />
                     </div>
                     <div>
                       <h2 className="text-base font-black text-slate-900">{activeClinic?.name || 'Aegis Health Clinic'}</h2>
                       <p className="text-xs text-slate-500">
-
                         NABH Accredited Multi-Specialty Clinic · Reg No: MH-PUN-2024-89
                       </p>
                     </div>
                   </div>
                   <p className="text-xs text-slate-500 mt-2">
-
                     {activeBranch?.address || '102 Medical Enclave, FC Road, Pune - 411005'} · Phone: +91 20 2567 8900
                   </p>
                 </div>
@@ -636,7 +650,6 @@ export function ClinicInvoicesPage() {
                   </span>
                   <div className="mt-2 font-mono font-bold text-slate-900 text-sm">{selectedInvoice.invoiceNumber}</div>
                   <div className="text-xs text-slate-500 font-mono">Date: {selectedInvoice.date}</div>
-
                 </div>
               </div>
 
@@ -656,7 +669,6 @@ export function ClinicInvoicesPage() {
                     </Badge>
                   </div>
                   <div className="text-slate-500 text-xs mt-1 font-mono">Method: {selectedInvoice.paymentMethod || 'Cash'}</div>
-
                 </div>
               </div>
 
@@ -665,7 +677,6 @@ export function ClinicInvoicesPage() {
                 <thead className="bg-slate-100 text-slate-600 font-semibold border-b border-slate-200 uppercase text-xs">
                   <tr>
                     <th className="p-2.5 text-center w-10">#</th>
-
                     <th className="p-2.5">Item & Procedure Description</th>
                     <th className="p-2.5 text-center">Qty</th>
                     <th className="p-2.5 text-right">Unit Rate</th>
@@ -682,7 +693,6 @@ export function ClinicInvoicesPage() {
                       <td className="p-2.5 text-center text-slate-600">{item.quantity}</td>
                       <td className="p-2.5 text-right font-mono text-slate-600 tabular-nums">{formatCurrency(item.unitPrice)}</td>
                       <td className="p-2.5 text-right font-mono font-bold text-slate-900 tabular-nums">{formatCurrency(item.total)}</td>
-
                     </tr>
                   ))}
                 </tbody>
@@ -694,20 +704,17 @@ export function ClinicInvoicesPage() {
                   <div className="flex justify-between text-slate-600">
                     <span>Subtotal:</span>
                     <span className="font-mono tabular-nums">{formatCurrency(selectedInvoice.subtotal || selectedInvoice.totalAmount)}</span>
-
                   </div>
                   {selectedInvoice.discount > 0 && (
                     <div className="flex justify-between text-emerald-600">
                       <span>Discount:</span>
                       <span className="font-mono tabular-nums">-{formatCurrency(selectedInvoice.discount)}</span>
-
                     </div>
                   )}
                   {selectedInvoice.tax > 0 && (
                     <div className="flex justify-between text-slate-600">
                       <span>GST:</span>
                       <span className="font-mono tabular-nums">+{formatCurrency(selectedInvoice.tax)}</span>
-
                     </div>
                   )}
                   <div className="flex justify-between text-sm font-bold text-slate-900 pt-1 border-t border-slate-200">
@@ -717,21 +724,52 @@ export function ClinicInvoicesPage() {
                   <div className="flex justify-between text-blue-700 font-bold">
                     <span>Amount Paid:</span>
                     <span className="font-mono tabular-nums">{formatCurrency(selectedInvoice.amountPaid || 0)}</span>
-
                   </div>
                   {(selectedInvoice.totalAmount - (selectedInvoice.amountPaid || 0) > 0) && (
                     <div className="flex justify-between text-amber-700 font-bold">
                       <span>Balance Outstanding:</span>
                       <span className="font-mono tabular-nums">{formatCurrency(selectedInvoice.totalAmount - (selectedInvoice.amountPaid || 0))}</span>
-
                     </div>
                   )}
                 </div>
               </div>
 
+              {/* Dynamic UPI QR Section on Bill */}
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-white rounded-lg border border-slate-200 shadow-xs">
+                    <QRCodeBadge
+                      verificationId={`UPI-${selectedInvoice.invoiceNumber}`}
+                      referenceNumber={selectedInvoice.invoiceNumber}
+                      size={75}
+                      showLink={false}
+                    />
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="font-bold text-slate-900 flex items-center gap-1">
+                      <QrCode className="w-3.5 h-3.5 text-blue-600" />
+                      Dynamic Clinic UPI Payment QR
+                    </span>
+                    <p className="text-[11px] text-slate-500 font-mono">VPA: citycare@okaxis</p>
+                    <p className="text-[10px] text-slate-400">
+                      Scan with Google Pay, PhonePe, or Paytm for instant receipt reconciliation.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-right shrink-0">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block">UPI Reference</span>
+                  <span className="font-mono font-bold text-blue-700 text-xs">
+                    {selectedInvoice.invoiceNumber}
+                  </span>
+                  <div className="text-[10px] text-emerald-600 font-semibold flex items-center justify-end gap-1 mt-0.5">
+                    <ShieldCheck className="w-3 h-3" /> Encrypted & Verified
+                  </div>
+                </div>
+              </div>
+
               {/* Footer Note */}
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-
                 <span>Computer-generated clinical invoice. No signature required.</span>
                 <span>ClinicOS Healthcare System</span>
               </div>
@@ -745,14 +783,12 @@ export function ClinicInvoicesPage() {
               <Button
                 variant="primary"
                 size="sm"
-
                 onClick={() => {
                   showToast(`Sending ${selectedInvoice.invoiceNumber} to local clinic thermal/A4 printer...`);
                 }}
               >
                 <Printer className="w-4 h-4 mr-1.5" />
                 Print Official Invoice
-
               </Button>
             </div>
           </div>
@@ -895,4 +931,3 @@ export function ClinicInvoicesPage() {
     </div>
   );
 }
-

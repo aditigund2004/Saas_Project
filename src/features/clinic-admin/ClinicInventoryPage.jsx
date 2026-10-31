@@ -30,7 +30,6 @@ export function ClinicInventoryPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Supplies & Consumables</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Clinical Inventory Management</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Monitor medical disposables, anesthetics, sterile gloves, and consumables with automated low-stock warnings.
           </p>
         </div>
@@ -48,20 +47,17 @@ export function ClinicInventoryPage() {
       <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
-
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search items by name, SKU reference, or category..."
             className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
           />
         </div>
       </Card>
 
       <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <CardHeader
           title={`Tracked Inventory Items (${filteredItems.length})`}
           subtitle="Real-time stock quantities and minimum threshold triggers"
@@ -71,7 +67,6 @@ export function ClinicInventoryPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Item & SKU</th>
                 <th className="p-3.5">Category</th>
                 <th className="p-3.5">Unit Package</th>
@@ -110,7 +105,6 @@ export function ClinicInventoryPage() {
                       ) : (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> In Stock
-
                         </span>
                       )}
                     </td>
@@ -155,7 +149,6 @@ export function ClinicInventoryPage() {
 
             <div>
               <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Adjustment Delta (Positive to restock, Negative to dispense):</label>
-
               <input
                 type="number"
                 value={adjustModal.delta}
@@ -165,7 +158,6 @@ export function ClinicInventoryPage() {
             </div>
 
             <div className="pt-2 flex justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setAdjustModal({ isOpen: false, item: null, delta: 1 })}>
                 Cancel
               </Button>
@@ -179,4 +171,3 @@ export function ClinicInventoryPage() {
     </div>
   );
 }
-

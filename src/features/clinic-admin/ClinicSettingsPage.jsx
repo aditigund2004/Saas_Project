@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { Settings, Save, Building2, ShieldCheck } from 'lucide-react';
+import { Settings, Save, Building2, ShieldCheck, ALargeSmall } from 'lucide-react';
+import { FontSizeSwitcher } from '../../components/ui/FontSizeSwitcher';
 
 export function ClinicSettingsPage() {
   const { activeClinic, setClinics, showToast } = useApp();
@@ -32,13 +33,11 @@ export function ClinicSettingsPage() {
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Practice Profile</span>
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Clinic Information & Policies</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
           Public directory profile, contact details, appointment cancellation rules, and operating hours.
         </p>
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <CardHeader
           title="Organization Profile"
           subtitle="Displayed on public directory and digital prescription headers"
@@ -48,98 +47,83 @@ export function ClinicSettingsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Clinic Name *</label>
-
                 <input
                   required
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Specialty Tagline *</label>
-
                 <input
                   required
                   type="text"
                   value={form.tagline}
                   onChange={(e) => setForm({ ...form, tagline: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Contact Phone *</label>
-
                 <input
                   required
                   type="tel"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Official Email *</label>
-
                 <input
                   required
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Address *</label>
-
                 <input
                   required
                   type="text"
                   value={form.address}
                   onChange={(e) => setForm({ ...form, address: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">City *</label>
-
                 <input
                   required
                   type="text"
                   value={form.city}
                   onChange={(e) => setForm({ ...form, city: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Operating Hours</label>
-
               <input
                 type="text"
                 value={form.operatingHours}
                 onChange={(e) => setForm({ ...form, operatingHours: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Booking & Cancellation Policy</label>
-
               <textarea
                 rows={3}
                 value={form.bookingPolicy}
@@ -148,8 +132,20 @@ export function ClinicSettingsPage() {
               />
             </div>
 
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+            <div className="pt-2">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
+                <ALargeSmall className="w-4 h-4 text-blue-600" />
+                <span>Default Workspace Font Size</span>
+              </label>
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <span className="text-xs text-slate-500 dark:text-slate-400">
+                  Choose between Small (compact data views), Medium (standard), or Large (enlarged text).
+                </span>
+                <FontSizeSwitcher variant="segmented" />
+              </div>
+            </div>
 
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
               <Button variant="primary" size="md" type="submit" icon={Save}>
                 Save Clinic Settings
               </Button>

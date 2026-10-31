@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 export function ReceptionAppointmentsPage() {
   const {
     appointments = [],
-
     activeBranch,
     activeClinic,
     updateAppointmentStatus,
@@ -20,7 +19,6 @@ export function ReceptionAppointmentsPage() {
   const [selectedStatus, setSelectedStatus] = useState('All');
 
   const branchAppointments = appointments.filter((a) => !activeBranch || a.branchId === activeBranch.id);
-
 
   const filtered = branchAppointments.filter((a) => {
     const matchesSearch =
@@ -38,7 +36,6 @@ export function ReceptionAppointmentsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Schedule Master</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Reception Appointment Schedule</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Check in patients, call into consultation, or trigger WhatsApp visit updates.
           </p>
         </div>
@@ -47,13 +44,11 @@ export function ReceptionAppointmentsPage() {
           <Button variant="primary" size="sm">
             <PlusCircle className="w-4 h-4 mr-1.5" />
             Book Appointment
-
           </Button>
         </Link>
       </div>
 
       <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -63,7 +58,6 @@ export function ReceptionAppointmentsPage() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by patient name, reference number, or doctor..."
               className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
             />
           </div>
           <div className="sm:col-span-4">
@@ -71,7 +65,6 @@ export function ReceptionAppointmentsPage() {
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
             >
               <option value="All">All Statuses</option>
               <option value="Confirmed">Confirmed</option>
@@ -95,11 +88,11 @@ export function ReceptionAppointmentsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Reference #</th>
                 <th className="p-3.5">Patient Name</th>
                 <th className="p-3.5">Doctor & Service</th>
                 <th className="p-3.5">Date & Time</th>
+                <th className="p-3.5">Fee & Payment</th>
                 <th className="p-3.5">Status</th>
                 <th className="p-3.5 text-right">Actions</th>
               </tr>
@@ -134,6 +127,20 @@ export function ReceptionAppointmentsPage() {
                     <td className="p-3.5">
                       <div className="font-bold text-slate-900 dark:text-white">{apt.date}</div>
                       <div className="text-xs text-blue-700 dark:text-blue-400 font-medium">🕒 {apt.time}</div>
+                    </td>
+                    <td className="p-3.5">
+                      <div className="font-mono font-bold text-slate-900 dark:text-white">
+                        ₹{(Number(apt.consultationFee) || 600).toLocaleString('en-IN')}
+                      </div>
+                      {apt.paymentStatus === 'Paid' ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                          <CheckCircle className="w-3 h-3" /> Paid
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600 dark:text-amber-400">
+                          <Clock className="w-3 h-3" /> Due
+                        </span>
+                      )}
                     </td>
                     <td className="p-3.5">
                       <Badge variant={apt.status} size="sm">{apt.status}</Badge>
@@ -179,7 +186,6 @@ export function ReceptionAppointmentsPage() {
                   </tr>
                 ))
               )}
-
             </tbody>
           </table>
         </div>
@@ -187,4 +193,3 @@ export function ReceptionAppointmentsPage() {
     </div>
   );
 }
-

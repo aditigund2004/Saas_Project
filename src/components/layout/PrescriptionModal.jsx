@@ -31,7 +31,6 @@ export function PrescriptionModal() {
               Ref: {rx.prescriptionNumber}
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">ID: {rx.verificationId}</span>
-
           </div>
 
           <div className="flex items-center gap-2">
@@ -45,7 +44,6 @@ export function PrescriptionModal() {
         </div>
 
         {/* Printable Prescription Document Area - White authentic sheet */}
-
         <div className="prescription-paper bg-white p-6 sm:p-8 rounded-2xl border border-slate-300 shadow-sm text-slate-900 font-sans">
           {/* Header */}
           <div className="flex items-start justify-between pb-6 border-b-2 border-blue-700">
@@ -54,7 +52,6 @@ export function PrescriptionModal() {
               <p className="text-xs font-medium text-blue-700">{activeClinic?.tagline}</p>
               <p className="text-xs text-slate-500 mt-1 max-w-md">{activeClinic?.address}, {activeClinic?.city}</p>
               <p className="text-xs text-slate-500">Phone: {activeClinic?.phone} · Reg. No: CLN-2024-MH-9912</p>
-
             </div>
             <div className="text-right">
               <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wider rounded border border-blue-200">
@@ -72,7 +69,6 @@ export function PrescriptionModal() {
               <p className="text-sm font-bold text-slate-900">{rx.doctorName}</p>
               <p className="text-slate-600">Reg. Council No: <span className="font-mono">{rx.doctorRegistration || 'MDC-2012-08819'}</span></p>
               <p className="text-slate-500">{activeClinic?.specialty} Department</p>
-
             </div>
             <div className="space-y-1 md:border-l md:border-slate-200 md:pl-4">
               <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Patient Identification</p>
@@ -173,11 +169,9 @@ export function PrescriptionModal() {
 
         {/* Footer info note */}
         <div className="text-center text-xs text-slate-400 dark:text-slate-500 no-print">
-
           Prescription document rendered in accordance with digital healthcare standards. No patient credentials or confidential notes are exposed in public verification QR hashes.
         </div>
       </div>
     </Modal>
   );
 }
-

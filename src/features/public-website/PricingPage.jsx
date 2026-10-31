@@ -7,7 +7,6 @@ import { useApp } from '../../context/AppContext';
 import { ScrollRevealCard } from '../../components/medical/ScrollRevealCard';
 import { EcgWaveform } from '../../components/medical/EcgWaveform';
 
-
 export function PricingPage() {
   const { plans } = useApp();
   const [billingInterval, setBillingInterval] = useState('monthly');
@@ -25,7 +24,6 @@ export function PricingPage() {
     {
       q: 'How is WhatsApp messaging integrated?',
       a: 'ClinicOS connects with the WhatsApp Business Platform (via Meta Cloud API). The system uses pre-approved utility templates for confirmations, reminders, and follow-ups. In this frontend demo, message delivery is simulated.'
-
     },
     {
       q: 'Is prescription QR verification valid offline?',
@@ -49,14 +47,12 @@ export function PricingPage() {
           Simple, Predictable Plans for Clinics of All Sizes
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-
           Start with a 14-day free trial. Move your clinic from paper registers to digital management with no upfront setup charges.
         </p>
 
         {/* Monthly vs Annual Toggle */}
         <div className="pt-4 flex items-center justify-center gap-3">
           <span className={`text-xs font-semibold ${billingInterval === 'monthly' ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'}`}>
-
             Monthly Billing
           </span>
           <button
@@ -66,7 +62,6 @@ export function PricingPage() {
               billingInterval === 'annual' ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-700'
             }`}
             aria-label="Toggle annual or monthly billing"
-
           >
             <div
               className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform ${
@@ -77,7 +72,6 @@ export function PricingPage() {
           <span className={`text-xs font-semibold flex items-center gap-1.5 ${billingInterval === 'annual' ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'}`}>
             <span>Annual Billing</span>
             <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold">
-
               Save 20%
             </span>
           </span>
@@ -94,7 +88,6 @@ export function PricingPage() {
         }`}
       >
         {plans.map((plan, idx) => {
-
           const price =
             billingInterval === 'annual'
               ? Math.round(plan.annualPrice / 12)
@@ -121,7 +114,6 @@ export function PricingPage() {
                     : 'border-slate-200 dark:border-slate-800 shadow-sm'
                 }`}
               >
-
               {plan.isPopular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white shadow-sm uppercase tracking-wider">
@@ -159,7 +151,6 @@ export function PricingPage() {
                             Customer Savings:
                           </span>
                           <span className="font-mono text-emerald-950 dark:text-emerald-200 font-extrabold">
-
                             Save ₹{((plan.monthlyPrice * 12) - plan.annualPrice).toLocaleString('en-IN')}/yr ({Math.round((((plan.monthlyPrice * 12) - plan.annualPrice) / (plan.monthlyPrice * 12)) * 100)}% OFF)
                           </span>
                         </div>
@@ -181,7 +172,6 @@ export function PricingPage() {
                   <div>
                     <span className="block text-slate-400 dark:text-slate-500 text-[10px] uppercase font-semibold">Staff Seats</span>
                     <span className="font-bold text-slate-800 dark:text-slate-200">{plan.maxStaff}</span>
-
                   </div>
                 </div>
 
@@ -191,7 +181,6 @@ export function PricingPage() {
                   {plan.features.map((f, i) => (
                     <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
                       <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-
                       <span>{f}</span>
                     </div>
                   ))}
@@ -211,7 +200,6 @@ export function PricingPage() {
               </div>
             </Card>
           </ScrollRevealCard>
-
           );
         })}
       </div>
@@ -219,7 +207,6 @@ export function PricingPage() {
       {/* Demo notice on pricing */}
       <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
         <p className="font-semibold text-slate-700 dark:text-slate-300">Commercial Deployment Notice</p>
-
         <p className="mt-0.5">
           All subscription figures shown are configurable illustrative tiers. Production subscriptions integrate with Stripe, Razorpay, or your preferred payment gateway.
         </p>
@@ -230,7 +217,6 @@ export function PricingPage() {
         <div className="text-center space-y-2">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Frequently Asked Questions</h2>
           <p className="text-slate-500 dark:text-slate-400 text-xs">Got questions about onboarding or our trial? We’ve got answers.</p>
-
         </div>
 
         <div className="space-y-3">
@@ -240,20 +226,17 @@ export function PricingPage() {
               <div
                 key={idx}
                 className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors"
-
               >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
                   className="w-full p-4 text-left flex items-center justify-between text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 cursor-pointer"
-
                 >
                   <span>{faq.q}</span>
                   {isOpen ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
                 </button>
                 {isOpen && (
                   <div className="px-4 pb-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
-
                     {faq.a}
                   </div>
                 )}
@@ -265,4 +248,3 @@ export function PricingPage() {
     </div>
   );
 }
-

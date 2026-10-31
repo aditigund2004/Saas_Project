@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useTheme } from '../../context/ThemeContext';
-
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
 import { StatCard } from '../../components/ui/StatCard';
 import { Button } from '../../components/ui/Button';
@@ -24,7 +23,6 @@ import { Download, Calendar, BarChart3, TrendingUp, Users, CheckCircle2 } from '
 export function ClinicReportsPage() {
   const { activeClinic, activeBranch, showToast } = useApp();
   const { isDark } = useTheme();
-
   const [timeRange, setTimeRange] = useState('Month'); // 'Day', 'Week', 'Month'
 
   const procedureBreakdown = [
@@ -52,21 +50,18 @@ export function ClinicReportsPage() {
           </span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Operational & Financial Reports</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Real-time consultation completion rates, procedure revenue breakdowns, and patient attendance metrics.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-1 text-xs">
-
             {['Day', 'Week', 'Month'].map((t) => (
               <button
                 key={t}
                 onClick={() => setTimeRange(t)}
                 className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${
                   timeRange === t ? 'bg-blue-600 text-white font-semibold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-
                 }`}
               >
                 {t}
@@ -129,7 +124,6 @@ export function ClinicReportsPage() {
         {/* Attendance Breakdown Bar Chart */}
         <div className="lg:col-span-7">
           <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
             <CardHeader
               title="Daily Attendance & Visit Outcomes"
               subtitle="Completed visits vs cancellations and no-shows"
@@ -150,7 +144,6 @@ export function ClinicReportsPage() {
                         fontSize: '12px'
                       }}
                     />
-
                     <Bar dataKey="completed" name="Completed Visits" fill="#0d9488" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="cancelled" name="Cancelled" fill="#94a3b8" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="noShow" name="No-Show" fill="#f43f5e" radius={[4, 4, 0, 0]} />
@@ -164,7 +157,6 @@ export function ClinicReportsPage() {
         {/* Procedure Revenue Distribution */}
         <div className="lg:col-span-5">
           <Card className="h-full flex flex-col justify-between border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
             <CardHeader
               title="Revenue by Procedure Group"
               subtitle="Clinical department contributions"
@@ -177,13 +169,11 @@ export function ClinicReportsPage() {
                     <span className="block text-[11px] text-slate-500 dark:text-slate-400">{p.count} Patients treated</span>
                   </div>
                   <span className="font-mono font-bold text-slate-900 dark:text-white">
-
                     ₹{p.revenue.toLocaleString('en-IN')}
                   </span>
                 </div>
               ))}
               <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center pt-2">
-
                 Reports update automatically as appointments and invoices are marked completed.
               </p>
             </CardContent>

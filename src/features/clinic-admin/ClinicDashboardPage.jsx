@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useTheme } from '../../context/ThemeContext';
+import { FontSizeSwitcher } from '../../components/ui/FontSizeSwitcher';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
-
+import { useDashboardLayout } from '../../hooks/useDashboardLayout';
+import { CustomizableDashboardHeader } from '../../components/dashboard/CustomizableDashboardHeader';
 import {
   Calendar,
   Users,
@@ -38,7 +40,6 @@ import {
   X
 } from 'lucide-react';
 
-
 export function ClinicDashboardPage() {
   const {
     activeClinic = {},
@@ -54,6 +55,9 @@ export function ClinicDashboardPage() {
   } = useApp();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+
+  const { widgets, toggleWidget, moveWidget, resetToDefault, isWidgetVisible } =
+    useDashboardLayout('doctor_admin');
 
   // Tab & Filter States
   const [activeTab, setActiveTab] = useState('today'); // 'today' | 'upcoming' | 'all'
@@ -199,6 +203,14 @@ export function ClinicDashboardPage() {
 
         {/* Right: Support, Ask AI, Search, Theme & Live Website Pill */}
         <div className="flex flex-wrap items-center gap-2.5">
+          {/* Customizable Dashboard Layout Manager */}
+          <CustomizableDashboardHeader
+            widgets={widgets}
+            onToggleWidget={toggleWidget}
+            onMoveWidget={moveWidget}
+            onResetLayout={resetToDefault}
+          />
+
           {/* Support Button */}
           <Link to="/clinic/support">
             <button className="px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 transition-colors cursor-pointer">
@@ -235,6 +247,9 @@ export function ClinicDashboardPage() {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 absolute top-1.5 right-1.5" />
             </button>
           </Link>
+
+          {/* Font Size Selector */}
+          <FontSizeSwitcher variant="dropdown" />
 
           {/* Theme Toggle */}
           <button
@@ -311,7 +326,6 @@ export function ClinicDashboardPage() {
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs flex items-center gap-1.5"
             >
               <span>👑 Activate Plan</span>
-
             </Button>
           </Link>
         </div>
@@ -658,7 +672,6 @@ export function ClinicDashboardPage() {
                 </span>
               </button>
             </div>
-
           </Card>
         </div>
       </div>
@@ -932,7 +945,6 @@ export function ClinicDashboardPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

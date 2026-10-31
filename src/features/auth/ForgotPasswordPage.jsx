@@ -46,14 +46,12 @@ export function ForgotPasswordPage() {
               <span>Simulated Recovery Dispatched</span>
             </div>
             <p className="text-xs text-emerald-800 dark:text-emerald-300 leading-relaxed">
-
               {confirmationMessage}
             </p>
           </div>
 
           <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs text-slate-600 dark:text-slate-300 space-y-1">
             <span className="font-bold text-slate-800 dark:text-slate-100 block">Demonstration Notice:</span>
-
             <span>
               In this frontend prototype, passwords are not stored in live production databases. All seeded test accounts can be accessed directly via the Demo Access Hub or standard demo passwords.
             </span>
@@ -61,7 +59,6 @@ export function ForgotPasswordPage() {
 
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
             <Link to="/login/doctor" className="w-full sm:w-auto flex-1">
-
               <Button variant="primary" size="md" className="w-full justify-center bg-blue-600 hover:bg-blue-700 font-bold">
                 Return to Sign In <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
@@ -69,7 +66,6 @@ export function ForgotPasswordPage() {
             <Link to="/" className="w-full sm:w-auto">
               <Button variant="outline" size="md" className="w-full">
                 Home Page
-
               </Button>
             </Link>
           </div>
@@ -79,7 +75,6 @@ export function ForgotPasswordPage() {
           {error && (
             <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-xs text-red-800 dark:text-red-300 flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
-
               <div className="flex-1 leading-relaxed">
                 <span className="font-bold">Invalid Entry:</span> {error}
               </div>
@@ -92,7 +87,6 @@ export function ForgotPasswordPage() {
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
               <input
                 type="email"
                 value={email}
@@ -106,7 +100,6 @@ export function ForgotPasswordPage() {
               />
             </div>
             <p className="text-xs text-[#64748B] dark:text-slate-400">
-
               We will generate a simulated password recovery token for this address.
             </p>
           </div>
@@ -131,7 +124,6 @@ export function ForgotPasswordPage() {
           <div className="text-center pt-2">
             <Link to="/login/doctor" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" /> Return to Doctor Login
-
             </Link>
           </div>
         </form>
@@ -139,4 +131,3 @@ export function ForgotPasswordPage() {
     </AuthLayout>
   );
 }
-

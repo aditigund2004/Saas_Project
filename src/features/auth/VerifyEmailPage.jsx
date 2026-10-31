@@ -30,7 +30,6 @@ export function VerifyEmailPage() {
     if (res.success) {
       setVerified(true);
       // Wait 700ms and navigate to patient onboarding
-
       setTimeout(() => {
         navigate('/onboarding/patient');
       }, 700);
@@ -51,7 +50,6 @@ export function VerifyEmailPage() {
           <AlertTriangle className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <span className="font-bold block text-amber-950 dark:text-amber-200">Simulated Verification Environment:</span>
-
             <span>
               ClinicOS operates without live email relays or SMS gateways in this prototype. No real verification email was sent to your inbox. Use the demonstration action below to mark your account as verified.
             </span>
@@ -60,7 +58,6 @@ export function VerifyEmailPage() {
 
         {/* Envelope Display */}
         <div className="p-6 rounded-2xl bg-blue-50/50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/60 text-center space-y-3">
-
           <div className="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center mx-auto shadow-md">
             <Mail className="w-7 h-7" />
           </div>
@@ -72,13 +69,11 @@ export function VerifyEmailPage() {
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400">
             Simulated Token: <span className="font-mono bg-white dark:bg-slate-900 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200">{tokenParam}</span>
-
           </div>
         </div>
 
         {error && (
           <p className="text-xs text-red-600 dark:text-red-400 font-semibold text-center">{error}</p>
-
         )}
 
         {/* Action Button */}
@@ -89,7 +84,6 @@ export function VerifyEmailPage() {
               <span>Demo Email Verified Successfully!</span>
             </div>
             <p className="text-xs text-emerald-700 dark:text-emerald-400">Redirecting you to the patient onboarding wizard...</p>
-
           </div>
         ) : (
           <div className="space-y-2">
@@ -116,7 +110,6 @@ export function VerifyEmailPage() {
             <Link
               to="/onboarding/patient"
               className="block text-center text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white underline pt-1"
-
             >
               Skip verification for now and proceed &rarr;
             </Link>
@@ -126,4 +119,3 @@ export function VerifyEmailPage() {
     </AuthLayout>
   );
 }
-

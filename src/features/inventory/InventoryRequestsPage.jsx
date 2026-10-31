@@ -51,14 +51,12 @@ export function InventoryRequestsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Department Stock Requests</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Fulfill or triage consumable restock requests submitted by doctors, nurses, and receptionists
           </p>
         </div>
 
         <Button variant="primary" size="sm" onClick={() => setModalOpen(true)} className="font-semibold shadow-sm">
           <Plus className="w-4 h-4 mr-1.5" />
-
           Create Stock Request
         </Button>
       </div>
@@ -66,14 +64,12 @@ export function InventoryRequestsPage() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by item name, requester, or department..."
             className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
           />
         </div>
 
@@ -81,7 +77,6 @@ export function InventoryRequestsPage() {
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
           className="text-xs border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
         >
           <option value="All">All Statuses</option>
           <option value="Pending">Pending Review</option>
@@ -96,7 +91,6 @@ export function InventoryRequestsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Item Requested</th>
                 <th className="px-4 py-3">Quantity</th>
@@ -110,7 +104,6 @@ export function InventoryRequestsPage() {
               {filteredRequests.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No requests found.
                   </td>
                 </tr>
@@ -133,13 +126,11 @@ export function InventoryRequestsPage() {
                       <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{req.department}</div>
                     </td>
                     <td className="px-4 py-3.5">
-
                       <Badge variant={req.urgency === 'Urgent' ? 'danger' : 'default'} size="sm">
                         {req.urgency}
                       </Badge>
                     </td>
                     <td className="px-4 py-3.5">
-
                       <Badge
                         variant={
                           req.status === 'Approved' ? 'success' :
@@ -151,7 +142,6 @@ export function InventoryRequestsPage() {
                       </Badge>
                     </td>
                     <td className="px-4 py-3.5 text-right whitespace-nowrap">
-
                       {req.status === 'Pending' ? (
                         <div className="flex items-center justify-end gap-1.5">
                           <Button
@@ -161,7 +151,6 @@ export function InventoryRequestsPage() {
                             className="h-8 text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-
                             Approve
                           </Button>
                           <Button
@@ -171,13 +160,11 @@ export function InventoryRequestsPage() {
                             className="h-8 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40"
                           >
                             <XCircle className="w-3.5 h-3.5 mr-1" />
-
                             Reject
                           </Button>
                         </div>
                       ) : (
                         <span className="text-xs text-slate-400 dark:text-slate-500 italic">Resolved</span>
-
                       )}
                     </td>
                   </tr>
@@ -211,7 +198,6 @@ export function InventoryRequestsPage() {
             <form onSubmit={handleCreate} className="space-y-3.5 text-xs">
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Item Name *</label>
-
                 <input
                   required
                   type="text"
@@ -224,7 +210,6 @@ export function InventoryRequestsPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Quantity</label>
-
                   <input
                     required
                     type="number"
@@ -236,13 +221,11 @@ export function InventoryRequestsPage() {
                 </div>
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Unit</label>
-
                   <input
                     type="text"
                     value={newRequest.unit}
                     onChange={(e) => setNewRequest({ ...newRequest, unit: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   />
                 </div>
               </div>
@@ -250,7 +233,6 @@ export function InventoryRequestsPage() {
               <div className="grid grid-cols-2 gap-3.5">
                 <div>
                   <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Department</label>
-
                   <input
                     type="text"
                     value={newRequest.department}
@@ -264,7 +246,6 @@ export function InventoryRequestsPage() {
                     value={newRequest.urgency}
                     onChange={(e) => setNewRequest({ ...newRequest, urgency: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                   >
                     <option value="Routine">Routine</option>
                     <option value="Urgent">Urgent</option>
@@ -275,7 +256,6 @@ export function InventoryRequestsPage() {
 
               <div>
                 <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Notes / Reason</label>
-
                 <textarea
                   rows={2}
                   value={newRequest.notes}
@@ -285,7 +265,6 @@ export function InventoryRequestsPage() {
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setModalOpen(false)}>
                   Cancel
                 </Button>
@@ -300,4 +279,3 @@ export function InventoryRequestsPage() {
     </div>
   );
 }
-

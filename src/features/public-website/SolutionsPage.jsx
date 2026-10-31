@@ -94,7 +94,6 @@ export function SolutionsPage() {
         {specialties.map((spec) => {
           const Icon = spec.icon;
 
-
           return (
             <div
               key={spec.id}
@@ -114,7 +113,6 @@ export function SolutionsPage() {
                     {spec.workflows.map((wf, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
                         <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-
                         <span>{wf}</span>
                       </div>
                     ))}
@@ -126,7 +124,6 @@ export function SolutionsPage() {
                       </Button>
                     </Link>
                     <Link to="/register/clinic">
-
                       <Button variant="outline" size="md">
                         Start 14-Day Free Trial
                       </Button>
@@ -141,7 +138,6 @@ export function SolutionsPage() {
                     <p className="text-xs text-slate-500 dark:text-slate-400">Configured with preloaded service fees, doctors, and sample appointments in this demo.</p>
                     <div className="pt-2">
                       <Link to="/clinic/dashboard" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-
                         Open Admin Dashboard <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
@@ -155,4 +151,3 @@ export function SolutionsPage() {
     </div>
   );
 }
-

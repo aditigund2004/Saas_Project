@@ -5,14 +5,12 @@ import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { LifeBuoy, Plus, MessageSquare, Send, Paperclip, CheckCircle2, Clock, X, List, LayoutGrid } from 'lucide-react';
 
-
 export function ClinicSupportPage() {
   const { supportTickets, createSupportTicket, addTicketMessage, activeClinic, currentUser } = useApp();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedTicketId, setSelectedTicketId] = useState(null);
   const [replyText, setReplyText] = useState('');
   const [viewMode, setViewMode] = useState('table');
-
 
   const [newTicket, setNewTicket] = useState({
     category: 'Clinical Workflow',
@@ -56,7 +54,6 @@ export function ClinicSupportPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">SaaS Support & Helpdesk</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Submit technical tickets, request custom clinical templates, or get billing assistance from the ClinicOS SaaS engineering team
           </p>
         </div>
@@ -191,7 +188,6 @@ export function ClinicSupportPage() {
           <Card className="divide-y divide-slate-100 dark:divide-slate-800 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 max-h-[520px] overflow-y-auto">
             {clinicTickets.length === 0 ? (
               <div className="p-8 text-center text-slate-400 dark:text-slate-500 text-xs">
-
                 No active support tickets. Click above to raise one.
               </div>
             ) : (
@@ -209,7 +205,6 @@ export function ClinicSupportPage() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono font-bold text-blue-700 dark:text-blue-400">{t.ticketNumber}</span>
-
                       <Badge
                         variant={
                           t.priority === 'Critical' ? 'danger' :
@@ -223,7 +218,6 @@ export function ClinicSupportPage() {
                     <div className="font-bold text-slate-900 dark:text-white line-clamp-1">{t.subject}</div>
                     <div className="flex items-center justify-between text-[10px] text-slate-400 dark:text-slate-500 pt-1">
                       <span>Status: <strong className="text-slate-700 dark:text-slate-300">{t.status}</strong></span>
-
                       <span>{t.createdAt}</span>
                     </div>
                   </div>
@@ -241,7 +235,6 @@ export function ClinicSupportPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="font-mono font-bold text-blue-800 dark:text-blue-400 text-sm">{selectedTicket.ticketNumber}</span>
-
                     <Badge variant="teal" size="sm">{selectedTicket.category}</Badge>
                   </div>
                   <Badge variant={selectedTicket.status === 'Resolved' ? 'success' : 'warning'} size="sm">
@@ -251,7 +244,6 @@ export function ClinicSupportPage() {
                 <h3 className="text-base font-bold text-slate-900 dark:text-white mt-1">{selectedTicket.subject}</h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Assigned Support Specialist: <strong className="text-slate-700 dark:text-slate-300">{selectedTicket.assignedAgentName || 'Pooja Sharma'}</strong>
-
                 </p>
               </div>
 
@@ -264,21 +256,18 @@ export function ClinicSupportPage() {
                       <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">{msg.timestamp}</span>
                     </div>
                     <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{msg.message}</p>
-
                   </div>
                 ))}
               </div>
 
               {/* Reply */}
               <form onSubmit={handleSendReply} className="p-3.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2">
-
                 <textarea
                   rows={2}
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
                   placeholder="Type reply or additional notes for SaaS support..."
                   className="flex-1 text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
                 />
                 <Button type="submit" variant="primary" size="md" className="self-end text-xs font-bold">
                   <Send className="w-3.5 h-3.5 mr-1" />
@@ -288,7 +277,6 @@ export function ClinicSupportPage() {
             </Card>
           ) : (
             <Card className="flex-1 p-12 text-center text-slate-400 dark:text-slate-500 text-xs border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
               No ticket selected.
             </Card>
           )}
@@ -312,7 +300,6 @@ export function ClinicSupportPage() {
                 Submit New Ticket to SaaS Support
               </h3>
               <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
-
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -325,7 +312,6 @@ export function ClinicSupportPage() {
                     value={newTicket.category}
                     onChange={(e) => setNewTicket({ ...newTicket, category: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-
                   >
                     <option value="Billing & Subscriptions">Billing & Invoicing</option>
                     <option value="Clinical Workflow">Clinical Workflow</option>
@@ -339,7 +325,6 @@ export function ClinicSupportPage() {
                     value={newTicket.priority}
                     onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -351,7 +336,6 @@ export function ClinicSupportPage() {
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1 block">Subject / Issue Summary *</label>
-
                 <input
                   required
                   type="text"
@@ -359,13 +343,11 @@ export function ClinicSupportPage() {
                   onChange={(e) => setNewTicket({ ...newTicket, subject: e.target.value })}
                   placeholder="e.g. Need assistance setting custom GST tax rate"
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-
                 />
               </div>
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1 block">Detailed Description *</label>
-
                 <textarea
                   required
                   rows={3}
@@ -373,21 +355,18 @@ export function ClinicSupportPage() {
                   onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
                   placeholder="Describe what occurred, steps to reproduce, or requested configuration..."
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
-
                 />
               </div>
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1 block">Attachment Reference</label>
                 <div className="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
-
                   <Paperclip className="w-3.5 h-3.5 text-slate-400" />
                   <span>{newTicket.simulatedAttachment}</span>
                 </div>
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setModalOpen(false)}>
                   Cancel
                 </Button>

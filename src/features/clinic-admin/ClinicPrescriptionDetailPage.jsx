@@ -32,7 +32,6 @@ export function ClinicPrescriptionDetailPage() {
             Prescription #{rx.prescriptionNumber}
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">Issued on {rx.date} for {rx.patientName}</p>
-
         </div>
 
         <div className="flex items-center gap-2">

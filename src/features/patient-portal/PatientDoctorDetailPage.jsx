@@ -66,7 +66,6 @@ export function PatientDoctorDetailPage() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">{doctor.name}</h1>
                 <p className="text-sm font-bold text-blue-600 dark:text-blue-400 mt-0.5">{doctor.specialty}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{doctor.qualifications}</p>
-
               </div>
 
               <div className="flex items-center gap-3">
@@ -76,14 +75,12 @@ export function PatientDoctorDetailPage() {
                     <span>{doctor.rating || 4.9}</span>
                   </div>
                   <span className="text-xs text-slate-400 dark:text-slate-500 font-mono">
-
                     {doctor.reviewsCount || 110}+ Verified Reviews
                   </span>
                 </div>
 
                 <Link to={`/patient/appointments/book?clinicId=${doctor.clinicId}&doctorId=${doctor.id}`}>
                   <Button variant="primary" size="md" icon={Calendar} className="shadow-md shadow-blue-500/20 font-bold">
-
                     Book Consultation
                   </Button>
                 </Link>
@@ -99,7 +96,6 @@ export function PatientDoctorDetailPage() {
                 {doctor.experienceYears} Years Clinical Experience
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-bold font-mono border border-blue-200/50 dark:border-blue-900/50">
-
                 Fee: ₹{doctor.consultationFee}
               </span>
             </div>
@@ -112,7 +108,6 @@ export function PatientDoctorDetailPage() {
         {/* Left Column (2 Cols): Bio, Clinical Focus, Schedule */}
         <div className="lg:col-span-2 space-y-6">
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
             <CardHeader
               title="Doctor Biography & Clinical Focus"
               subtitle="Medical training, procedural expertise, and clinical approach"
@@ -125,14 +120,12 @@ export function PatientDoctorDetailPage() {
               <div>
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Typical Slot Duration</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 font-mono mt-1 text-sm block">
-
                   {doctor.appointmentDurationMinutes || 30} Minutes
                 </span>
               </div>
               <div>
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 block">Consultation Mode</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 mt-1 text-sm block">
-
                   In-Person Clinic Consultation
                 </span>
               </div>
@@ -141,7 +134,6 @@ export function PatientDoctorDetailPage() {
 
           {/* Clinical Working Hours */}
           <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
             <CardHeader
               title="Availability Schedule"
               subtitle="Standard clinical consultation timings"
@@ -160,7 +152,6 @@ export function PatientDoctorDetailPage() {
 
               <div className="p-3.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 text-blue-950 dark:text-blue-200 text-xs flex items-center gap-2.5 border border-blue-200 dark:border-blue-900/50">
                 <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-
                 <span>
                   Exact slots are verified by the clinic receptionist to prevent double-booking and accommodate hospital rounds.
                 </span>
@@ -198,7 +189,6 @@ export function PatientDoctorDetailPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-slate-400 shrink-0" />
-
                     <span className="font-mono">{clinic.phone}</span>
                   </div>
                 </div>
@@ -206,7 +196,6 @@ export function PatientDoctorDetailPage() {
                 <div className="pt-2">
                   <Link to={`/patient/clinics/${clinic.id}`}>
                     <Button variant="outline" size="sm" className="w-full text-xs font-medium">
-
                       View Clinic Profile &rarr;
                     </Button>
                   </Link>
@@ -223,7 +212,6 @@ export function PatientDoctorDetailPage() {
             </p>
             <Link to={`/patient/appointments/book?clinicId=${doctor.clinicId}&doctorId=${doctor.id}`}>
               <Button variant="secondary" size="md" className="w-full text-xs font-bold bg-white text-blue-700 hover:bg-blue-50 shadow-sm">
-
                 Start Booking Request &rarr;
               </Button>
             </Link>

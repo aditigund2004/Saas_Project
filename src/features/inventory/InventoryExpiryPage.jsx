@@ -24,7 +24,6 @@ export function InventoryExpiryPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Batch Expiry Monitoring</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Proactive triage of pharmaceutical and consumable shelf-lives to avoid clinical risk & wastage
           </p>
         </div>
@@ -57,7 +56,6 @@ export function InventoryExpiryPage() {
           </div>
           <div className="text-2xl font-black text-emerald-950 dark:text-emerald-100">98.4% Safe</div>
           <p className="text-xs text-emerald-800 dark:text-emerald-300 mt-1">Zero expired drugs dispensed in OPD</p>
-
         </Card>
       </div>
 
@@ -74,7 +72,6 @@ export function InventoryExpiryPage() {
               <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
                 <tr>
                   <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                   <th className="px-4 py-3">Product Name</th>
                   <th className="px-4 py-3">SKU</th>
                   <th className="px-4 py-3">Batch Number</th>
@@ -105,7 +102,6 @@ export function InventoryExpiryPage() {
                     </td>
                     <td className="px-4 py-3.5">
                       <span className="inline-block px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-semibold">
-
                         Prioritize for next 14 days OPD dispensing
                       </span>
                     </td>
@@ -119,4 +115,3 @@ export function InventoryExpiryPage() {
     </div>
   );
 }
-

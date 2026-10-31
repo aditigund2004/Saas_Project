@@ -27,14 +27,14 @@ import {
   ClinicalEncounter,
   StaffMember,
   User,
+  FamilyMember,
   SaaSBillingInvoice,
   SaaSPayment,
   SaaSRefund,
   SaaSExpense,
   ClinicPaymentRecord,
   ClinicRefundRecord,
-  ReceiptRecord
-
+  VirtualConsultation
 } from '../types';
 
 export const DEMO_PLANS: SubscriptionPlan[] = [
@@ -888,6 +888,26 @@ export const DEMO_PATIENTS: Patient[] = [
     medicalHistory: 'Mild hypertension controlled with dietary lifestyle. No diabetic history.',
     address: '402 Sunrise Heights, Bandra West, Mumbai',
     emergencyContact: 'Sunita Patel (Spouse) - +91 98765 43219',
+    emergencyContactDetails: {
+      name: 'Sunita Patel',
+      relationship: 'Spouse',
+      phone: '+91 98765 43219',
+      alternatePhone: '+91 98765 43220',
+      email: 'sunita.patel@example.demo',
+      address: '402 Sunrise Heights, Bandra West, Mumbai',
+      isAuthorizedToMakeDecisions: true
+    },
+    emergencyMedicalDetails: {
+      bloodGroup: 'B+',
+      allergies: ['Penicillin', 'Sulfa drugs'],
+      chronicConditions: ['Mild Hypertension'],
+      currentMedications: ['Telmisartan 20mg (Morning OD)', 'Multivitamin'],
+      organDonor: true,
+      primaryHospital: 'Lilavati Hospital & Research Centre, Bandra West',
+      insuranceProvider: 'Star Health & Allied Insurance',
+      policyNumber: 'SH-POL-2024-88910',
+      specialInstructions: 'Allergic to penicillin class antibiotics; substitute with Macrolides (Azithromycin) or Clindamycin in emergency.'
+    },
     registeredAt: '2026-08-12',
     status: 'Active'
   },
@@ -905,6 +925,26 @@ export const DEMO_PATIENTS: Patient[] = [
     medicalHistory: 'Chronic migraine, prior dental crown lower right first molar (2022).',
     address: 'Flat 12, Gulmohar Apartments, Dadar, Mumbai',
     emergencyContact: 'Rajesh Deshmukh - +91 98111 22339',
+    emergencyContactDetails: {
+      name: 'Rajesh Deshmukh',
+      relationship: 'Husband',
+      phone: '+91 98111 22339',
+      alternatePhone: '+91 98111 22340',
+      email: 'rajesh.deshmukh@example.demo',
+      address: 'Flat 12, Gulmohar Apartments, Dadar, Mumbai',
+      isAuthorizedToMakeDecisions: true
+    },
+    emergencyMedicalDetails: {
+      bloodGroup: 'O+',
+      allergies: ['Latex'],
+      chronicConditions: ['Chronic Migraine'],
+      currentMedications: ['Sumatriptan 50mg (SOS)'],
+      organDonor: false,
+      primaryHospital: 'Hinduja Healthcare Surgical, Khar',
+      insuranceProvider: 'HDFC ERGO General Insurance',
+      policyNumber: 'HDFC-MED-99412',
+      specialInstructions: 'Strict non-latex gloves and rubber dam consumables required during dental procedures.'
+    },
     registeredAt: '2026-09-03',
     status: 'Active'
   },
@@ -922,6 +962,24 @@ export const DEMO_PATIENTS: Patient[] = [
     medicalHistory: 'Asthma on PRN inhaler. No known medication allergies.',
     address: 'Rowhouse 4, Green Pines, Andheri East, Mumbai',
     emergencyContact: 'Ananya Sethi - +91 99223 34459',
+    emergencyContactDetails: {
+      name: 'Ananya Sethi',
+      relationship: 'Spouse',
+      phone: '+91 99223 34459',
+      email: 'ananya.sethi@example.demo',
+      isAuthorizedToMakeDecisions: true
+    },
+    emergencyMedicalDetails: {
+      bloodGroup: 'A+',
+      allergies: [],
+      chronicConditions: ['Bronchial Asthma'],
+      currentMedications: ['Budecort Inhaler 200mcg (PRN)'],
+      organDonor: true,
+      primaryHospital: 'Nanavati Super Speciality Hospital, Vile Parle',
+      insuranceProvider: 'ICICI Lombard Health Care',
+      policyNumber: 'IL-HLTH-77123',
+      specialInstructions: 'Patient carries rescue inhaler. Keep salbutamol nebulization ready if acute bronchospasm occurs.'
+    },
     registeredAt: '2026-09-20',
     status: 'Active'
   },
@@ -958,6 +1016,126 @@ export const DEMO_PATIENTS: Patient[] = [
     emergencyContact: 'Pooja Varma - +91 98445 66770',
     registeredAt: '2026-10-22',
     status: 'Active'
+  }
+];
+
+export const DEMO_FAMILY_MEMBERS: FamilyMember[] = [
+  {
+    id: 'fm-101',
+    primaryPatientId: 'pt-1041',
+    name: 'Sunita Patel',
+    relationship: 'Wife',
+    gender: 'Female',
+    dob: '1994-03-21',
+    bloodGroup: 'B+',
+    phone: '+91 98765 43219',
+    allergies: [],
+    chronicConditions: [],
+    currentMedications: ['Prenatal Iron & Calcium Supplement'],
+    medicalNotes: 'Regular preventive dental checkups. All past procedures uneventful.',
+    recordsCount: 2,
+    records: [
+      {
+        id: 'frec-101',
+        type: 'Consultation',
+        title: 'Routine Comprehensive Dental Prophylaxis',
+        doctorName: 'Dr. Arvind Rao, MDS',
+        clinicName: 'CityCare Family Clinic & Implant Centre',
+        date: '2026-09-15',
+        summary: 'Supragingival scaling and polishing completed. Gingival health intact.',
+        diagnosis: 'Healthy Periodontium / Grade 0 Plaque',
+        status: 'Completed'
+      },
+      {
+        id: 'frec-102',
+        type: 'Prescription',
+        title: 'Preventive Fluoride Rinse & Chlorhexidine',
+        doctorName: 'Dr. Arvind Rao, MDS',
+        clinicName: 'CityCare Family Clinic & Implant Centre',
+        date: '2026-09-15',
+        summary: '0.2% Chlorhexidine mouthwash twice daily for 7 days post-scaling.',
+        status: 'Completed'
+      }
+    ],
+    registeredAt: '2026-08-15'
+  },
+  {
+    id: 'fm-102',
+    primaryPatientId: 'pt-1041',
+    name: 'Vihaan Patel',
+    relationship: 'Son',
+    gender: 'Male',
+    dob: '2020-04-12',
+    bloodGroup: 'B+',
+    phone: '+91 98765 43210',
+    allergies: ['Peanuts'],
+    chronicConditions: ['Mild Childhood Bronchial Hyperreactivity'],
+    currentMedications: ['Multivitamin Chewable Drops'],
+    medicalNotes: 'Pediatric dental assessment shows primary dentition intact with zero caries.',
+    recordsCount: 2,
+    records: [
+      {
+        id: 'frec-103',
+        type: 'Consultation',
+        title: 'Pediatric Oral Health & Pit/Fissure Screening',
+        doctorName: 'Dr. Arvind Rao, MDS',
+        clinicName: 'CityCare Family Clinic & Implant Centre',
+        date: '2026-07-20',
+        summary: 'Preventive pit and fissure sealants applied on deciduous molars.',
+        diagnosis: 'Caries-Free Pediatric Dentition',
+        status: 'Completed'
+      },
+      {
+        id: 'frec-104',
+        type: 'Vaccination',
+        title: 'Annual MMR Booster & Flu Inoculation',
+        doctorName: 'Dr. Arvind Rao, MDS',
+        clinicName: 'CityCare Family Clinic & Implant Centre',
+        date: '2026-05-10',
+        summary: 'Scheduled pediatric immunizations administered without adverse reaction.',
+        status: 'Completed'
+      }
+    ],
+    registeredAt: '2026-08-15'
+  },
+  {
+    id: 'fm-103',
+    primaryPatientId: 'pt-1041',
+    name: 'Kavita Patel',
+    relationship: 'Mother',
+    gender: 'Female',
+    dob: '1962-08-19',
+    bloodGroup: 'O+',
+    phone: '+91 98765 43288',
+    allergies: ['NSAIDs / Ibuprofen'],
+    chronicConditions: ['Hypertension', 'Bilateral Knee Osteoarthritis'],
+    currentMedications: ['Amlodipine 5mg (Morning)', 'Glucosamine Sulfate'],
+    medicalNotes: 'Senior wellness protocol. Avoid NSAIDs due to gastric sensitivity and kidney clearance.',
+    recordsCount: 2,
+    records: [
+      {
+        id: 'frec-105',
+        type: 'Consultation',
+        title: 'Geriatric Orthodontic & Periodontal Evaluation',
+        doctorName: 'Dr. Arvind Rao, MDS',
+        clinicName: 'CityCare Family Clinic & Implant Centre',
+        date: '2026-08-04',
+        summary: 'Deep periodontal debridement and subgingival irrigation.',
+        diagnosis: 'Mild Chronic Adult Periodontitis',
+        status: 'Completed'
+      },
+      {
+        id: 'frec-106',
+        type: 'Prescription',
+        title: 'Antimicrobial Dental Gel & Desensitizing Paste',
+        doctorName: 'Dr. Arvind Rao, MDS',
+        clinicName: 'CityCare Family Clinic & Implant Centre',
+        date: '2026-08-04',
+        summary: 'Metronidazole gel application and potassium nitrate paste for 14 days.',
+        status: 'Completed'
+      }
+    ],
+    registeredAt: '2026-08-15'
   }
 ];
 
@@ -2200,9 +2378,8 @@ export const DEMO_PLATFORM_METRICS: PlatformMetric = {
 export const DEMO_USERS: Record<string, User> = {
   super_admin: {
     id: 'usr-superadmin',
-    name: 'Super Administrator',
-    email: 'superadmin@admin.com',
-
+    name: 'Vikramaditya Singhania',
+    email: 'admin@clinicos.health',
     phone: '+91 98000 00001',
     role: 'super_admin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
@@ -2590,7 +2767,6 @@ export const DEMO_RECEIPTS: ReceiptRecord[] = [
   }
 ];
 
-
 export const DEMO_CLINIC_REFUNDS: ClinicRefundRecord[] = [
   {
     id: 'cref-101',
@@ -2660,3 +2836,68 @@ export const DEMO_NOTIFICATIONS: SimulatedNotification[] = [
     priority: 'normal'
   }
 ];
+
+export const DEMO_VIRTUAL_CONSULTATIONS: VirtualConsultation[] = [
+  {
+    id: 'vc-101',
+    patientId: 'pt-1001',
+    patientName: 'Rahul Sharma',
+    patientPhone: '+91 98201 22334',
+    patientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Fever, cough and throat irritation for 2 days. Needs urgent clinical advice & Rx.',
+    status: 'In Call',
+    requestedAt: 'Today, 10:45 AM',
+    preferredTime: 'Immediate Live Connect',
+    meetingLink: 'https://clinicos.health/meet/vc-101-live',
+    notes: 'Patient reports mild seasonal allergy symptoms. Clear lungs, BP normal.',
+    duration: '08:24'
+  },
+  {
+    id: 'vc-102',
+    patientId: 'pt-1002',
+    patientName: 'Pooja Verma',
+    patientPhone: '+91 98450 11998',
+    patientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Review blood test report & routine diabetes management follow-up.',
+    status: 'Waiting',
+    requestedAt: 'Today, 11:05 AM',
+    preferredTime: 'Immediate Live Connect',
+    meetingLink: 'https://clinicos.health/meet/vc-102-live',
+    notes: '',
+    duration: '00:00'
+  },
+  {
+    id: 'vc-103',
+    patientId: 'usr-patient-aarav',
+    patientName: 'Aarav Patel',
+    patientPhone: '+91 98765 43210',
+    patientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    doctorId: 'doc-aarav',
+    doctorName: 'Dr. Aarav Mehta',
+    doctorSpecialty: 'General Physician',
+    clinicId: 'clinic-citycare',
+    clinicName: 'CityCare Family Clinic',
+    reason: 'Follow-up consultation for prescribed antibiotics and mild headache.',
+    status: 'Waiting',
+    requestedAt: 'Today, 11:15 AM',
+    preferredTime: 'Scheduled: Today at 02:00 PM',
+    meetingLink: 'https://clinicos.health/meet/vc-103-live',
+    notes: '',
+    duration: '00:00'
+  }
+];
+
+export * from './medicineData';
+export * from './queriesData';
+export * from './packagesData';
+

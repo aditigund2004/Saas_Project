@@ -26,7 +26,6 @@ export function AccountsPaymentsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Payment Transactions Log</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Realized settlements recorded across dynamic UPI, card swipes, cash counters, and cashless TPA
           </p>
         </div>
@@ -34,7 +33,6 @@ export function AccountsPaymentsPage() {
 
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
         <input
           type="text"
           value={searchTerm}
@@ -50,7 +48,6 @@ export function AccountsPaymentsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-xs">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-bold">#</th>
-
                 <th className="px-4 py-3">Receipt / Ref</th>
                 <th className="px-4 py-3">Invoice #</th>
                 <th className="px-4 py-3">Patient Name</th>
@@ -85,7 +82,6 @@ export function AccountsPaymentsPage() {
                     {formatCurrency(p.amountPaid)}
                   </td>
                   <td className="px-4 py-3.5">
-
                     <Badge variant="success" size="sm">Settled</Badge>
                   </td>
                 </tr>
@@ -97,4 +93,3 @@ export function AccountsPaymentsPage() {
     </div>
   );
 }
-

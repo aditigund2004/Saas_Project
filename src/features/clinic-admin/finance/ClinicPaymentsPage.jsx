@@ -22,7 +22,6 @@ export function ClinicPaymentsPage() {
   const {
     clinicPayments = [],
     invoices = [],
-
     recordClinicPayment,
     showToast,
     formatCurrency,
@@ -88,7 +87,6 @@ export function ClinicPaymentsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Patient Collections Ledger</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Collections & Cashier Log</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Audit-ready log of all patient payments collected via UPI, POS Cards, Cash, and TPA Insurance.
           </p>
         </div>
@@ -100,7 +98,6 @@ export function ClinicPaymentsPage() {
             onClick={() => showToast('Exporting collections ledger to Excel / CSV...')}
           >
             <Download className="w-4 h-4 mr-1.5" />
-
             Export Ledger
           </Button>
           <Button
@@ -109,7 +106,6 @@ export function ClinicPaymentsPage() {
             onClick={() => setIsRecordModalOpen(true)}
           >
             <PlusCircle className="w-4 h-4 mr-1.5" />
-
             Record Counter Payment
           </Button>
         </div>
@@ -128,7 +124,6 @@ export function ClinicPaymentsPage() {
             {formatCurrency(totalCollected)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             {clinicPayments.length} total transactions recorded
           </div>
         </Card>
@@ -144,7 +139,6 @@ export function ClinicPaymentsPage() {
             {formatCurrency(upiTotal)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             {totalCollected > 0 ? ((upiTotal / totalCollected) * 100).toFixed(0) : 0}% of all practice volume
           </div>
         </Card>
@@ -160,7 +154,6 @@ export function ClinicPaymentsPage() {
             {formatCurrency(cardTotal)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Swiped on clinic POS terminals
           </div>
         </Card>
@@ -176,7 +169,6 @@ export function ClinicPaymentsPage() {
             {formatCurrency(cashTotal)}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-
             Subject to daily cash deposit
           </div>
         </Card>
@@ -187,14 +179,12 @@ export function ClinicPaymentsPage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               placeholder="Search by payment ref, patient or invoice #..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
-
             />
           </div>
 
@@ -207,7 +197,6 @@ export function ClinicPaymentsPage() {
                   methodFilter === method
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-
                 }`}
               >
                 {method}
@@ -221,7 +210,6 @@ export function ClinicPaymentsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Payment Ref</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Invoice #</th>
@@ -236,7 +224,6 @@ export function ClinicPaymentsPage() {
               {filteredPayments.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
-
                     No payment records found.
                   </td>
                 </tr>
@@ -261,7 +248,6 @@ export function ClinicPaymentsPage() {
                     </td>
                     <td className="p-3.5">
                       <Badge variant="success" size="sm">Completed</Badge>
-
                     </td>
                     <td className="p-3.5 text-right">
                       <Button
@@ -270,7 +256,6 @@ export function ClinicPaymentsPage() {
                         onClick={() => showToast(`Printing collection voucher ${p.paymentReference}...`)}
                       >
                         <Printer className="w-3.5 h-3.5 mr-1" />
-
                         Print Slip
                       </Button>
                     </td>
@@ -295,7 +280,6 @@ export function ClinicPaymentsPage() {
               value={selectedInvoiceNumber}
               onChange={(e) => setSelectedInvoiceNumber(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
             >
               {invoices.map((inv) => {
                 const due = (inv.totalAmount || 0) - (inv.amountPaid || 0);
@@ -314,7 +298,6 @@ export function ClinicPaymentsPage() {
               value={payMethod}
               onChange={(e) => setPayMethod(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
-
             >
               <option value="UPI QR">UPI Dynamic QR (Instant settlement)</option>
               <option value="Card (POS)">Card Swipe / Tap (PineLabs POS)</option>
@@ -325,7 +308,6 @@ export function ClinicPaymentsPage() {
 
           <div>
             <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-
               Amount (Leave empty for full outstanding balance)
             </label>
             <input
@@ -335,7 +317,6 @@ export function ClinicPaymentsPage() {
               onChange={(e) => setCustomAmount(e.target.value)}
               placeholder="e.g. 1500"
               className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-
             />
           </div>
 
@@ -345,7 +326,6 @@ export function ClinicPaymentsPage() {
             </Button>
             <Button variant="primary" type="submit">
               <CheckCircle2 className="w-4 h-4 mr-1.5" />
-
               Confirm Collection
             </Button>
           </div>
@@ -354,4 +334,3 @@ export function ClinicPaymentsPage() {
     </div>
   );
 }
-

@@ -30,7 +30,6 @@ export function ClinicSubscriptionPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">SaaS Subscription Status</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Clinic Plan & 14-Day Free Trial</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Review active tier limits, trial expiration countdown, and upgrade requests.
           </p>
         </div>
@@ -38,7 +37,6 @@ export function ClinicSubscriptionPage() {
 
       {/* Current Active Plan Banner */}
       <Card className="p-6 sm:p-8 border-blue-500 bg-gradient-to-r from-blue-50/50 via-white to-blue-50/50 dark:from-blue-950/30 dark:via-slate-900 dark:to-blue-950/30 shadow-sm">
-
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -54,7 +52,6 @@ export function ClinicSubscriptionPage() {
               <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">/ month (Billed after trial ends)</span>
             </h2>
             <p className="text-xs text-slate-600 dark:text-slate-300 max-w-xl">
-
               Trial Expiration Date: <strong>06 November 2026 (14 Days Remaining)</strong>. Your clinic currently has active access to multi-branch scheduling, digital PDF prescriptions, QR authenticity validation, and WhatsApp confirmation previews.
             </p>
           </div>
@@ -88,7 +85,6 @@ export function ClinicSubscriptionPage() {
           <div>
             <span className="text-slate-400 dark:text-slate-500 block text-[10px] font-semibold uppercase">Trial Status</span>
             <span className="font-bold text-blue-700 dark:text-blue-400">Full Access Mode</span>
-
           </div>
         </div>
       </Card>
@@ -96,7 +92,6 @@ export function ClinicSubscriptionPage() {
       {/* Plan Comparison Grid */}
       <div className="space-y-4">
         <h3 className="text-base font-bold text-slate-900 dark:text-white">Compare & Switch Subscription Tiers</h3>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((p) => {
             const isCurrent = p.id === activeClinic.subscriptionPlanId;
@@ -118,7 +113,6 @@ export function ClinicSubscriptionPage() {
                     {p.features.slice(0, 5).map((f, i) => (
                       <div key={i} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                         <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-
                         <span>{f}</span>
                       </div>
                     ))}
@@ -166,7 +160,6 @@ export function ClinicSubscriptionPage() {
               <p className="text-slate-600 dark:text-slate-400">• Full WhatsApp notification triggers</p>
             </div>
             <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setIsUpgradeModalOpen(false)}>
                 Cancel
               </Button>

@@ -4,6 +4,7 @@ import { MockAuthService } from '../../services/mockAuthService';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { Modal } from '../../components/ui/Modal';
 import {
   Users,
   Plus,
@@ -124,7 +125,6 @@ export function ClinicStaffPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Staff & Role Provisioning</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Provision Receptionist/Manager and clinician privileges. Public self-signup is strictly blocked for staff.
           </p>
         </div>
@@ -137,7 +137,6 @@ export function ClinicStaffPage() {
 
       {/* Tabs */}
       <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
-
         <button
           type="button"
           onClick={() => setActiveTab('roster')}
@@ -145,7 +144,6 @@ export function ClinicStaffPage() {
             activeTab === 'roster'
               ? 'bg-blue-600 text-white shadow-xs'
               : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
-
           }`}
         >
           Active Staff Roster ({filteredStaff.length})
@@ -158,7 +156,6 @@ export function ClinicStaffPage() {
             activeTab === 'invitations'
               ? 'bg-blue-600 text-white shadow-xs'
               : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
-
           }`}
         >
           Simulated Staff Invitations ({invitations.length})
@@ -185,7 +182,6 @@ export function ClinicStaffPage() {
                 <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
                   <tr>
                     <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-
                     <th className="px-4 py-3">Staff Name</th>
                     <th className="px-4 py-3">Role</th>
                     <th className="px-4 py-3">Department</th>
@@ -216,7 +212,6 @@ export function ClinicStaffPage() {
                         <div className="text-[11px] text-slate-400 dark:text-slate-500 font-mono">{staff.phone}</div>
                       </td>
                       <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono">
-
                         {staff.shift}
                       </td>
                       <td className="px-4 py-3">
@@ -227,7 +222,6 @@ export function ClinicStaffPage() {
                           value={staff.role}
                           onChange={(e) => updateStaffRole(staff.id, e.target.value)}
                           className="text-xs border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-medium"
-
                         >
                           <option value="doctor">Doctor</option>
                           <option value="receptionist">Receptionist</option>
@@ -250,7 +244,6 @@ export function ClinicStaffPage() {
         <div className="space-y-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/40 rounded-2xl text-xs text-blue-900 dark:text-blue-200 flex items-start gap-3">
             <Shield className="w-5 h-5 text-blue-700 dark:text-blue-400 shrink-0 mt-0.5" />
-
             <div className="space-y-1">
               <span className="font-bold text-sm block">Governed Staff Provisioning (Section 13):</span>
               <p className="leading-relaxed">
@@ -265,7 +258,6 @@ export function ClinicStaffPage() {
                 <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
                   <tr>
                     <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-
                     <th className="px-4 py-3">Invited Staff Member</th>
                     <th className="px-4 py-3">Assigned Role</th>
                     <th className="px-4 py-3">Branch Location</th>
@@ -278,7 +270,6 @@ export function ClinicStaffPage() {
                   {invitations.length === 0 ? (
                     <tr>
                       <td colSpan={7} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                         No staff invitations on record. Click "+ Invite Staff Member" to dispatch an invite.
                       </td>
                     </tr>
@@ -301,7 +292,6 @@ export function ClinicStaffPage() {
                         <td className="px-4 py-3">
                           <div className="text-slate-800 dark:text-slate-200 font-medium">{inv.invitedBy}</div>
                           <div className="text-[10px] text-slate-400 dark:text-slate-500">{inv.invitedAt}</div>
-
                         </td>
                         <td className="px-4 py-3">
                           {getStatusBadge(inv.status)}
@@ -314,7 +304,6 @@ export function ClinicStaffPage() {
                                 size="xs"
                                 onClick={() => handleStatusChange(inv.id, 'Accepted')}
                                 className="text-emerald-700 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 hover:bg-emerald-100"
-
                               >
                                 Simulate Accept
                               </Button>
@@ -323,7 +312,6 @@ export function ClinicStaffPage() {
                                 size="xs"
                                 onClick={() => handleStatusChange(inv.id, 'Cancelled')}
                                 className="text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30"
-
                               >
                                 Cancel
                               </Button>
@@ -332,7 +320,6 @@ export function ClinicStaffPage() {
                           {inv.status === 'Accepted' && (
                             <Link to="/login/receptionist">
                               <Button variant="ghost" size="xs" className="text-blue-600 dark:text-blue-400 font-semibold">
-
                                 Test Login &rarr;
                               </Button>
                             </Link>
@@ -364,7 +351,6 @@ export function ClinicStaffPage() {
                 Invite Staff Member to ClinicOS
               </h3>
               <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-1">
-
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -372,7 +358,6 @@ export function ClinicStaffPage() {
             <form onSubmit={handleInvite} className="space-y-3.5 text-xs">
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1 block">Full Name *</label>
-
                 <input
                   required
                   type="text"
@@ -380,14 +365,12 @@ export function ClinicStaffPage() {
                   onChange={(e) => setNewStaff({ ...newStaff, name: e.target.value })}
                   placeholder="e.g. Kavita Deshpande"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1 block">Work Email Address *</label>
-
                   <input
                     required
                     type="email"
@@ -399,14 +382,12 @@ export function ClinicStaffPage() {
                 </div>
                 <div>
                   <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1 block">Contact Phone Number</label>
-
                   <input
                     type="text"
                     value={newStaff.phone}
                     onChange={(e) => setNewStaff({ ...newStaff, phone: e.target.value })}
                     placeholder="+91 98000 00000"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-mono focus:ring-2 focus:ring-blue-500"
-
                   />
                 </div>
               </div>
@@ -418,7 +399,6 @@ export function ClinicStaffPage() {
                     value={newStaff.role}
                     onChange={(e) => setNewStaff({ ...newStaff, role: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-blue-500"
-
                   >
                     <option value="receptionist_manager">Receptionist / Front Desk Manager</option>
                     <option value="doctor_admin">Doctor / Medical Clinician</option>
@@ -431,7 +411,6 @@ export function ClinicStaffPage() {
                     value={newStaff.branchId}
                     onChange={(e) => setNewStaff({ ...newStaff, branchId: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-blue-500"
-
                   >
                     {activeClinic?.branches?.map((b) => (
                       <option key={b.id} value={b.id}>
@@ -444,14 +423,12 @@ export function ClinicStaffPage() {
 
               <div className="p-3 bg-amber-50 dark:bg-amber-950/20 rounded-xl border border-amber-200 dark:border-amber-900/40 text-[11px] text-amber-900 dark:text-amber-200 flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
-
                 <span>
                   Inviting a staff member registers them with restricted permissions under {activeClinic?.name}. They will be able to sign in via the dedicated Staff Login portal.
                 </span>
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
                 <Button variant="secondary" size="sm" type="button" onClick={() => setModalOpen(false)}>
                   Cancel
                 </Button>

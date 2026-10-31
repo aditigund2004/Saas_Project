@@ -1,226 +1,190 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
-import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
-import { Receipt, Download, CreditCard, CheckCircle2, QrCode, X, ArrowRight, ShieldCheck, Printer } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { TablePagination } from '../../components/ui/Table';
+import { Receipt, Download, CreditCard, CheckCircle2, QrCode, X, HelpCircle, MessageSquare, ArrowRight } from 'lucide-react';
+import { BillClarificationModal } from './BillClarificationModal';
 
 export function PatientBillingPage() {
-  const {
-    invoices = [],
-    currentUser,
-    activePatientId,
-    patients = [],
-    showToast,
-    recordInvoicePayment,
-    formatCurrency
-  } = useApp();
-
+  const { invoices, currentUser, showToast, recordInvoicePayment, formatCurrency } = useApp();
   const [payModalInvoice, setPayModalInvoice] = useState(null);
-  const [payAmount, setPayAmount] = useState('');
+  const [clarificationModalInvoice, setClarificationModalInvoice] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState('UPI / QR Scan');
-
-  const activePatient =
-    patients.find((p) => p.id === activePatientId || p.patientIdNumber === activePatientId) ||
-    patients.find((p) => p.name === currentUser?.name) ||
-    patients[0];
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8;
 
   const myInvoices = invoices.filter(
-    (i) =>
-      i.patientId === activePatient?.id ||
-      i.patientId === activePatient?.patientIdNumber ||
-      i.patientName === activePatient?.name
+    (i) => i.patientName === currentUser?.name || i.patientId === 'pt-1041' || i.patientId === 'pt-1042'
   );
-
-  const displayInvoices = myInvoices;
-
-  const totalBilled = displayInvoices.reduce((sum, inv) => sum + (Number(inv.totalAmount) || 0), 0);
-  const totalPaid = displayInvoices.reduce((sum, inv) => sum + (Number(inv.amountPaid) || 0), 0);
-  const totalOutstanding = Math.max(0, totalBilled - totalPaid);
-
-  const handleOpenPay = (inv) => {
-    setPayModalInvoice(inv);
-    const due = Math.max(0, (Number(inv.totalAmount) || 0) - (Number(inv.amountPaid) || 0));
-    setPayAmount(due.toString());
-  };
-
+  const displayInvoices = myInvoices.length > 0 ? myInvoices : invoices.slice(0, 3);
 
   const handleConfirmPay = (e) => {
     e.preventDefault();
     if (!payModalInvoice) return;
-    const due = Math.max(0, (Number(payModalInvoice.totalAmount) || 0) - (Number(payModalInvoice.amountPaid) || 0));
-    const amountToPay = Number(payAmount) || due;
-
-    if (amountToPay <= 0) {
-      showToast('Payment amount must be greater than zero.', 'error');
-      return;
-    }
-    if (amountToPay > due) {
-      showToast(`Amount cannot exceed the remaining due of ${formatCurrency(due)}.`, 'error');
-      return;
-    }
-
-    recordInvoicePayment(payModalInvoice.invoiceNumber || payModalInvoice.id, amountToPay, selectedMethod);
-
+    const balance = payModalInvoice.totalAmount - (payModalInvoice.amountPaid || 0);
+    recordInvoicePayment(payModalInvoice.id, balance > 0 ? balance : payModalInvoice.totalAmount, selectedMethod);
     setPayModalInvoice(null);
   };
 
   return (
     <div className="space-y-6">
-      {/* 1. Demo Patient Switcher */}
-      <DemoPatientSwitcher />
-
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div>
           <span className="text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-blue-900/60 uppercase tracking-wider">
-            Patient Financial Statement
+            Payments & Receipts
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">
-            My Clinical Invoices & Bills
-          </h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">My Clinical Invoices & Receipts</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Review detailed OPD procedure billing, outstanding balances, and access official settlement receipts.
+            Download tax invoices and receipts for insurance reimbursements or simulate instant online settlement.
           </p>
         </div>
-
         <div className="flex items-center gap-2">
-          <Link to="/patient/receipts">
-            <Button variant="primary" size="sm" className="font-bold">
-              <Receipt className="w-4 h-4 mr-1.5" />
-              View Receipts Ledger
+          <Link to="/patient/queries?category=Billing">
+            <Button variant="outline" size="md" icon={MessageSquare} className="font-semibold text-slate-700 dark:text-slate-200">
+              Billing Inquiries & Clarifications
             </Button>
           </Link>
         </div>
       </div>
 
-      {/* Financial Health Summary Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-4 border-slate-200 dark:border-slate-800 dark:bg-slate-900">
-          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Billed Charges</div>
-          <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">
-            {formatCurrency(totalBilled)}
+      {/* Tariff & Billing Clarification Help Banner */}
+      <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-2xs">
+        <div className="flex items-start sm:items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 flex items-center justify-center font-bold shrink-0 mt-0.5 sm:mt-0">
+            <HelpCircle className="w-5 h-5 text-amber-700 dark:text-amber-400" />
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">Across {displayInvoices.length} clinical invoices</p>
-        </Card>
-
-        <Card className="p-4 border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/40 dark:bg-emerald-950/20">
-          <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Amount Paid</div>
-          <div className="text-2xl font-black text-emerald-900 dark:text-emerald-100 mt-1">
-            {formatCurrency(totalPaid)}
+          <div>
+            <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">
+              Questions about Itemized Tariffs, Insurance TPA, or Payment Receipts?
+            </p>
+            <p className="text-slate-600 dark:text-slate-400 mt-0.5">
+              Request non-emergency bill clarification anytime. Authorized billing coordinators review and respond within 24 hours.
+            </p>
           </div>
-          <p className="text-xs text-emerald-700/80 dark:text-emerald-400/80 mt-0.5">Settled via digital/cash payments</p>
-        </Card>
-
-        <Card className={`p-4 ${totalOutstanding > 0 ? 'border-amber-300 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/30' : 'border-slate-200 dark:border-slate-800'}`}>
-          <div className={`text-xs font-bold uppercase tracking-wider ${totalOutstanding > 0 ? 'text-amber-800 dark:text-amber-300' : 'text-slate-400'}`}>
-            Outstanding Due
-          </div>
-          <div className={`text-2xl font-black mt-1 ${totalOutstanding > 0 ? 'text-amber-900 dark:text-amber-100' : 'text-slate-900 dark:text-white'}`}>
-            {formatCurrency(totalOutstanding)}
-          </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            {totalOutstanding > 0 ? 'Payable at clinic reception or online' : 'All accounts fully settled'}
-          </p>
-        </Card>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setClarificationModalInvoice(displayInvoices[0] || null)}
+            className="font-semibold text-amber-900 dark:text-amber-200 bg-amber-100/90 dark:bg-amber-900/40 hover:bg-amber-200/80"
+          >
+            <HelpCircle className="w-3.5 h-3.5 mr-1" />
+            Request Clarification
+          </Button>
+          <Link to="/patient/queries?category=Billing">
+            <Button variant="outline" size="sm" className="font-semibold">
+              View Inquiries &rarr;
+            </Button>
+          </Link>
+        </div>
       </div>
 
-      {/* Invoices List */}
-      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm overflow-hidden">
-
+      <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs overflow-hidden">
         <CardHeader
           title={`All Patient Invoices (${displayInvoices.length})`}
           subtitle="Showing all documented consultation & procedure charges"
         />
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 uppercase text-xs font-bold border-b border-slate-200 dark:border-slate-800">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 uppercase text-[11px] font-semibold border-b border-slate-200 dark:border-slate-800 tracking-wider">
               <tr>
-                <th className="p-4 text-center w-12">#</th>
-                <th className="p-4">Invoice #</th>
-                <th className="p-4">Date</th>
-                <th className="p-4">Items / Procedures</th>
-                <th className="p-4">Total Amount</th>
-                <th className="p-4">Amount Paid</th>
-                <th className="p-4">Outstanding Due</th>
-                <th className="p-4">Status</th>
-                <th className="p-4 text-right">Actions</th>
+                <th className="px-4 py-3 sm:px-5">Invoice #</th>
+                <th className="px-4 py-3 sm:px-5">Date</th>
+                <th className="px-4 py-3 sm:px-5">Items / Procedures</th>
+                <th className="px-4 py-3 sm:px-5 text-right">Total Amount</th>
+                <th className="px-4 py-3 sm:px-5 text-right">Amount Paid</th>
+                <th className="px-4 py-3 sm:px-5">Payment Method</th>
+                <th className="px-4 py-3 sm:px-5">Status</th>
+                <th className="px-4 py-3 sm:px-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
               {displayInvoices.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="p-8 text-center text-slate-400">
-                    No invoices recorded for this patient.
+                  <td colSpan={8} className="p-12 text-center text-slate-400 dark:text-slate-500 text-sm">
+                    <div className="max-w-xs mx-auto space-y-1">
+                      <p className="font-semibold text-slate-700 dark:text-slate-300">No invoices on file</p>
+                      <p className="text-xs">Your consultation and procedure bills will appear here.</p>
+                    </div>
                   </td>
                 </tr>
               ) : (
-                displayInvoices.map((inv, idx) => {
-                  const paid = Number(inv.amountPaid) || 0;
-                  const balance = Math.max(0, (Number(inv.totalAmount) || 0) - paid);
-
-                  return (
-                    <tr key={inv.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
-                      <td className="p-4 text-center font-mono font-medium text-slate-400 dark:text-slate-500 text-xs">
-                        {idx + 1}
-                      </td>
-                      <td className="p-4 font-mono font-bold text-blue-700 dark:text-blue-400">{inv.invoiceNumber}</td>
-                      <td className="p-4 text-slate-600 dark:text-slate-400 font-mono text-xs">{inv.date}</td>
-                      <td className="p-4 text-slate-700 dark:text-slate-300 font-medium">
+                displayInvoices
+                  .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+                  .map((inv) => (
+                    <tr key={inv.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition-colors">
+                      <td className="px-4 py-3.5 sm:px-5 font-mono font-bold text-blue-600 dark:text-blue-400 text-xs">{inv.invoiceNumber}</td>
+                      <td className="px-4 py-3.5 sm:px-5 text-slate-600 dark:text-slate-400 font-mono text-[11px]">{inv.date}</td>
+                      <td className="px-4 py-3.5 sm:px-5 text-slate-800 dark:text-slate-200 font-medium">
                         {inv.items?.map((it) => it.description).join(', ') || 'Consultation'}
                       </td>
-                      <td className="p-4 font-bold font-mono text-slate-900 dark:text-slate-100">
+                      <td className="px-4 py-3.5 sm:px-5 font-bold font-mono text-slate-900 dark:text-white text-right tabular-nums">
                         {formatCurrency(inv.totalAmount)}
                       </td>
-                      <td className="p-4 font-bold font-mono text-emerald-600 dark:text-emerald-400">
-                        {formatCurrency(paid)}
+                      <td className="px-4 py-3.5 sm:px-5 font-bold font-mono text-blue-600 dark:text-blue-400 text-right tabular-nums">
+                        {formatCurrency(inv.amountPaid || 0)}
                       </td>
-                      <td className="p-4 font-bold font-mono text-amber-600 dark:text-amber-400">
-                        {balance > 0 ? formatCurrency(balance) : '₹0'}
-                      </td>
-                      <td className="p-4">
+                      <td className="px-4 py-3.5 sm:px-5 text-slate-600 dark:text-slate-400">{inv.paymentMethod || 'Online UPI'}</td>
+                      <td className="px-4 py-3.5 sm:px-5">
                         <Badge variant={inv.status === 'Paid' ? 'success' : inv.status === 'Partially Paid' ? 'warning' : 'default'}>
                           {inv.status}
                         </Badge>
                       </td>
-                      <td className="p-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          {balance > 0 ? (
+                      <td className="px-4 py-3.5 sm:px-5 text-right whitespace-nowrap">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setClarificationModalInvoice(inv)}
+                            className="text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 text-xs"
+                            title="Request clarification or tariff breakdown for this invoice"
+                          >
+                            <HelpCircle className="w-3.5 h-3.5 mr-1" />
+                            Clarify
+                          </Button>
+                          {inv.status !== 'Paid' && inv.status !== 'Refunded' ? (
                             <Button
                               variant="primary"
                               size="sm"
-                              onClick={() => handleOpenPay(inv)}
-                              className="text-xs font-bold shadow-sm"
+                              onClick={() => setPayModalInvoice(inv)}
                             >
                               <CreditCard className="w-3.5 h-3.5 mr-1" />
-                              Pay Dues
+                              Pay Now
                             </Button>
                           ) : (
-                            <Link to="/patient/receipts">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-xs font-semibold"
-                              >
-                                <Receipt className="w-3.5 h-3.5 mr-1" />
-                                View Receipt
-                              </Button>
-                            </Link>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => showToast(`Downloaded tax receipt ${inv.invoiceNumber}.pdf`)}
+                            >
+                              <Download className="w-3.5 h-3.5 mr-1" />
+                              Receipt PDF
+                            </Button>
                           )}
                         </div>
                       </td>
                     </tr>
-                  );
-                })
+                  ))
               )}
-
             </tbody>
           </table>
         </div>
+        {displayInvoices.length > pageSize && (
+          <TablePagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(displayInvoices.length / pageSize)}
+            totalItems={displayInvoices.length}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </Card>
 
-      {/* Simulated Pay Modal with Partial / Full Payment Support */}
+      {/* Simulated Pay Modal */}
       {payModalInvoice && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
@@ -228,7 +192,7 @@ export function PatientBillingPage() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 w-full max-w-md p-6 space-y-4 cursor-default"
+            className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-white/60 dark:border-white/10 w-full max-w-md p-6 space-y-4 cursor-default"
           >
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
@@ -239,46 +203,26 @@ export function PatientBillingPage() {
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">{payModalInvoice.invoiceNumber}</p>
               </div>
               <button onClick={() => setPayModalInvoice(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="p-3 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-xl text-xs text-blue-900 dark:text-blue-200">
-              <strong>Interactive Demo Simulation:</strong> Recording this payment will update the invoice's outstanding balance and immediately generate a verified receipt in your portal.
+            <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-xs text-amber-900 dark:text-amber-200">
+              <strong>Simulated Demo Gateway:</strong> No money will be charged. This updates client-side demo state.
             </div>
 
             <form onSubmit={handleConfirmPay} className="space-y-3.5 text-sm">
               <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between font-bold">
-                <span className="text-slate-700 dark:text-slate-300">Remaining Due:</span>
+                <span className="text-slate-700 dark:text-slate-300">Total Due:</span>
                 <span className="font-mono text-blue-700 dark:text-blue-400 text-base">
-
                   {formatCurrency(payModalInvoice.totalAmount - (payModalInvoice.amountPaid || 0))}
-                </span>
-              </div>
-
-              <div>
-                <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1.5 block text-xs uppercase tracking-wider">
-                  Payment Amount (₹) *
-                </label>
-                <input
-                  required
-                  type="number"
-                  min="1"
-                  max={payModalInvoice.totalAmount - (payModalInvoice.amountPaid || 0)}
-                  value={payAmount}
-                  onChange={(e) => setPayAmount(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-950 text-sm font-mono font-bold"
-                />
-                <span className="text-[11px] text-slate-400 mt-1 block">
-                  You can pay the full amount or enter a partial payment amount.
                 </span>
               </div>
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 mb-1.5 block text-xs uppercase tracking-wider">Choose Payment Method</label>
                 <div className="space-y-2">
-                  {['UPI / GooglePay / PhonePe', 'Debit / Credit Card', 'Net Banking', 'Cash at Front Desk'].map((m) => (
+                  {['UPI / GooglePay / PhonePe', 'Debit / Credit Card', 'Net Banking'].map((m) => (
                     <label
                       key={m}
                       className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
@@ -288,7 +232,6 @@ export function PatientBillingPage() {
                       }`}
                     >
                       <span className="text-xs">{m}</span>
-
                       <input
                         type="radio"
                         name="payMethod"
@@ -306,14 +249,20 @@ export function PatientBillingPage() {
                   Cancel
                 </Button>
                 <Button variant="primary" size="sm" type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-sm">
-                  Confirm Payment & Generate Receipt
-
+                  Simulate Payment
                 </Button>
               </div>
             </form>
           </div>
         </div>
       )}
+
+      {/* Bill Clarification Modal */}
+      <BillClarificationModal
+        isOpen={!!clarificationModalInvoice}
+        onClose={() => setClarificationModalInvoice(null)}
+        invoice={clarificationModalInvoice}
+      />
     </div>
   );
 }

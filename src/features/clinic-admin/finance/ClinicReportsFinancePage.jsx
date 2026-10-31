@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../../context/AppContext';
 import { useTheme } from '../../../context/ThemeContext';
-
 import { ClinicFinanceNav } from './ClinicFinanceNav';
 import { Card, CardHeader } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
@@ -35,13 +34,11 @@ export function ClinicReportsFinancePage() {
     doctors = [],
     invoices = [],
     expenses = [],
-
     showToast,
     formatCurrency,
     activeClinic
   } = useApp();
   const { isDark } = useTheme();
-
 
   const [dateRange, setDateRange] = useState('October 2026 (MTD)');
 
@@ -167,7 +164,6 @@ export function ClinicReportsFinancePage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Practice Economics & Analytics</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Profitability & Doctor Tariffs</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Doctor tariff shares, service unit economics, and clinic operating margin statement.
           </p>
         </div>
@@ -179,7 +175,6 @@ export function ClinicReportsFinancePage() {
             onClick={() => showToast('Printing clinical P&L summary report...')}
           >
             <Printer className="w-4 h-4 mr-1.5" />
-
             Print P&L
           </Button>
           <Button
@@ -188,7 +183,6 @@ export function ClinicReportsFinancePage() {
             onClick={() => showToast('Downloading complete financial breakdown CSV...')}
           >
             <Download className="w-4 h-4 mr-1.5" />
-
             Export Financial Pack
           </Button>
         </div>
@@ -202,13 +196,11 @@ export function ClinicReportsFinancePage() {
               Practice Operating Profit Statement ({dateRange})
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
               Formula: Gross Collections – (Direct Consumables + Doctor Share + Facility & Software Overhead)
             </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold font-mono text-xs border border-emerald-200 dark:border-emerald-800">
-
               Operating Margin: {operatingMarginPercent}%
             </span>
           </div>
@@ -253,14 +245,12 @@ export function ClinicReportsFinancePage() {
               {formatCurrency(netPracticeProfit)}
             </span>
             <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">{operatingMarginPercent}% retained</span>
-
           </div>
         </div>
       </Card>
 
       {/* Chart: Historical Margin Trend */}
       <Card className="border-slate-200 dark:border-slate-800">
-
         <CardHeader
           title="Revenue vs Operating Costs & Retained Profit (Last 5 Months)"
           subtitle="Monitoring consistency in practice overhead and retained profit"
@@ -272,7 +262,6 @@ export function ClinicReportsFinancePage() {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? '#1F2937' : '#E2E8F0'} />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: isDark ? '#94A3B8' : '#64748B' }} stroke={isDark ? '#374151' : '#CBD5E1'} />
                 <YAxis tick={{ fontSize: 11, fill: isDark ? '#94A3B8' : '#64748B' }} stroke={isDark ? '#374151' : '#CBD5E1'} tickFormatter={(v) => `₹${v / 1000}k`} />
-
                 <Tooltip
                   formatter={(val, name) => [
                     `₹${Number(val).toLocaleString('en-IN')}`,
@@ -289,7 +278,6 @@ export function ClinicReportsFinancePage() {
                 <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '8px', color: isDark ? '#94A3B8' : '#64748B' }} />
                 <Bar dataKey="revenue" name="Gross Collections" fill="#2563EB" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="costs" name="Total Operational Costs" fill={isDark ? '#475569' : '#94A3B8'} radius={[4, 4, 0, 0]} />
-
                 <Bar dataKey="profit" name="Net Retained Profit" fill="#16A34A" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -303,7 +291,6 @@ export function ClinicReportsFinancePage() {
           <div>
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">Doctor Tariffs & Share Ledger</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Contracted revenue splits between visiting/consultant doctors and the clinical practice
             </p>
           </div>
@@ -313,7 +300,6 @@ export function ClinicReportsFinancePage() {
             onClick={() => showToast('Exporting doctor tariff reconciliation statement...')}
           >
             <Download className="w-3.5 h-3.5 mr-1" />
-
             Export Tariff Sheet
           </Button>
         </div>
@@ -323,7 +309,6 @@ export function ClinicReportsFinancePage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Doctor Name & Specialty</th>
                 <th className="p-3.5 text-center">Consultations</th>
                 <th className="p-3.5">Gross Billings</th>
@@ -363,7 +348,6 @@ export function ClinicReportsFinancePage() {
                   </td>
                   <td className="p-3.5 text-right">
                     <Badge variant="success" size="sm">Reconciled</Badge>
-
                   </td>
                 </tr>
               ))}
@@ -377,7 +361,6 @@ export function ClinicReportsFinancePage() {
         <div className="p-4 border-b border-slate-200 dark:border-slate-800">
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">Service Unit Economics & Profitability</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Per-procedure margin analysis after consumable deduction and clinical provider remuneration
           </p>
         </div>
@@ -387,7 +370,6 @@ export function ClinicReportsFinancePage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12 font-semibold">#</th>
-
                 <th className="p-3.5">Clinical Service / Procedure</th>
                 <th className="p-3.5">Department</th>
                 <th className="p-3.5">Standard Tariff</th>
@@ -409,7 +391,6 @@ export function ClinicReportsFinancePage() {
                   <td className="p-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400 tabular-nums">+{formatCurrency(p.netClinicMargin)}</td>
                   <td className="p-3.5 text-right font-mono font-bold text-slate-900 dark:text-white">
                     <span className="px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 text-xs border border-emerald-200 dark:border-emerald-800">
-
                       {p.marginPercent}%
                     </span>
                   </td>
@@ -422,4 +403,3 @@ export function ClinicReportsFinancePage() {
     </div>
   );
 }
-

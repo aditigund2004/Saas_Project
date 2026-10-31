@@ -8,13 +8,11 @@ import { Receipt, PlusCircle, Printer, Download, CreditCard, CheckCircle } from 
 
 export function ClinicBillingPage() {
   const { invoices, createInvoice, patients, activeClinic, activeBranch, showToast } = useApp();
-
   const [isNewInvoiceOpen, setIsNewInvoiceOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
   // New Invoice Form
   const [selectedPatientId, setSelectedPatientId] = useState(patients[0]?.id || '');
-
   const [lineItemDesc, setLineItemDesc] = useState('Root Canal Treatment');
   const [lineItemPrice, setLineItemPrice] = useState(4500);
   const [discount, setDiscount] = useState(0);
@@ -23,7 +21,6 @@ export function ClinicBillingPage() {
   const handleCreateInvoice = (e) => {
     e.preventDefault();
     const patient = patients.find((p) => p.id === selectedPatientId) || patients[0];
-
     const total = Math.max(0, lineItemPrice - discount);
 
     createInvoice({
@@ -54,7 +51,6 @@ export function ClinicBillingPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Financial Management</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Patient Invoices & Billing</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Issue procedure bills, record payments (Cash, UPI, Card), and manage outstanding balances.
           </p>
         </div>
@@ -70,7 +66,6 @@ export function ClinicBillingPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <CardHeader
           title={`Invoices Ledger (${invoices.length})`}
           subtitle="All patient billing transactions for current practice"
@@ -80,7 +75,6 @@ export function ClinicBillingPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 uppercase text-xs font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Invoice #</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Date</th>
@@ -108,7 +102,6 @@ export function ClinicBillingPage() {
                     ₹{inv.amountPaid.toLocaleString('en-IN')}
                   </td>
                   <td className="p-3.5 text-slate-600 dark:text-slate-300">{inv.paymentMethod || 'Cash'}</td>
-
                   <td className="p-3.5">
                     <Badge variant={inv.status}>{inv.status}</Badge>
                   </td>
@@ -146,14 +139,12 @@ export function ClinicBillingPage() {
               <div className="text-right">
                 <p className="font-mono font-bold text-slate-900">{selectedInvoice.invoiceNumber}</p>
                 <p className="text-xs text-slate-500">{selectedInvoice.date}</p>
-
               </div>
             </div>
 
             <div className="p-3 bg-slate-50 rounded-xl space-y-1">
               <p className="font-semibold text-slate-800">Billed To: {selectedInvoice.patientName}</p>
               <p className="text-slate-600">Phone: {selectedInvoice.patientPhone} · Patient ID: {selectedInvoice.patientId}</p>
-
             </div>
 
             {/* Line items table */}
@@ -161,7 +152,6 @@ export function ClinicBillingPage() {
               <thead className="bg-slate-50 border-b border-slate-200 uppercase text-xs font-bold text-slate-600">
                 <tr>
                   <th className="p-2 text-center w-10">#</th>
-
                   <th className="p-2">Description</th>
                   <th className="p-2 text-right">Amount</th>
                 </tr>
@@ -172,7 +162,6 @@ export function ClinicBillingPage() {
                     <td className="p-2 text-center font-mono font-medium text-slate-500 text-xs">{idx + 1}</td>
                     <td className="p-2 font-medium text-slate-800">{item.description}</td>
                     <td className="p-2 text-right font-mono font-bold text-slate-900">₹{item.total.toLocaleString('en-IN')}</td>
-
                   </tr>
                 ))}
               </tbody>
@@ -182,14 +171,12 @@ export function ClinicBillingPage() {
               <p className="text-slate-600">Subtotal: ₹{selectedInvoice.subtotal.toLocaleString('en-IN')}</p>
               {selectedInvoice.discount > 0 && (
                 <p className="text-blue-700 font-semibold">Discount: -₹{selectedInvoice.discount.toLocaleString('en-IN')}</p>
-
               )}
               <p className="text-sm font-bold text-slate-900">Total Billed: ₹{selectedInvoice.totalAmount.toLocaleString('en-IN')}</p>
               <p className="text-xs font-semibold text-emerald-700">Amount Paid: ₹{selectedInvoice.amountPaid.toLocaleString('en-IN')} ({selectedInvoice.paymentMethod})</p>
             </div>
 
             <div className="pt-3 flex justify-between border-t border-slate-200">
-
               <Button variant="outline" size="sm" onClick={() => window.print()}>
                 Print Receipt
               </Button>
@@ -218,7 +205,6 @@ export function ClinicBillingPage() {
                 className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
               >
                 {patients.map((p) => (
-
                   <option key={p.id} value={p.id}>{p.name} ({p.patientIdNumber})</option>
                 ))}
               </select>
@@ -227,7 +213,6 @@ export function ClinicBillingPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Procedure Description *</label>
-
                 <input
                   required
                   type="text"
@@ -238,14 +223,12 @@ export function ClinicBillingPage() {
               </div>
               <div>
                 <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Standard Fee (INR) *</label>
-
                 <input
                   required
                   type="number"
                   value={lineItemPrice}
                   onChange={(e) => setLineItemPrice(Number(e.target.value))}
                   className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl font-mono bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
                 />
               </div>
             </div>
@@ -253,7 +236,6 @@ export function ClinicBillingPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">Discount (INR)</label>
-
                 <input
                   type="number"
                   value={discount}
@@ -267,7 +249,6 @@ export function ClinicBillingPage() {
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-
                 >
                   <option value="UPI / QR">UPI / QR Code</option>
                   <option value="Cash">Cash</option>
@@ -283,7 +264,6 @@ export function ClinicBillingPage() {
             </div>
 
             <div className="pt-2 flex justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setIsNewInvoiceOpen(false)}>Cancel</Button>
               <Button variant="primary" size="sm" type="submit">Issue Invoice</Button>
             </div>
@@ -293,4 +273,3 @@ export function ClinicBillingPage() {
     </div>
   );
 }
-

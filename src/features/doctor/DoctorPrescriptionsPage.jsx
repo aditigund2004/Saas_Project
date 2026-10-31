@@ -29,7 +29,6 @@ export function DoctorPrescriptionsPage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Prescriptions Issued</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Digitally signed clinical prescriptions with tamper-evident QR verification tokens
           </p>
         </div>
@@ -37,7 +36,6 @@ export function DoctorPrescriptionsPage() {
         <Link to="/doctor/consultation">
           <Button variant="primary" size="sm">
             <Plus className="w-3.5 h-3.5 mr-1.5" />
-
             Issue New Prescription
           </Button>
         </Link>
@@ -46,14 +44,12 @@ export function DoctorPrescriptionsPage() {
       {/* Search Bar */}
       <div className="relative max-w-md">
         <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
-
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search by patient name, Rx number (e.g. RX-2026-8812), or diagnosis..."
           className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
         />
       </div>
 
@@ -64,7 +60,6 @@ export function DoctorPrescriptionsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-
                 <th className="px-4 py-3">Prescription #</th>
                 <th className="px-4 py-3">Patient</th>
                 <th className="px-4 py-3">Date Issued</th>
@@ -78,7 +73,6 @@ export function DoctorPrescriptionsPage() {
               {filteredRxs.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                     No matching prescriptions found.
                   </td>
                 </tr>
@@ -100,7 +94,6 @@ export function DoctorPrescriptionsPage() {
                       {rx.diagnosis}
                     </td>
                     <td className="px-4 py-3 font-semibold text-slate-700 dark:text-slate-300">
-
                       {rx.medications.length} Medications
                     </td>
                     <td className="px-4 py-3">
@@ -119,7 +112,6 @@ export function DoctorPrescriptionsPage() {
                         </Button>
                         <Link to={`/verify-prescription/${rx.verificationId}`} target="_blank">
                           <Button variant="ghost" size="sm" className="h-7 text-xs text-blue-700 dark:text-blue-400" title="QR Verification Link">
-
                             <QrCode className="w-3.5 h-3.5" />
                           </Button>
                         </Link>
@@ -135,4 +127,3 @@ export function DoctorPrescriptionsPage() {
     </div>
   );
 }
-

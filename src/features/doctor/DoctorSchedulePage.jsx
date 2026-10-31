@@ -16,14 +16,12 @@ import {
   AlertCircle,
   List,
   LayoutGrid
-
 } from 'lucide-react';
 
 export function DoctorSchedulePage() {
   const { appointments, activeClinic, activeBranch } = useApp();
   const [selectedDate, setSelectedDate] = useState('2026-10-23');
   const [viewMode, setViewMode] = useState('table');
-
 
   const days = [
     { label: 'Wed, 21 Oct', date: '2026-10-21' },
@@ -35,7 +33,6 @@ export function DoctorSchedulePage() {
 
   const currentAppointments = appointments.filter(
     (a) => (a.clinicId === activeClinic?.id || !a.clinicId) && ((a.confirmedDate || a.date) === selectedDate)
-
   );
 
   return (
@@ -50,7 +47,6 @@ export function DoctorSchedulePage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Clinical Schedule</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             {activeClinic?.name} · Operatory Schedule & Timetable
           </p>
         </div>
@@ -65,7 +61,6 @@ export function DoctorSchedulePage() {
 
       {/* Date Navigation Bar */}
       <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-2 rounded-xl border border-slate-200 dark:border-slate-800 overflow-x-auto gap-2">
-
         <div className="flex items-center gap-1.5">
           {days.map((d) => (
             <button
@@ -75,7 +70,6 @@ export function DoctorSchedulePage() {
                 selectedDate === d.date
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100'
-
               }`}
             >
               {d.label}
@@ -83,7 +77,6 @@ export function DoctorSchedulePage() {
           ))}
         </div>
         <div className="text-xs font-medium text-slate-500 dark:text-slate-400 hidden md:block">
-
           Slot Duration: 30 Mins · Break: 01:30 PM - 02:15 PM
         </div>
       </div>
@@ -260,9 +253,7 @@ export function DoctorSchedulePage() {
             )}
           </div>
         )}
-
       </Card>
     </div>
   );
 }
-

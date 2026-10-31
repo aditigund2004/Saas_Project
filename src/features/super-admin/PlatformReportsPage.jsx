@@ -11,12 +11,10 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar
-
 } from 'recharts';
 import { TrendingUp, Users, Building2, Sparkles } from 'lucide-react';
 
 export function PlatformReportsPage() {
-
   const specialtyDistribution = [
     { specialty: 'Dental', clinics: 12 },
     { specialty: 'Orthopedics', clinics: 6 },
@@ -31,7 +29,6 @@ export function PlatformReportsPage() {
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Business Intelligence</span>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Platform Analytics & Growth Reports</h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
           Illustrative platform metrics for clinic registrations, 14-day trial-to-paid conversions, and specialty adoption.
         </p>
       </div>
@@ -69,7 +66,6 @@ export function PlatformReportsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Specialty Distribution Bar Chart */}
         <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
           <CardHeader
             title="Clinic Distribution by Medical Specialty"
             subtitle="Dental and Orthopedics lead initial commercial adoption"
@@ -86,7 +82,6 @@ export function PlatformReportsPage() {
                     contentStyle={{ borderRadius: '12px', fontSize: '13px', backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff' }}
                   />
                   <Bar dataKey="clinics" fill="#2563EB" radius={[6, 6, 0, 0]} />
-
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -95,7 +90,6 @@ export function PlatformReportsPage() {
 
         {/* Conversion Funnel */}
         <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
           <CardHeader
             title="14-Day Trial Funnel Health"
             subtitle="Conversion performance across demo cohorts"
@@ -123,7 +117,6 @@ export function PlatformReportsPage() {
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Per active clinic practice each day</p>
               </div>
               <span className="text-2xl font-extrabold text-slate-800 dark:text-slate-200 tabular-nums">18.4 Visits</span>
-
             </div>
           </CardContent>
         </Card>
@@ -131,4 +124,3 @@ export function PlatformReportsPage() {
     </div>
   );
 }
-

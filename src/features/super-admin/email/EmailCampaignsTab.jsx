@@ -33,7 +33,6 @@ export function EmailCampaignsTab({
             Product Feature Announcement Campaigns
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Design targeted feature announcements, preview templates, and simulate broadcast releases across clinics.
           </p>
         </div>
@@ -46,7 +45,6 @@ export function EmailCampaignsTab({
           className="shadow-sm font-semibold shrink-0"
         >
           Create Announcement Campaign
-
         </Button>
       </div>
 
@@ -61,7 +59,6 @@ export function EmailCampaignsTab({
             <Card
               key={cmp.id}
               className="p-5 border-slate-200 dark:border-slate-800 dark:bg-slate-900 flex flex-col justify-between space-y-4 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
-
             >
               <div className="space-y-3">
                 {/* Header: Title & Status */}
@@ -71,7 +68,6 @@ export function EmailCampaignsTab({
                       {cmp.name}
                     </h4>
                     <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-0.5 rounded-md border border-blue-200 dark:border-blue-800 inline-block mt-1">
-
                       Announcing: {cmp.featureName}
                     </span>
                   </div>
@@ -81,7 +77,6 @@ export function EmailCampaignsTab({
                       isCompleted
                         ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800'
                         : 'bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
-
                     }`}
                   >
                     {cmp.status}
@@ -90,7 +85,6 @@ export function EmailCampaignsTab({
 
                 {/* Description */}
                 <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
-
                   {cmp.featureDescription}
                 </p>
 
@@ -99,7 +93,6 @@ export function EmailCampaignsTab({
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-slate-500 dark:text-slate-400">Audience Targeting:</span>
                     <span className="font-bold text-slate-800 dark:text-slate-200 capitalize">
-
                       {cmp.targetAudience.type === 'all'
                         ? 'All Clinics'
                         : cmp.targetAudience.type === 'plans'
@@ -111,7 +104,6 @@ export function EmailCampaignsTab({
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-slate-500 dark:text-slate-400">Target Recipient Count:</span>
                     <span className="font-mono font-bold text-slate-900 dark:text-white">
-
                       {cmp.simulatedRecipientCount || clinics.length} Clinic(s)
                     </span>
                   </div>
@@ -120,7 +112,6 @@ export function EmailCampaignsTab({
                     <div className="flex items-center justify-between text-emerald-800 dark:text-emerald-400 font-semibold pt-1.5 border-t border-slate-200 dark:border-slate-700">
                       <span>Simulated Dispatched:</span>
                       <span className="font-mono font-bold text-emerald-700 dark:text-emerald-400">
-
                         {cmp.totalSimulatedDelivered || cmp.simulatedRecipientCount} Delivered
                       </span>
                     </div>
@@ -137,7 +128,6 @@ export function EmailCampaignsTab({
                       {cmp.keyBenefits.slice(0, 2).map((b, i) => (
                         <li key={i} className="flex items-center gap-2">
                           <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-
                           <span className="truncate">{b}</span>
                         </li>
                       ))}
@@ -148,7 +138,6 @@ export function EmailCampaignsTab({
 
               {/* Card Footer: Actions */}
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-
                 <div className="flex items-center gap-1">
                   {tpl && (
                     <Button
@@ -185,7 +174,6 @@ export function EmailCampaignsTab({
                 ) : (
                   <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4" />
-
                     Broadcast Simulation Complete
                   </span>
                 )}
@@ -217,13 +205,11 @@ export function EmailCampaignsTab({
                 <strong className="text-slate-900 dark:text-white">{confirmingExecution.simulatedRecipientCount || clinics.length} eligible clinic recipient(s)</strong>.
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-
                 This will generate simulated activity log records, populate dynamic hospital variables, and mark the campaign as completed in the prototype.
               </p>
             </div>
 
             <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
               <Button
                 variant="outline"
                 size="sm"

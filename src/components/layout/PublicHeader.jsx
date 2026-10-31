@@ -12,8 +12,9 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { FontSizeSwitcher } from '../ui/FontSizeSwitcher';
+import { ThemeSwitcher } from '../ui/ThemeSwitcher';
 import { useTheme } from '../../context/ThemeContext';
-
 
 export function PublicHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,6 +26,8 @@ export function PublicHeader() {
     { name: 'Home', path: '/' },
     { name: 'How it works', path: '/#how-it-works' },
     { name: 'Sample Clinic', path: '/clinic/citycare-family-clinic' },
+    { name: 'Health Library', path: '/health-library' },
+    { name: 'Demo Portals', path: '/demo-access' },
     { name: 'Pricing', path: '/pricing' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' }
@@ -74,10 +77,10 @@ export function PublicHeader() {
           <Link
             to="/"
             onClick={(e) => handleNavClick(e, '/')}
-            className="flex items-center gap-2.5 group cursor-pointer"
+            className="flex items-center gap-2.5 group cursor-pointer shrink-0"
           >
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-base shadow-xs group-hover:bg-blue-700 transition-colors">
-              <Activity className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-base shadow-xs group-hover:bg-blue-700 transition-colors shrink-0">
+              <Activity className="w-5 h-5 shrink-0" />
             </div>
             <div>
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -85,7 +88,6 @@ export function PublicHeader() {
               </span>
               <span className="block text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
                 Healthcare SaaS Platform
-
               </span>
             </div>
           </Link>
@@ -112,24 +114,20 @@ export function PublicHeader() {
           </nav>
 
           {/* Right Action Controls */}
-          <div className="hidden md:flex items-center gap-2.5">
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 transition-colors cursor-pointer"
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
-            </button>
+          <div className="hidden md:flex items-center gap-2.5 shrink-0">
+            {/* Font Size Selector */}
+            <FontSizeSwitcher variant="dropdown" />
 
-            {/* Doctor / Owner Login */}
+            {/* 3-Option Theme Switcher */}
+            <ThemeSwitcher variant="segmented" />
+
+            {/* Login / All Portals */}
             <Link
-              to="/login/doctor"
+              to="/login"
               className="px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 rounded-xl transition-all flex items-center gap-1.5 shadow-2xs bg-white dark:bg-slate-850"
             >
               <User className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>Doctor / Owner Login</span>
+              <span>Login / Portals</span>
             </Link>
 
             {/* Start Free Trial (kept as it is with animated pulse glow & shimmer) */}
@@ -140,24 +138,16 @@ export function PublicHeader() {
                 className="font-bold text-xs bg-blue-600 hover:bg-blue-700 text-white shadow-md btn-animated-primary px-4 py-2"
               >
                 Start Free Trial →
-
               </Button>
             </Link>
           </div>
 
           {/* Mobile Menu & Theme Toggle */}
           <div className="flex md:hidden items-center gap-1.5">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 transition-colors cursor-pointer"
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
-            </button>
+            <ThemeSwitcher variant="dropdown" />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
-
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -169,7 +159,6 @@ export function PublicHeader() {
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-6 space-y-2 animate-fade-in text-slate-800 dark:text-slate-200">
-
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -179,20 +168,23 @@ export function PublicHeader() {
                 isActive(link.path)
                   ? 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 font-bold'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
-
               }`}
             >
               {link.name}
             </Link>
           ))}
+          <div className="pt-2 pb-1 px-1 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
+            <span className="text-xs font-semibold text-slate-500">Text Size:</span>
+            <FontSizeSwitcher variant="segmented" />
+          </div>
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
             <Link
-              to="/login/doctor"
+              to="/login"
               onClick={() => setMobileMenuOpen(false)}
               className="px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 text-center border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center gap-1.5"
             >
               <User className="w-3.5 h-3.5 text-blue-600" />
-              <span>Doctor / Owner Login</span>
+              <span>Login / Portals</span>
             </Link>
             <Link
               to="/onboarding"
@@ -200,7 +192,6 @@ export function PublicHeader() {
             >
               <Button variant="primary" size="md" className="w-full text-xs font-bold bg-blue-600 text-white btn-animated-primary">
                 Start Free Trial →
-
               </Button>
             </Link>
           </div>

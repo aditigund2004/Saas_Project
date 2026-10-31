@@ -3,13 +3,11 @@ import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { CheckSquare, Plus, CheckCircle, Clock, List, LayoutGrid, AlertCircle } from 'lucide-react';
-
 import { useApp } from '../../context/AppContext';
 
 export function ReceptionTasksPage() {
   const { showToast } = useApp();
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
-
 
   const [tasks, setTasks] = useState([
     { id: 1, title: 'Morning Setup & OPD Waiting Room Sanitization Check', priority: 'High', dueTime: '08:45 AM', status: 'Completed', notes: 'Autoclave batches verified' },
@@ -35,7 +33,6 @@ export function ReceptionTasksPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Front Desk Operations</span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Daily Reception Checklist</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             Shift tasks, morning preparation, patient follow-up calls, and end-of-day billing reconciliation.
           </p>
         </div>
@@ -253,7 +250,6 @@ export function ReceptionTasksPage() {
           })}
         </div>
       )}
-
     </div>
   );
 }

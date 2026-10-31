@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import { Sparkles, Bot, Stethoscope, Pill, TrendingUp, AlertTriangle, X, CheckCircle2 } from 'lucide-react';
 import { Card } from './Card';
 import { Button } from './Button';
@@ -7,6 +6,13 @@ import { Badge } from './Badge';
 
 export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [dockMode, setDockMode] = useState(() => {
+    try {
+      return sessionStorage.getItem('clinicos_ai_dock') || 'center';
+    } catch {
+      return 'center';
+    }
+  });
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [selectedScenario, setSelectedScenario] = useState('dental_pain');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -133,7 +139,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
     return () => {
       document.body.style.overflow = '';
     };
-
   }, [isOpen]);
 
   const scenarios = {
@@ -167,7 +172,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
           { drug: 'Ketorol-DT 10mg', purpose: 'Fast-acting anti-inflammatory pain reliever', directions: 'Dissolve 1 tablet in 2 tablespoons of water only when pain is severe. Do not take on an empty stomach.' },
           { drug: 'Chlorhexidine 0.2%', purpose: 'Antiseptic germ-kill mouthrinse', directions: 'Swish 10ml undiluted in mouth for 60 seconds after brushing, then spit out. Do not eat or drink for 30 minutes.' }
         ]
-
       }
     },
     operations: {
@@ -177,7 +181,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
           'Peak OPD bottleneck detected between 10:30 AM – 12:00 PM (average wait time reaches 26 minutes vs 12 minutes afternoon target).',
           '3 post-op root canal patients due for 48-hour follow-up check today: Aarav Patel, Meera Deshmukh, Rohan Kulkarni.',
           'Recommendation: Dispatch automated WhatsApp post-op recovery check at 02:00 PM to triage pain scores before evening walk-in peak.'
-
         ]
       }
     },
@@ -188,19 +191,16 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
           'MRR Trajectory: ₹1,53,978 (+14.2% MoM growth driven by 4 new Professional clinic onboarding conversions).',
           'Expansion Opportunity: 3 Starter tier dental clinics have reached 90% doctor seat limits (eligible for automated Growth/Pro upgrade nudge).',
           'Zero churn observed in clinics with WhatsApp notification webhooks enabled (99.2% 90-day retention rate).'
-
         ]
       }
     }
   };
-
 
   const handleRunDemo = () => {
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
       setOutputGenerated(true);
-
     }, 400);
   };
 
@@ -248,7 +248,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
         )}
       </div>
 
-
       {/* Modal / Slide-over Drawer */}
       {isOpen && (
         <div
@@ -274,7 +273,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
                   </div>
                   <p className="text-xs text-slate-300">
                     Deterministic simulation of clinical summarization, patient Rx translation, and clinic ops intelligence.
-
                   </p>
                 </div>
               </div>
@@ -282,7 +280,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
                 onClick={() => setIsOpen(false)}
                 className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
                 aria-label="Close dialog"
-
               >
                 <X className="w-5 h-5" />
               </button>
@@ -362,7 +359,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
 
                   <div className="p-3 rounded-xl bg-slate-900 dark:bg-slate-950 text-emerald-300 font-mono text-xs border border-slate-800 leading-relaxed">
                     {scenarios.clinical[selectedScenario]?.rawNotes}
-
                   </div>
 
                   <div className="flex justify-end">
@@ -441,7 +437,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
                     {scenarios.operations.bottleneck.insights.map((insight, idx) => (
                       <div key={idx} className="p-3 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20 flex items-start gap-2.5 text-xs text-slate-800 dark:text-slate-200">
                         <span className="w-5 h-5 rounded-full bg-emerald-200 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
-
                           {idx + 1}
                         </span>
                         <p>{insight}</p>
@@ -458,7 +453,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
                     {scenarios.saas_business.mrr_insights.insights.map((insight, idx) => (
                       <div key={idx} className="p-3 rounded-xl border border-purple-200 dark:border-purple-900/50 bg-purple-50/50 dark:bg-purple-950/20 flex items-start gap-2.5 text-xs text-slate-800 dark:text-slate-200">
                         <Bot className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
-
                         <p>{insight}</p>
                       </div>
                     ))}
@@ -470,7 +464,6 @@ export function AIPreviewAssistant({ defaultTab = 'clinical' }) {
             {/* Footer */}
             <div className="p-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <span>ClinicOS Healthcare SaaS · Interactive Frontend Prototype</span>
-
               <Button variant="secondary" size="sm" onClick={() => setIsOpen(false)}>
                 Close Preview
               </Button>

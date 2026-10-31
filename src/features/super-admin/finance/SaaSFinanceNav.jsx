@@ -28,20 +28,17 @@ export function SaaSFinanceNav() {
       <div className="p-3.5 rounded-2xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-900 dark:text-blue-200 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-2.5">
           <ShieldCheck className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400 shrink-0" />
-
           <span>
             <strong>SaaS Corporate Finance:</strong> Tracks software subscription ARR/MRR, platform fees, payment gateways, and company operating costs. Strictly isolated from clinic patient revenue.
           </span>
         </div>
         <span className="hidden sm:inline-block px-2.5 py-1 rounded-lg bg-blue-600 text-white font-mono text-xs uppercase font-bold shrink-0">
-
           B2B SaaS Ledger
         </span>
       </div>
 
       {/* Navigation Pills */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-200 dark:border-slate-800">
-
         {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
@@ -57,7 +54,6 @@ export function SaaSFinanceNav() {
               }
             >
               <Icon className="w-4 h-4" />
-
               <span>{tab.label}</span>
             </NavLink>
           );
@@ -66,4 +62,3 @@ export function SaaSFinanceNav() {
     </div>
   );
 }
-

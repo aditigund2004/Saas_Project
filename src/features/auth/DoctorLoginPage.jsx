@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { AuthLayout } from './AuthLayout';
@@ -53,7 +52,6 @@ export function DoctorLoginPage() {
     }
   }, [location.state]);
 
-
   // Multi-clinic selection state (Section 6)
   const [multipleClinicsUser, setMultipleClinicsUser] = useState(null);
   const [selectedClinicId, setSelectedClinicId] = useState('');
@@ -84,7 +82,6 @@ export function DoctorLoginPage() {
       if (registeredInfo?.clinicId) {
         switchClinic(registeredInfo.clinicId);
       }
-
       // Check if doctor belongs to multiple clinics (Section 6)
       if (res.user.memberships && res.user.memberships.length > 1) {
         setMultipleClinicsUser(res.user);
@@ -94,7 +91,6 @@ export function DoctorLoginPage() {
 
       // Single clinic membership: auto-selected & redirect to clinic owner / doctor dashboard
       if (redirectPath && (redirectPath.startsWith('/clinic') || redirectPath.startsWith('/app'))) {
-
         navigate(redirectPath);
       } else {
         navigate('/clinic/dashboard');
@@ -131,7 +127,6 @@ export function DoctorLoginPage() {
               <span>Multiple Clinic Affiliations Detected</span>
             </div>
             <p className="text-xs text-blue-800 dark:text-blue-300 leading-relaxed">
-
               Dr. {multipleClinicsUser.name} holds clinical consulting privileges at more than one facility. Select your active practice workspace for this session:
             </p>
           </div>
@@ -144,7 +139,6 @@ export function DoctorLoginPage() {
                   selectedClinicId === m.clinicId
                     ? 'border-blue-600 dark:border-blue-500 bg-blue-50/50 dark:bg-blue-950/40 shadow-xs ring-1 ring-blue-500'
                     : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -163,7 +157,6 @@ export function DoctorLoginPage() {
                 </div>
                 {m.isPrimary && (
                   <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200">
-
                     Primary
                   </span>
                 )}
@@ -201,7 +194,6 @@ export function DoctorLoginPage() {
           {error && (
             <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-xs text-red-800 dark:text-red-200 flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
-
               <div className="flex-1 leading-relaxed">
                 <span className="font-bold">Access Blocked:</span> {error}
               </div>
@@ -211,7 +203,6 @@ export function DoctorLoginPage() {
           {/* Work Email */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
-
               Clinic Work Email <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -225,7 +216,6 @@ export function DoctorLoginPage() {
                 }}
                 placeholder="doctor@clinic.demo"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                 required
               />
             </div>
@@ -235,13 +225,11 @@ export function DoctorLoginPage() {
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-
                 Password <span className="text-red-500">*</span>
               </label>
               <Link
                 to="/forgot-password"
                 className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 hover:underline"
-
               >
                 Forgot password?
               </Link>
@@ -257,20 +245,17 @@ export function DoctorLoginPage() {
                 }}
                 placeholder="••••••••••••"
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500"
-
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-1"
-
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
-
 
           {/* Submit CTA */}
           <Button
@@ -278,7 +263,6 @@ export function DoctorLoginPage() {
             variant="primary"
             size="md"
             className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2.5 shadow-sm mt-3 cursor-pointer"
-
             disabled={isLoading}
           >
             {isLoading ? (
@@ -321,7 +305,6 @@ export function DoctorLoginPage() {
               <span className="text-[10px] text-slate-400 font-medium">
                 No credit card required · Instant online setup · Cancel anytime
               </span>
-
             </div>
           </div>
 
@@ -329,7 +312,6 @@ export function DoctorLoginPage() {
           <div className="pt-2 text-center space-y-2 text-xs border-t border-slate-100 dark:border-slate-800">
             <Link to="/" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-block">
               &larr; Return to Home Page
-
             </Link>
           </div>
         </form>
@@ -337,4 +319,3 @@ export function DoctorLoginPage() {
     </AuthLayout>
   );
 }
-

@@ -67,7 +67,6 @@ export function DoctorDashboardPage() {
             Welcome, {currentUser?.name || 'Dr. Arvind Rao'}
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Today's OPD Session: Friday, 23 Oct 2026 · Room 102
           </p>
         </div>
@@ -76,14 +75,12 @@ export function DoctorDashboardPage() {
           <Link to="/doctor/schedule">
             <Button variant="secondary" size="sm">
               <Calendar className="w-3.5 h-3.5 mr-1.5" />
-
               Full Schedule
             </Button>
           </Link>
           <Link to="/doctor/consultation">
             <Button variant="primary" size="sm">
               <Stethoscope className="w-3.5 h-3.5 mr-1.5" />
-
               Start New Consultation
             </Button>
           </Link>
@@ -135,14 +132,12 @@ export function DoctorDashboardPage() {
           </div>
           <div className="text-2xl font-black text-indigo-900 dark:text-indigo-100">4</div>
           <p className="text-xs text-indigo-700 dark:text-indigo-300 mt-1">This week</p>
-
         </Card>
       </div>
 
       {/* Hero "Next Patient" Callout Card */}
       {nextPatient ? (
         <Card className="p-5 border-2 border-blue-500 dark:border-blue-600 bg-gradient-to-r from-blue-500/10 via-white to-white dark:via-slate-900 dark:to-slate-900 shadow-sm space-y-4">
-
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center text-lg shadow-sm">
@@ -159,7 +154,6 @@ export function DoctorDashboardPage() {
                   <span>Service: {nextPatient.serviceName}</span>
                   <span>·</span>
                   <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5" /> {nextPatient.patientPhone}</span>
-
                 </p>
               </div>
             </div>
@@ -177,7 +171,6 @@ export function DoctorDashboardPage() {
         </Card>
       ) : inProgressApt ? (
         <Card className="p-5 border-2 border-amber-400 dark:border-amber-600 bg-amber-50/50 dark:bg-amber-950/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center">
               <Play className="w-5 h-5 fill-current" />
@@ -186,7 +179,6 @@ export function DoctorDashboardPage() {
               <span className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase">Consultation Currently Active</span>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">{inProgressApt.patientName}</h3>
               <p className="text-xs text-slate-600 dark:text-slate-300">{inProgressApt.serviceName} · Started at {inProgressApt.time}</p>
-
             </div>
           </div>
           <Link to={`/doctor/consultation/${inProgressApt.id}`}>
@@ -200,7 +192,6 @@ export function DoctorDashboardPage() {
           <CheckCircle2 className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
           <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm">OPD Queue is Clear!</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-1">
-
             All checked-in patients have been consulted or front desk has not assigned new tokens yet.
           </p>
         </Card>
@@ -224,7 +215,6 @@ export function DoctorDashboardPage() {
                 <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
                   <tr>
                     <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-
                     <th className="px-4 py-3">Token #</th>
                     <th className="px-4 py-3">Patient Details</th>
                     <th className="px-4 py-3">Slot Time</th>
@@ -237,7 +227,6 @@ export function DoctorDashboardPage() {
                   {waitingPatients.length === 0 ? (
                     <tr>
                       <td colSpan={7} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                         No patients currently waiting in queue.
                       </td>
                     </tr>
@@ -257,7 +246,6 @@ export function DoctorDashboardPage() {
                         </td>
                         <td className="px-4 py-3">
                           <span className="inline-block px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs">
-
                             {apt.serviceName}
                           </span>
                         </td>
@@ -274,7 +262,6 @@ export function DoctorDashboardPage() {
                             className="text-xs hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-700 dark:hover:text-blue-400"
                           >
                             <Stethoscope className="w-3.5 h-3.5 mr-1 text-blue-600 dark:text-blue-400" />
-
                             Consult
                           </Button>
                         </td>
@@ -387,7 +374,6 @@ export function DoctorDashboardPage() {
                 <div>
                   <div className="font-semibold text-slate-800 dark:text-slate-200">Post-Op Extraction Pack</div>
                   <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Amoxicillin 500 + Ibuprofen 400 + Pan-D</div>
-
                 </div>
                 <Badge variant="teal" size="sm">3 Drugs</Badge>
               </div>
@@ -398,4 +384,3 @@ export function DoctorDashboardPage() {
     </div>
   );
 }
-

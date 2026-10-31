@@ -9,6 +9,50 @@ import { Clock, UserCheck, Stethoscope, Play, AlertCircle, Phone, ArrowRight } f
 export function ClinicQueuePage() {
   const { appointments, activeClinic, updateAppointmentStatus, showToast } = useApp();
 
+  // TV Fullscreen lounge mode
+  const [isTvMode, setIsTvMode] = useState(false);
+  const [tvTime, setTvTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+
+  // Doctor Delay Offset (+0, +15, +30, +45 mins)
+  const [delayOffsetMins, setDelayOffsetMins] = useState(0);
+  const [delayReason, setDelayReason] = useState('Emergency clinical procedure in operatory');
+
+  // Live seconds clock for TV mode
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTvTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Web Audio chime generator (Hospital double chime)
+  const playChime = () => {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+
+      const playTone = (freq, start, duration) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + start);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + start);
+        osc.stop(ctx.currentTime + start + duration);
+      };
+
+      // Two-tone Ding-Dong (C5 -> E5)
+      playTone(523.25, 0, 0.4);
+      playTone(659.25, 0.25, 0.6);
+    } catch {
+      // AudioContext unavailable or blocked by browser policy
+    }
+  };
+
   const todayApts = appointments.filter((a) => {
     const isClinicMatch = !activeClinic?.id || a.clinicId === activeClinic.id;
     const isDateMatch = a.date === '2026-10-27' || a.date === '2026-10-23' || a.date === new Date().toISOString().split('T')[0];
@@ -23,7 +67,6 @@ export function ClinicQueuePage() {
   const handleCallPatient = (apt) => {
     updateAppointmentStatus(apt.id, 'In Consultation');
     showToast(`Called token ${apt.queueNumber || apt.referenceNumber || 'Q-1'} (${apt.patientName}) into operatory!`);
-
   };
 
   return (
@@ -37,7 +80,6 @@ export function ClinicQueuePage() {
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Live Patient Waiting Queue</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-
             Real-time multi-operatory token tracking, waiting time indicators, and room call-in controls
           </p>
         </div>
@@ -70,7 +112,6 @@ export function ClinicQueuePage() {
           </div>
           <div className="text-3xl font-black text-emerald-950 dark:text-emerald-100">{completed.length} Consultations</div>
           <p className="text-[11px] text-emerald-700 dark:text-emerald-300 mt-1">Prescriptions issued and bills settled</p>
-
         </Card>
       </div>
 
@@ -87,12 +128,12 @@ export function ClinicQueuePage() {
               <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="px-3 py-3 text-center w-12 font-semibold">#</th>
-
                   <th className="px-4 py-3">Token #</th>
                   <th className="px-4 py-3">Patient Name</th>
                   <th className="px-4 py-3">Assigned Doctor</th>
                   <th className="px-4 py-3">Scheduled Slot</th>
                   <th className="px-4 py-3">Procedure</th>
+                  <th className="px-4 py-3">Est. Wait</th>
                   <th className="px-4 py-3">Queue Status</th>
                   <th className="px-4 py-3 text-right">Action</th>
                 </tr>
@@ -101,7 +142,6 @@ export function ClinicQueuePage() {
                 {waitingQueue.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
-
                       No patients currently waiting in the OPD queue.
                     </td>
                   </tr>
@@ -123,7 +163,6 @@ export function ClinicQueuePage() {
                         {apt.time}
                       </td>
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-
                         {apt.serviceName}
                       </td>
                       <td className="px-4 py-3">
@@ -151,7 +190,6 @@ export function ClinicQueuePage() {
                             </Button>
                           </Link>
                         </div>
-
                       </td>
                     </tr>
                   ))
@@ -191,7 +229,6 @@ export function ClinicQueuePage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

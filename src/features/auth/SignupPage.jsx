@@ -378,4 +378,3 @@ export function SignupPage() {
     </div>
   );
 }
-

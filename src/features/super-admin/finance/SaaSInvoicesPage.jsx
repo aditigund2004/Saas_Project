@@ -60,7 +60,6 @@ export function SaaSInvoicesPage() {
     link.click();
     document.body.removeChild(link);
     showToast('SaaS invoices CSV exported.', 'success');
-
   };
 
   return (
@@ -71,7 +70,6 @@ export function SaaSInvoicesPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Receivables & Invoicing</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">SaaS Subscription Invoices</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-
             B2B invoices billed to clinic organizations for monthly/annual platform access and branch capacity.
           </p>
         </div>
@@ -88,14 +86,12 @@ export function SaaSInvoicesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by invoice number (e.g. SINV-2026-1081), clinic name, or tier plan..."
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400"
-
             />
           </div>
 
@@ -104,7 +100,6 @@ export function SaaSInvoicesPage() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-slate-950 font-medium text-slate-700 dark:text-slate-200"
-
             >
               <option value="All">All Invoices ({saasInvoices.length})</option>
               <option value="Paid">Paid Only</option>
@@ -118,7 +113,6 @@ export function SaaSInvoicesPage() {
 
       {/* Invoices Table */}
       <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
-
         <CardHeader
           title={`Subscription Invoices (${filteredInvoices.length})`}
           subtitle="All corporate SaaS subscription charges with automated gateway collection status"
@@ -159,7 +153,6 @@ export function SaaSInvoicesPage() {
                   </td>
                   <td className="p-4 text-right font-sans">
                     <div className="flex items-center justify-end gap-2">
-
                       <Button
                         variant="ghost"
                         size="sm"
@@ -204,7 +197,6 @@ export function SaaSInvoicesPage() {
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500">Subscription Tier</span>
                 <p className="font-bold text-blue-700 dark:text-blue-400 text-base mt-0.5">{selectedInvoice.planName}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-
                   {selectedInvoice.tierLimitDoctors} Doctors · {selectedInvoice.tierLimitBranches} Branch
                 </p>
               </div>
@@ -215,7 +207,6 @@ export function SaaSInvoicesPage() {
               <div>
                 <span className="text-xs uppercase font-bold text-slate-400 dark:text-slate-500">Payment Status</span>
                 <div className="mt-0.5">
-
                   <Badge variant={selectedInvoice.status}>{selectedInvoice.status}</Badge>
                 </div>
               </div>
@@ -229,7 +220,6 @@ export function SaaSInvoicesPage() {
             {selectedInvoice.status === 'Paid' && (
               <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 flex items-center gap-2.5 text-xs">
                 <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-
                 <span>
                   Settled on {selectedInvoice.paidAt || selectedInvoice.issueDate} via{' '}
                   <strong>{selectedInvoice.paymentMethod}</strong>.
@@ -238,7 +228,6 @@ export function SaaSInvoicesPage() {
             )}
 
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-
               {selectedInvoice.status !== 'Paid' ? (
                 <Button
                   variant="primary"
@@ -254,7 +243,6 @@ export function SaaSInvoicesPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => showToast('Simulated tax invoice PDF downloaded.', 'info')}
-
                 >
                   Download PDF Receipt
                 </Button>
@@ -283,14 +271,12 @@ export function SaaSInvoicesPage() {
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-
                 Settlement Channel / Gateway
               </label>
               <select
                 value={payModal.method}
                 onChange={(e) => setPayModal((prev) => ({ ...prev, method: e.target.value }))}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
               >
                 <option value="Razorpay / UPI Autopay">Razorpay / UPI Autopay</option>
                 <option value="Corporate Credit Card">Corporate Credit Card (Visa/Mastercard)</option>
@@ -300,7 +286,6 @@ export function SaaSInvoicesPage() {
             </div>
 
             <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-
               <Button
                 variant="outline"
                 size="sm"
@@ -318,4 +303,3 @@ export function SaaSInvoicesPage() {
     </div>
   );
 }
-

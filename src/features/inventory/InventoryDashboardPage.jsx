@@ -52,7 +52,6 @@ export function InventoryDashboardPage() {
             Clinical Inventory Dashboard
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Stock levels, batch expiry monitoring, internal stock requisitions, and vendor supply chain
           </p>
         </div>
@@ -61,7 +60,6 @@ export function InventoryDashboardPage() {
           <Link to="/inventory/catalog">
             <Button variant="primary" size="sm" className="font-semibold shadow-sm">
               <Plus className="w-4 h-4 mr-1.5" />
-
               Manage Catalog & Stock
             </Button>
           </Link>
@@ -126,7 +124,6 @@ export function InventoryDashboardPage() {
               Low Stock & Reorder Requirements ({lowStockItems.length})
             </h3>
             <Link to="/inventory/catalog" className="text-xs font-semibold text-blue-700 dark:text-blue-400 hover:underline">
-
               Full Catalog
             </Link>
           </div>
@@ -134,7 +131,6 @@ export function InventoryDashboardPage() {
           <Card className="divide-y divide-slate-100 dark:divide-slate-800 border-slate-200 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
             {lowStockItems.length === 0 ? (
               <div className="p-8 text-center text-slate-400 dark:text-slate-500 text-xs">
-
                 All consumables are above reorder safety thresholds.
               </div>
             ) : (
@@ -143,7 +139,6 @@ export function InventoryDashboardPage() {
                   <div>
                     <div className="font-bold text-slate-900 dark:text-white text-sm">{item.name}</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2 mt-0.5">
-
                       <span className="font-mono">{item.sku}</span>
                       <span>·</span>
                       <span>Supplier: {item.supplier}</span>
@@ -154,7 +149,6 @@ export function InventoryDashboardPage() {
                       {item.currentStock} {item.unit}
                     </div>
                     <span className="text-xs text-slate-400 dark:text-slate-500 block">
-
                       Min Threshold: {item.minStockLevel}
                     </span>
                     <Badge variant="danger" size="sm" className="mt-1">
@@ -207,7 +201,6 @@ export function InventoryDashboardPage() {
               Recent Stock Movements Log
             </h3>
             <Link to="/inventory/movements" className="text-xs font-semibold text-blue-700 dark:text-blue-400 hover:underline">
-
               Audit Trail
             </Link>
           </div>
@@ -220,7 +213,6 @@ export function InventoryDashboardPage() {
                   <span
                     className={`font-mono font-bold text-sm ${
                       mov.quantity > 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'
-
                     }`}
                   >
                     {mov.quantity > 0 ? `+${mov.quantity}` : mov.quantity}
@@ -233,7 +225,6 @@ export function InventoryDashboardPage() {
                 <div className="flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 pt-1">
                   <span>Reason: {mov.reason}</span>
                   <span className="font-mono">{mov.date}</span>
-
                 </div>
               </div>
             ))}
@@ -243,4 +234,3 @@ export function InventoryDashboardPage() {
     </div>
   );
 }
-

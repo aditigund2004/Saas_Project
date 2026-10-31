@@ -16,7 +16,6 @@ export function ClinicPrescriptionsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Clinical Documentation</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Digital Prescriptions Archive</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Tamper-evident digital prescriptions with cryptographic QR code verification and print-ready PDF export.
           </p>
         </div>
@@ -29,7 +28,6 @@ export function ClinicPrescriptionsPage() {
       </div>
 
       <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <CardHeader
           title={`Issued Prescriptions (${prescriptions.length})`}
           subtitle={`Clinical documents issued by doctors at ${activeClinic.name}`}
@@ -39,7 +37,6 @@ export function ClinicPrescriptionsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Prescription #</th>
                 <th className="p-3.5">Patient Details</th>
                 <th className="p-3.5">Doctor & Date</th>
@@ -66,7 +63,6 @@ export function ClinicPrescriptionsPage() {
                     {rx.diagnosis}
                   </td>
                   <td className="p-3.5 font-semibold text-slate-700 dark:text-slate-300">
-
                     {rx.medications?.length || 0} Prescribed Drugs
                   </td>
                   <td className="p-3.5">
@@ -76,7 +72,6 @@ export function ClinicPrescriptionsPage() {
                       className="inline-flex items-center gap-1 font-mono text-[11px] text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-900/50 hover:bg-blue-100 dark:hover:bg-blue-900/60"
                     >
                       <ShieldCheck className="w-3 h-3 text-blue-600 dark:text-blue-400" />
-
                       <span>{rx.verificationId}</span>
                     </Link>
                   </td>

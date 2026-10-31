@@ -10,6 +10,7 @@ import { Search, UserPlus, Users, ArrowRight, Phone, Mail, Calendar, FileText } 
 export function ClinicPatientsPage() {
   const { patients, createPatient, activeClinic } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'cards'
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   const [formName, setFormName] = useState('');
@@ -22,13 +23,14 @@ export function ClinicPatientsPage() {
   const [formHistory, setFormHistory] = useState('');
 
   const filteredPatients = patients.filter((p) => {
-
     return (
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.patientIdNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.phone.includes(searchQuery)
     );
   });
+
+  const totalAllergyPatients = patients.filter((p) => p.allergies && p.allergies.length > 0).length;
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -59,7 +61,6 @@ export function ClinicPatientsPage() {
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Clinical Records</span>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Patient Directory</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
             Searchable patient registry, allergy warnings, medical histories, and consultation archives.
           </p>
         </div>
@@ -76,7 +77,6 @@ export function ClinicPatientsPage() {
 
       {/* Search Bar */}
       <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -85,14 +85,12 @@ export function ClinicPatientsPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search patients by name, patient ID (e.g. PT-1041), or phone number..."
             className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
-
           />
         </div>
       </Card>
 
       {/* Patient Table */}
       <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-
         <CardHeader
           title={`Registered Patients (${filteredPatients.length})`}
           subtitle="Click on any patient record to view complete clinical history and past prescriptions"
@@ -102,7 +100,6 @@ export function ClinicPatientsPage() {
             <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
-
                 <th className="p-3.5">Patient ID</th>
                 <th className="p-3.5">Full Name</th>
                 <th className="p-3.5">Contact Details</th>
@@ -131,13 +128,11 @@ export function ClinicPatientsPage() {
                     <span className="font-bold text-slate-700 dark:text-slate-300">{p.bloodGroup || '—'}</span>
                     {p.allergies && p.allergies.length > 0 && (
                       <span className="block text-[10px] text-rose-600 dark:text-rose-400 font-semibold mt-0.5">
-
                         ⚠ Allergies: {p.allergies.join(', ')}
                       </span>
                     )}
                   </td>
                   <td className="p-3.5 text-slate-600 dark:text-slate-400 font-mono">{p.registeredAt}</td>
-
                   <td className="p-3.5">
                     <Badge variant={p.status}>{p.status}</Badge>
                   </td>
@@ -167,7 +162,6 @@ export function ClinicPatientsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
-
                 <input
                   required
                   type="text"
@@ -175,13 +169,11 @@ export function ClinicPatientsPage() {
                   onChange={(e) => setFormName(e.target.value)}
                   placeholder="e.g. Ramesh Kumar"
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
-
                 <input
                   required
                   type="tel"
@@ -189,32 +181,27 @@ export function ClinicPatientsPage() {
                   onChange={(e) => setFormPhone(e.target.value)}
                   placeholder="+91 98000 00000"
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
-
                 <input
                   type="email"
                   value={formEmail}
                   onChange={(e) => setFormEmail(e.target.value)}
                   placeholder="patient@example.demo"
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Date of Birth</label>
-
                 <input
                   type="date"
                   value={formDob}
                   onChange={(e) => setFormDob(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 />
               </div>
 
@@ -224,7 +211,6 @@ export function ClinicPatientsPage() {
                   value={formGender}
                   onChange={(e) => setFormGender(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 >
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -238,7 +224,6 @@ export function ClinicPatientsPage() {
                   value={formBloodGroup}
                   onChange={(e) => setFormBloodGroup(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
                 >
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -254,20 +239,17 @@ export function ClinicPatientsPage() {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Known Allergies (Comma separated)</label>
-
               <input
                 type="text"
                 value={formAllergies}
                 onChange={(e) => setFormAllergies(e.target.value)}
                 placeholder="e.g. Penicillin, Latex, NSAIDs"
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Medical Background / Pre-existing Conditions</label>
-
               <textarea
                 rows={2}
                 value={formHistory}
@@ -278,7 +260,6 @@ export function ClinicPatientsPage() {
             </div>
 
             <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
-
               <Button variant="outline" size="sm" onClick={() => setIsRegisterModalOpen(false)}>
                 Cancel
               </Button>
@@ -292,4 +273,3 @@ export function ClinicPatientsPage() {
     </div>
   );
 }
-

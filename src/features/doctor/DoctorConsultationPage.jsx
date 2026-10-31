@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { Modal } from '../../components/ui/Modal';
 import {
   Stethoscope,
   Save,
@@ -21,7 +22,6 @@ import {
   QrCode,
   Receipt,
   Printer
-
 } from 'lucide-react';
 
 export function DoctorConsultationPage() {
@@ -40,7 +40,6 @@ export function DoctorConsultationPage() {
     createInvoice,
     updateAppointmentStatus,
     openPrescriptionModal,
-
     showToast
   } = useApp();
 
@@ -57,7 +56,6 @@ export function DoctorConsultationPage() {
       updateAppointmentStatus(targetAppointment.id, 'In Consultation');
     }
   }, [targetAppointment?.id]);
-
 
   // Existing encounter if draft or finalized
   const existingEncounter = encounters.find((e) => e.appointmentId === targetAppointment?.id);
@@ -125,6 +123,19 @@ export function DoctorConsultationPage() {
 
   const [medications, setMedications] = useState(defaultMedications);
 
+  // Active searching drug state for autocomplete dropdown
+  const [activeSearchMedIndex, setActiveSearchMedIndex] = useState(null);
+  const [drugSearchQuery, setDrugSearchQuery] = useState('');
+
+  // Finalize confirmation modal
+  const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
+  const [clinicalOverride, setClinicalOverride] = useState(false);
+  const [overrideReason, setOverrideReason] = useState('');
+
+  const patientAllergiesText = (targetPatient?.allergies || []).join(', ');
+  const safetyAnalysis = checkPrescriptionSafety(medications, patientAllergiesText);
+
+  // Add a blank medication row
   const handleAddMedication = () => {
     const newMed = {
       id: `med-${Date.now()}`,
@@ -138,6 +149,16 @@ export function DoctorConsultationPage() {
       instructions: 'Take with warm water.'
     };
     setMedications([...medications, newMed]);
+  };
+
+  // Duplicate an existing medication row
+  const handleDuplicateMedication = (med) => {
+    const copy = {
+      ...med,
+      id: `med-${Date.now()}`
+    };
+    setMedications([...medications, copy]);
+    showToast(`Duplicated ${med.name || 'medication'}.`, 'info');
   };
 
   const handleRemoveMedication = (id) => {
@@ -215,6 +236,14 @@ export function DoctorConsultationPage() {
       showToast('Please enter an assessment / diagnosis before finalization.', 'error');
       return;
     }
+    if (safetyAnalysis.hasCritical && !clinicalOverride) {
+      showToast('Critical prescription safety alerts flagged. Please review alerts or log an override reason.', 'warning');
+      return;
+    }
+    setIsFinalizeModalOpen(true);
+  };
+
+  const handleConfirmFinalize = () => {
     const payload = {
       appointmentId: targetAppointment?.id || 'apt-manual',
       patientId: targetPatient.id,
@@ -233,6 +262,7 @@ export function DoctorConsultationPage() {
     };
     finalizeEncounter(payload);
     setIsFinalized(true);
+    setIsFinalizeModalOpen(false);
 
     // Automatically generate OPD invoice for this completed encounter if not already issued
     const hasInvoice = invoices.some(
@@ -266,7 +296,6 @@ export function DoctorConsultationPage() {
       });
       showToast('Encounter finalized! E-Prescription issued and OPD Invoice generated.');
     }
-
   };
 
   // Find issued prescription for this patient if already finalized
@@ -276,7 +305,6 @@ export function DoctorConsultationPage() {
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Top Header & Navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
-
         <div className="flex items-center gap-3">
           <Link to="/doctor/dashboard">
             <Button variant="secondary" size="sm" className="px-2">
@@ -286,7 +314,6 @@ export function DoctorConsultationPage() {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
-
                 Clinical Consultation & Rx Composer
               </h1>
               {isFinalized ? (
@@ -300,7 +327,6 @@ export function DoctorConsultationPage() {
               )}
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-
               Encounter for {targetPatient?.name} · Ref: {targetAppointment?.referenceNumber || 'APT-2601'}
             </p>
           </div>
@@ -334,7 +360,6 @@ export function DoctorConsultationPage() {
               </Link>
             </>
           )}
-
           <Button
             variant="primary"
             size="sm"
@@ -344,7 +369,6 @@ export function DoctorConsultationPage() {
           >
             <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
             {isFinalized ? 'Re-Finalize Encounter' : 'Finalize & Issue Rx & Invoice'}
-
           </Button>
         </div>
       </div>
@@ -353,13 +377,11 @@ export function DoctorConsultationPage() {
       <div className="p-3 bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-xl text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-
           <span>
             <strong>Synthetic Demonstration Record:</strong> Simulated clinical workflow for ClinicOS SaaS evaluation. Never use for actual medical diagnoses or treatments.
           </span>
         </div>
         <span className="font-mono text-[10px] text-amber-800 dark:text-amber-300 uppercase font-bold">
-
           DEMO MODE
         </span>
       </div>
@@ -382,7 +404,6 @@ export function DoctorConsultationPage() {
           <div>
             <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 block">Known Allergies</span>
             <span className="font-bold text-amber-700 dark:text-amber-300 bg-amber-100/70 dark:bg-amber-950/40 px-1.5 py-0.5 rounded text-[11px] inline-block">
-
               {targetPatient?.allergies?.join(', ') || 'Sulfa Drugs'}
             </span>
           </div>
@@ -393,7 +414,6 @@ export function DoctorConsultationPage() {
           <div>
             <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 block">Attending Clinician</span>
             <span className="font-semibold text-blue-800 dark:text-blue-400">{currentUser?.name || 'Dr. Arvind Rao'}</span>
-
           </div>
         </div>
       </Card>
@@ -404,13 +424,11 @@ export function DoctorConsultationPage() {
         <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
           <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
             <Stethoscope className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-
             Patient Clinical Vitals
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1">
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Blood Pressure</label>
-
               <input
                 type="text"
                 value={vitals.bp}
@@ -421,7 +439,6 @@ export function DoctorConsultationPage() {
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Pulse Rate</label>
-
               <input
                 type="text"
                 value={vitals.pulse}
@@ -432,7 +449,6 @@ export function DoctorConsultationPage() {
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Temperature</label>
-
               <input
                 type="text"
                 value={vitals.temp}
@@ -443,7 +459,6 @@ export function DoctorConsultationPage() {
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">SpO2</label>
-
               <input
                 type="text"
                 value={vitals.spO2}
@@ -454,14 +469,12 @@ export function DoctorConsultationPage() {
             </div>
             <div>
               <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Body Weight</label>
-
               <input
                 type="text"
                 value={vitals.weight}
                 onChange={(e) => setVitals({ ...vitals, weight: e.target.value })}
                 placeholder="68 kg"
                 className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono font-medium focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
           </div>
@@ -471,7 +484,6 @@ export function DoctorConsultationPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Presenting Chief Complaints *</label>
-
             <textarea
               required
               rows={3}
@@ -484,14 +496,12 @@ export function DoctorConsultationPage() {
 
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Clinical Examination & Findings</label>
-
             <textarea
               rows={3}
               value={clinicalFindings}
               onChange={(e) => setClinicalFindings(e.target.value)}
               placeholder="Objective findings, oral inspection, percussion..."
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-
             />
           </Card>
         </div>
@@ -500,7 +510,6 @@ export function DoctorConsultationPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Clinical Diagnosis / ICD Description *</label>
-
             <input
               required
               type="text"
@@ -514,7 +523,6 @@ export function DoctorConsultationPage() {
 
           <Card className="p-4 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
             <label className="text-xs font-bold text-slate-800 dark:text-white">Treatment Plan & Procedures</label>
-
             <input
               type="text"
               value={treatmentPlan}
@@ -523,7 +531,6 @@ export function DoctorConsultationPage() {
               className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
             <span className="text-[10px] text-slate-400 dark:text-slate-500">Summarizes proposed clinical interventions</span>
-
           </Card>
         </div>
 
@@ -536,7 +543,6 @@ export function DoctorConsultationPage() {
                 Digital Prescription Composer
               </h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
-
                 Prescribe medications with dosage, frequency, route, and specific patient instructions.
               </p>
             </div>
@@ -548,7 +554,6 @@ export function DoctorConsultationPage() {
                 type="button"
                 onClick={() => applyDrugPreset('paracetamol')}
                 className="text-[11px] px-2 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md cursor-pointer font-medium"
-
               >
                 + Dolo 650
               </button>
@@ -556,7 +561,6 @@ export function DoctorConsultationPage() {
                 type="button"
                 onClick={() => applyDrugPreset('pantoprazole')}
                 className="text-[11px] px-2 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md cursor-pointer font-medium"
-
               >
                 + Pan 40
               </button>
@@ -572,7 +576,6 @@ export function DoctorConsultationPage() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 font-bold text-[10px] flex items-center justify-center">
-
                     {index + 1}
                   </span>
                   <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -582,7 +585,6 @@ export function DoctorConsultationPage() {
                       onChange={(e) => handleMedChange(med.id, 'name', e.target.value)}
                       placeholder="Medication Name (e.g. Augmentin)"
                       className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
-
                     />
                     <input
                       type="text"
@@ -590,7 +592,6 @@ export function DoctorConsultationPage() {
                       onChange={(e) => handleMedChange(med.id, 'strength', e.target.value)}
                       placeholder="Strength (e.g. 625 mg)"
                       className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
-
                     />
                     <input
                       type="text"
@@ -598,14 +599,12 @@ export function DoctorConsultationPage() {
                       onChange={(e) => handleMedChange(med.id, 'dosage', e.target.value)}
                       placeholder="Dosage (e.g. 1 Tablet)"
                       className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
-
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveMedication(med.id)}
                     className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
-
                     title="Remove item"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -615,7 +614,6 @@ export function DoctorConsultationPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Frequency</label>
-
                     <input
                       type="text"
                       value={med.frequency}
@@ -626,7 +624,6 @@ export function DoctorConsultationPage() {
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Duration</label>
-
                     <input
                       type="text"
                       value={med.duration}
@@ -637,7 +634,6 @@ export function DoctorConsultationPage() {
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Route / Timing</label>
-
                     <input
                       type="text"
                       value={med.route}
@@ -648,14 +644,12 @@ export function DoctorConsultationPage() {
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">Quantity</label>
-
                     <input
                       type="text"
                       value={med.quantity}
                       onChange={(e) => handleMedChange(med.id, 'quantity', e.target.value)}
                       placeholder="10 Tablets"
                       className="w-full text-[11px] px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
-
                     />
                   </div>
                 </div>
@@ -667,7 +661,6 @@ export function DoctorConsultationPage() {
                     onChange={(e) => handleMedChange(med.id, 'instructions', e.target.value)}
                     placeholder="Specific patient instructions (e.g. Swallow whole with water, avoid alcohol)..."
                     className="w-full text-[11px] px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 italic"
-
                   />
                 </div>
               </div>
@@ -694,13 +687,11 @@ export function DoctorConsultationPage() {
             <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <div>
               <label className="text-xs font-bold text-slate-800 dark:text-white block">Scheduled Review / Follow-Up Date</label>
-
               <input
                 type="date"
                 value={followUpDate}
                 onChange={(e) => setFollowUpDate(e.target.value)}
                 className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-200 mt-1 focus:ring-2 focus:ring-blue-500"
-
               />
             </div>
           </div>
@@ -709,7 +700,6 @@ export function DoctorConsultationPage() {
             {!isFinalized && (
               <Button variant="secondary" size="md" onClick={handleSaveDraft} type="button">
                 <Save className="w-4 h-4 mr-1 text-slate-600 dark:text-slate-300" />
-
                 Save Draft
               </Button>
             )}
@@ -733,20 +723,17 @@ export function DoctorConsultationPage() {
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <h3 className="font-bold text-sm text-emerald-950 dark:text-emerald-100">
-
                 Official Digital Prescription Issued ({issuedRx.prescriptionNumber})
               </h3>
             </div>
             <Link to={`/verify-prescription/${issuedRx.verificationId}`} target="_blank">
               <Button variant="secondary" size="sm" className="bg-white dark:bg-slate-900 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800 text-xs">
-
                 <QrCode className="w-3.5 h-3.5 mr-1" />
                 Verify QR Code Authenticity
               </Button>
             </Link>
           </div>
           <p className="text-xs text-slate-600 dark:text-slate-300">
-
             This digital record has been cryptographically generated in the simulated clinic vault. The patient can access it via the ClinicOS Patient Portal or pharmacy QR scan.
           </p>
         </Card>

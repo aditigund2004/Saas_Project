@@ -21,8 +21,13 @@ import {
   User,
   Phone,
   Mail,
-  Check
+  Check,
+  Users,
+  Heart,
+  Sparkles
 } from 'lucide-react';
+import { AIDurationBadge } from '../../components/ui/AIDurationBadge';
+import { calculateDynamicDuration, calculateEndTime } from '../../utils/aiAppointmentDuration';
 
 export function PatientBookPage() {
   const navigate = useNavigate();
@@ -31,11 +36,29 @@ export function PatientBookPage() {
     clinics,
     doctors,
     currentUser,
+    familyMembers = [],
     submitBookingRequest,
     getAvailableSlotsForDoctor,
     showToast,
     formatCurrency
   } = useApp();
+
+  // Family members list
+  const myFamily = familyMembers.filter(
+    (m) => m.primaryPatientId === 'pt-1041' || m.primaryPatientId === currentUser?.id
+  );
+
+  // Check URL params for family member booking pre-fill
+  const forMemberParam = searchParams.get('forMember');
+  const memberRelParam = searchParams.get('memberRel');
+
+  const matchedFamilyMember = forMemberParam
+    ? myFamily.find(
+        (m) =>
+          m.name.toLowerCase() === forMemberParam.toLowerCase() ||
+          m.id === forMemberParam
+      )
+    : null;
 
   // Wizard Step State (1 to 6)
   const [currentStep, setCurrentStep] = useState(1);
@@ -58,14 +81,49 @@ export function PatientBookPage() {
   // Alternative Preferences (Section E)
   const [secondPreferredDate, setSecondPreferredDate] = useState('');
   const [preferredTimeOfDay, setPreferredTimeOfDay] = useState('Morning');
-  const [patientNote, setPatientNote] = useState('');
+  const [patientNote, setPatientNote] = useState(
+    matchedFamilyMember
+      ? `Booking consultation on behalf of ${matchedFamilyMember.relationship}: ${matchedFamilyMember.name}`
+      : ''
+  );
 
-  // Patient Synthetic Details
-  const [patientName, setPatientName] = useState(currentUser?.name || 'Aarav Patel');
-  const [patientPhone, setPatientPhone] = useState(currentUser?.phone || '+91 98765 43210');
+  // Patient Synthetic Details & Booking Target ('self' or familyMember.id)
+  const [bookingTarget, setBookingTarget] = useState(
+    matchedFamilyMember ? matchedFamilyMember.id : 'self'
+  );
+  const [patientName, setPatientName] = useState(
+    matchedFamilyMember ? matchedFamilyMember.name : (currentUser?.name || 'Aarav Patel')
+  );
+  const [patientPhone, setPatientPhone] = useState(
+    matchedFamilyMember?.phone || currentUser?.phone || '+91 98765 43210'
+  );
   const [patientEmail, setPatientEmail] = useState(currentUser?.email || 'aarav.patel@example.demo');
   const [isNewPatient, setIsNewPatient] = useState(false);
   const [agreedToPolicy, setAgreedToPolicy] = useState(true);
+
+  // Active family member if booked for family
+  const selectedFamilyMember =
+    bookingTarget !== 'self' ? myFamily.find((m) => m.id === bookingTarget) : null;
+
+  const handleBookingTargetChange = (targetId) => {
+    setBookingTarget(targetId);
+    if (targetId === 'self') {
+      setPatientName(currentUser?.name || 'Aarav Patel');
+      setPatientPhone(currentUser?.phone || '+91 98765 43210');
+      if (patientNote.startsWith('Booking consultation on behalf of')) {
+        setPatientNote('');
+      }
+    } else {
+      const member = myFamily.find((m) => m.id === targetId);
+      if (member) {
+        setPatientName(member.name);
+        if (member.phone) setPatientPhone(member.phone);
+        if (!patientNote || patientNote.startsWith('Booking consultation on behalf of')) {
+          setPatientNote(`Booking consultation on behalf of ${member.relationship}: ${member.name}`);
+        }
+      }
+    }
+  };
 
   // Submission Result Modal
   const [submittedRequest, setSubmittedRequest] = useState(null);
@@ -97,9 +155,24 @@ export function PatientBookPage() {
     setSelectedServiceId(cln?.services?.[0]?.id || '');
   };
 
-  // Available slots for selected doctor & date
+  // AI Dynamic Duration Engine Computation
+  const [customDuration, setCustomDuration] = useState(null);
+
+  const dynamicDuration = calculateDynamicDuration({
+    doctor: selectedDoctor,
+    patient: currentUser,
+    reasonForVisit: patientNote,
+    service: selectedService,
+    isNewPatient,
+    patientNotes: patientNote,
+    familyMember: selectedFamilyMember
+  });
+
+  const effectiveDuration = customDuration || dynamicDuration.calculatedMinutes;
+
+  // Available slots for selected doctor & date using dynamically tailored duration
   const availableSlots = selectedDoctor
-    ? getAvailableSlotsForDoctor(selectedClinicId, selectedDoctor.id, preferredDate)
+    ? getAvailableSlotsForDoctor(selectedClinicId, selectedDoctor.id, preferredDate, effectiveDuration)
     : [];
 
   const handleNext = () => {
@@ -150,6 +223,8 @@ export function PatientBookPage() {
       serviceName: selectedService?.name || 'General Consultation',
       consultationFee: selectedService?.fee || selectedDoctor.consultationFee,
       consultationType,
+      durationMinutes: effectiveDuration,
+      durationDetails: dynamicDuration,
       preferredDate,
       preferredTime,
       patientId: 'pt-1041',
@@ -157,6 +232,10 @@ export function PatientBookPage() {
       patientPhone,
       patientEmail,
       isNewPatient,
+      bookingFor: bookingTarget === 'self' ? 'Self' : 'Family Member',
+      relationship: selectedFamilyMember ? selectedFamilyMember.relationship : (memberRelParam || 'Self'),
+      familyMemberId: selectedFamilyMember?.id || null,
+      bookedBy: currentUser?.name || 'Aarav Patel',
       notes: patientNote,
       patientAlternativePreferences: {
         secondPreferredDate,
@@ -191,7 +270,6 @@ export function PatientBookPage() {
             Appointment Request Wizard
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-
             Submit a booking request. Our clinic receptionist verifies schedule availability before finalizing your appointment.
           </p>
         </div>
@@ -199,17 +277,38 @@ export function PatientBookPage() {
         <div className="flex items-center gap-2">
           <Link to="/patient/appointments/requests">
             <Button variant="outline" size="md">
-
               View Active Requests &rarr;
             </Button>
           </Link>
         </div>
       </div>
 
+      {/* Preventive Package Banner */}
+      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-purple-50/70 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-purple-950/30 border border-blue-200/80 dark:border-blue-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+            <Sparkles className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100 block">
+              Looking for a Full-Body Health Checkup or Annual Screening?
+            </span>
+            <span className="text-slate-600 dark:text-slate-400 text-[11px]">
+              Explore discounted lab packages with up to 82 biomarkers, fasting tests & doctor consultations.
+            </span>
+          </div>
+        </div>
+        <Link
+          to="/patient/packages"
+          className="shrink-0 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 font-bold border border-blue-200 dark:border-blue-800 hover:bg-blue-50 transition-colors flex items-center gap-1 shadow-2xs"
+        >
+          View Health Packages &rarr;
+        </Link>
+      </div>
+
       {/* Step Progress Tracker */}
       <div className="bg-white dark:bg-slate-900/90 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center justify-between overflow-x-auto gap-3">
-
           {steps.map((s, idx) => {
             const isCompleted = currentStep > s.num;
             const isCurrent = currentStep === s.num;
@@ -241,7 +340,6 @@ export function PatientBookPage() {
                 </div>
                 {idx < steps.length - 1 && (
                   <div className={`hidden sm:block flex-1 h-0.5 ${isCompleted ? 'bg-blue-300 dark:bg-blue-700' : 'bg-slate-100 dark:bg-slate-800'}`} />
-
                 )}
               </React.Fragment>
             );
@@ -251,14 +349,12 @@ export function PatientBookPage() {
 
       {/* Wizard Form Container */}
       <Card className="p-6 sm:p-7 border-slate-200 dark:border-slate-800 dark:bg-slate-900/90 shadow-sm">
-
         {/* Step 1: Choose Clinic */}
         {currentStep === 1 && (
           <div className="space-y-4">
             <div>
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 1: Select a Participating Clinic</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                 Choose one of the 5 accredited demonstration clinics on the ClinicOS platform.
               </p>
             </div>
@@ -275,7 +371,6 @@ export function PatientBookPage() {
                       isSelected
                         ? 'border-blue-600 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500/20 shadow-xs'
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-950/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/50'
-
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -284,14 +379,12 @@ export function PatientBookPage() {
                         <div>
                           <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{clinic.name}</h3>
                           <span className="text-xs text-blue-700 dark:text-blue-400 font-bold uppercase font-mono">
-
                             {clinic.specialty}
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
                         <Star className="w-3.5 h-3.5 fill-amber-400" />
-
                         <span>{clinic.rating || 4.9}</span>
                       </div>
                     </div>
@@ -306,7 +399,6 @@ export function PatientBookPage() {
                         {clinic.city}
                       </span>
                       <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
-
                         {clinic.consultationFeeRange || '₹500 - ₹1,200'}
                       </span>
                     </div>
@@ -324,7 +416,6 @@ export function PatientBookPage() {
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 2: Choose Consulting Doctor</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Physicians currently practicing at <strong className="text-slate-800 dark:text-slate-200">{selectedClinic.name}</strong> ({selectedClinic.city}).
-
               </p>
             </div>
 
@@ -340,7 +431,6 @@ export function PatientBookPage() {
                       isSelected
                         ? 'border-blue-600 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500/20 shadow-xs'
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-950/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/50'
-
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -368,7 +458,6 @@ export function PatientBookPage() {
                     </div>
 
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 truncate">
-
                       Days: {doc.availableDays?.join(', ')}
                     </p>
                   </div>
@@ -377,14 +466,12 @@ export function PatientBookPage() {
             </div>
           </div>
         )}
-
         {/* Step 3: Choose Service & Consultation Type */}
         {currentStep === 3 && (
           <div className="space-y-5">
             <div>
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 3: Clinical Service & Consultation Mode</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                 Select from services supported by Dr. {selectedDoctor?.name} at {selectedClinic?.name}.
               </p>
             </div>
@@ -392,7 +479,6 @@ export function PatientBookPage() {
             {/* Consultation Type Selector */}
             <div className="space-y-2">
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-
                 Consultation Type
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -413,7 +499,6 @@ export function PatientBookPage() {
                   >
                     <div className="font-bold text-sm">{type.label}</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{type.desc}</div>
-
                   </button>
                 ))}
               </div>
@@ -425,7 +510,6 @@ export function PatientBookPage() {
                 Available Clinic Services
               </label>
               <div className="space-y-2.5">
-
                 {selectedClinic?.services?.map((srv) => {
                   const isSelected = selectedServiceId === srv.id;
 
@@ -437,14 +521,13 @@ export function PatientBookPage() {
                         isSelected
                           ? 'border-blue-600 dark:border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-1 ring-blue-500 shadow-sm'
                           : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-950/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
-
                       }`}
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
                           <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{srv.name}</h4>
                           <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono text-xs">
-                            {srv.durationMinutes} mins
+                            {srv.durationMinutes} mins base
                           </span>
                         </div>
                         <p className="text-xs text-slate-500 dark:text-slate-400">{srv.description}</p>
@@ -452,7 +535,6 @@ export function PatientBookPage() {
 
                       <div className="text-right shrink-0">
                         <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
-
                           ₹{srv.fee.toLocaleString('en-IN')}
                         </span>
                       </div>
@@ -460,6 +542,17 @@ export function PatientBookPage() {
                   );
                 })}
               </div>
+            </div>
+
+            {/* AI Dynamic Duration Live Assistant Card in Step 3 */}
+            <div className="pt-2">
+              <AIDurationBadge
+                durationDetails={dynamicDuration}
+                calculatedMinutes={effectiveDuration}
+                onDurationChange={setCustomDuration}
+                startTime={preferredTime}
+                variant="card"
+              />
             </div>
           </div>
         )}
@@ -470,7 +563,6 @@ export function PatientBookPage() {
             <div>
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 4: Select Preferred Date & Time Slot</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                 Operating Hours: <strong>{selectedClinic?.operatingHours}</strong> (Clinic-Local Time).
               </p>
             </div>
@@ -478,7 +570,6 @@ export function PatientBookPage() {
             {/* Explanatory Banner */}
             <div className="p-3.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 text-blue-950 dark:text-blue-200 text-xs flex items-start gap-2.5">
               <Info className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-
               <div>
                 <strong>Appointment Request Verification:</strong> You are submitting a requested slot. The clinic receptionist will cross-check the doctor's live emergency rota and confirm or offer an alternative.
               </div>
@@ -487,20 +578,17 @@ export function PatientBookPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Preferred Date *</label>
-
                 <input
                   type="date"
                   min={new Date().toISOString().slice(0, 10)}
                   value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
-
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-
                   Alternative Preferred Date (Optional)
                 </label>
                 <input
@@ -509,20 +597,33 @@ export function PatientBookPage() {
                   value={secondPreferredDate}
                   onChange={(e) => setSecondPreferredDate(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
-
                 />
               </div>
             </div>
 
+            {/* AI Dynamic Duration Card */}
+            <AIDurationBadge
+              durationDetails={dynamicDuration}
+              calculatedMinutes={effectiveDuration}
+              onDurationChange={setCustomDuration}
+              startTime={preferredTime}
+              variant="card"
+            />
+
             {/* Time Slot Picker */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
-
-                Select Preferred Slot (30 mins duration) *
-              </label>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                  Available Slots ({effectiveDuration}m Dynamic Block) *
+                </label>
+                <span className="text-[11px] font-mono font-semibold text-blue-600 dark:text-blue-400">
+                  {preferredTime} → {calculateEndTime(preferredTime, effectiveDuration)} ({effectiveDuration}m)
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
                 {availableSlots.map((slot) => {
                   const isSelected = preferredTime === slot.time;
+                  const slotEndTime = slot.endTime || calculateEndTime(slot.time, effectiveDuration);
 
                   return (
                     <button
@@ -534,13 +635,15 @@ export function PatientBookPage() {
                         !slot.available
                           ? 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/40 text-slate-400 dark:text-slate-600 cursor-not-allowed line-through'
                           : isSelected
-                          ? 'border-blue-600 bg-blue-600 text-white shadow-sm'
+                          ? 'border-blue-600 bg-blue-600 text-white shadow-sm ring-2 ring-blue-500/20'
                           : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200'
-
                       }`}
-                      title={slot.reason || 'Slot available'}
+                      title={slot.reason || `Slot available (${slot.time} to ${slotEndTime})`}
                     >
-                      {slot.time}
+                      <div className="text-xs">{slot.time}</div>
+                      <div className={`text-[10px] font-medium mt-0.5 ${isSelected ? 'text-blue-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                        → {slotEndTime}
+                      </div>
                     </button>
                   );
                 })}
@@ -551,14 +654,12 @@ export function PatientBookPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-
                   Flexible Timing Preference
                 </label>
                 <select
                   value={preferredTimeOfDay}
                   onChange={(e) => setPreferredTimeOfDay(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none"
-
                 >
                   <option value="Morning">Morning (09:00 AM - 12:00 PM)</option>
                   <option value="Afternoon">Afternoon (12:00 PM - 04:00 PM)</option>
@@ -569,7 +670,6 @@ export function PatientBookPage() {
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-
                   Short Note for Clinic Receptionist
                 </label>
                 <input
@@ -578,7 +678,6 @@ export function PatientBookPage() {
                   value={patientNote}
                   onChange={(e) => setPatientNote(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none"
-
                 />
               </div>
             </div>
@@ -591,42 +690,127 @@ export function PatientBookPage() {
             <div>
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 5: Patient Details & Verification</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
-                Synthetic demonstration details for appointment coordination.
+                Select whether this consultation is for yourself or one of your registered family members.
               </p>
+            </div>
+
+            {/* Who is this consultation for? */}
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
+                  <Users className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  Who is this consultation for?
+                </span>
+                <Link
+                  to="/patient/family"
+                  className="text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Manage Family ({myFamily.length}/4) →
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                {/* Self Option */}
+                <button
+                  type="button"
+                  onClick={() => handleBookingTargetChange('self')}
+                  className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                    bookingTarget === 'self'
+                      ? 'border-blue-600 bg-blue-50/80 dark:bg-blue-950/40 text-blue-900 dark:text-blue-200 ring-2 ring-blue-500/20'
+                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Myself</span>
+                    <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                      Primary
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-600 dark:text-slate-400 font-medium truncate mt-1">
+                    {currentUser?.name || 'Aarav Patel'}
+                  </span>
+                </button>
+
+                {/* Family Members */}
+                {myFamily.map((member) => {
+                  const isSelected = bookingTarget === member.id;
+                  return (
+                    <button
+                      key={member.id}
+                      type="button"
+                      onClick={() => handleBookingTargetChange(member.id)}
+                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                        isSelected
+                          ? 'border-indigo-600 bg-indigo-50/80 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 ring-2 ring-indigo-500/20'
+                          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">
+                          {member.name}
+                        </span>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 shrink-0">
+                          {member.relationship}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                        <span>Blood: {member.bloodGroup || 'O+'}</span>
+                        <span>{member.records?.length || member.recordsCount || 0} records</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Dependent Notice if a family member is chosen */}
+              {selectedFamilyMember && (
+                <div className="p-3 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800/60 text-xs text-indigo-900 dark:text-indigo-200 flex items-start gap-2.5">
+                  <Info className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">
+                      Booking for dependent: <strong>{selectedFamilyMember.name}</strong> ({selectedFamilyMember.relationship})
+                    </p>
+                    <p className="text-[11px] text-indigo-800 dark:text-indigo-300 mt-0.5">
+                      {selectedFamilyMember.allergies && selectedFamilyMember.allergies.length > 0
+                        ? `⚠️ Known allergies on file: ${selectedFamilyMember.allergies.join(', ')}. `
+                        : '✓ No known drug allergies on record. '}
+                      {selectedFamilyMember.chronicConditions && selectedFamilyMember.chronicConditions.length > 0
+                        ? `Chronic conditions: ${selectedFamilyMember.chronicConditions.join(', ')}.`
+                        : ''}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Patient Full Name *</label>
-
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                  {selectedFamilyMember ? `${selectedFamilyMember.relationship}'s Full Name *` : 'Patient Full Name *'}
+                </label>
                 <input
                   type="text"
                   required
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none"
-
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Contact Mobile Number *</label>
-
                 <input
                   type="text"
                   required
                   value={patientPhone}
                   onChange={(e) => setPatientPhone(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm bg-white dark:bg-slate-950 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono"
-
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Email Address</label>
-
               <input
                 type="email"
                 value={patientEmail}
@@ -637,7 +821,6 @@ export function PatientBookPage() {
 
             <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2.5">
               <label className="flex items-center gap-2.5 cursor-pointer">
-
                 <input
                   type="checkbox"
                   checked={isNewPatient}
@@ -645,13 +828,11 @@ export function PatientBookPage() {
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-
                   First visit to this clinic (Requires brief 5-min intake check at reception)
                 </span>
               </label>
 
               <label className="flex items-center gap-2.5 cursor-pointer pt-2 border-t border-slate-200 dark:border-slate-700">
-
                 <input
                   type="checkbox"
                   checked={agreedToPolicy}
@@ -659,7 +840,6 @@ export function PatientBookPage() {
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-xs text-slate-700 dark:text-slate-300">
-
                   I agree to the clinic booking policy: <em>"{selectedClinic?.bookingPolicy}"</em>
                 </span>
               </label>
@@ -673,7 +853,6 @@ export function PatientBookPage() {
             <div>
               <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Step 6: Review & Submit Booking Request</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-
                 Verify your appointment request summary before dispatching to the clinic reception queue.
               </p>
             </div>
@@ -682,7 +861,6 @@ export function PatientBookPage() {
               <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400 font-medium">Selected Clinic:</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
-
                   <span>{selectedClinic?.logo}</span>
                   {selectedClinic?.name} ({selectedClinic?.city})
                 </span>
@@ -701,11 +879,16 @@ export function PatientBookPage() {
               </div>
 
               <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Preferred Slot:</span>
-                <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-base">
-
-                  {preferredDate} at {preferredTime}
-                </span>
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Preferred Slot & AI Duration:</span>
+                <div className="text-right">
+                  <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-base block">
+                    {preferredDate} at {preferredTime} → {calculateEndTime(preferredTime, effectiveDuration)}
+                  </span>
+                  <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 justify-end mt-0.5">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    {effectiveDuration} mins dynamic session ({dynamicDuration.complexityTier} Complexity)
+                  </span>
+                </div>
               </div>
 
               {secondPreferredDate && (
@@ -717,13 +900,19 @@ export function PatientBookPage() {
 
               <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400 font-medium">Patient Details:</span>
-                <span className="text-slate-800 dark:text-slate-200">{patientName} ({patientPhone})</span>
+                <div className="text-right">
+                  <span className="font-bold text-slate-900 dark:text-slate-100 block">
+                    {patientName} {selectedFamilyMember ? `(${selectedFamilyMember.relationship})` : '(Myself)'}
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                    {patientPhone} {selectedFamilyMember && `· Booked by ${currentUser?.name || 'Aarav Patel'}`}
+                  </span>
+                </div>
               </div>
 
               <div className="flex justify-between items-center pt-1 font-mono">
                 <span className="font-sans font-bold text-slate-700 dark:text-slate-300">Consultation Tariff:</span>
                 <span className="text-lg font-extrabold text-blue-600 dark:text-blue-400">
-
                   {formatCurrency(selectedService?.fee || selectedDoctor?.consultationFee || 600)}
                 </span>
               </div>
@@ -731,7 +920,6 @@ export function PatientBookPage() {
 
             <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs flex items-center gap-2.5">
               <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-
               <span>
                 <strong>Notice:</strong> Submitting will create a pending request for reception verification. You will receive a simulated notification once confirmed.
               </span>
@@ -743,7 +931,6 @@ export function PatientBookPage() {
                 &larr; Back
               </Button>
               <Button variant="primary" type="submit" size="md" icon={CheckCircle2} className="shadow-md shadow-blue-500/20 font-bold">
-
                 Submit Booking Request &rarr;
               </Button>
             </div>
@@ -787,7 +974,6 @@ export function PatientBookPage() {
                 Request {submittedRequest.requestId} Received!
               </h3>
               <p className="text-xs text-emerald-800 dark:text-emerald-300">
-
                 The clinic receptionist at <strong>{submittedRequest.clinicName}</strong> has been notified and will verify the slot availability.
               </p>
             </div>
@@ -796,6 +982,12 @@ export function PatientBookPage() {
               <div className="flex justify-between items-center">
                 <span className="text-slate-500 dark:text-slate-400 font-sans">Request ID:</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100">{submittedRequest.requestId}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400 font-sans">Patient:</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100 font-sans">
+                  {submittedRequest.patientName} {submittedRequest.relationship && submittedRequest.relationship !== 'Self' ? `(${submittedRequest.relationship})` : '(Self)'}
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-500 dark:text-slate-400 font-sans">Doctor:</span>
@@ -808,14 +1000,12 @@ export function PatientBookPage() {
               <div className="flex justify-between items-center">
                 <span className="text-slate-500 dark:text-slate-400 font-sans">Initial Status:</span>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 font-bold text-xs border border-amber-200 dark:border-amber-800">
-
                   Pending Clinic Confirmation
                 </span>
               </div>
             </div>
 
             <div className="flex justify-end gap-2.5 pt-2">
-
               <Button
                 variant="outline"
                 size="sm"
@@ -834,7 +1024,6 @@ export function PatientBookPage() {
                   navigate('/patient/appointments/requests');
                 }}
                 className="font-bold shadow-md shadow-blue-500/20"
-
               >
                 Track in My Requests &rarr;
               </Button>

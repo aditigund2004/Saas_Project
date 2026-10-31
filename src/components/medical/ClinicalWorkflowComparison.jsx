@@ -402,43 +402,55 @@ export function ClinicalWorkflowComparison() {
 
       {/* EXECUTIVE IMPACT & ROI BANNER (Below Comparison) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-md flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-300 flex items-center justify-center shrink-0">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-md hover:shadow-xl hover:border-blue-400/80 dark:hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-lg font-black text-slate-900 dark:text-white leading-tight">
+            <div className="text-lg font-black text-slate-900 dark:text-white leading-tight flex items-center gap-2">
               2.5 hrs / day
+              <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-1.5 py-0.5 rounded-full border border-blue-200/60 dark:border-blue-800/60">
+                Verified
+              </span>
             </div>
-            <div className="text-xs text-slate-500 font-medium">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
               Saved in administrative overhead
             </div>
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-md flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center shrink-0">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-md hover:shadow-xl hover:border-emerald-400/80 dark:hover:border-emerald-500/80 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
             <TrendingUp className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-lg font-black text-slate-900 dark:text-white leading-tight">
+            <div className="text-lg font-black text-slate-900 dark:text-white leading-tight flex items-center gap-2">
               +35% Revenue
+              <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-800/60">
+                Growth
+              </span>
             </div>
-            <div className="text-xs text-slate-500 font-medium">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
               From online discovery & WhatsApp follow-ups
             </div>
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-md flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/60 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-md hover:shadow-xl hover:border-purple-400/80 dark:hover:border-purple-500/80 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/60 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-lg font-black text-slate-900 dark:text-white leading-tight">
+            <div className="text-lg font-black text-slate-900 dark:text-white leading-tight flex items-center gap-2">
               100% Retrievable
+              <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 px-1.5 py-0.5 rounded-full border border-purple-200/60 dark:border-purple-800/60">
+                EHR
+              </span>
             </div>
-            <div className="text-xs text-slate-500 font-medium">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
               Audit-ready digital prescriptions & records
             </div>
           </div>

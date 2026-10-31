@@ -197,6 +197,12 @@ export function HomePage() {
                   <ArrowRight className="w-4 h-4 text-slate-400" />
                 </button>
               </Link>
+              <Link to="/demo-access">
+                <button className="px-5 py-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 hover:bg-blue-100/80 font-bold text-sm shadow-xs flex items-center gap-2 cursor-pointer transition-colors">
+                  <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <span>Demo Portals</span>
+                </button>
+              </Link>
             </div>
 
             {/* Video watch trigger link */}

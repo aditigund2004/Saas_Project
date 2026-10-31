@@ -27,7 +27,6 @@ import {
   Sparkles,
   HeartPulse
 } from 'lucide-react';
-import { StatCard } from '../../components/ui/StatCard';
 import { PatientHealthGraphCard } from './PatientHealthGraphCard';
 import { PatientEmergencyModal } from './PatientEmergencyModal';
 import { DEMO_HEALTH_PACKAGES } from '../../demo-data/packagesData';

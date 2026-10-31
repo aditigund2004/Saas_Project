@@ -106,7 +106,8 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         items: [
           { label: 'Subscription Plans', path: '/superadmin/plans', icon: Sparkles },
           { label: 'Tenant Subscriptions', path: '/superadmin/subscriptions', icon: Layers },
-          { label: 'SaaS Corporate Finance', path: '/superadmin/finance/overview', icon: CreditCard }
+          { label: 'SaaS Corporate Finance', path: '/superadmin/finance/overview', icon: CreditCard },
+          { label: 'Referrals & Affiliates', path: '/superadmin/referrals', icon: TrendingUp }
         ]
       },
       {
@@ -143,6 +144,9 @@ export function WorkspaceSidebar({ isOpen, onClose }) {
         section: 'MANAGE',
         items: [
           { label: 'My Website', path: '/app/my-website', icon: Globe },
+          { label: 'Theme & Appearance', path: '/clinic/appearance', icon: Sparkles },
+          { label: 'Health Blog', path: '/clinic/blog', icon: BookOpen },
+          { label: 'Medicine Inventory', path: '/clinic/inventory', icon: Package },
           { label: 'Clinics', path: '/clinic/branches', icon: Building2 },
           { label: 'Telemedicine', path: '/clinic/telemedicine', icon: Video },
           { label: 'WhatsApp', path: '/clinic/whatsapp', icon: MessageSquare },

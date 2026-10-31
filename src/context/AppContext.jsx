@@ -270,10 +270,7 @@ export function AppProvider({ children }) {
     return s ? JSON.parse(s) : DEMO_CLINIC_REFUNDS;
   });
 
-  const [receipts, setReceipts] = useState(() => {
-    const s = localStorage.getItem('clinipulse_receipts');
-    return s ? JSON.parse(s) : DEMO_RECEIPTS;
-  });
+
 
   const [activePatientId, setActivePatientId] = useState(() => {
     return localStorage.getItem('clinipulse_active_patient_id') || 'pt-1041';

@@ -26,6 +26,8 @@ export function PublicHeader() {
     { name: 'Home', path: '/' },
     { name: 'How it works', path: '/#how-it-works' },
     { name: 'Sample Clinic', path: '/clinic/citycare-family-clinic' },
+    { name: 'Health Library', path: '/health-library' },
+    { name: 'Demo Portals', path: '/demo-access' },
     { name: 'Pricing', path: '/pricing' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' }
@@ -119,13 +121,13 @@ export function PublicHeader() {
             {/* 3-Option Theme Switcher */}
             <ThemeSwitcher variant="segmented" />
 
-            {/* Doctor / Owner Login */}
+            {/* Login / All Portals */}
             <Link
-              to="/login/doctor"
+              to="/login"
               className="px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 rounded-xl transition-all flex items-center gap-1.5 shadow-2xs bg-white dark:bg-slate-850"
             >
               <User className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>Doctor / Owner Login</span>
+              <span>Login / Portals</span>
             </Link>
 
             {/* Start Free Trial (kept as it is with animated pulse glow & shimmer) */}
@@ -177,12 +179,12 @@ export function PublicHeader() {
           </div>
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
             <Link
-              to="/login/doctor"
+              to="/login"
               onClick={() => setMobileMenuOpen(false)}
               className="px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 text-center border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center gap-1.5"
             >
               <User className="w-3.5 h-3.5 text-blue-600" />
-              <span>Doctor / Owner Login</span>
+              <span>Login / Portals</span>
             </Link>
             <Link
               to="/onboarding"

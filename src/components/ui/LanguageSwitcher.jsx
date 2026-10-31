@@ -117,3 +117,4 @@ export function LanguageSwitcher({ variant = 'dropdown', className = '', showLab
 }
 
 export default LanguageSwitcher;
+

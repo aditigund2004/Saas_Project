@@ -309,26 +309,76 @@ export function ClinicPublicHomePage() {
         </section>
       )}
 
-            {/* 5. Doctor Profiles Roster with Interactive Clip-Path Animation */}
+      {/* 5. Doctor Profiles Roster */}
       {settings.showDoctors && (
-        <section className="space-y-4">
-          <DoctorTeamClipPath
-            doctors={clinicDoctors}
-            clinicSlug={clinic.slug}
-            primaryColor={primaryColor}
-            title="Consult With Our Specialists"
-            subtitle="Board-certified medical practitioners dedicated to empathetic, evidence-backed patient outcomes."
-          />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center -mt-8 sm:-mt-10 pb-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 dark:border-[#263B59] pb-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-[#22D3EE]">
+                Medical Leadership
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-[#F1F5F9]">
+                Consult With Our Specialists
+              </h2>
+            </div>
             <Link to={`/clinic/${clinic.slug}/doctors`}>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-xs border-slate-200 dark:border-[#263B59] text-slate-700 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-[#F1F5F9] bg-white dark:bg-[#111E33] shadow-sm"
-              >
-                Meet Entire Medical Team & Schedules ({clinicDoctors.length} Doctors) →
+              <Button variant="outline" size="sm" className="text-xs border-slate-200 dark:border-[#263B59] text-slate-700 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-[#F1F5F9]">
+                Meet Entire Team →
               </Button>
             </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {clinicDoctors.map((doc) => (
+              <Card
+                key={doc.id}
+                className="p-5 border-slate-200 dark:border-[#263B59] bg-white dark:bg-[#111E33] flex flex-col justify-between space-y-4 shadow-2xs hover:border-blue-400 dark:hover:border-[#3B82F6] transition-colors"
+              >
+                <div className="flex items-start gap-4">
+                  <img
+                    src={doc.avatar}
+                    alt={doc.name}
+                    className="w-16 h-16 rounded-2xl object-cover border-2 border-slate-200 dark:border-[#263B59] shadow-xs shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-[#F1F5F9] truncate">
+                      {doc.name}
+                    </h3>
+                    <p className="text-xs font-semibold text-blue-600 dark:text-[#22D3EE] truncate">
+                      {doc.specialty}
+                    </p>
+                    <p className="text-[11px] text-slate-500 dark:text-[#94A3B8] font-mono mt-0.5 truncate">
+                      {doc.qualifications}
+                    </p>
+                    <span className="inline-block mt-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 dark:text-emerald-300 dark:bg-emerald-950/60 dark:border-emerald-800 px-2 py-0.5 rounded">
+                      {doc.experienceYears}+ Yrs Clinical Exp
+                    </span>
+                  </div>
+                </div>
+
+                <div className="text-xs text-slate-700 dark:text-[#CBD5E1] space-y-1 bg-slate-50 dark:bg-[#0D1729] border border-slate-200 dark:border-[#263B59] p-3 rounded-xl">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-500 dark:text-[#94A3B8]">Consultation Slot:</span>
+                    <span className="font-semibold text-slate-900 dark:text-[#F1F5F9]">{doc.workingHours}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-500 dark:text-[#94A3B8]">Consultation Fee:</span>
+                    <span className="font-bold text-blue-600 dark:text-[#22D3EE]">₹{doc.consultationFee}</span>
+                  </div>
+                </div>
+
+                <Link to={`/clinic/${clinic.slug}/book-appointment?doctor=${doc.id}`}>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    className="w-full font-bold text-xs text-white shadow-xs"
+                    style={{ backgroundColor: primaryColor }}
+                  >
+                    Book with {doc.name.split(' ')[1] || doc.name}
+                  </Button>
+                </Link>
+              </Card>
+            ))}
           </div>
         </section>
       )}

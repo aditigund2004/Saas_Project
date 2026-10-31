@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   Calendar, Clock, User, Phone, Mail, CheckCircle2, 
   Building2, Stethoscope, ArrowRight, ShieldCheck, 
-  MessageSquare, AlertCircle, Video, MapPin, ChevronLeft
+  MessageSquare, AlertCircle, Video, MapPin, ChevronLeft, Star
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';

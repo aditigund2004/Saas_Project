@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { Card, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { Modal } from '../../components/ui/Modal';
 import { Phone, Calendar, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 
 export function ReceptionFollowUpsPage() {

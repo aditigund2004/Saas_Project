@@ -11,7 +11,7 @@ import {
   AlertCircle,
   Stethoscope,
   Sparkles,
-  Phone
+  Phone, X, QrCode
 } from 'lucide-react';
 
 export function ReceptionWalkInsPage() {

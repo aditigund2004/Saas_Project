@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Filter, Star, Clock, MapPin, Video, User, ArrowRight, Stethoscope, Building2 } from 'lucide-react';
+import { Search, Filter, Star, Clock, MapPin, Video, User, ArrowRight, Stethoscope, Building2, ShieldCheck } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';

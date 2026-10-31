@@ -11,7 +11,7 @@ import {
   Stethoscope,
   FileText,
   Receipt,
-  CheckCircle2
+  CheckCircle2, Clock
 } from 'lucide-react';
 
 export function ClinicAppointmentsPage() {

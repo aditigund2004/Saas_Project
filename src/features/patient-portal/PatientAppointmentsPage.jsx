@@ -19,6 +19,8 @@ import {
   AlertCircle,
   Sparkles
 } from 'lucide-react';
+import { DemoPatientSwitcher } from '../../components/patient/DemoPatientSwitcher';
+import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
 import { calculateEndTime } from '../../utils/aiAppointmentDuration';
 
 export function PatientAppointmentsPage() {

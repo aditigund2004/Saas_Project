@@ -18,7 +18,7 @@ import {
   ExternalLink,
   ShieldAlert,
   Edit,
-  Save
+  Save, FlaskConical, Trash2, FileUp
 } from 'lucide-react';
 
 export function ClinicPatientDetailPage() {

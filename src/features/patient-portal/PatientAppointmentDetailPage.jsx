@@ -23,6 +23,7 @@ import {
   History,
   Sparkles
 } from 'lucide-react';
+import { DoctorPaymentModal } from '../../components/patient/DoctorPaymentModal';
 import { AIDurationBadge } from '../../components/ui/AIDurationBadge';
 import { calculateEndTime } from '../../utils/aiAppointmentDuration';
 

@@ -22,7 +22,7 @@ import {
   User,
   Phone,
   Calendar,
-  X
+  X, QrCode, ShieldCheck
 } from 'lucide-react';
 
 export function ClinicInvoicesPage() {

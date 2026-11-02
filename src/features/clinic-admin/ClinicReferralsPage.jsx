@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { useReferral } from '../../context/ReferralContext';
 import { useTheme } from '../../context/ThemeContext';
 import {
@@ -39,7 +40,8 @@ import { StatCard } from '../../components/ui/StatCard';
 import { formatINR, copyToClipboard, exportToCSV } from '../super-admin/referrals/referralUtils';
 
 export function ClinicReferralsPage() {
-  const { currentUser, showToast } = useApp() || {};
+  const { currentUser, activeClinic, activeClinicId, doctors = [], updateDoctor, showToast } = useApp() || {};
+  const { user: authUser } = useAuth() || {};
   const {
     affiliates = [],
     referrals = [],
@@ -51,70 +53,239 @@ export function ClinicReferralsPage() {
   } = useReferral();
   const { isDark } = useTheme();
 
-  // Find the doctor's affiliate profile (Default to Dr. Aarav Mehta AFF-100)
-  const doctorAffiliate = useMemo(() => {
-    // 1. Match by email or ID if current user matches
-    if (currentUser?.email) {
-      const match = affiliates.find(
-        (a) => a.email?.toLowerCase() === currentUser.email?.toLowerCase()
+  // 1. Doctors belonging to current active clinic
+  const clinicDoctors = useMemo(() => {
+    const cid = activeClinic?.id || activeClinicId || currentUser?.clinicId || authUser?.activeClinicId;
+    if (!cid) return doctors || [];
+    const list = (doctors || []).filter((d) => d.clinicId === cid);
+    return list.length > 0 ? list : (doctors || []);
+  }, [doctors, activeClinic, activeClinicId, currentUser, authUser]);
+
+  // 2. Identify the active logged-in doctor
+  const defaultDoctor = useMemo(() => {
+    const userEmail = (currentUser?.email || authUser?.email || '').toLowerCase().trim();
+    const userName = (currentUser?.name || authUser?.name || '').toLowerCase().trim();
+    const userId = currentUser?.id || authUser?.id || '';
+
+    // A. Match by exact email in clinicDoctors
+    if (userEmail) {
+      const match = clinicDoctors.find((d) => d.email?.toLowerCase().trim() === userEmail);
+      if (match) return match;
+    }
+    // B. Match by exact email across all doctors
+    if (userEmail) {
+      const match = (doctors || []).find((d) => d.email?.toLowerCase().trim() === userEmail);
+      if (match) return match;
+    }
+    // C. Match by user ID / doctor ID
+    if (userId) {
+      const match = (doctors || []).find(
+        (d) => d.id === userId || `usr-${d.id}` === userId || d.id === `doc-${userId.replace(/^usr-doc-/, '')}`
       );
       if (match) return match;
     }
-    // 2. Default to Dr. Aarav Mehta (AFF-100)
-    return (
-      affiliates.find((a) => a.id === 'AFF-100') ||
-      affiliates[0] || {
-        id: 'AFF-100',
-        name: 'Dr. Aarav Mehta, MBBS, MD',
-        company: 'CityCare Family Clinic',
+    // D. Match by name similarity
+    if (userName) {
+      const cleanUserName = userName.replace(/^(dr\.?\s*)/i, '').split(',')[0].trim();
+      const match = (doctors || []).find((d) => {
+        const cleanDocName = d.name.replace(/^(dr\.?\s*)/i, '').split(',')[0].trim();
+        return (
+          cleanDocName.toLowerCase() === cleanUserName.toLowerCase() ||
+          userName.includes(cleanDocName.toLowerCase()) ||
+          cleanDocName.toLowerCase().includes(userName)
+        );
+      });
+      if (match) return match;
+    }
+    // E. Match by clinic ownerName
+    if (activeClinic?.ownerName) {
+      const match = (doctors || []).find((d) => d.name?.toLowerCase().includes(activeClinic.ownerName.toLowerCase()));
+      if (match) return match;
+    }
+    // Fallback: first doctor of current clinic or first doctor in list
+    return clinicDoctors[0] || (doctors && doctors[0]) || null;
+  }, [clinicDoctors, doctors, currentUser, authUser, activeClinic]);
+
+  // Selected doctor state (defaults to defaultDoctor)
+  const [selectedDoctorId, setSelectedDoctorId] = useState('');
+
+  const currentDoctor = useMemo(() => {
+    if (selectedDoctorId) {
+      const found = (doctors || []).find((d) => d.id === selectedDoctorId);
+      if (found) return found;
+    }
+    return defaultDoctor;
+  }, [selectedDoctorId, defaultDoctor, doctors]);
+
+  // Helper to resolve referral / coupon code strictly assigned to a doctor
+  const getDoctorCouponCode = (doc) => {
+    if (!doc) return null;
+    let code = doc.couponCode || doc.referralCode || doc.affiliateCard?.code;
+    if (!code && doc.couponCodes?.length > 0) {
+      code = typeof doc.couponCodes[0] === 'string' ? doc.couponCodes[0] : doc.couponCodes[0]?.code;
+    }
+    if (!code) {
+      try {
+        const mapping = JSON.parse(localStorage.getItem('clinicos_doctor_referral_mapping') || '{}');
+        if (mapping[doc.id]) code = mapping[doc.id];
+        else if (mapping[doc.name]) code = mapping[doc.name];
+      } catch (e) {
+        // ignore
+      }
+    }
+    return code || null;
+  };
+
+  // Find the doctor's affiliate profile — STRICTLY bounded to currentDoctor
+  const doctorAffiliate = useMemo(() => {
+    if (!currentDoctor) {
+      return {
+        id: 'AFF-DOC',
+        name: 'Doctor Partner',
+        company: activeClinic?.name || 'Clinic Partner',
         partnerType: 'Hospital',
-        email: 'aarav.mehta@citycare.demo',
-        phone: '+91 98201 11223',
-        referralCode: 'CITYCARE-MEHTA',
+        email: 'doctor@clinic.demo',
+        phone: '+91 98000 00000',
+        referralCode: 'CLINIC-REF',
         status: 'Active',
-        joinedDate: '2026-01-10',
-        referredHospitalsCount: 7,
-        convertedHospitalsCount: 5,
-        totalCommissionEarned: 58500,
-        paidCommission: 45000,
-        pendingCommission: 13500,
-        availableBalance: 13500,
+        joinedDate: '2026-01-01',
+        referredHospitalsCount: 0,
+        convertedHospitalsCount: 0,
+        totalCommissionEarned: 0,
+        paidCommission: 0,
+        pendingCommission: 0,
+        availableBalance: 0,
         payoutMethod: 'Bank Transfer (NEFT/IMPS)',
         bankDetails: {
-          accountHolder: 'Dr. Aarav Mehta',
+          accountHolder: 'Doctor Partner',
           bankName: 'HDFC Bank Ltd',
           accountNumber: '50100492810012',
           ifscCode: 'HDFC0000240',
-          upiId: 'dr.aarav@hdfcbank'
+          upiId: 'doctor@hdfcbank'
+        }
+      };
+    }
+
+    // 1. Resolve this doctor's assigned coupon / referral code
+    const assignedCode = getDoctorCouponCode(currentDoctor);
+
+    // 2. Look for an existing affiliate strictly matching THIS doctor
+    const matchedAff = (affiliates || []).find((a) => {
+      // Direct doctor ID match
+      if (a.targetDoctorId && a.targetDoctorId === currentDoctor.id) return true;
+      // Exact email match
+      if (a.email && currentDoctor.email && a.email.toLowerCase().trim() === currentDoctor.email.toLowerCase().trim()) return true;
+      // Target doctor name match
+      if (a.targetDoctorName && a.targetDoctorName.toLowerCase().trim() === currentDoctor.name.toLowerCase().trim()) return true;
+      // Direct name match
+      const docCleanName = currentDoctor.name.toLowerCase().replace(/^(dr\.?\s*)/i, '').split(',')[0].trim();
+      if (a.name && docCleanName && a.name.toLowerCase().includes(docCleanName)) return true;
+      // If code was assigned to this doctor and affiliate has same code AND matching doctor/clinic
+      if (assignedCode && a.referralCode && a.referralCode.toUpperCase() === assignedCode.toUpperCase()) {
+        if (a.name?.toLowerCase().includes(docCleanName) || a.company?.toLowerCase() === (activeClinic?.name || '').toLowerCase()) {
+          return true;
         }
       }
-    );
-  }, [affiliates, currentUser]);
+      return false;
+    });
 
-  // Doctor's personal referrals
+    // Generate fallback code strictly tailored to this doctor if none exists yet
+    const cleanDocSlug = (currentDoctor.name || 'DOC')
+      .replace(/^(dr\.?\s*)/i, '')
+      .trim()
+      .split(' ')[0]
+      .toUpperCase();
+    const clinicSlug = (activeClinic?.name || currentDoctor.clinicName || 'CARE')
+      .replace(/[^a-zA-Z]/g, '')
+      .slice(0, 6)
+      .toUpperCase();
+    const effectiveCode = assignedCode || matchedAff?.referralCode || `${cleanDocSlug}-${clinicSlug}`;
+    const effectiveId = matchedAff?.id || (currentDoctor.doctorIdNumber ? `AFF-${currentDoctor.doctorIdNumber}` : `AFF-${currentDoctor.id}`);
+
+    if (matchedAff) {
+      return {
+        ...matchedAff,
+        id: effectiveId,
+        name: currentDoctor.name || matchedAff.name,
+        company: activeClinic?.name || currentDoctor.clinicName || matchedAff.company,
+        partnerType: matchedAff.partnerType || 'Hospital',
+        email: currentDoctor.email || matchedAff.email,
+        phone: currentDoctor.phone || matchedAff.phone || '+91 98450 66778',
+        referralCode: effectiveCode,
+        targetDoctorId: currentDoctor.id,
+        targetDoctorName: currentDoctor.name,
+        targetClinicId: currentDoctor.clinicId,
+        targetClinicName: activeClinic?.name || currentDoctor.clinicName,
+        status: matchedAff.status || 'Active',
+        joinedDate: matchedAff.joinedDate || currentDoctor.createdAt || '2026-01-15',
+        bankDetails: matchedAff.bankDetails || {
+          accountHolder: currentDoctor.name,
+          bankName: 'HDFC Bank Ltd',
+          accountNumber: '50100492810012',
+          ifscCode: 'HDFC0000240',
+          upiId: `${cleanDocSlug.toLowerCase()}@hdfcbank`
+        }
+      };
+    }
+
+    // Return dedicated affiliate object strictly for currentDoctor
+    return {
+      id: effectiveId,
+      name: currentDoctor.name,
+      company: activeClinic?.name || currentDoctor.clinicName || 'Clinic Partner',
+      partnerType: 'Hospital',
+      email: currentDoctor.email,
+      phone: currentDoctor.phone || '+91 98450 66778',
+      referralCode: effectiveCode,
+      targetDoctorId: currentDoctor.id,
+      targetDoctorName: currentDoctor.name,
+      targetClinicId: currentDoctor.clinicId,
+      targetClinicName: activeClinic?.name || currentDoctor.clinicName,
+      status: 'Active',
+      joinedDate: currentDoctor.createdAt || '2026-01-15',
+      referredHospitalsCount: 0,
+      convertedHospitalsCount: 0,
+      totalCommissionEarned: 0,
+      paidCommission: 0,
+      pendingCommission: 0,
+      availableBalance: 0,
+      payoutMethod: 'Bank Transfer (NEFT/IMPS)',
+      bankDetails: {
+        accountHolder: currentDoctor.name,
+        bankName: 'Axis Bank Ltd',
+        accountNumber: '915010038910245',
+        ifscCode: 'UTIB0001024',
+        upiId: `${cleanDocSlug.toLowerCase()}@axisbank`
+      }
+    };
+  }, [currentDoctor, affiliates, activeClinic]);
+
+  // Doctor's personal referrals strictly matching this doctor
   const myReferrals = useMemo(() => {
     return referrals.filter(
       (r) =>
         r.affiliateId === doctorAffiliate.id ||
-        r.referralCode === doctorAffiliate.referralCode
+        (doctorAffiliate.referralCode && r.referralCode?.toUpperCase() === doctorAffiliate.referralCode.toUpperCase())
     );
   }, [referrals, doctorAffiliate]);
 
-  // Doctor's commission ledger entries
+  // Doctor's commission ledger entries strictly matching this doctor
   const myLedger = useMemo(() => {
+    const cleanDocName = (doctorAffiliate.name || '').replace(/^(dr\.?\s*)/i, '').split(',')[0].trim().toLowerCase();
     return commissionLedger.filter(
       (l) =>
         l.affiliateId === doctorAffiliate.id ||
-        l.affiliateName?.includes('Aarav Mehta')
+        (cleanDocName && l.affiliateName && l.affiliateName.toLowerCase().includes(cleanDocName))
     );
   }, [commissionLedger, doctorAffiliate]);
 
-  // Doctor's payout records
+  // Doctor's payout records strictly matching this doctor
   const myPayouts = useMemo(() => {
+    const cleanDocName = (doctorAffiliate.name || '').replace(/^(dr\.?\s*)/i, '').split(',')[0].trim().toLowerCase();
     return payouts.filter(
       (p) =>
         p.affiliateId === doctorAffiliate.id ||
-        p.affiliateName?.includes('Aarav Mehta')
+        (cleanDocName && p.affiliateName && p.affiliateName.toLowerCase().includes(cleanDocName))
     );
   }, [payouts, doctorAffiliate]);
 
@@ -420,6 +591,22 @@ export function ClinicReferralsPage() {
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Refer fellow clinics, peer physicians, and track recurring 15% partner commission with transparent direct payouts.
           </p>
+          {clinicDoctors.length > 1 && (
+            <div className="flex items-center gap-2 mt-2.5">
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Viewing Doctor Profile:</span>
+              <select
+                value={currentDoctor?.id || ''}
+                onChange={(e) => setSelectedDoctorId(e.target.value)}
+                className="text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-blue-500 cursor-pointer shadow-xs"
+              >
+                {clinicDoctors.map((doc) => (
+                  <option key={doc.id} value={doc.id}>
+                    {doc.name} — Referral Code: {getDoctorCouponCode(doc) || 'Auto'}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
         {/* Action Buttons */}
@@ -1290,7 +1477,7 @@ export function ClinicReferralsPage() {
                 </span>
                 {payoutForm.paymentMethod === 'UPI' ? (
                   <div className="font-mono text-emerald-600 dark:text-emerald-400">
-                    UPI ID: {doctorAffiliate.bankDetails?.upiId || 'dr.aarav@hdfcbank'}
+                    UPI ID: {doctorAffiliate.bankDetails?.upiId || `${doctorAffiliate.name?.toLowerCase().replace(/[^a-z]/g, '') || 'doctor'}@upi`}
                   </div>
                 ) : (
                   <div>

@@ -392,7 +392,7 @@ export function PlatformClinicsPage() {
                 <th className="p-4">SaaS Plan</th>
                 <th className="p-4">Trial Expiry</th>
                 <th className="p-4">Status</th>
-                <th className="p-4 text-center">Support Cockpit</th>
+                <th className="p-4 text-center">Impersonation</th>
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>

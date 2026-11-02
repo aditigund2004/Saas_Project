@@ -133,6 +133,24 @@ export function ClinicDoctorsPage() {
     setCurrentPage(1);
   };
 
+  // Helper to resolve referral / coupon code strictly for the specific doctor
+  const getDoctorCouponCode = (doc) => {
+    if (!doc) return null;
+    let code = doc.couponCode || doc.referralCode || doc.affiliateCard?.code;
+    if (!code && doc.couponCodes?.length > 0) {
+      code = typeof doc.couponCodes[0] === 'string' ? doc.couponCodes[0] : doc.couponCodes[0]?.code;
+    }
+    if (!code) {
+      try {
+        const mapping = JSON.parse(localStorage.getItem('clinicos_doctor_referral_mapping') || '{}');
+        if (mapping[doc.id]) code = mapping[doc.id];
+      } catch (e) {
+        // ignore
+      }
+    }
+    return code || null;
+  };
+
   // Open View/Edit Modal
   const handleOpenViewEdit = (doctor, tab = 'overview') => {
     setSelectedDoctor(doctor);
@@ -438,10 +456,10 @@ export function ClinicDoctorsPage() {
                             <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
                               {doc.doctorIdNumber || 'DOC'}
                             </span>
-                            {doc.couponCode && (
-                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 rounded border border-amber-200 dark:border-amber-800" title={`Active Coupon Code: ${doc.couponCode}`}>
+                            {getDoctorCouponCode(doc) && (
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 rounded border border-amber-200 dark:border-amber-800" title={`Active Coupon Code: ${getDoctorCouponCode(doc)}`}>
                                 <Ticket className="w-2.5 h-2.5 text-amber-600" />
-                                {doc.couponCode}
+                                {getDoctorCouponCode(doc)}
                               </span>
                             )}
                           </div>
@@ -861,10 +879,10 @@ export function ClinicDoctorsPage() {
                 <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="text-base font-bold text-slate-900 dark:text-white truncate">{selectedDoctor.name}</h3>
                   <Badge variant={editDoctorForm.status}>{editDoctorForm.status}</Badge>
-                  {selectedDoctor.couponCode && (
+                  {getDoctorCouponCode(selectedDoctor) && (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 font-mono shadow-xs">
                       <Ticket className="w-3 h-3 text-amber-600" />
-                      Coupon: {selectedDoctor.couponCode}
+                      Coupon: {getDoctorCouponCode(selectedDoctor)}
                     </span>
                   )}
                 </div>
@@ -946,7 +964,7 @@ export function ClinicDoctorsPage() {
                   </div>
 
                   {/* Assigned Affiliate Coupon Code & Card */}
-                  {(selectedDoctor.couponCode || selectedDoctor.couponCodes?.length > 0 || selectedDoctor.affiliateCard) && (
+                  {getDoctorCouponCode(selectedDoctor) && (
                     <div className="p-3.5 rounded-xl border border-amber-200 dark:border-amber-800/80 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 space-y-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -966,12 +984,12 @@ export function ClinicDoctorsPage() {
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
                         <div className="flex items-center gap-2">
                           <code className="text-xs font-black text-amber-950 dark:text-amber-100 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-amber-300 dark:border-amber-700 font-mono tracking-wider shadow-xs">
-                            {selectedDoctor.couponCode || (typeof selectedDoctor.couponCodes?.[0] === 'string' ? selectedDoctor.couponCodes[0] : selectedDoctor.couponCodes?.[0]?.code)}
+                            {getDoctorCouponCode(selectedDoctor)}
                           </code>
                           <button
                             type="button"
                             onClick={() => {
-                              const codeVal = selectedDoctor.couponCode || (typeof selectedDoctor.couponCodes?.[0] === 'string' ? selectedDoctor.couponCodes[0] : selectedDoctor.couponCodes?.[0]?.code);
+                              const codeVal = getDoctorCouponCode(selectedDoctor);
                               navigator.clipboard.writeText(codeVal);
                               showToast(`Coupon code ${codeVal} copied to clipboard!`, 'success');
                             }}

@@ -170,12 +170,29 @@ export function ReferralDashboardPage() {
         }
       });
 
+      try {
+        const mapping = JSON.parse(localStorage.getItem('clinicos_doctor_referral_mapping') || '{}');
+        mapping[targetDoctor.id] = generatedCode;
+        localStorage.setItem('clinicos_doctor_referral_mapping', JSON.stringify(mapping));
+      } catch (err) {
+        console.error('Failed to save doctor referral mapping:', err);
+      }
+
       if (showToast) {
         showToast(`🎉 Coupon code "${generatedCode}" automatically linked to Dr. ${targetDoctor.name}'s profile!`, 'success');
       }
     } else if (targetClinic) {
       // Link to all doctors in this clinic/hospital
       const clinicDoctors = doctors.filter((d) => d.clinicId === targetClinic.id);
+      try {
+        const mapping = JSON.parse(localStorage.getItem('clinicos_doctor_referral_mapping') || '{}');
+        clinicDoctors.forEach((doc) => {
+          mapping[doc.id] = generatedCode;
+        });
+        localStorage.setItem('clinicos_doctor_referral_mapping', JSON.stringify(mapping));
+      } catch (err) {
+        console.error('Failed to save doctor referral mapping:', err);
+      }
       clinicDoctors.forEach((doc) => {
         const existingCoupons = doc.couponCodes || [];
         const newCouponItem = {

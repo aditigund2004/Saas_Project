@@ -22,7 +22,58 @@ export function ReferralProvider({ children }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Ensure default initial affiliates and referral codes exist if missing
+        const existingAffiliateIds = new Set((parsed.affiliates || []).map((a) => a.id));
+        const mergedAffiliates = [...(parsed.affiliates || [])];
+        INITIAL_AFFILIATES.forEach((initAff) => {
+          if (!existingAffiliateIds.has(initAff.id)) {
+            mergedAffiliates.push(initAff);
+          }
+        });
+
+        const existingCodes = new Set((parsed.referralCodes || []).map((c) => c.code));
+        const mergedCodes = [...(parsed.referralCodes || [])];
+        INITIAL_REFERRAL_CODES.forEach((initCode) => {
+          if (!existingCodes.has(initCode.code)) {
+            mergedCodes.push(initCode);
+          }
+        });
+
+        const existingRefIds = new Set((parsed.referrals || []).map((r) => r.id));
+        const mergedReferrals = [...(parsed.referrals || [])];
+        INITIAL_REFERRALS.forEach((initRef) => {
+          if (!existingRefIds.has(initRef.id)) {
+            mergedReferrals.push(initRef);
+          }
+        });
+
+        const existingTxnIds = new Set((parsed.commissionLedger || []).map((l) => l.transactionId));
+        const mergedLedger = [...(parsed.commissionLedger || [])];
+        INITIAL_COMMISSION_LEDGER.forEach((initL) => {
+          if (!existingTxnIds.has(initL.transactionId)) {
+            mergedLedger.push(initL);
+          }
+        });
+
+        const existingPayoutIds = new Set((parsed.payouts || []).map((p) => p.id));
+        const mergedPayouts = [...(parsed.payouts || [])];
+        INITIAL_PAYOUTS.forEach((initP) => {
+          if (!existingPayoutIds.has(initP.id)) {
+            mergedPayouts.push(initP);
+          }
+        });
+
+        return {
+          ...parsed,
+          affiliates: mergedAffiliates,
+          referralCodes: mergedCodes,
+          referrals: mergedReferrals,
+          commissionLedger: mergedLedger,
+          payouts: mergedPayouts,
+          commissionRules: parsed.commissionRules || INITIAL_COMMISSION_RULES,
+          monthlyAnalytics: parsed.monthlyAnalytics || MONTHLY_REFERRAL_ANALYTICS
+        };
       }
     } catch (e) {
       console.warn('Failed to parse referral state from localStorage:', e);
@@ -116,6 +167,10 @@ export function ReferralProvider({ children }) {
       email: affiliateData.email,
       phone: affiliateData.phone || '',
       referralCode: generatedCode,
+      targetClinicId: affiliateData.targetClinicId || null,
+      targetClinicName: affiliateData.targetClinicName || null,
+      targetDoctorId: affiliateData.targetDoctorId || null,
+      targetDoctorName: affiliateData.targetDoctorName || null,
       status: 'Active',
       joinedDate: new Date().toISOString().split('T')[0],
       referredHospitalsCount: 0,
@@ -140,6 +195,10 @@ export function ReferralProvider({ children }) {
       code: generatedCode,
       affiliateId: newId,
       affiliateName: newAffiliate.name,
+      targetClinicId: affiliateData.targetClinicId || null,
+      targetClinicName: affiliateData.targetClinicName || null,
+      targetDoctorId: affiliateData.targetDoctorId || null,
+      targetDoctorName: affiliateData.targetDoctorName || null,
       customSlug: generatedCode.toLowerCase(),
       referralUrl: `https://clinicos.app/register/clinic?ref=${generatedCode}`,
       createdDate: new Date().toISOString().split('T')[0],
@@ -148,6 +207,17 @@ export function ReferralProvider({ children }) {
       usageCount: 0,
       status: 'Active'
     };
+
+    // Keep persistent mapping of doctor -> referralCode
+    if (affiliateData.targetDoctorId) {
+      try {
+        const mapping = JSON.parse(localStorage.getItem('clinicos_doctor_referral_mapping') || '{}');
+        mapping[affiliateData.targetDoctorId] = generatedCode;
+        localStorage.setItem('clinicos_doctor_referral_mapping', JSON.stringify(mapping));
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
     setState((prev) => ({
       ...prev,
@@ -202,6 +272,10 @@ export function ReferralProvider({ children }) {
       code: codeClean,
       affiliateId: codeData.affiliateId,
       affiliateName: aff?.name || 'Partner',
+      targetDoctorId: codeData.targetDoctorId || aff?.targetDoctorId || null,
+      targetDoctorName: codeData.targetDoctorName || aff?.targetDoctorName || null,
+      targetClinicId: codeData.targetClinicId || aff?.targetClinicId || null,
+      targetClinicName: codeData.targetClinicName || aff?.targetClinicName || null,
       customSlug: codeClean.toLowerCase(),
       referralUrl: `https://clinicos.app/register/clinic?ref=${codeClean}`,
       createdDate: new Date().toISOString().split('T')[0],
@@ -210,6 +284,16 @@ export function ReferralProvider({ children }) {
       usageCount: 0,
       status: 'Active'
     };
+
+    if (newCode.targetDoctorId) {
+      try {
+        const mapping = JSON.parse(localStorage.getItem('clinicos_doctor_referral_mapping') || '{}');
+        mapping[newCode.targetDoctorId] = codeClean;
+        localStorage.setItem('clinicos_doctor_referral_mapping', JSON.stringify(mapping));
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
     setState((prev) => ({
       ...prev,

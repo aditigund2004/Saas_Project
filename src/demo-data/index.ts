@@ -405,6 +405,8 @@ export const DEMO_DOCTORS: Doctor[] = [
     rating: 4.9,
     reviewsCount: 112,
     bio: 'Dedicated primary care physician with 12 years of clinical experience managing hypertension, diabetes, seasonal infectious ailments, and preventive wellness for entire families.',
+    referralCode: 'CITYCARE-AARAV',
+    couponCode: 'CITYCARE-AARAV',
     createdAt: '2025-01-10'
   },
   {
@@ -455,6 +457,8 @@ export const DEMO_DOCTORS: Doctor[] = [
     rating: 4.9,
     reviewsCount: 164,
     bio: 'Renowned cardiologist with extensive expertise in preventive lipidology, non-invasive coronary artery disease assessment, and pacemaker follow-ups.',
+    referralCode: 'DESHMUKH-HEART',
+    couponCode: 'DESHMUKH-HEART',
     createdAt: '2025-01-05'
   },
   {
@@ -479,6 +483,8 @@ export const DEMO_DOCTORS: Doctor[] = [
     rating: 4.9,
     reviewsCount: 120,
     bio: 'Expert in certified invisible aligners, aesthetic ceramic braces, smile makeovers, and minimally invasive preventative dental therapies.',
+    referralCode: 'ISHA-DENTAL',
+    couponCode: 'ISHA-DENTAL',
     createdAt: '2025-02-12'
   },
   {
@@ -503,6 +509,8 @@ export const DEMO_DOCTORS: Doctor[] = [
     rating: 4.8,
     reviewsCount: 94,
     bio: 'Specialist in microscopic painless single-sitting root canals, aesthetic composite restorations, and digital dental crowns.',
+    referralCode: 'KUNAL-ORTHO',
+    couponCode: 'KUNAL-ORTHO',
     createdAt: '2025-03-20'
   },
   {
@@ -527,6 +535,8 @@ export const DEMO_DOCTORS: Doctor[] = [
     rating: 4.9,
     reviewsCount: 145,
     bio: 'Distinguished clinical dermatologist specializing in chronic psoriasis management, recalcitrant acne, hair restoration, and diagnostic dermoscopy.',
+    referralCode: 'ANANYA-DERMA',
+    couponCode: 'ANANYA-DERMA',
     createdAt: '2025-01-22'
   },
   {
